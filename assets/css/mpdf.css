@@ -1,0 +1,39 @@
+/*header*/
+th {
+    font-size: 12pt;
+    margin-top: 2pt;
+    margin-bottom: 5pt;
+    border-collapse: collapse;
+}
+/*body*/
+td {
+    font-size: 9pt;
+    margin-top: 2pt;
+    margin-bottom: 5pt;
+    border-collapse: collapse;
+}
+
+.bgazul{
+    background-color: #E8EAE8;
+}
+.bgdestaque{
+    background-color: #CDC9C9;
+}
+.bgaberto{
+	background-color: #CDE8E3;
+}
+.bgemandamento{
+	background-color: #FFE555;
+}
+.bgconcluido{
+	background-color: #98FB98;
+}
+.bgvermelho{
+	background-color: #FFA3A3;
+}
+.bgverdeclaro{
+	background-color: #E0FFFF;
+}
+.bgamareloclaro{
+	background-color: #FFFFE0;
+}

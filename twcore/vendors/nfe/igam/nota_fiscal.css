@@ -1,0 +1,1579 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font: 12px "Trebuchet MS", Verdana, Arial;
+	background: #ffffff;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	color: #000000;
+}
+
+#container {
+	width: 777px;
+	background: #FFFFFF;
+	margin: 0 auto;
+	border: 1px solid #c9d4da;
+	text-align: left;
+}
+
+#mensagem {
+	text-align: left;
+	margin: 0px 0px 0px 10px;
+}
+
+.sucesso_400 {
+	width: 400px;
+	background: url(../images/bg_sucesso_400.gif) repeat-y;
+	margin: 0px;
+	padding: 0px;
+	vertical-align: middle;
+}
+
+#header {
+	background: #ffffff;
+	padding: 0;
+	position: relative;
+}
+
+#header h1 {
+	margin: 0;
+	padding: 10px 0;
+}
+
+#mainContent {
+	padding: 15px 7px;
+	background: #FFFFFF;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+a {
+	text-decoration: none;
+}
+
+/*Criados*/
+#identificacao {
+	background: #e8e8e8;
+	padding: 2px 7px;
+}
+
+#nav {
+	background: url(../images/bg_nav.jpg) no-repeat center right;
+	height: 29px;
+}
+
+#nav a img {
+	margin: 0;
+	_margin-top: 5px;
+}
+
+.itemMenu {
+	float: left;
+	position: relative;
+	z-index: 20;
+	margin: 5px 1px 0px;
+}
+
+.itemMenu a:link,.itemMenu a:visited {
+	padding: 0px;
+	margin: 0px;
+}
+
+.itemMenu a:hover,.itemMenu a:active {
+	color: #006600;
+}
+
+#barraEmpresa {
+    margin: 2px 4px 8px;
+    border-bottom: 1px solid #d9d9d9;
+    padding: 5px 5px 3px;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #195562;
+    position: relative;
+}
+
+.vertMiddle {
+    vertical-align: middle;
+
+}
+
+.btSelectEmpresa {
+	position: absolute;
+	top: 0px;
+	right: 2px;
+	border: none;
+}
+
+.clearfloat {
+	clear: both;
+	height: 0;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+
+.list-header {
+    background-color: #328DAF;
+    text-align: center;
+    color: white;
+}
+
+.list-row {
+    background-color: #FFFFFF;
+    text-align: right;
+}
+
+.list-row-2 {
+    background-color: #FFFFFF;
+    text-align: center;
+}   
+
+.list-background {
+    background-color: #2B7895;
+}
+
+#rodape {
+	background: url(../images/bg_rodape.gif) repeat-x;
+	height: 80px;
+}
+
+#rodape p {
+	padding: 10px 0;
+	font-size: 10px;
+	color: #595959;
+}
+
+#footer {
+	background: url(../images/bg_rodape.gif) repeat-x;
+	height: 79px;
+	color: #99a19f;
+	padding-left: 5px;
+}
+
+.alerta_400 {
+	width: 400px;
+	background: url(../images/bg_alerta_400.gif) repeat-y;
+	margin: 0px;
+	padding: 0px;
+	vertical-align: middle;
+}
+
+.sucesso_400 ul {
+	margin: 0px 0px 0px 60px;
+	padding: 3px 0px 5px;
+}
+
+.contentFooter {
+	width: 650px;
+	margin: -75px -5px 0 0;
+	margin: -80px 0 0 0;
+	padding-left: 160px;
+	font-size: 11px;
+}
+
+.subMenu {
+	position: absolute;
+	top: 24px;
+	width: 290px;
+	background: #31AEDA;
+	margin: 0px;
+	padding: 0px;
+	white-space: nowrap;
+	visibility: hidden;
+	left: 0px;
+	border-right: 1px solid #31A3C7;
+	border-left: 1px solid #31A3C7;
+	border-bottom: 1px solid #31A3C7;
+}
+
+.subMenu a:link,.subMenu a:visited {
+	display: block;
+	text-align: left;
+	padding: 4px 5px;
+	text-decoration: none;
+	margin: 0px;
+	border-bottom: 1px solid #FEF9F2;
+	height: 18px;
+	color: #FFFFFF;
+}
+
+.subMenu a:hover,.subMenu a:active {
+	background: #2B8AAA;
+	color: #FFFFFF;
+}
+
+#data {
+	width: 230px;
+	float: right;
+	margin-top: 5px;
+	color: #FFFFFF
+}
+
+.titPrincipal {
+	border-bottom: 1px solid #c8cecd;
+}
+
+.titPrincipal h1 {
+	font-size: 20px;
+	font-weight: normal;
+	color: #2e7b8c;
+}
+
+input,select,textarea {
+	border: 1px solid #67B5C5;
+}
+
+.tableConsulta,.tableConsulta3 {
+	color: #1C3F46;
+	font-size: 13px;
+	margin-top: 10px;
+	background: #73CDDD;
+}
+
+.tableConsulta4 {
+	width: 500px;
+	color: #176753;
+	font-size: 13px;
+	background: #73CDDD;
+}
+
+.tableConsulta4 tr td,.tableConsulta3 tr td {
+	background: #FFFFFF;
+}
+
+.tableConsulta input,.tableConsulta select,.tableConsulta textarea,.tableConsulta3 input,.tableConsulta3 select,.tableConsulta3 textarea
+	{
+	border: 1px solid #67B5C5;
+}
+
+.tableConsulta .formErro,.tableConsulta3 .formErro {
+	border: 1px solid #D11A00;
+	background: #FFE9E6;
+}
+
+.tableConsulta tr td {
+	border-bottom: 1px solid #e9e9e9;
+	padding: 3px 0;
+	background: #FFFFFF;
+}
+
+.tableConsulta tr td table tr td,.tableConsulta3 tr td {
+	border: none;
+	padding: 0px 0;
+}
+
+.w250 {
+	width: 250px;
+}
+
+.w100 {
+	width: 100px;
+}
+
+.w120 {
+	width: 120px;
+}
+
+.w350 {
+	width: 350px;
+}
+
+.botoes {
+	margin-top: 15px;
+	border: none;
+}
+
+fieldset {
+	color: #176753;
+	border: 1px solid #CDD0D1;
+	font-size: 13px;
+	padding: 5px 5px 5px 10px;
+	font-size: 13px;
+}
+
+.tituloCons {
+	color: #3b8798;
+	font-size: 13px;
+	padding: 5px 5px 5px 10px;
+	font-size: 13px;
+}
+
+legend {
+	color: #3b8798;
+}
+
+.rich-sdt {
+	border-color: #CCD698;
+	color: #176753;
+	font-size: 13px;
+	margin-top: 10px;
+	padding: 5px 0;
+}
+
+.rich-sdt-header-cell {
+	background-color: #EEEEEE;
+	font-weight: normal;
+	text-align: center;
+	padding: 5px 0;
+	color: #336600;
+	border-color: #CCD698;
+	font-size: 13px;
+	margin-top: 10px;
+}
+
+.rich-inplace-select-view {
+	color: red;
+	font-weight: bold;
+}
+
+.rich-inplace-select-field {
+	color: red;
+	font-weight: bold;
+}
+
+.rich-inplace-select rich-inplace-select-edit {
+	background-color: white;
+}
+
+input.rich-inplace-select-field {
+	background-color: white;
+}
+
+input.rich-inplace-select-arrow {
+	background-color: #FFFFFF;
+	border-color: red;
+}
+
+.rich-inplace-select-arrow {
+	background-color: #FFFFFF;
+	border-color: red;
+}
+
+.rich-inplace-select-selected-item {
+	background-color: white;
+	color: red;
+	font-weight: bold;
+	border-color: red;
+}
+
+.rich-inplace-select-list-decoration {
+	background-color: white;
+	color: #336600;
+	font-weight: normal;
+}
+
+.rich-inplace-select-control {
+	background-color: white;
+}
+
+.rich-inplace-select-control-press {
+	background-color: white;
+}
+
+.inplace {
+	font-weight: bold;
+	text-align: center;
+	font-size: 13px;
+	color: red;
+}
+
+.inplace2 {
+	font-weight: normal;
+	background-color: white;
+	text-align: center;
+	font-size: 13px;
+	color: black;
+}
+
+.rich-inplace-select rich-inplace-select-view rich-inplace-select-changed inplace
+	{
+	width: 500px;
+}
+
+.vermelho {
+	color: red;
+}
+
+.rich-sdt-column-cell {
+	background-color: #FFFFFF;
+	font-weight: normal;
+	text-align: center;
+	padding: 5px 0;
+	border-color: #CCD698;
+	border-top-color: #CCD698;
+	font-size: 13px;
+	margin-top: 10px;
+}
+
+.rich-table {
+	border-color: #CCD698;
+	color: #176753;
+	font-size: 13px;
+	margin-top: 10px;
+	padding: 5px 0;
+}
+
+.rich-table-headercell {
+	background-color: #EEEEEE;
+	font-weight: normal;
+	text-align: center;
+	padding: 5px 5px;
+	color: #1E5164;
+	border-color: #CCD698;
+	font-size: 13px;
+	margin-top: 10px;
+}
+
+.rich-table-cell {
+	background-color: #FFFFFF;
+	font-weight: normal;
+	text-align: center;
+	padding: 5px 0;
+	border-color: #CCD698;
+	border-top-color: #CCD698;
+	font-size: 13px;
+	margin-top: 10px;
+}
+
+.rich-sb-int {
+	background-color: #FFFFFF;
+	font-weight: normal;
+	padding: 5px 0;
+	border-color: #CCD698;
+	border-top-color: #CCD698;
+	font-size: 13px;
+	margin-top: 10px;
+}
+
+.rich-sb-shadow {
+	background-color: #FFFFFF;
+	font-weight: normal;
+	padding: 5px 0;
+	border-color: #CCD698;
+	border-top-color: #CCD698;
+	font-size: 13px;
+	margin-top: 10px;
+}
+
+.tituCel {
+	background-color: #FFFFFF;
+	color: #FF8000;
+}
+
+.tituCel2 {
+	background-color: #EEEEEE;
+	color: #333333;
+}
+
+.branco {
+	background-color: #FFFFFF;
+}
+
+.tableResult input,.tableResult select,.tableResult textarea {
+	border: 1px solid #67B5C5;
+}
+
+.tableResult th {
+	font-weight: normal;
+	color: #2e7b8c;
+	padding: 2px 3px;
+}
+
+.tableResult tr td {
+	padding: 2px 3px;
+	color: #4B4B4B;
+	background: #FFFFFF;
+}
+
+/*EMISSÃ¯Â¿Â½O DA NOTA FISCAL*/
+#abas {
+	margin-top: 15px;
+	padding-left: 10px;
+}
+
+.ajuda {
+	width: 500px;
+	text-align: center;
+	color: #176753;
+	font-weight: normal;
+}
+
+.home_ajuda {
+	font: 14px "Trebuchet MS", Verdana, Arial;
+	color: #176753;
+	text-align: center;
+}
+
+#contentAbas {
+	border-right: 1px solid #d8d7d7;
+	border-left: 1px solid #d8d7d7;
+	width: 755px;
+	padding: 0 0 0 0;
+	margin-top: -11px;
+}
+
+.aba,.abaAtiva,.abaAtivaObrigatoria,.abaObrigatoria {
+	width: 148px;
+	height: 37px;
+	float: left;
+	line-height: 13px;
+	_line-height: 16px;
+}
+
+.abaAtiva {
+	background-image: url(../images/bg_aba_ativa.gif);
+	background-repeat: no-repeat;
+}
+
+.abaAtivaObrigatoria {
+	background-image: url(../images/bg_aba_ativa_obrig.gif);
+	background-repeat: no-repeat;
+}
+
+.aba {
+	background-image: url(../images/bg_aba_desativa.gif);
+	background-repeat: no-repeat;
+}
+
+.abaObrigatoria {
+	background-image: url(../images/bg_aba_desativa_obrig.gif);
+	background-repeat: no-repeat;
+}
+
+.aba a,.abaAtiva a,.abaAtivaObrigatoria a,.abaObrigatoria a {
+	display: block;
+	height: 37px;
+	text-align: center;
+	padding: 6px 0 0 0;
+	_padding-top: 3px;
+}
+
+.aba a,.abaObrigatoria a {
+	color: #6b7573;
+}
+
+.abaAtiva a,.abaAtivaObrigatoria a {
+	color: #000000;
+}
+
+.aba a:hover {
+	background-image: url(../images/bg_aba_hover.gif);
+	background-repeat: no-repeat;
+	color: #7c632f;
+}
+
+.abaObrigatoria a:hover {
+	background-image: url(../images/bg_aba_hover_obrig.gif);
+	background-repeat: no-repeat;
+	color: #7c632f;
+}
+
+.legenda {
+	padding: 2px 6px;
+	margin: 4px 10px 0px;
+	text-align: left;
+	font-size: 11px;
+	color: #4D4D4D;
+}
+
+/*POP UP*/
+#popUp {
+	border: 1px solid #83C0C7;
+	padding: 10px;
+	position: absolute;
+	top: 20px;
+	left: 100px;
+	background-color: #FFFFFF;
+	z-index: 500;
+}
+
+#tituloModal {
+	font-size: 14px;
+	color: #FFF;
+	padding: 5px;
+	margin: -9px -9px 10px;
+	text-align: left;
+	background: #3890A4 url(../images/bg_tit_modal.png) repeat-x;
+	font-weight: normal;
+	position: relative;
+}
+
+.fecharModal {
+	position: absolute;
+	top: 3px;
+	right: 3px;
+	border: none;
+}
+
+/*LOGIN*/
+.login {
+	background: url(../images/bg_login.gif) no-repeat;
+	height: 155px;
+	padding: 40px 0 0 80px;
+	margin: 60px 200px;
+}
+
+/* MENSAGENS */
+.alerta {
+	font: 12px "Trebuchet MS", Verdana, Arial;
+	width: 750px;
+	background: url(../images/bg_alerta2.gif) repeat-y;
+	margin: 0px;
+	padding: 0px;
+	vertical-align: middle;
+}
+
+.icoMsg {
+	margin: 0px 0px 0px 10px;
+}
+
+.sucesso {
+	font: 12px "Trebuchet MS", Verdana, Arial;
+	width: 750px;
+	background: url(../images/bg_sucesso2.gif) repeat-y;
+	margin: 0px;
+	padding: 0px;
+	vertical-align: middle;
+}
+
+.erro {
+	font: 12px "Trebuchet MS", Verdana, Arial;
+	width: 750px;
+	background: url(../images/bg_erro2.gif) repeat-y;
+	margin: 0px;
+	padding: 0px;
+	vertical-align: middle;
+}
+
+.alerta h1 {
+	margin: 0px 0px 0px 60px;
+	padding: 5px 0px 5px;
+	font: 18px Arial, Helvetica, sans-serif;
+	color: #FED034;
+	vertical-align: middle;
+}
+
+.sucesso h1 {
+	margin: 0px 0px 0px 60px;
+	padding: 5px 0px 5px;
+	font: 18px Arial, Helvetica, sans-serif;
+	color: #009900;
+	vertical-align: middle;
+}
+
+.erro h1 {
+	margin: 0px 0px 0px 60px;
+	padding: 5px 0px 5px;
+	font: 18px Arial, Helvetica, sans-serif;
+	color: #D70000;
+	vertical-align: middle;
+}
+
+.alerta ul,.sucesso ul,.erro ul {
+	margin: 0px 0px 0px 60px;
+	padding: 5px 0px 5px;
+}
+
+#homologa {
+	z-index: 1000;
+	position: absolute;
+	top: 100px;
+	left: 50px;
+}
+
+#moldurahomologa {
+	position: relative;
+}
+
+#cancelada {
+	z-index: 1000;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+
+#molduraCancelada {
+position: relative;
+z-index: 900;
+}
+
+#detalheCancelada {
+position: absolute;
+top: 160px;
+right: -55px;
+width: 230px;
+padding: 0 0 10px;
+border: 1px solid #C00;
+background: #FAF8F8;
+text-align: left;
+color: #240000;
+z-index: 950;
+}
+
+
+#detalheCancelada h3 {
+	font-size: 14px;
+	color: #FFF;
+	font-weight: normal;
+	text-transform: uppercase;
+	background: #900 url(../images/bg_msg_erro.png) repeat-x;
+	margin: 0 0 6px;
+	padding: 1px 0;
+}
+
+#detalheCancelada h4 {
+	font-size: 12px;
+	color: #000;
+	font-weight: normal;
+	margin: 0px 5px 7px;
+}
+
+#detalheCancelada p {
+	margin: 0px 5px 7px;
+}
+
+/*Pagina da NFS-e*/
+.tituloLegend {
+	font-size: 16px;
+}
+
+.cabecalhoNota tr td {
+	padding-left: 3px;
+}
+
+@media print {
+	.noprint {
+		display: none;
+	}
+}
+
+/* Estilos do componente de upload */
+.upload_list_width {
+	width: 400px;
+}
+
+.upload_list_decor {
+	border: 1px solid #578327; /*tableBorderColor*/;
+	background: #FFFFFF /*tableBackgroundColor*/;
+}
+
+.upload_list_overflow {
+	height: 80px;
+	overflow: auto;
+	overflow-x: hidden;
+}
+
+.upload_name {
+	width: 100%;
+	height: 50px;
+	padding: 2px 10px 2px 10px;
+}
+
+.upload_del {
+	width: 90;
+	text-align: center;
+	padding-top: 3;
+	padding-bottom: 3;
+}
+
+.upload_scroll {
+	width: 10;
+	text-align: center;
+}
+
+.upload_name {
+	width: 100%;
+	height: 50px;
+	padding: 2px 10px 2px 10px;
+}
+
+.upload_del {
+	width: 90px;
+	text-align: center;
+	padding-top: 3;
+	padding-bottom: 3;
+}
+
+.upload_scroll {
+	width: 10px;
+	text-align: center;
+}
+
+.upload_anc {
+	color: #0078D0 /*generalLinkColor*/;
+}
+
+.upload_toolbar_decor {
+	background: #EAF0F8 /*additionalBackgroundColor*/;
+	border-bottom: 1px solid #c0c0c0 /*tableBorderColor*/;
+	border-top: 1px solid #FFFFFF /*tableBackgroundColor*/;
+	border-left: 1px solid #FFFFFF /*tableBackgroundColor*/;
+	padding: 2px
+}
+
+.upload_bar_exterior {
+	border: 1px solid #c0c0c0 /*panelBorderColor*/;
+}
+
+.upload_bar_uploaded {
+	width: 70%;
+	height: 100%;
+	background: #FF9409 /**/;
+	background-image: url(images/bg_ProgressBar_perm.gif);
+	background-repeat: repeat-x;
+	font-size: 0px;
+}
+
+.upload_bar_deleted {
+	width: 40%;
+	height: 100%;
+	background: #FF9409 /**/;
+	background-image: url(images/bg_RegressBar_perm.gif);
+	background-repeat: repeat-x;
+	font-size: 0px;
+}
+
+.upload_bar_shell {
+	width: 100%;
+	height: 8;
+	background: #F1F1F1 /*tableSubfooterBackgroundColor*/;
+}
+
+.upload_bar_exterior {
+	height: 7px;
+	border: 1px solid #c0c0c0 /*panelBorderColor*/;
+}
+
+.upload_bar_uploaded {
+	height: 7px;
+	width: 70%;
+	height: 100%;
+	background: #FF9409 /**/;
+	background-image: url(images/bg_ProgressBar_perm.gif);
+	background-repeat: repeat-x;
+	font-size: 0px;
+}
+
+.upload_bar_deleted {
+	height: 7px;
+	width: 40%;
+	height: 100%;
+	background: #FF9409 /**/;
+	background-image: url(images/bg_RegressBar_perm.gif);
+	background-repeat: repeat-x;
+	font-size: 0px;
+}
+
+.upload_bar_shell {
+	height: 7px;
+	width: 100%;
+	height: 8;
+	background: #F1F1F1 /*tableSubfooterBackgroundColor*/;
+}
+
+.rich-tool-tip {
+	background-color: #eef2f8;
+	border-color: #7196c8;
+}
+
+.tooltip {
+	background-color: #ffffff;
+	border-width: 3px;
+	border: 1px solid #c9d4da;
+	padding: 10px;
+	font: 12px "Trebuchet MS", Verdana, Arial;
+}
+
+.tooltip-text {
+	font: 12px "Trebuchet MS", Verdana, Arial;
+	width: 350px;
+	height: 80px;
+	border-width: 2px;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.tooltipData {
+	font-weight: bold;
+}
+
+.inputCalendar {
+	padding: 0px 2px;
+	height: 15px;
+	width: 70px;
+	font-size: 11px;
+	border: 1px solid #85969A;
+}
+
+.tableConsulta2 tr td {
+	border-bottom: 1px solid #e9e9e9;
+	padding: 2px 0;
+	background: #FFFFFF;
+}
+
+.camposObrigatorios {
+	font-size: 11px;
+	color: #CC0000;
+}
+
+.dataEmissao {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.jefferson-rich-table-headercell-right {
+	background-color: #EEEEEE;
+	font-weight: normal;
+	text-align: right;
+	padding: 3px 4px 3px 0;
+	color: #1E5164;
+	font-size: 12px;
+	margin-top: 10px;
+}
+
+.jefferson-rich-table-cell2 {
+	background-color: #F7F7F7;
+	font-weight: normal;
+	text-align: left;
+	padding: 3px 0 3px 4px;
+	border-color: #CCD698;
+	border-top-color: #CCD698;
+	font-size: 12px;
+	margin-top: 10px;
+}
+
+.noborder {
+	border: none;
+}
+
+.textoConteudo {
+	color: #1C3F46;
+	font-size: 12px;
+}
+
+#homologacao #container {
+    width: 777px;
+    background: #FFFFFF;
+    margin: 0 auto;
+    border: 1px solid #B8DAC0;
+    text-align: left;
+    position: relative;
+}
+#homologacao #nav {
+    background:#41B880 url(none) no-repeat right center;
+    height:29px;
+}
+#homologacao #header {
+    background: #ffffff;
+    padding: 0;
+    position: relative;
+}
+#topHomologacao {
+    display: none;
+}
+#homologacao #topHomologacao {
+	position: absolute;
+	top: 0px;
+	left: 241px;
+	display: block;
+}
+#homologacao #barraEmpresa {
+    margin: 2px 4px 8px;
+    border-bottom: 1px solid #d9d9d9;
+    padding: 5px 5px 3px;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #275E1E;
+    position: relative;
+    font-weight: bold;
+}
+#homologacao input, #homologacao select, #homologacao textarea {
+    border:1px solid #69C26B;
+}
+
+#homologacao #botoes {
+	border: none;	
+}
+
+
+#homologacao .subMenu {
+    position:absolute;
+    top: 24px;
+    width:290px;
+    background: #41B880;
+    margin: 0px;
+    padding: 0px;
+    white-space: nowrap;
+    visibility: hidden;
+    left: 0px;
+    border-right: 1px solid #41B880;
+    border-left: 1px solid #41B880;
+    border-bottom: 1px solid #41B880;
+   
+}
+#homologacao .subMenu a:link, #homologacao .subMenu a:visited {
+    display:block;
+    text-align:left;
+    padding: 4px 5px;
+    text-decoration:none;
+    margin: 0px;
+    border-bottom: 1px solid #FEF9F2;
+    height: 18px;
+    color: #FFFFFF;
+}
+#homologacao .subMenu a:hover, #homologacao .subMenu a:active {
+    background: #339164;
+    color: #FFFFFF;
+}
+#voltarPortal {
+	position: absolute;
+	top: 4px;
+	right: 3px;
+}
+
+
+/* ######################## <div> MENSAGENS ######################## */
+
+#mensagens {
+	font-size: 9pt;
+	color: #000000;
+	line-height: 16px;
+	margin: 10px;
+	_margin: 5px;
+	/* */
+	padding: 0px 5px 0px 5px;
+	color:#999999;
+	font: 12px Trebuchet MS, Verdana, Arial;
+    border: 0px solid #999999;
+}
+#mensagens legend {
+	padding: 0px 5px 0px 5px;
+	color:#999999;
+	font-size: 12px;
+    border: 0px solid #999999;
+}
+.mensagensok {
+	list-style-image: url("../images/icon/li_msg_ok.gif");
+}
+.mensagenserro {
+	list-style-image: url("../images/icon/li_msg_error.gif");
+}
+.mensagensalerta {
+	list-style-image: url("../images/icon/li_msg_warn.gif");
+}
+#mensagens ul {
+	margin: 5px 0px 5px 0px;
+	_margin-left: 40px;
+	vertical-align: middle;
+}
+/* ######################## <table> CLASS LISTA ######################## */
+.rich-datascr-button {
+border: 0px;
+}
+.rich-dtascroller-table {
+border: 0px;
+}
+.rich-datascr-act{
+border:0px;
+}
+.rich-datascr-inact{
+border:0px;
+}
+
+.tableResult{
+margin:15px 0;
+background: #73CDDD;
+}
+.tableResult tr td {
+padding-left:3px;
+background: #FFFFFF;
+}
+
+.tituCel{
+background-color:#FFFFFF;
+background:#FFFFFF;
+color:#FF8000;}
+.branco{
+background-color:#FFFFFF;
+}
+Window size: 1280 x 773
+Viewport size: 1280 x 634
+
+.rich-fileupload-list-overflow {
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.rich-fileupload-name {
+	height: 58px;
+	padding: 2px 10px;
+	width: 100%;
+}
+
+.rich-fileupload-del {
+	text-align: center;
+	width: 90px;
+}
+
+.rich-fileupload-scroll {
+	text-align: center;
+	width: 10px;
+}
+
+.rich-fileupload-button-content {
+	padding: 2px 6px 2px 3px;
+	text-align: left;
+	white-space: nowrap;
+}
+
+.rich-fileupload-name-padding {
+	padding: 2px 0pt;
+}
+
+.rich-fileupload-ico {
+	background-position: 0pt 50%;
+	background-repeat: no-repeat;
+	padding-left: 19px;
+	vertical-align: middle;
+}
+
+input.rich-fileupload-hidden {
+	opacity: 0;
+	position: relative;
+	text-align: left;
+}
+
+.rich-fileupload-font {
+	font-family: Trebuchet MS, Verdana, Arial;
+	font-size: 11px;
+	color: #006600;
+}
+
+.rich-fileupload-table-td {
+	border-bottom: 0px solid;
+	white-space: nowrap;
+}
+
+.rich-fileupload-list-decor {
+	background-color: #FFFFFF;
+	border: 1px solid #176753;
+}
+
+.rich-fileupload-anc {
+	color: #176753;
+}
+
+.rich-fileupload-toolbar-decor {
+	background-color: #FFFFFF;
+	border-bottom: 1px solid #176753;
+	border-left: 1px solid #FFFFFF;
+	border-top: 1px solid #FFFFFF;
+	padding: 2px;
+	width: 100%;
+}
+
+.rich-fileupload-button-border {
+	border: 1px solid #176753;
+	margin: 2px;
+}
+
+.rich-fileupload-button-dis {
+	background-repeat: repeat-x;
+	cursor: pointer;
+	padding: 2px;
+}
+
+.rich-fileupload-enrty-dis {
+	background-color: #006600;
+	background-repeat: repeat-x;
+	padding: 2px;
+}
+
+a.rich-fileupload-button-selection {
+	color: #006600;
+	display: block;
+	text-decoration: none;
+}
+
+.rich-fileupload-button {
+	background-color: #FFFFFF;
+	background-image:url(/N../images/bg_nav.jpg);
+	background-position: left top;
+	background-repeat: repeat-x;
+	cursor: pointer;
+	padding: 2px;
+}
+
+.rich-fileupload-button-light {
+	background-color: #FFFFFF;
+	background-image:url();
+	background-position: left top;
+	background-repeat: repeat-x;
+	border: 1px solid #000000;
+	cursor: pointer;
+	padding: 1px;
+}
+
+.rich-fileupload-button-press {
+	background-color: #FFFFFF;
+	background-image:url();
+	background-position: left top;
+	background-repeat: repeat-x;
+	border: 1px solid;
+	padding: 2px 0pt 0pt 2px;
+}
+
+/* 
+ .rich-fileupload-ico-add {
+	background-image:
+		url(/NFS-web/a4j_3_2_0.SR1-SNAPSHOTorg/richfaces/renderkit/html/images/ico_add.gif.jsf)
+		;
+}
+
+.rich-fileupload-ico-add-dis {
+	background-image:
+		url(/NFS-web/a4j_3_2_0.SR1-SNAPSHOTorg/richfaces/renderkit/html/images/ico_add_dis.gif.jsf)
+		;
+	color: #176753;
+}
+
+.rich-fileupload-ico-start {
+	background-image:
+		url(/NFS-web/a4j_3_2_0.SR1-SNAPSHOTorg/richfaces/renderkit/html/images/ico_start.gif.jsf)
+		;
+}
+
+.rich-fileupload-ico-start-dis {
+	background-image:
+		url(/NFS-web/a4j_3_2_0.SR1-SNAPSHOTorg/richfaces/renderkit/html/images/ico_start_dis.gif.jsf)
+		;
+	color: #176753;
+}
+
+.rich-fileupload-ico-stop {
+	background-image:
+		url(/NFS-web/a4j_3_2_0.SR1-SNAPSHOTorg/richfaces/renderkit/html/images/ico_stop.gif.jsf)
+		;
+}
+
+.rich-fileupload-ico-clear {
+	background-image:
+		url(/NFS-web/a4j_3_2_0.SR1-SNAPSHOTorg/richfaces/renderkit/html/images/ico_clear.gif.jsf)
+		;
+}
+
+.rich-fileupload-ico-clear-dis {
+	background-image:
+		url(/NFS-web/a4j_3_2_0.SR1-SNAPSHOTorg/richfaces/renderkit/html/images/ico_clear_dis.gif.jsf)
+		;
+	color: #176753;
+}
+*/
+.rich-fileupload-button-border {
+border:1px solid #176753;
+margin:2px;
+}
+Window size: 1280 x 773
+Viewport size: 1280 x 634
+
+#popResumo {
+/*	border: 1px solid #CCCCCC; */
+	width: 630px;
+	background: #FFFFFF;
+	color: #000000;
+/*	position: absolute; */
+/*	top: 100px; */
+/*	left: 70px; */
+}
+#popAjuda {
+	border: 1px solid #CCCCCC; 
+	width: 500px;
+	background: #FFFFFF;
+	position: absolute; 
+	top: 100px;
+	left: 100px;
+}
+#popResumo h1, #popAjuda h1 {
+	font-size: 16px;
+	color: #2e7b8c;
+	margin: 3px 3px 8px; 
+	padding: 0px 0px 4px;
+/*	border-bottom: 1px solid #c8cecd; */
+	font-weight: normal;
+/*	position: relative; */
+}
+.fecharPop {
+	position: absolute;
+	top: 2px;
+	right: 2px;
+}
+#popResumo h2 {
+	font-size: 16px;
+	margin: 3px 3px 8px 10px;
+	font-weight: normal;
+}
+#popResumo h3 {
+	color: #000000;
+	font-size: 12px;
+}
+.resumoDestaque {
+	color: #CC0000;
+}
+#popResumo table {
+	margin: 3px 0px 8px 10px;
+}
+#popResumo table td {
+	border-bottom: 1px solid #E6E6E6;	
+}
+.txtAjuda {
+	margin: 3px 20px 15px 25px;
+}
+Window size: 1280 x 773
+Viewport size: 1280 x 634
+
+@charset "utf-8";
+* {
+	margin: 0px;
+	padding: 0px;
+}
+body {
+	font: 11px "Trebuchet MS", Verdana, Arial;
+	color: #175366;
+	text-align: center;
+}
+.teste{
+	font: 11px "Trebuchet MS", Verdana, Arial;
+	color: #175366;
+}
+#moldura {
+	position: relative;
+	width: 646px;
+	margin: 0 auto;
+}
+	
+#container {
+	text-align: left;
+	margin: 0px auto;
+	border: 1px solid #BEDCE2;
+	position: relative;
+	width: 646px;
+}
+
+#cancelada {
+	z-index: 1000;
+	position: absolute;
+	top: 150px;
+	left: 50px;
+}
+
+.logotipo {
+	margin: 3px 8px 3px 5px;
+}
+
+.hh1{
+	font: 18px "Trebuchet MS", Verdana, Arial;
+	color: #175366;
+	background: #F2F2F2;
+	text-align: center;
+	padding: 2px 0px;
+	font-weight: normal;
+}
+
+.hh2{
+	font: bold 13px "Trebuchet MS", Verdana, Arial;
+	color: #175366;
+	border-bottom: 1px solid #65A0C0;
+	margin: 3px 0 0 2px;
+}
+
+.hh3{
+	font: 12px "Trebuchet MS", Verdana, Arial;
+	color: #175366;
+	margin: 3px 0px 0px;
+	font-weight: bold;
+}
+
+h1 {
+	font-size: 18px;
+	background: #F2F2F2;
+	text-align: center;
+	padding: 2px 0px;
+	font-weight: normal;
+}
+h2 {
+	border-bottom: 1px solid #65A0C0;
+	font-size: 18px;
+	font-weight: normal;
+}
+h3 {
+	font-size: 12px;
+	margin: 3px 0px 0px;
+}
+.numeroDestaque {
+	font-size: 24px;
+	color: #c32b16;
+}
+.valorLiquido {
+	font-size: 13px;
+	color: #c32b16;	
+	padding: 5px 5px 2px;
+}
+.issRetido {
+	font-size: 14px;
+	color: #c32b16;	
+	padding: 5px 5px 2px;
+}
+.cnpjPrincipal {
+	font-size: 12px;
+	font-weight: bold;
+}
+.bordaInferior {
+	border-bottom: 1px solid #AFD1D8;
+}
+.bordaLateral {
+	border-right: 1px solid #AFD1D8;	
+}
+.subTitulo {
+	font-size: 12px;
+	font-weight: bold;	
+}
+.box01 {
+	width: 490px;
+	background: url(../images/imagens_view/bg_box01.gif) no-repeat;
+	text-align: center;
+	margin: 0px 5px 0px 0px;
+}
+.box01 table {
+	width: 480px;
+	text-align: left;
+	margin: 0px auto;
+}
+.box02 {
+	width: 646px;
+	background: url(../images/imagens_view/bg_box02.gif) no-repeat;
+	text-align: center;
+	margin: 0px 5px 0px 0px;
+}
+.box02 table {
+	width: 636px;
+	text-align: left;
+	margin: 2px auto 0px;
+}
+.box03 {
+	background: url(../images/imagens_view/bg_box03.gif);
+	height: 95px;
+	width: 145px;
+	margin: 10px 0px 0px 3px;
+}
+.box03 h4 {
+	font-size: 18px;
+	margin: 7px 0px 0px 7px;
+}
+.box03 p {
+	font-size: 13px;
+	margin: 0px 0px 2px 7px;
+}
+.box04 {
+	font: 11px "Trebuchet MS", Verdana, Arial;
+	color: #175366;
+	margin: 2px 3px;
+	padding: 2px;
+	background: #f3f3f3;
+}
+.box05 {
+	width: 314px;
+	background: url(../images/imagens_view/bg_box05.gif) no-repeat;
+	text-align: center;
+	margin: 6px 5px 0px 0px;
+}
+.box05 table {
+	width: 296px;
+	text-align: left;
+	margin: 2px auto 2px;
+}
+.box05 table td {
+	padding: 2px 0;
+}
+.boxDados td {
+	padding: 5px 4px;
+}
+.tableValores {
+	font-size: 12px;
+	padding: 2px 0 4px;
+}
+.tableTributos {
+	background: #ccd698;
+	font-size: 10px;
+	margin: 2px 5px 5px 5px;	
+}
+.tableTributos th {
+	background: #eeeeee;
+	text-align: center;	
+	padding: 1px 3px;
+}
+.tableTributos td {
+	background: #FFFFFF;
+	text-align: right;
+	padding: 1px 3px;	
+}
+ul {
+	margin: 2px 0px 2px 15px;	
+}
+li {
+	margin: 2px 0px 2px 3px;
+}
+.linhaDivisao {
+	display: none;
+}
+.dataEmissao {
+	font-size: 16px;
+	font-weight: bold;
+}
+.servicos {
+	padding: 0 2px;
+	font-size: 11px;
+}
+
+@media print {
+	body {
+		font: 10px "Trebuchet MS", Verdana, Arial;
+		color: #175366;
+		text-align: center;
+	}
+	.noprint {
+		display: none;
+	}
+	.box01, .box02, .box03, .box04, .box05 {
+		background: none;
+	}
+	.linhaDivisao {
+		display: block;
+		margin-bottom: -1px;
+	}
+	.hh2{
+		font: bold 13px "Trebuchet MS", Verdana, Arial;
+		color: #175366;
+		border-bottom: 1px solid #65A0C0;
+		margin: 0px;
+	}
+	.servicos {
+		padding: 0 2px;
+		font-size: 9px;
+	}
+	.subTitulo {
+		font-size: 11px;
+		font-weight: bold;	
+	}
+}
