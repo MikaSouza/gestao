@@ -1,5 +1,5 @@
 <?php
-function comboTipoLogradouro($estcodigo)
+function comboTipoLogradouro()
 {
 	$sql = "SELECT
                     TLOCODIGO, TLOSIGLA, TLODESCRICAO

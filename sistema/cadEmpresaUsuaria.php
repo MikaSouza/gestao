@@ -13,9 +13,9 @@ if(isset($_FILES["input-file-now-custom-1"]) && !empty($_FILES["input-file-now-c
     }
 }
 include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
-include_once __DIR__.'/../cadastro/transaction/transactionCidades.php';
-include_once __DIR__.'/combos/comboTabelas.php';
-include_once __DIR__.'/combos/comboCNAE.php';
+include_once __DIR__.'/../cadastro/combos/comboEstados.php';
+include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
+include_once __DIR__.'/../cadastro/combos/comboTipoLogradouro.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -174,17 +174,7 @@ include_once __DIR__.'/combos/comboCNAE.php';
                                                  
                                             </div>
                                             <div class="form-group row">
-                                                <div class="col-md-9">   
-                                                    <label>CNAE Principal
-                                                        <small class="text-danger font-13">*</small>
-                                                    </label>
-                                                    <select name="vICNACODIGO" id="vICNACODIGO" class="custom-select obrigatorio" title="Situação Receita Federal">
-                                                        <option value="">  -------------  </option>
-														<?php foreach (comboCNAE() as $tabelas): ?>                                                            
-															<option value="<?php echo $tabelas['CNACODIGO']; ?>" <?php if ($vROBJETO['CNACODIGO'] == $tabelas['CNACODIGO']) echo "selected='selected'"; ?>><?php echo $tabelas['CNACNAE'].' - '.$tabelas['CNADESCRICAO']; ?></option>
-														<?php endforeach; ?>
-													</select>                                                    
-                                                </div>
+                                                
                                                 <div class="col-md-3">   
                                                     <label>Optante pelo simples nacional?
                                                         <small class="text-danger font-13">*</small>
@@ -198,7 +188,7 @@ include_once __DIR__.'/combos/comboCNAE.php';
                                     </div>
 
                                     <!-- Aba Dados Documento -->
-                                    <div class="tab-pane p-3" id="end-1" role="tabpanel">
+                                    <div class="tab-pane p-3" id="end-1" role="tabpanel"> 
                                         <p class="text-muted mb-0">
                                             <div class="form-group row">
 												<div class="col-sm-3">

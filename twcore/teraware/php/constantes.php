@@ -12,11 +12,11 @@
  	define("URL_LOGIN", 'http://app.tweduc.com.br/login.php');
   
   	//Constantes Diversas
-  	define("vSTituloSite", ".: Marpa - Marcas e Patentes - Sistema de Gestão Empresarial :.");
- 	define("vSEmpresa", "Marpa - Marcas e Patentes");
- 	define("vSEmpresaSite", "https://marpa.com.br");
- 	define("vSEmailSite", "contato@marpa.com.br");
- 	define("vSFoneEmpresa", "(51) 3061-2550");
+  	define("vSTituloSite", ".: Gestão SRV - Sistema de Gestão Empresarial :.");
+ 	define("vSEmpresa", "Gestão SRV");
+ 	define("vSEmpresaSite", "https://gestao.srv.br/");
+ 	define("vSEmailSite", "contato@gestao.srv.br");
+ 	define("vSFoneEmpresa", "(51) 3541 3355"); 
     define("cSChaveCEP", "ecb023b62d76c34e879b022accc6b06b");
 	
 	define("cSPalavraChave", "TWFlex");
@@ -24,10 +24,10 @@
   	/*
   		DADOS DE ACESSO AO BANCO ERP
   	*/
-	define("vGUsername", "marpa2");
-	define("vGPassword", "mF01lkwvXbpd7w88");
-	define("vGBancoSite", "marpaconsultoria");
-	define("vGHostSite", "192.168.1.252");
+	define("vGUsername", "teraware");
+	define("vGPassword", "7g7LWEnB");
+	define("vGBancoSite", "teraware");
+	define("vGHostSite", "mysql.teraware.net.br");
   	
     //Essa variável é utilizada em todos os arquivos de cadastro.
     //Deve ser adicionado em cada arquivo .cad o valor do status para ela.

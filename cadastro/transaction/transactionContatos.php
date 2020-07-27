@@ -1,7 +1,14 @@
 <?php
-include_once '../../twcore/teraware/php/constantes.php';
+include_once __DIR__.'/../../twcore/teraware/php/constantes.php';
+
+if (isset($_POST['hdn_metodo_search']) && $_POST['hdn_metodo_search'] == 'ClientesxContatos')
+	listContatos($_POST['pIOID'], 'ClientesxContatos');
+
 if( $_GET['hdn_metodo_fill'] == 'fill_Contatos' )
 	fill_Contatos($_GET['vICLICODIGO'], $_GET['vICONTIPO'], $_GET['formatoRetorno']); 
+
+if( $_GET['hdn_metodo_fill'] == 'fill_ContatosPadrao' )
+	fill_ContatosPadrao($_GET['vICONCODIGO'], $_GET['formatoRetorno']); 
 
 if (isset($_POST["method"]) && $_POST["method"] == 'excluirCLI') {
 	echo excluirAtivarRegistros(array(
@@ -14,31 +21,34 @@ if (isset($_POST["method"]) && $_POST["method"] == 'excluirCLI') {
     ));
 }
 
-function listContatos(){
+function listContatos($vIOIDPAI, $tituloModal){
 
 	$sql = "SELECT
-				C.CLICODIGO, C.CLISEQUENCIAL, C.CLINOME, C.CLICNPJ, C.CLIDATA_INC, C.CLIDATA_ALT, C.CLISTATUS,
-				U.USUNOME AS REPRESENTANTE
+				c.*				
 			FROM
-				CONTATOS C		
-			LEFT JOIN USUARIOS U ON U.USUCODIGO = C.CLIRESPONSAVEL
+				CONTATOS c
 			WHERE
-				1 = 1
-			LIMIT 50	";
-
+				c.CLICODIGO = ".$vIOIDPAI;
 	$arrayQuery = array(
 					'query' => $sql,
 					'parametros' => array()
 				);
 	$result = consultaComposta($arrayQuery);
+	$vAConfig['TRANSACTION'] = "transactionContatos.php";
+	$vAConfig['DIV_RETORNO'] = "div_contatos";
+	$vAConfig['FUNCAO_RETORNO'] = "ClientesxContatos"; 
+	$vAConfig['ID_PAI'] = $vIOIDPAI;
+	$vAConfig['vATitulos'] 	= array('', 'Nome', 'E-mail', 'Celular', 'Telefone', 'Data Inclusão');
+	$vAConfig['vACampos'] 	= array('CONCODIGO', 'CONNOME', 'CONEMAIL', 'CONCELULAR', 'CONFONE', 'CONDATA_INC');
+	$vAConfig['vATipos'] 	= array('chave', 'varchar', 'varchar', 'varchar', 'varchar', 'datetime');
+	include_once '../../twcore/teraware/componentes/gridPadraoFilha.php';
 
-	return $result;
+	return ;
 
 }
 
 function insertUpdateContatos($_POSTDADOS, $pSMsg = 'N'){
-	
-	if ($_POSTDADOS['vHTABCODIGO'] == 26933) { //INPI
+	if ($_POSTDADOS['vHINPICONNOME'] != ''){	
 		$_POSTDADOSCON['vICONCODIGO'] = $_POSTDADOS['vHINPICONCODIGO'];
 		$_POSTDADOSCON['vICONTIPO'] = 26933;
 		$_POSTDADOSCON['vSCONNOME'] = $_POSTDADOS['vHINPICONNOME']; 
@@ -46,54 +56,36 @@ function insertUpdateContatos($_POSTDADOS, $pSMsg = 'N'){
 		$_POSTDADOSCON['vSCONEMAIL'] = $_POSTDADOS['vHINPICONEMAIL'];
 		$_POSTDADOSCON['vSCONCELULAR'] = $_POSTDADOS['vHINPICONCELULAR'];
 		$_POSTDADOSCON['vSCONFONE'] = $_POSTDADOS['vHINPICONFONE'];
-		$_POSTDADOSCON['vSCONOBSERVACOES'] = $_POSTDADOS['vHINPICONOBSERVACOES'];
-	} else if ($_POSTDADOS['vHTABCODIGO'] == 26934) { //Cobranca
-		$_POSTDADOSCON['vICONCODIGO'] = $_POSTDADOS['vHCOBCONCODIGO'];
-		$_POSTDADOSCON['vICONTIPO'] = 26934;
-		$_POSTDADOSCON['vSCONNOME'] = $_POSTDADOS['vHCOBCONNOME']; 
-		$_POSTDADOSCON['vICLICODIGO'] = $_POSTDADOS['vICLICODIGO'];
-		$_POSTDADOSCON['vSCONEMAIL'] = $_POSTDADOS['vHCOBCONEMAIL'];
-		$_POSTDADOSCON['vSCONCELULAR'] = $_POSTDADOS['vHCOBCONCELULAR'];
-		$_POSTDADOSCON['vSCONFONE'] = $_POSTDADOS['vHCOBCONFONE'];
-		$_POSTDADOSCON['vSCONOBSERVACOES'] = $_POSTDADOS['vHCOBCONOBSERVACOES'];
-	} else if ($_POSTDADOS['vHTABCODIGO'] == 26936) { //Correspondencia
-		$_POSTDADOSCON['vICONCODIGO'] = $_POSTDADOS['vHCORCONCODIGO'];
-		$_POSTDADOSCON['vICONTIPO'] = 26936;
-		$_POSTDADOSCON['vSCONNOME'] = $_POSTDADOS['vHCORCONNOME']; 
-		$_POSTDADOSCON['vICLICODIGO'] = $_POSTDADOS['vICLICODIGO'];
-		$_POSTDADOSCON['vSCONEMAIL'] = $_POSTDADOS['vHCORCONEMAIL'];
-		$_POSTDADOSCON['vSCONCELULAR'] = $_POSTDADOS['vHCOBCONCELULAR'];
-		$_POSTDADOSCON['vSCONFONE'] = $_POSTDADOS['vHCORCONFONE'];		
-		$_POSTDADOSCON['vSCONOBSERVACOES'] = $_POSTDADOS['vHCORCONOBSERVACOES'];
-	}
-	
-	$_POSTDADOSCON['vIEMPCODIGO'] = 1;
-	
-	$dadosBanco = array(
-		'tabela'  => 'CONTATOS',
-		'prefixo' => 'CON',
-		'fields'  => $_POSTDADOSCON,
-		'msg'     => $pSMsg,
-		'url'     => '',
-		'debug'   => 'N'
-		);
-	$id = insertUpdate($dadosBanco);
-	
-	return $id; 
+		$_POSTDADOSCON['vSCONOBSERVACOES'] = $_POSTDADOS['vHINPICONOBSERVACOES'];	
+		$_POSTDADOSCON['vIEMPCODIGO'] = 1;
+		$_POSTDADOSEND['vSCONPRINCIPAL'] = $_POSTDADOS['vHCONPRINCIPAL'];
+		
+		$dadosBanco = array(
+			'tabela'  => 'CONTATOS',
+			'prefixo' => 'CON',
+			'fields'  => $_POSTDADOSCON,
+			'msg'     => $pSMsg,
+			'url'     => '',
+			'debug'   => 'N'
+			);
+		$id = insertUpdate($dadosBanco);
+		
+		return $id; 
+	}	
 }
 
-function fill_Contatos($vICLICODIGO, $vICONTIPO, $formatoRetorno = 'array'){
+function fill_Contatos($vICLICODIGO, $vSCONTIPO, $formatoRetorno = 'array'){
 	
 	$sql = "SELECT *
 			FROM CONTATOS
 			WHERE CONSTATUS = 'S'
 			AND CLICODIGO = ? 
-			AND CONTIPO = ? ";
+			AND CONPRINCIPAL = ? ";
 	$arrayQuery = array(
 					'query' => $sql,
 					'parametros' => array(
 						 array($vICLICODIGO, PDO::PARAM_INT),
-						 array($vICONTIPO, PDO::PARAM_INT)
+						 array($vSCONTIPO, PDO::PARAM_STR)
 					)
 				);
 	$result = consultaComposta($arrayQuery);
@@ -105,3 +97,23 @@ function fill_Contatos($vICLICODIGO, $vICONTIPO, $formatoRetorno = 'array'){
 	return $registro !== null ? $registro : "N";
 }
 
+function fill_ContatosPadrao($vICONCODIGO, $formatoRetorno = 'array'){
+	
+	$sql = "SELECT *
+			FROM CONTATOS
+			WHERE CONSTATUS = 'S'
+			AND CONCODIGO = ? ";
+	$arrayQuery = array(
+					'query' => $sql,
+					'parametros' => array(
+						 array($vICONCODIGO, PDO::PARAM_INT)
+					)
+				);
+	$result = consultaComposta($arrayQuery);
+	$registro = $result['dados'][0];	
+	if( $formatoRetorno == 'array')
+		return $registro !== null ? $registro : "N";
+	else if( $formatoRetorno == 'json' )
+		echo json_encode($registro);
+	return $registro !== null ? $registro : "N";
+}

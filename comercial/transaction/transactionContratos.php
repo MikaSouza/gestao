@@ -41,7 +41,7 @@ function listContratos($_POSTDADOS){
 
 	$sql = "SELECT
 				e.*,
-				CONCAT(t.CLISEQUENCIAL,1 - 1, t.CLINOME) AS CLIENTE,
+				t.CLINOMEFANTASIA AS CLIENTE,
 				b.TABDESCRICAO as TIPOCONTRATO,
                 b2.TABDESCRICAO AS POSICAO,
                 u.USUNOME AS CONSULTOR
@@ -89,7 +89,7 @@ function insertUpdateContratos($_POSTDADOS, $pSMsg = 'N'){
 }
 
 function fill_Contratos($pOid){
-	$SqlMain = "Select CONCAT(c.CLISEQUENCIAL,' - ', c.CLINOME) AS CLIENTE, p.*
+	$SqlMain = "Select c.CLINOMEFANTASIA AS CLIENTE, p.*
 				 From CONTRATOS p
 				 LEFT JOIN CLIENTES c ON c.CLICODIGO = p.CLICODIGO
 				 Where p.CTRCODIGO = ".$pOid;

@@ -3,11 +3,7 @@ include_once __DIR__.'/../twcore/teraware/php/constantes.php';
 $vAConfiguracaoTela = configuracoes_menu_acesso(1966);
 include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
 include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
-include_once __DIR__.'/../financeiro/combos/comboBancos.php';
-include_once __DIR__.'/../cadastro/combos/comboPaises.php';
 include_once __DIR__.'/../cadastro/combos/comboEstados.php';
-include_once '../sistema/combos/comboEmpresaUsuaria.php';
-include_once __DIR__.'/combos/comboValesTransporte.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -37,7 +33,6 @@ include_once __DIR__.'/combos/comboValesTransporte.php';
 
         <div class="page-wrapper">
 
-
             <!-- Page Content-->
             <div class="page-content">
 
@@ -64,42 +59,13 @@ include_once __DIR__.'/combos/comboValesTransporte.php';
                                         <li class="nav-item waves-effect waves-light">
                                             <a class="nav-link" data-toggle="tab" href="#acesses-1" role="tab">Acessos/TI</a>
                                         </li>
-										<?php if($vIOid > 0){ ?>										
-										<li class="nav-item waves-effect waves-light">
-                                            <a class="nav-link" data-toggle="tab" href="#bancario-1" role="tab" onclick="gerarGridJSON('transactionUsuariosxContasBancarias.php', 'div_DadosBancarios', 'UsuariosxContasBancarias', '<?= $vIOid;?>');">Dados Bancários</a>
-                                        </li>    
-										<?php } ?>
 										<li class="nav-item waves-effect waves-light">
                                             <a class="nav-link" data-toggle="tab" href="#desligamento" role="tab">Desligamento</a>
-                                        </li>
-                                        <li class="nav-item waves-effect waves-light">
-                                            <a class="nav-link" data-toggle="tab" href="#profile-1" role="tab">Documentos</a>
-                                        </li>
-										<?php if($vIOid > 0){ ?>
-										<!--
-										<li class="nav-item waves-effect waves-light">
-											<a class="nav-link" data-toggle="tab" href="#documentospendentes" role="tab" onclick="gerarGridJSON('transactionUsuariosxDocumentoPendente.php', 'div_UsuariosxDocumentoPendente', 'UsuariosxDocumentoPendente', '<?= $vIOid;?>');">Documentos Pendentes</a>                                           
-                                        </li> -->	
-										<?php } ?>            
+                                        </li>           
                                         <?php if($vIOid > 0){ ?>
-										<li class="nav-item waves-effect waves-light">
-                                            <a class="nav-link" data-toggle="tab" href="#escolaridade" role="tab" onclick="gerarGridJSON('transactionUsuariosxEscolaridade.php', 'div_UsuariosxEscolaridade', 'UsuariosxEscolaridade', '<?= $vIOid;?>');">Escolaridade</a>
-                                        </li>
-										<li class="nav-item waves-effect waves-light">
-                                            <a class="nav-link" data-toggle="tab" href="#feedBack" role="tab" onclick="gerarGridJSON('transactionUsuariosxFeedback.php', 'div_UsuariosxFeedback', 'UsuariosxFeedback', '<?= $vIOid;?>');">FeedBack</a>
-                                        </li>
-										<li class="nav-item waves-effect waves-light">
-                                            <a class="nav-link" data-toggle="tab" href="#ferias" role="tab" onclick="gerarGridJSON('transactionUsuariosxFerias.php', 'div_UsuariosxFerias', 'UsuariosxFerias', '<?= $vIOid;?>');">Férias</a>
-                                        </li>
 										<li class="nav-item waves-effect waves-light">												
 											<a class="nav-link" data-toggle="tab" href="#ged-1" role="tab" onclick="gerarGridJSONGED('../../utilitarios/transaction/transactionGED.php', 'div_ged', 'GED', '<?= $vIOid;?>', '1966');">GED</a>
 										</li>
-										<li class="nav-item waves-effect waves-light">
-                                            <a class="nav-link" data-toggle="tab" href="#remuneracao" role="tab" onclick="gerarGridJSON('transactionUsuariosxRemuneracao.php', 'div_UsuariosxRemuneracao', 'UsuariosxRemuneracao', '<?= $vIOid;?>');">Remuneração</a>
-                                        </li>
-										<li class="nav-item waves-effect waves-light">
-                                            <a class="nav-link" data-toggle="tab" href="#beneficios-1" role="tab" onclick="gerarGridJSON('transactionUsuariosxValesTransporte.php', 'div_ValesTransporte', 'UsuariosxValesTransporte', '<?= $vIOid;?>');">Vale Transporte</a>
-                                        </li>
                                         <?php } ?>
                                     </ul>
                                     <!-- Nav tabs end -->
@@ -138,19 +104,6 @@ include_once __DIR__.'/combos/comboValesTransporte.php';
                                                         <input class="form-control" value="<?= calcular_idade($vROBJETO['USUDATAADMISSAO'], '')?> Anos" type="text" disabled >
                                                    </div>
                                                 </div>
-											</div>
-											<div class="form-group row">
-												<div class="col-md-6">
-													<label>Filial
-														<small class="text-danger font-13">*</small>
-													</label>
-													<select name="vIEMPCODIGO" id="vIEMPCODIGO" class="custom-select obrigatorio" title="Filial">
-														<option value></option>
-                                                       	<?php foreach (comboEmpresaUsuaria('') as $tabelas): ?>
-															<option value="<?php echo $tabelas['EMPCODIGO']; ?>" <?php if ($vROBJETO['EMPCODIGO'] == $tabelas['EMPCODIGO']) echo "selected='selected'"; ?>><?php echo $tabelas['EMPNOMEFANTASIA']; ?></option>
-														<?php endforeach; ?>
-													</select>
-												</div>
 											</div>											
 											<div class="form-group row">
 												<div class="col-md-6">
@@ -224,19 +177,6 @@ include_once __DIR__.'/combos/comboValesTransporte.php';
 														<div class="card-body">
 															<input type="hidden" name="vHUXECODIGO" id="vHUXECODIGO" value="<?= $vRENDERECO['UXECODIGO'];?>"/>
 															<div class="form-group row">
-																<div class="col-sm-3">
-																	<label>País</label>
-																	<select title="País" id="vHPAICODIGO" class="custom-select" name="vHPAICODIGO">
-																		<?php 
-																		if (($vRENDERECO['PAICODIGO'] == '') || (isset($vRENDERECO['PAICODIGO']))) 
-																			$vIPAICODIGO = 30;
-																		else 	
-																			$vIPAICODIGO = $vRENDERECO['PAICODIGO'];
-																		foreach (comboPaises() as $tabelas): ?>
-																			<option value="<?php echo $tabelas['PAICODIGO']; ?>" <?php if ($vIPAICODIGO == $tabelas['PAICODIGO']) echo "selected='selected'"; ?>><?php echo $tabelas['PAIDESCRICAO']; ?></option>
-																		<?php endforeach; ?>
-																	</select>
-																</div>
 																<div class="col-sm-3">
 																	<label>CEP</label>
 																	<input class="form-control" title="CEP" name="vHUXECEP" id="vHUXECEP" type="text" value="<?= $vRENDERECO['UXECEP'];  ?>" onblur="buscarCEP(this.value);">
@@ -318,15 +258,7 @@ include_once __DIR__.'/combos/comboValesTransporte.php';
 												<div id="div_acessos" class="table-responsive"></div>
 											</div>            
                                         </div>
-                                        <!-- Aba Acessos/TI end -->																				
-										
-										<!--Aba Dados Bancarios -->			
-                                        <div class="tab-pane p-3" id="bancario-1" role="tabpanel">
-                                            <div class="form-group row">
-                                                <div id="div_DadosBancarios" class="table-responsive"></div>                                                
-                                            </div>
-                                        </div>
-                                        <!-- Aba Dados Bancarios end -->
+                                        <!-- Aba Acessos/TI end -->																											
 										
 										<!-- Aba Desligamento -->
                                         <div class="tab-pane p-3" id="desligamento" role="tabpanel">
@@ -508,36 +440,7 @@ include_once __DIR__.'/combos/comboValesTransporte.php';
                                         </div>
                                         <!-- Aba Dados Documentos end -->
 
-										<!--Aba Dados Documentos Pendentes 	
-                                        <div class="tab-pane p-3" id="documentospendentes" role="tabpanel">
-                                            <div class="form-group row">
-                                                <div id="div_UsuariosxDocumentoPendente" class="table-responsive"></div>                                                
-                                            </div>
-                                        </div>-->	
-                                        <!-- Aba Dados Documentos Pendentes end -->
-										                                  			
 										<?php if($vIOid > 0){ ?>
-										<!--Aba Dados Escolaridade -->			
-                                        <div class="tab-pane p-3" id="escolaridade" role="tabpanel">
-                                            <div class="form-group row">
-                                                <div id="div_UsuariosxEscolaridade" class="table-responsive"></div>                                                
-                                            </div>
-                                        </div>
-                                        <!-- Aba Dados Escolaridade end -->
-										<!--Aba Dados FeedBack -->			
-                                        <div class="tab-pane p-3" id="feedBack" role="tabpanel">
-                                            <div class="form-group row">
-                                                <div id="div_UsuariosxFeedback" class="table-responsive"></div>                                                
-                                            </div>
-                                        </div>
-                                        <!-- Aba Dados FeedBack end -->
-										<!--Aba Dados Ferias -->			
-                                        <div class="tab-pane p-3" id="ferias" role="tabpanel">
-                                            <div class="form-group row">
-                                                <div id="div_UsuariosxFerias" class="table-responsive"></div>                                                
-                                            </div>
-                                        </div>
-                                        <!-- Aba Dados Ferias end -->	
 
 										<!-- Aba Dados GED -->
 										<div class="tab-pane p-3" id="ged-1" role="tabpanel">
@@ -562,21 +465,7 @@ include_once __DIR__.'/combos/comboValesTransporte.php';
 												<div id="div_ged" class="table-responsive"></div>
 											</div>
 										</div>	
-                                       
-										<!--Aba Dados Remuneração -->
-										<div class="tab-pane p-3" id="remuneracao" role="tabpanel">
-                                            <div class="form-group row">
-                                                <div id="div_UsuariosxRemuneracao" class="table-responsive"></div>                                                
-                                            </div>
-                                        </div>
-                                        <!-- Aba Dados Remuneração end -->	
-										<!--Aba Dados Beneficios -->
-                                        <div class="tab-pane p-3" id="beneficios-1" role="tabpanel">
-                                            <div class="form-group row">
-                                                <div id="div_ValesTransporte" class="table-responsive"></div>                                                
-                                            </div>
-                                        </div>
-                                        <!-- Aba Dados Beneficios end --> 										
+									
 										<?php } ?>
 										<div class="form-group row">
 											<label class="form-check-label" for="invalidCheck3" style="color: red">
@@ -599,285 +488,7 @@ include_once __DIR__.'/combos/comboValesTransporte.php';
             <?php include_once '../includes/footer.php' ?>
         </div>
         <!-- end page-wrapper -->
-		<div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modalUsuariosxContasBancarias">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title mt-0" id="exampleModalLabel">Dados Bancários</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						 <div class="row" id="modal_div_UsuariosxContasBancarias">
-							 <input type="hidden" id="hdn_pai_UsuariosxContasBancarias" name="hdn_pai_UsuariosxContasBancarias" value="<?= $vIOid;?>">
-							 <input type="hidden" id="hdn_filho_UsuariosxContasBancarias" name="hdn_filho_UsuariosxContasBancarias" value="">
-							<div class="col-md-12">
-								<label>Banco</label>
-								<select class=" custom-select divObrigatorio" id="vIBACCODIGO" name="vIBACCODIGO" title="Banco">
-									<option value="">Selecione</option>
-									<?php foreach (comboBancos() as $bancos): ?>
-									<option value="<?php echo $bancos['BACCODIGO']?>"> <?= $bancos['BACCODIGOBACEN']."-".$bancos['BACBANCO'] ?></option>
-									<?php endforeach; ?>
-								</select>
-							</div>
-							<div class="col-md-6">
-								<label>Tipo de Conta</label>
-								<select class="custom-select divObrigatorio" id="vIUXBTIPO" name="vIUXBTIPO" title="Tipo de Conta">
-									<?php foreach (comboTabelas('CONTAS BANCARIAS - TIPOS') as $tabelas): ?>
-									<option value="<?= $tabelas['TABCODIGO']?>"> <?= $tabelas['TABDESCRICAO']?></option>
-									<?php endforeach; ?>
-								</select>
-							</div>
-							<div class="col-md-6">
-								<label>Agência</label>
-								<input class="form-control divObrigatorio" name="vSUXBAGENCIA" title="Agência" id="vSUXBAGENCIA" type="text">
-							</div>
-							<div class="col-md-6">
-								<label>Conta</label>
-								<input class="form-control divObrigatorio" name="vSUXBCONTA" title="Conta" id="vSUXBCONTA" type="text">
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12 mt-3">
-								<button type="button" class="btn btn-primary btn-xs  waves-effect waves-light fa-pull-right" onclick="salvarModalUsuariosxContasBancarias('modal_div_UsuariosxContasBancarias','transactionUsuariosxContasBancarias.php', 'div_DadosBancarios', 'UsuariosxContasBancarias', '<?= $vIOid;?>')">Salvar</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modalUsuariosxValesTransporte">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title mt-0" id="exampleModalLabel">Vale Transporte</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						 <div class="row" id="modal_div_UsuariosxValesTransporte">
-							<input type="hidden" id="hdn_pai_UsuariosxValesTransporte" name="hdn_pai_UsuariosxValesTransporte" value="<?= $vIOid;?>">
-							<input type="hidden" id="hdn_filho_UsuariosxValesTransporte" name="hdn_filho_UsuariosxValesTransporte" value="">
-							<div class="col-md-12">
-								<label>Vale - Itinerário</label>
-								<select class="custom-select divObrigatorio" id="vIVXTCODIGO" name="vIVXTCODIGO" title="Vale - Itinerário" onchange="fillVTValorLinha(this.value);">
-									<?php foreach (comboValesTransporte() as $tabelas): ?>
-									<option value="<?php echo $tabelas['VXTCODIGO']?>"> <?= $tabelas['VXTNOME'].' - '.$tabelas['VXTITINERARIO']; ?></option>
-									<?php endforeach; ?>
-								</select>
-							</div>
-							<div class="col-md-6">
-								<label>Valor Unitário</label>
-								<input class="form-control divObrigatorio classmonetario" name="vMUXVVALOR" title="Valor Unitário" id="vMUXVVALOR"  type="text">
-							</div>
-							<div class="col-md-6">
-								<label>Quantidade por dia</label>
-								<input class="form-control divObrigatorio" name="vIUXVQTDE" title="Quantidade por dia" id="vIUXVQTDE" onKeyPress="return digitos(event, this)"  type="text">
-							</div>							
-						</div>
-						<div class="row">
-							<div class="col-md-12 mt-3">
-								<button type="button" class="btn btn-primary btn-xs  waves-effect waves-light fa-pull-right" onclick="salvarModalUsuariosxValesTransporte('modal_div_UsuariosxValesTransporte','transactionUsuariosxValesTransporte.php', 'div_ValesTransporte', 'UsuariosxValesTransporte', '<?= $vIOid;?>')">Salvar</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modalUsuariosxEscolaridade">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title mt-0" id="exampleModalLabel">Escolaridade</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						 <div class="row" id="modal_div_UsuariosxEscolaridade">
-							<input type="hidden" id="hdn_pai_UsuariosxEscolaridade" name="hdn_pai_UsuariosxEscolaridade" value="<?= $vIOid;?>">
-							<input type="hidden" id="hdn_filho_UsuariosxEscolaridade" name="hdn_filho_UsuariosxEscolaridade" value="">
-							<div class="col-md-6">
-								<label>Grau de Escolaridade</label>
-								<select class=" custom-select divObrigatorio" id="vITABCODIGOESCOLARIDADE"  name="vITABCODIGOESCOLARIDADE"  title="Grau de Escolaridade">
-									<?php foreach (comboTabelas('USUARIOS - ESCOLARIDADE') as $tabelas): ?>
-									<option value="<?= $tabelas['TABCODIGO']?>"> <?= $tabelas['TABDESCRICAO']?></option>
-									<?php endforeach; ?>
-								</select>
-							</div>
-							<div class="col-md-6">
-								<label>Ano/Semestre</label>
-								<input class="form-control" name="vSUXESEMESTRE" title="Ano/Semestre" id="vSUXESEMESTRE" onKeyPress="return digitos(event, this)"  type="text">
-							</div>
-							<div class="col-md-12">
-								<label>Instituição de Ensino</label>
-								<input class="form-control" name="vSUXEINSTITUICAO" title="Instituição de Ensino" id="vSUXEINSTITUICAO"  type="text">
-							</div>
-							<div class="col-md-12">
-								<label>Curso</label>
-								<input class="form-control" name="vSUXECURSO" title="Curso" id="vSUXECURSO"  type="text">
-							</div>
-							<div class="col-md-6">
-								<label>Data Início
-									<small class="text-danger font-13">*</small>
-								</label>
-								<input class="form-control divObrigatorio" title="Data Início" name="vDUXEDATAINICIO" id="vDUXEDATAINICIO" value="" type="date" >
-							</div>
-							<div class="col-md-6">
-								<label>Data Fim/Previsão
-									<small class="text-danger font-13">*</small>
-								</label>
-								<input class="form-control divObrigatorio" title="Data Fim/Previsão" name="vDUXEDATAFIM" id="vDUXEDATAFIM" value="" type="date" >
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12 mt-3">
-								<button type="button" class="btn btn-primary btn-xs  waves-effect waves-light fa-pull-right" onclick="salvarModalUsuariosxEscolaridade('modal_div_UsuariosxEscolaridade','transactionUsuariosxEscolaridade.php', 'div_UsuariosxEscolaridade', 'UsuariosxEscolaridade', '<?= $vIOid;?>')">Salvar</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modalUsuariosxFeedback">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title mt-0" id="exampleModalLabel">FeedBack</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						 <div class="row" id="modal_div_UsuariosxFeedback">
-							<input type="hidden" id="hdn_pai_UsuariosxFeedback" name="hdn_pai_UsuariosxFeedback" value="<?= $vIOid;?>">
-							<input type="hidden" id="hdn_filho_UsuariosxFeedback" name="hdn_filho_UsuariosxFeedback" value="">
-							<div class="col-md-6">
-								<label>Tipo/Perfil</label>
-								<select class=" custom-select divObrigatorio" id="vITABCODIGOPERFIL"  name="vITABCODIGOPERFIL" title="Tipo/Perfil">
-									<?php foreach (comboTabelas('USUARIOS - TIPO PERFIL') as $tabelas): ?>
-									<option value="<?= $tabelas['TABCODIGO']?>"> <?= $tabelas['TABDESCRICAO']?></option>
-									<?php endforeach; ?>
-								</select>
-							</div>
-							<div class="col-md-6">
-								<label>Feedback</label>
-								<select class=" custom-select divObrigatorio" id="vITABCODIGOFEEDBACK"  name="vITABCODIGOFEEDBACK"  title="Feedback">
-									<?php foreach (comboTabelas('USUARIOS - FEEDBACK') as $tabelas): ?>
-									<option value="<?= $tabelas['TABCODIGO']?>"> <?= $tabelas['TABDESCRICAO']?></option>
-									<?php endforeach; ?>
-								</select>
-							</div>							
-							<div class="col-md-12">
-								<label>Observação</label>
-								<textarea title="Observação" class="form-control" id="vSUXFOBSERVACAO" name="vSUXFOBSERVACAO" rows="3"></textarea>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12 mt-3">
-								<button type="button" class="btn btn-primary btn-xs  waves-effect waves-light fa-pull-right" onclick="salvarModalUsuariosxFeedback('modal_div_UsuariosxFeedback','transactionUsuariosxFeedback.php', 'div_UsuariosxFeedback', 'UsuariosxFeedback', '<?= $vIOid;?>')">Salvar</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modalUsuariosxFerias">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title mt-0" id="exampleModalLabel">Férias</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						 <div class="row" id="modal_div_UsuariosxFerias">
-							<input type="hidden" id="hdn_pai_UsuariosxFerias" name="hdn_pai_UsuariosxFerias" value="<?= $vIOid;?>">
-							<input type="hidden" id="hdn_filho_UsuariosxFerias" name="hdn_filho_UsuariosxFerias" value="">
-							<div class="col-md-6">
-								<label>Data Admissão (Base)</label>
-								<input class="form-control" readonly title="Data Admissão (Base)" name="vHUXFDATAADMISSAO" id="vHUXFDATAADMISSAO" value="<?= $vROBJETO['USUDATAADMISSAO']?>" type="date" >
-							</div>
-							<div class="col-md-6">
-								<label>Tempo de Empresa Ano(s)</label>
-								<input class="form-control" readonly title="Tempo de Empresa" name="vHUXFTEMPOEMPRESA" id="vHUXFTEMPOEMPRESA" value="<?= calcular_idade($vROBJETO['USUDATAADMISSAO'], '')?>" type="text" >
-							</div>
-							<div class="col-md-6">
-								<label>Período Aquisitivo - Data Início
-									<small class="text-danger font-13">*</small>
-								</label>
-								<input class="form-control divObrigatorio" title="Data Início" name="vDUXFDATAAQUISITIVO1" id="vDUXFDATAAQUISITIVO1" value="" type="date" >
-							</div>
-							<div class="col-md-6">
-								<label>Data Fim/Previsão
-									<small class="text-danger font-13">*</small>
-								</label>
-								<input class="form-control divObrigatorio" title="Data Fim/Previsão" name="vDUXFDATAAQUISITIVO2" id="vDUXFDATAAQUISITIVO2" value="" type="date" >
-							</div>
-							<div class="col-md-6">
-								<label>Data limite Gozo
-									<small class="text-danger font-13">*</small>
-								</label>
-								<input class="form-control divObrigatorio" title="Data limite Gozo" name="vDUXFDATALIMITEGOZO" id="vDUXFDATALIMITEGOZO" value="" type="date" >
-							</div>
-							<div class="col-md-6">
-								<label>Data Gozo Início</label>
-								<input class="form-control" title="Data Gozo Início" name="vDUXFDATAGOZOINICIAL" id="vDUXFDATAGOZOINICIAL" value="" type="date" >
-							</div>
-							<div class="col-md-6">
-								<label>Data Gozo Final</label>
-								<input class="form-control" title="Data Gozo Final" name="vDUXFDATAGOZOFINAL" id="vDUXFDATAGOZOFINAL" value="" type="date" >
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12 mt-3">
-								<button type="button" class="btn btn-primary btn-xs  waves-effect waves-light fa-pull-right" onclick="salvarModalUsuariosxFerias('modal_div_UsuariosxFerias','transactionUsuariosxFerias.php', 'div_UsuariosxFerias', 'UsuariosxFerias', '<?= $vIOid;?>')">Salvar</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modalUsuariosxRemuneracao">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title mt-0" id="exampleModalLabel">Remuneração</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						 <div class="row" id="modal_div_UsuariosxRemuneracao">
-							<input type="hidden" id="hdn_pai_UsuariosxRemuneracao" name="hdn_pai_UsuariosxRemuneracao" value="<?= $vIOid;?>">
-							<input type="hidden" id="hdn_filho_UsuariosxRemuneracao" name="hdn_filho_UsuariosxRemuneracao" value="">
-							<div class="col-md-6">
-								<label>Data Alteração
-									<small class="text-danger font-13">*</small>
-								</label>
-								<input class="form-control divObrigatorio" title="Data Alteração" name="vDUXRDATAALTERACAOSALARIAL" id="vDUXRDATAALTERACAOSALARIAL" value="" type="date" >
-							</div>
-							<div class="col-md-6">
-								<label>Novo Salário</label>
-								<input class="form-control divObrigatorio classmonetario" name="vMUXRSALARIOATUAL" title="Novo Salário" id="vMUXRSALARIOATUAL"  type="text">
-							</div>
-							<div class="col-md-12">
-								<label>Motivo Alteração</label>
-								<textarea title="Motivo Alteração" class="form-control" id="vSUXRMOTIVOALTERACAOSALARIAL" name="vSUXRMOTIVOALTERACAOSALARIAL" rows="3"></textarea>							
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12 mt-3">
-								<button type="button" class="btn btn-primary btn-xs  waves-effect waves-light fa-pull-right" onclick="salvarModalUsuariosxRemuneracao('modal_div_UsuariosxRemuneracao','transactionUsuariosxRemuneracao.php', 'div_UsuariosxRemuneracao', 'UsuariosxRemuneracao', '<?= $vIOid;?>')">Salvar</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+												
 		<!-- Modal Tabela Padrão -->
 		<div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="ModalTabelaPadrao">
 			<div class="modal-dialog modal-dialog-centered">

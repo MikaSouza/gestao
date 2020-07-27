@@ -1,14 +1,14 @@
 $(function () {
-
+	$('.select2-multiple').select2();
     var form;
     $('#fileUpload').change(function (event) {
         form = new FormData();
         form.append('fileUpload', event.target.files[0]); // para apenas 1 arquivo
         //var name = event.target.files[0].content.name; // para capturar o nome do arquivo com sua extenção
 		form.append('vIGEDVINCULO', $("#vICLICODIGO").val());
-		form.append('vSGEDDIRETORIO', '../ged');
+		form.append('vSGEDDIRETORIO', 'clientes');
 		form.append('vIMENCODIGO', 6);
-		form.append('method', 'incluirClientesxGED');
+		form.append('method', 'incluirGED');
     });
 
     $('#btnEnviar').click(function () {
@@ -17,14 +17,14 @@ $(function () {
 		if(erros.length === 0){
 			var hdn_pai_codigo = $("#vICLICODIGO").val();
 			$.ajax({
-				url: "transaction/transactionClientesxGED.php",
+				url: "../utilitarios/transaction/transactionGED.php",
 				data: form,
 				processData: false, 
 				contentType: false,
 				type: 'POST',
 				success: function (data) {
-					swal({title : "", text :"Cadastro realizado com sucesso", type : "success"});
-					gerarGridJSON('transactionClientesxGED.php', 'div_ged', 'ClientesxGED', hdn_pai_codigo);
+					swal({title : "", text :"Cadastro realizado com sucesso", type : "success"});				
+					gerarGridJSONGED('../../utilitarios/transaction/transactionGED.php', 'div_ged', 'GED', hdn_pai_codigo, '6');
 					return true;
 				}
 			});
@@ -32,6 +32,81 @@ $(function () {
 			swal({title : "Opss..", text : erros.join("\n"), type : "warning"});
 		}	
     });
+	
+	$('#formEnderecos').submit(function(e) {
+        e.preventDefault();
+        var serializeDados = $('#formEnderecos').serialize();				
+		var data = {
+					method: "incluirEndereco",
+					hdn_oid_endereco: $("#hdn_endereco").val(),
+					vICLICODIGO: $("#vICLICODIGO").val(),
+					vITABCODIGO: $("#vITABCODIGO").val(),
+					vITLOCODIGO: $("#vITLOCODIGO").val(),
+					vSENDLOGRADOURO: $("#vSENDLOGRADOURO").val(),
+					vSENDNROLOGRADOURO: $("#vHENDNROLOGRADOURO").val(),
+					vSENDCOMPLEMENTO: $("#vHENDCOMPLEMENTO").val(),
+					vSENDBAIRRO: $("#vHENDBAIRRO").val(),
+					vSENDCEP: $("#vHENDCEP").val(),
+					vIPAICODIGO: $("#vHPAICODIGO").val(),
+					vIESTCODIGO: $("#vHESTCODIGO").val(),
+					vICIDCODIGO: $("#vHCIDCODIGO").val()
+				};
+		$.ajax({
+			url: 'transaction/transactionClientes.php',
+			type: 'POST',
+			async: true,
+			dataType: 'json',
+			data: data,
+			success: function(response) {
+				swal(':)', 'Dados atulizados com sucesso!', 'success');
+				
+				$( "#modalEnderecos").modal("hide");	
+				gerarGridJSONContasPagar();
+			},
+			error: function() {
+				swal('', 'Ocorreu uma falha na atualização dos dados', 'error');
+			}
+		});
+		
+	});
+	
+	$('#formContatos').submit(function(e) {
+        e.preventDefault();
+        var serializeDados = $('#formContatos').serialize();				
+		var data = {
+					method           : "incluirContato",
+					vICONCODIGO      : $("#vHCONCODIGO").val(),
+					vICLICODIGO      : $("#vICLICODIGO").val(),
+					vSCONNOME        : $("#vSCONNOME").val(),
+					vICONESTADOCIVIL : $("#vICONESTADOCIVIL").val(),
+					vSCONEMAIL       : $("#vSCONEMAIL").val(),
+					vSCONCPF         : $("#vSCONCPF").val(),
+					vSCONRG          : $("#vSCONRG").val(),
+					vSCONFONE        : $("#vSCONFONE").val(),
+					vSCONRAMAL       : $("#vSCONRAMAL").val(),
+					vSCONCELULAR     : $("#vSCONCELULAR").val(),
+					vSCONCARGO       : $("#vSCONCARGO").val(),
+					vSCONSETOR       : $("#vSCONSETOR").val(),
+					vSCONPRINCIPAL   : $("#vSCONPRINCIPAL").val()
+				};
+		$.ajax({
+			url: 'transaction/transactionContatos.php',
+			type: 'POST',
+			async: true,
+			dataType: 'json',
+			data: data,
+			success: function(response) {
+				swal(':)', 'Dados atulizados com sucesso!', 'success');
+				
+				$( "#modalContatos").modal("hide");	
+				gerarGridJSONContasPagar();
+			},
+			error: function() {
+				swal('', 'Ocorreu uma falha na atualização dos dados', 'error');
+			}
+		});
+		
+	});
 });
 
 function exibirCidades(codestado, codcidade, div_retorno, vSNome) {
@@ -64,11 +139,19 @@ function mostrarJxF(pSValue){
 		$(".divFisica").hide();	
   		document.getElementById("vSCLICNPJ").classList.add("obrigatorio");
 		document.getElementById("vSCLICPF").classList.remove("obrigatorio");
+		document.getElementById("vHCLINOME").classList.remove("obrigatorio");
+		document.getElementById("vSCLIRAZAOSOCIAL").classList.add("obrigatorio");
+		document.getElementById("vSCLINOMEFANTASIA").classList.add("obrigatorio");		
+		document.getElementById("vICLISITUACAORECEITA").classList.add("obrigatorio");				
 	}else{
 		$(".divFisica").show();	
 		$(".divJuridica").hide();	
 		document.getElementById("vSCLICPF").classList.add("obrigatorio");
   		document.getElementById("vSCLICNPJ").classList.remove("obrigatorio");
+		document.getElementById("vHCLINOME").classList.add("obrigatorio");
+		document.getElementById("vSCLIRAZAOSOCIAL").classList.remove("obrigatorio");
+		document.getElementById("vSCLINOMEFANTASIA").classList.remove("obrigatorio");	
+		document.getElementById("vICLISITUACAORECEITA").classList.remove("obrigatorio");	
 	}	
 }
 
@@ -90,17 +173,15 @@ $(function(){
 	});
 
     $("#vSCLICNPJ").mask("99.999.999/9999-99");
-	$("#vHINPIENDCEP").mask("99999-999");
-	$("#vHCORENDCEP").mask("99999-999");
-	$("#vHCOBENDCEP").mask("99999-999");
-	$("#vSCLIFONE").mask("(99) 9999-9999");
-	$("#vSCLICELULAR").mask("(99) 9999-9999");
+	$("#vHENDCEP").mask("99999-999");
+	$("#vHMENDCEP").mask("99999-999");
+	$("#vHCONFONE").mask("(99) 9999-9999");	
 	
 	mostrarJxF($("#vSCLITIPOCLIENTE").val());
 
 });
 
-function buscarCEP(vSCEP, vSORIGEM){
+function buscarCEP(vSCEP){
 	if (vSCEP != ''){
 		$.ajax({
 			url: '../includes/buscarCEP.php',
@@ -112,31 +193,12 @@ function buscarCEP(vSCEP, vSORIGEM){
 			success: function(result){
 				console.log(result);
 				if(result.logradouro != ''){
-					if (vSORIGEM == 'INPI') {	
-					
-						$("#vHINPIENDLOGRADOURO").val(result.logradouro).addClass('isActive');
-						$("#vHINPIENDBAIRRO").val(result.bairro).addClass('isActive');
-						$("#vHINPIESTCODIGO").val(result.estadoCodigo).addClass('isActive');							
-						exibirCidades(result.estadoCodigo, result.cidadeCodigo, 'div_cidade_inpi', 'vHINPICIDCODIGO');						
-						$("#vHINPIENDNROLOGRADOURO").focus();						
-				
-					} else if (vSORIGEM == 'COR') {	
 
-						$("#vHCORENDLOGRADOURO").val(result.logradouro).addClass('isActive');
-						$("#vHCORENDBAIRRO").val(result.bairro).addClass('isActive');
-						$("#vHCORESTCODIGO").val(result.estadoCodigo).addClass('isActive');							
-						exibirCidades(result.estadoCodigo, result.cidadeCodigo, 'div_cidade_cor', 'vHCORCIDCODIGO');					
-						$("#vHCORENDNROLOGRADOURO").focus();
-						
-					} else if (vSORIGEM == 'COB') {	
-					
-						$("#vHCOBENDLOGRADOURO").val(result.logradouro).addClass('isActive');
-						$("#vHCOBENDBAIRRO").val(result.bairro).addClass('isActive');
-						$("#vHCOBESTCODIGO").val(result.estadoCodigo).addClass('isActive');							
-						exibirCidades(result.estadoCodigo, result.cidadeCodigo, 'div_cidade_cob', 'vHCOBCIDCODIGO');					
-						$("#vHCOBENDNROLOGRADOURO").focus();
-						
-					}
+					$("#vHENDLOGRADOURO").val(result.logradouro).addClass('isActive');
+					$("#vHENDBAIRRO").val(result.bairro).addClass('isActive');
+					$("#vHESTCODIGO").val(result.estadoCodigo).addClass('isActive');							
+					exibirCidades(result.estadoCodigo, result.cidadeCodigo, 'div_cidade', 'vHCIDCODIGO');						
+					$("#vHENDNROLOGRADOURO").focus();															
 				}
 			},
 			error: function(){
@@ -156,7 +218,8 @@ function buscarDadosReceita(){
 				vSMSG = json.vSMSG;
 				vSBloqueia = json.vSBloqueia;							
 				$("#vICLICODIGO").val(json.vICLICODIGO);				
-				$("#vSCLINOME").val(json.vSCLINOME);
+				$("#vSCLIRAZAOSOCIAL").val(json.vSCLIRAZAOSOCIAL);
+				$("#vSCLINOMEFANTASIA").val(json.vSCLINOMEFANTASIA);
 				$("#vICLISITUACAORECEITA").val(json.vICLISITUACAORECEITA);							
 				$("#vDCLIDATA_INICIO_ATIVIDADES").val(json.vDCLIDATA_INICIO_ATIVIDADES);							
 							
@@ -164,87 +227,21 @@ function buscarDadosReceita(){
 				$("#vICLINATUREZAJURIDICA").val(json.vICLINATUREZAJURIDICA);			
 				$("#vICNACODIGO").val(json.vICNACODIGO);		
 				
-				$("#vHINPICONFONE").val(json.vSCLIFONE);
-				$("#vHINPICONEMAIL").val(json.vSCLIEMAIL);
+				$("#vHCONFONE").val(json.vSCLIFONE);
+				$("#vHCONEMAIL").val(json.vSCLIEMAIL);
 				//endereco				
-				$("#vHINPIENDLOGRADOURO").val(json.vSENDLOGRADOURO);
-				$("#vHINPIENDNROLOGRADOURO").val(json.vSENDNROLOGRADOURO);
-				$("#vHINPIENDCOMPLEMENTO").val(json.vSENDCOMPLEMENTO);
-				$("#vHINPIENDBAIRRO").val(json.vSENDBAIRRO);
-				$("#vHINPIENDCEP").val(json.vSENDCEP);
-				$("#vHINPIESTCODIGO").val(json.vIESTCODIGO);
-				exibirCidades(json.vIESTCODIGO, json.vICIDCODIGO, 'div_cidade_inpi', 'vHINPICIDCODIGO')
+				$("#vHENDLOGRADOURO").val(json.vSENDLOGRADOURO);
+				$("#vHENDNROLOGRADOURO").val(json.vSENDNROLOGRADOURO);
+				$("#vHENDCOMPLEMENTO").val(json.vSENDCOMPLEMENTO);
+				$("#vHENDBAIRRO").val(json.vSENDBAIRRO);
+				$("#vHENDCEP").val(json.vSENDCEP);
+				$("#vHESTCODIGO").val(json.vIESTCODIGO);
+				exibirCidades(json.vIESTCODIGO, json.vICIDCODIGO, 'div_cidade', 'vHCIDCODIGO')
 				swal({title : ":)", text : vSMSG, type : "info"});
 				
 			}
 		});		
 	}	
-}	
-
-function fillINPI(vSORIGEM, vSDESTINO)
-{
-	if ((vSORIGEM == 'INPI') && (vSDESTINO == 'COR')) {
-		$("#vHCORPAICODIGO").val($("#vHINPIPAICODIGO").val());
-		$("#vHCORENDCEP").val($("#vHINPIENDCEP").val());
-		$("#vHCORENDBAIRRO").val($("#vHINPIENDBAIRRO").val());
-		$("#vHCORENDLOGRADOURO").val($("#vHINPIENDLOGRADOURO").val());
-		$("#vHCORENDNROLOGRADOURO").val($("#vHINPIENDNROLOGRADOURO").val());
-		$("#vHCORENDCOMPLEMENTO").val($("#vHINPIENDCOMPLEMENTO").val());
-		$("#vHCORESTCODIGO").val($("#vHINPIESTCODIGO").val());
-		exibirCidades($("#vHINPIESTCODIGO").val(), $("#vHINPICIDCODIGO").val(), 'div_cidade_cor', 'vHCORCIDCODIGO');		
-	} else if ((vSORIGEM == 'COB') && (vSDESTINO == 'COR')) {	
-		$("#vHCORPAICODIGO").val($("#vHCOBPAICODIGO").val());
-		$("#vHCORENDCEP").val($("#vHCOBENDCEP").val());
-		$("#vHCORENDBAIRRO").val($("#vHCOBENDBAIRRO").val());
-		$("#vHCORENDLOGRADOURO").val($("#vHCOBENDLOGRADOURO").val());
-		$("#vHCORENDNROLOGRADOURO").val($("#vHCOBENDNROLOGRADOURO").val());
-		$("#vHCORENDCOMPLEMENTO").val($("#vHCOBENDCOMPLEMENTO").val());
-		$("#vHCORESTCODIGO").val($("#vHCOBESTCODIGO").val());		
-		exibirCidades($("#vHCOBESTCODIGO").val(), $("#vHCOBCIDCODIGO").val(), 'div_cidade_cor', 'vHCORCIDCODIGO');		
-	} else if ((vSORIGEM == 'INPI') && (vSDESTINO == 'COB')) {	
-		$("#vHCOBPAICODIGO").val($("#vHINPIPAICODIGO").val());
-		$("#vHCOBENDCEP").val($("#vHINPIENDCEP").val());
-		$("#vHCOBENDBAIRRO").val($("#vHINPIENDBAIRRO").val());
-		$("#vHCOBENDLOGRADOURO").val($("#vHINPIENDLOGRADOURO").val());
-		$("#vHCOBENDNROLOGRADOURO").val($("#vHINPIENDNROLOGRADOURO").val());
-		$("#vHCOBENDCOMPLEMENTO").val($("#vHINPIENDCOMPLEMENTO").val());
-		$("#vHCOBESTCODIGO").val($("#vHINPIESTCODIGO").val());		
-		exibirCidades($("#vHINPIESTCODIGO").val(), $("#vHINPICIDCODIGO").val(), 'div_cidade_cob', 'vHCOBCIDCODIGO');		
-	} else if ((vSORIGEM == 'COR') && (vSDESTINO == 'COB')) {	
-		$("#vHCOBPAICODIGO").val($("#vHCORPAICODIGO").val());
-		$("#vHCOBENDCEP").val($("#vHCORENDCEP").val());
-		$("#vHCOBENDBAIRRO").val($("#vHCORENDBAIRRO").val());
-		$("#vHCOBENDLOGRADOURO").val($("#vHCORENDLOGRADOURO").val());
-		$("#vHCOBENDNROLOGRADOURO").val($("#vHCORENDNROLOGRADOURO").val());
-		$("#vHCOBENDCOMPLEMENTO").val($("#vHCORENDCOMPLEMENTO").val());
-		$("#vHCOBESTCODIGO").val($("#vHCORESTCODIGO").val());		
-		exibirCidades($("#vHCORESTCODIGO").val(), $("#vHCORCIDCODIGO").val(), 'div_cidade_cor', 'vHCOBCIDCODIGO');		
-	} 
-}	
-
-function fillContatoINPI(vSORIGEM, vSDESTINO)
-{
-	if ((vSORIGEM == 'INPI') && (vSDESTINO == 'COR')) {
-		$("#vHCORCONNOME").val($("#vHINPICONNOME").val());
-		$("#vHCORCONFONE").val($("#vHINPICONFONE").val());
-		$("#vHCORCONCELULAR").val($("#vHINPICONCELULAR").val());
-		$("#vHCORCONEMAIL").val($("#vHINPICONEMAIL").val());			
-	} else if ((vSORIGEM == 'COB') && (vSDESTINO == 'COR')) {	
-		$("#vHCORCONNOME").val($("#vHCOBCONNOME").val());
-		$("#vHCORCONFONE").val($("#vHCOBCONFONE").val());
-		$("#vHCORCONCELULAR").val($("#vHCOBCONCELULAR").val());
-		$("#vHCORCONEMAIL").val($("#vHCOBCONEMAIL").val());		
-	} else if ((vSORIGEM == 'INPI') && (vSDESTINO == 'COB')) {	
-		$("#vHCOBCONNOME").val($("#vHINPICONNOME").val());
-		$("#vHCOBCONFONE").val($("#vHINPICONFONE").val());
-		$("#vHCOBCONCELULAR").val($("#vHINPICONCELULAR").val());
-		$("#vHCOBCONEMAIL").val($("#vHINPICONEMAIL").val());				
-	} else if ((vSORIGEM == 'COR') && (vSDESTINO == 'COB')) {	
-		$("#vHCOBCONNOME").val($("#vHCORCONNOME").val());
-		$("#vHCOBCONFONE").val($("#vHCORCONFONE").val());
-		$("#vHCOBCONCELULAR").val($("#vHCORCONCELULAR").val());
-		$("#vHCOBCONEMAIL").val($("#vHCORCONEMAIL").val());			
-	} 
 }	
 
 function fillClientesxHistorico(pIFXSCODIGO,titulo){
@@ -296,35 +293,42 @@ function salvarModalClientesxHistorico(div_nome,pSTransaction, pSDivReturn, pMet
 	}
 }
 
-function salvarModalClientesxRelacionados(div_nome,pSTransaction, pSDivReturn, pMetodo, pIOID){
-	var erros = validarCamposDiv(div_nome);
-	if(erros.length === 0){
-		var data = {
-			method: "incluir"+pMetodo,
-            hdn_pai_codgo: $("#hdn_pai_"+pMetodo).val(),
-            hdn_filho_codgo: $("#hdn_filho_"+pMetodo).val(),
-			vHCLICODIGOREL: $("#vHCLICODIGOREL").val()
-		};
-		$.ajax({
-			async: true,
-			type: "POST",
-			url: "transaction/"+pSTransaction,
-			data: data,
-			success: function(msg){
-				swal({title : "", text :"Cadastro realizado com sucesso", type : "success"});
-				gerarGridJSON(pSTransaction, pSDivReturn, pMetodo, pIOID);
-				$( "#modal"+pMetodo ).modal("hide");
-				return true;
-			},
-			error: function(msg) {
-				limparCamposDialog(div_nome);
-				sweetAlert("Oops...", "Ocorreu um erro inesperado!", "error");
-				alert(msg);
-				$( "#modal"+pMetodo ).modal("hide");
-				return false;
-			}
-		});
-	} else {
-		swal({title : "Opss..", text : erros.join("\n"), type : "warning"});
-	}
+function fillContatos(pICONCODIGO){
+	var vSUrl = '../transaction/transactionContatos.php?hdn_metodo_fill=fill_Contatos&vICONCODIGO='+pICONCODIGO+'&formatoRetorno=json';
+	$.getJSON(vSUrl, function(json) {
+		for (var i in json) {
+			$("#vHMCONNOME").val(json.CONNOME);
+			$("#vHMCONEMAIL").val(json.CONEMAIL);
+			$("#vHMCONCELULAR").val(json.CONCELULAR);
+			$("#vHMCONFONE").val(json.CONFONE);
+			$("#vSCONCPF").val(json.CONCPF);
+			$("#vSCONCARGO").val(json.CONCARGO);
+			$("#vSCONRAMAL").val(json.CONRAMAL);
+			$("#vICONCODIGO").val(json.CONCODIGO);
+			$("#vICLICODIGO").val(json.CLICODIGO);
+			$("#vICONESTADOCIVIL").val(json.CONESTADOCIVIL);
+			$("#vSCONRG").val(json.CONRG);
+			$("#vSCONSETOR").val(json.CONSETOR);
+			$("#vSCONPRINCIPAL").val(json.CONPRINCIPAL);
+		}
+	});
+}
+
+function fillEndereco(pIENDCODIGO){
+	var vSUrl = '../transaction/transactionEnderecos.php?hdn_metodo_fill=fill_Enderecos&vIENDCODIGO='+pIENDCODIGO+'&formatoRetorno=json';
+	$.getJSON(vSUrl, function(json) {
+		for (var i in json) {
+			$("#vITABCODIGO").val(json.TABCODIGO);
+			$("#vHMENDLOGRADOURO").val(json.ENDLOGRADOURO);
+			$("#vHMENDNROLOGRADOURO").val(json.ENDNROLOGRADOURO);
+			$("#vHMENDCOMPLEMENTO").val(json.ENDCOMPLEMENTO);
+			$("#vHMENDBAIRRO").val(json.ENDBAIRRO);
+			$("#vHMENDCEP").val(json.ENDCEP);
+			$("#vIPAICODIGO").val(json.PAICODIGO);
+			exibirEstados(json.PAICODIGO, json.ESTCODIGO, json.CIDCODIGO);
+			$("#vSENDLONGITUDE").val(json.ENDLONGITUDE);
+			$("#vSENDLATITUDE").val(json.ENDLATITUDE);
+			$("#hdn_endereco").val(json.ENDCODIGO);
+		}
+	});
 }

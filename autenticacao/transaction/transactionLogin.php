@@ -38,7 +38,8 @@ if($_POST['vSLoginRecuperar'] && $_POST['vSLoginRecuperar'] != ''){
 				);
 			insertUpdateLogsAcessos($dadosBanco, 'N');
 			
-			header('location:http://sistema.marpa.com.br:5588/marpa_consultoria/cadastro/index.php');
+			header('location:http://gestao-srv.teraware.net.br/cadastro/index.php');
+			//header('location:http://sistema.marpa.com.br:5588/marpa_consultoria/cadastro/index.php');
 			//header('location:http://marpadatabase.ddns.net:5588/marpa_consultoria/cadastro/index.php');
 		}else{
 			header('location:login.php?vMGS=E');

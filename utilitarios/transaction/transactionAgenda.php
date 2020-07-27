@@ -51,7 +51,7 @@ function comboAgendaHome($pSTIPO)
 				a.AGEDESCRICAO,
 				a.CLICODIGO,
 				t.ATINOME,
-				CONCAT(cli.IDSIGLA, " | ", cli.CLINOME) AS CLINOME,
+				cli.CLINOMEFANTASIA AS CLINOME,
 				u.USUNOME AS RESPONSAVEL,
 				u2.USUNOME AS AGENDOU
 			FROM
@@ -94,7 +94,7 @@ function listAgendaCalendario($dados)
                 a.*,
                 t.TABDESCRICAO,
                 t.TABCOR,
-                CONCAT(cli.IDSIGLA, '|', cli.CLINOME) AS CLINOME,
+                cli.CLINOMEFANTASIA AS CLINOME,
                 u.USUNOME,
                 m.MENTITULO,
                 m.MENARQUIVOCAD
@@ -159,9 +159,7 @@ function listAgendaCalendario($dados)
     }
 
     return array_merge(
-        $events,
-        getAniversariantes($dados['start'], $dados['end'], $dados['current']),
-        getAniversariantesEmpresa($dados['start'], $dados['end'], $dados['current'])
+        $events
     );
 }
 
@@ -182,7 +180,7 @@ function listAgenda($_POSTDADOS){
 	if(verificarVazio($_POSTDADOS['FILTROS']['vICLISEQUENCIAL']))
 		$where .= 'AND cli.IDSIGLA = ? ';
 	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLINOME']))
-		$where .= 'AND cli.CLINOME LIKE ? ';
+		$where .= 'AND cli.CLINOMEFANTASIA LIKE ? ';
 	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLICNPJ']))
 		$where .= 'AND cli.CLICNPJ = ? ';
 	if(verificarVazio($_POSTDADOS['FILTROS']['vIAGERESPONSAVEL']))
@@ -239,120 +237,6 @@ function listAgenda($_POSTDADOS){
 	return $result;
 }
 
-function getAniversariantes($start, $end, $current){
-    $ano = date('Y', strtotime($current));
-
-    $query = consultaComposta([
-        'query' => 'SELECT
-                        t1.TABDESCRICAO AS DEPARTAMENTO,
-                        u.USUDATA_NASCIMENTO,
-                        DAY(u.USUDATA_NASCIMENTO) AS DIA,
-                        MONTH(u.USUDATA_NASCIMENTO) AS MES,
-                        DATE_FORMAT(u.USUDATA_NASCIMENTO, \''.$ano.'-%m-%d\') AS ANIVERSARIO,
-                        u.USUNOME
-                    FROM
-                        USUARIOS u
-                    LEFT JOIN
-                        TABELAS t1 ON u.TABDEPARTAMENTO = t1.TABCODIGO
-                    WHERE
-                        u.USUSTATUS = \'S\' AND
-                        u.USUDATADEMISSAO IS NULL AND
-                        u.USUDATA_NASCIMENTO <= ?
-                    HAVING
-                        ANIVERSARIO BETWEEN ? AND ?',
-        'parametros' => [
-            [$start, PDO::PARAM_STR],
-            [$start, PDO::PARAM_STR],
-            [$end, PDO::PARAM_STR],
-        ],
-    ]);
-
-
-    $events = array();
-
-    foreach ($query['dados'] as $aniver) {
-        $events[] = [
-            'id'          => 0,
-            'title'       => 'Aniversário de '.$aniver['USUNOME'].' ('.$aniver['DEPARTAMENTO'].')',
-            'description' => 'No dia '.$aniver['DIA']. ' de '.descricaoMes($aniver['MES']).' de '.$ano.' é comemorado o aniversário de '.pluralize(calcular_idade($aniver['USUDATA_NASCIMENTO'], $end), 'ano', 'anos'). ' de '.$aniver['USUNOME'].' ('.$aniver['DEPARTAMENTO'].')',
-            'start'       => $aniver['ANIVERSARIO'],
-            'end'         => $aniver['ANIVERSARIO'],
-            'url'         => '',
-            'assignee'    => '',
-            'assignee_id' => '',
-            'clientName'  => '',
-            'clientId'    => '',
-            'type'        => 'Aniversário',
-            'type_id'     => '',
-            'menuName'    => '',
-            'menuTitulo'  => '',
-            'link_id'     => '',
-            'color'       => '#b2925f',
-            'concluido'   => 'S',
-            'allDay'      => true,
-        ];
-    }
-
-    return $events;
-}
-
-function getAniversariantesEmpresa($start, $end, $current){
-    $ano = date('Y', strtotime($current));
-
-    $query = consultaComposta([
-        'query' => 'SELECT
-                        t1.TABDESCRICAO AS DEPARTAMENTO,
-                        u.USUDATAADMISSAO,
-                        DAY(u.USUDATAADMISSAO) AS DIA,
-                        MONTH(u.USUDATAADMISSAO) AS MES,
-                        DATE_FORMAT(u.USUDATAADMISSAO, \''.$ano.'-%m-%d\') AS ANIVERSARIO,
-                        u.USUNOME
-                    FROM
-                        USUARIOS u
-                    LEFT JOIN
-                        TABELAS t1 ON u.TABDEPARTAMENTO = t1.TABCODIGO
-                    WHERE
-                        u.USUSTATUS = \'S\' AND
-                        u.USUDATADEMISSAO IS NULL AND
-                        u.USUDATAADMISSAO <= ?
-                    HAVING
-                        ANIVERSARIO BETWEEN ? AND ?',
-        'parametros' => [
-            [$start, PDO::PARAM_STR],
-            [$start, PDO::PARAM_STR],
-            [$end, PDO::PARAM_STR],
-        ],
-    ]);
-
-
-    $events = array();
-
-    foreach ($query['dados'] as $aniver) {
-        $events[] = [
-            'id'          => 0,
-            'title'       => 'Aniversário de empresa - '.$aniver['USUNOME'].' ('.$aniver['DEPARTAMENTO'].')',
-            'description' => 'No dia '.$aniver['DIA']. ' de '.descricaoMes($aniver['MES']).' de '.$ano.' '.$aniver['USUNOME'].' ('.$aniver['DEPARTAMENTO'].') '.' faz '.pluralize(calcular_idade($aniver['USUDATAADMISSAO'], $end), 'ano', 'anos'). ' de Grupo Marpa!',
-            'start'       => $aniver['ANIVERSARIO'],
-            'end'         => $aniver['ANIVERSARIO'],
-            'url'         => '',
-            'assignee'    => '',
-            'assignee_id' => '',
-            'clientName'  => '',
-            'clientId'    => '',
-            'type'        => 'Aniversário de empresa',
-            'type_id'     => '',
-            'menuName'    => '',
-            'menuTitulo'  => '',
-            'link_id'     => '',
-            'color'       => '#7F2A06',
-            'concluido'   => 'S',
-            'allDay'      => true,
-        ];
-    }
-
-    return $events;
-}
-
 function insertUpdateAgenda($dados, $pSMsg = 'N'){
 	
     $dadosBanco = array(
@@ -371,29 +255,6 @@ function insertUpdateAgenda($dados, $pSMsg = 'N'){
         }
     }*/
     return $id;
-}
-
-function enviarSMS($dados)
-{
-    require_once __DIR__.'/../twcore/vendors/zenvia/sendSMS.php';
-
-    $sms = new SendSMS;
-    
-    if (in_array($dados['vSAGEENVIARSMS'], ['R', 'A'])) { //Responsável ou ambos
-        require_once __DIR__.'/transactionUsuario.php';
-        $responsavel = fill_Usuario($dados['vIAGERESPONSAVEL']);
-        $sms->setRecipient($responsavel['USUFONE']);
-    }
-
-    if (in_array($dados['vSAGEENVIARSMS'], ['C', 'A'])) { //Cliente ou ambos
-        require_once __DIR__.'/transactionCliente.php';
-        $cliente = fill_cliente($dados['vICLICODIGO']);
-        $sms->setRecipient($cliente['CLICELULAR']);
-    }
-
-    $sms->setMessage($dados['vSAGETITULO'].' dia '.$dados['vDAGEDATAINICIO'].' às '.$dados['vSAGEHORAINICIO'].'h - '.$dados['vHCLIENTE']);
-
-    $sms->send();
 }
 
 function enviarEmailAgendamento($dados)

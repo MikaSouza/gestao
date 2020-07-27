@@ -1,5 +1,5 @@
 <?php
-function comboEstados($estcodigo)
+function comboEstados()
 {
 	$sql = "SELECT
                     ESTCODIGO, ESTSIGLA, ESTDESCRICAO

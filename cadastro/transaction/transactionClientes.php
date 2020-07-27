@@ -1,24 +1,30 @@
 <?php
-include_once '../../twcore/teraware/php/constantes.php';
+include_once __DIR__.'/../../twcore/teraware/php/constantes.php';
+
 if (($_POST["methodPOST"] == "insert")||($_POST["methodPOST"] == "update")) {
     $vIOid = insertUpdateClientes($_POST, 'N');
-    return;
+	sweetAlert('', '', 'S', 'cadClientes.php?method=update&oid='.$vIOid, 'S');
+    return;    
 } else if (($_GET["method"] == "consultar")||($_GET["method"] == "update")) {
     $vROBJETO = fill_Clientes($_GET['oid'], $vAConfiguracaoTela);
     $vIOid = $vROBJETO[$vAConfiguracaoTela['MENPREFIXO'].'CODIGO'];
     $vSDefaultStatusCad = $vROBJETO[$vAConfiguracaoTela['MENPREFIXO'].'STATUS'];
-
-	//incluir contatos
+	
+	// tipo parceiro
+	if($vIOid > 0){
+		foreach (buscaClientexTipoParceiro($vIOid) as $tabelas):
+			$arrayPreMold[] = $tabelas['TABCODIGO'];
+		endforeach;
+		$contArray = count($arrayPreMold);
+	}
+	
+	//incluir contatos	
 	include_once 'transactionContatos.php';
-	$vRCONTATOINPI = fill_Contatos($vIOid, 26933);
-	$vRCONTATOCOR = fill_Contatos($vIOid, 26936);
-	$vRCONTATOCOB = fill_Contatos($vIOid, 26934);
+	$vRCONTATO = fill_Contatos($vIOid, 'S');
 
 	//incluir endereços
 	include_once 'transactionEnderecos.php';
-	$vRENDERECOINPI = fill_Enderecos($vIOid, 426);
-	$vRENDERECOCOR = fill_Enderecos($vIOid, 475);
-	$vRENDERECOCOB = fill_Enderecos($vIOid, 427);
+	$vRENDERECO = fill_Enderecos($vIOid, 'S');
 }
 
 if( $_GET['hdn_metodo_fill'] == 'fill_Clientes' )
@@ -56,21 +62,26 @@ function listClientes($_POSTDADOS){
 	if(verificarVazio($_POSTDADOS['FILTROS']['vICLISEQUENCIAL']))
 		$where .= 'AND C.CLISEQUENCIAL = ? ';
 	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLINOME']))
-		$where .= 'AND C.CLINOME LIKE ? ';
+		$where .= 'AND (C.CLIRAZAOSOCIAL LIKE ? OR C.CLINOMEFANTASIA LIKE ?) ';
 	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLICNPJ']))
 		$where .= 'AND C.CLICNPJ = ? ';
 	
 	$sql = "SELECT
-				C.CLICODIGO, C.CLISEQUENCIAL, C.CLINOME, C.CLICNPJ, C.CLIDATA_INC, C.CLIDATA_ALT, C.CLISTATUS,
-				U.USUNOME AS REPRESENTANTE, T.TABDESCRICAO AS POSICAO
+				C.CLICODIGO, C.CLISEQUENCIAL, C.CLINOMEFANTASIA, C.CLIRAZAOSOCIAL,
+				CONCAT(
+					(CASE WHEN C.CLITIPOCLIENTE = 'J' THEN
+					C.CLICNPJ
+					ELSE
+					C.CLICPF
+					END)
+					) as CNPJCPF,
+				C.CLIDATA_INC, C.CLIDATA_ALT, C.CLISTATUS
 			FROM
-				CLIENTES C
-			LEFT JOIN USUARIOS U ON U.USUCODIGO = C.CLIRESPONSAVEL
-			LEFT JOIN TABELAS T ON T.TABCODIGO = C.CLIPOSICAO
+				CLIENTES C						
 			WHERE
 				1 = 1
 			".	$where	."
-			LIMIT 250	";
+			LIMIT 250	";	
 	$arrayQuery = array(
 					'query' => $sql,
 					'parametros' => array()
@@ -89,6 +100,7 @@ function listClientes($_POSTDADOS){
 	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLINOME'])){
 		$pesquisa = $_POSTDADOS['FILTROS']['vSCLINOME'];
 		$arrayQuery['parametros'][] = array("%$pesquisa%", PDO::PARAM_STR);
+		$arrayQuery['parametros'][] = array("%$pesquisa%", PDO::PARAM_STR);
 	}
 	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLICNPJ'])){
 		$arrayQuery['parametros'][] = array($_POSTDADOS['FILTROS']['vSCLICNPJ'], PDO::PARAM_STR);
@@ -99,41 +111,61 @@ function listClientes($_POSTDADOS){
 
 }
 
-function insertUpdateClientes($_POSTDADOS, $pSMsg = 'N'){
+function insertUpdateClientes($_POSTCLI, $pSMsg = 'N'){
+	if ($_POSTCLI['vSCLITIPOCLIENTE'] == 'F'){
+		$_POSTCLI['vSCLIRAZAOSOCIAL'] = $_POSTCLI['vHCLINOME'];
+		$_POSTCLI['vSCLINOMEFANTASIA'] = $_POSTCLI['vHCLINOME'];	
+	}
 	$dadosBanco = array(
 		'tabela'  => 'CLIENTES',
 		'prefixo' => 'CLI',
-		'fields'  => $_POSTDADOS,
+		'fields'  => $_POSTCLI,
 		'msg'     => $pSMsg,
 		'url'     => '',
 		'debug'   => 'N'
-		);
+		);	
 	$id = insertUpdate($dadosBanco);
 
 	//incluir endereços
 	include_once 'transactionEnderecos.php';
-	$_POSTDADOS['vICLICODIGO'] = $id;
-	//INPI
-	$_POSTDADOS['vHTABCODIGO'] = 426;
-	insertUpdateEnderecos($_POSTDADOS, 'N');
-	//Correspondencia
-	$_POSTDADOS['vHTABCODIGO'] = 475;
-	insertUpdateEnderecos($_POSTDADOS, 'N');
-	//Cobrança
-	$_POSTDADOS['vHTABCODIGO'] = 427;
-	insertUpdateEnderecos($_POSTDADOS, 'N');
+	$_POSTCLI['vICLICODIGO'] = $id;
+	//Principal
+	$_POSTCLI['vHTABCODIGO'] = 426;
+	insertUpdateEnderecos($_POSTCLI, 'N');
 
 	//incluir contatos
 	include_once 'transactionContatos.php';
-	//INPI
-	$_POSTDADOS['vHTABCODIGO'] = 26933;
-	insertUpdateContatos($_POSTDADOS, 'N');
-	//Correspondencia
-	$_POSTDADOS['vHTABCODIGO'] = 26936;
-	insertUpdateContatos($_POSTDADOS, 'N');
-	//Cobrança
-	$_POSTDADOS['vHTABCODIGO'] = 26934;
-	insertUpdateContatos($_POSTDADOS, 'N');
+	//Principal
+	$_POSTCLI['vHTABCODIGO'] = 26933;
+	insertUpdateContatos($_POSTCLI, 'N');
+	
+	// tipo parceiro
+	if ($_POSTCLI['vHTIPOPARCEIRO']) {
+		foreach ($_POSTCLI['vHTIPOPARCEIRO'] as $result){
+			if(testaNoBanco($result, $id) == 0){
+				$dadosPreMoldados = array(
+					'vICLICODIGO'   => $id,
+					'vITABCODIGO'   => $result
+				);
+				insertUpdateClientexTipoParceiro($dadosPreMoldados, 'N');
+			}
+		}
+		foreach (buscaClientexTipoParceiro($id) as $dadosCad){
+			if (in_array($dadosCad['TABCODIGO'], $_POSTCLI['vHTIPOPARCEIRO'])) {
+
+			}else{
+				$config_excluir = array(
+					"tabela" => Encriptar("CLIENTESXTIPOPARCEIRO", 'crud'),
+					"prefixo" => "CXT",
+					"status" => "N",
+					"ids" =>$dadosCad['CXTCODIGO'],
+					"mensagem" => "N"
+				);
+				excluirAtivarRegistros($config_excluir);
+			}
+		}
+	}
+
 	return $id;
 }
 
@@ -151,3 +183,57 @@ function fill_Clientes($pOid, $formatoRetorno = 'array' ){
 	return $registro !== null ? $registro : "N";
 }
 
+function buscaClientexTipoParceiro($vICLICODIGO){
+	$sql = "SELECT
+			 TABCODIGO, CXTCODIGO
+			FROM
+			 	CLIENTESXTIPOPARCEIRO
+			WHERE
+				CLICODIGO = ?
+			AND
+				CXTSTATUS = 'S' ";
+	$arrayQuery = array(
+					'query' => $sql,
+					'parametros' => array(
+						array($vICLICODIGO, PDO::PARAM_INT)
+					)
+				);
+	$list = consultaComposta($arrayQuery);
+	return	$list['dados'];
+}
+
+function testaNoBanco($idEmp,$idPreMold){
+	$sql = "SELECT
+			 *
+			FROM
+			 	CLIENTESXTIPOPARCEIRO
+			WHERE
+				CLICODIGO = ?
+			AND
+				TABCODIGO = ?
+			AND
+				CXTSTATUS = 'S' ";
+	$arrayQuery = array(
+					'query' => $sql,
+					'parametros' => array(
+						array($idEmp, PDO::PARAM_INT),
+						array($idPreMold, PDO::PARAM_INT)
+					)
+				);
+	$list = consultaComposta($arrayQuery);
+	return	$list['quantidadeRegistros'];
+}
+
+
+function insertUpdateClientexTipoParceiro($_POSTDADOS, $pSMsg = 'N'){
+	$dadosBanco = array(
+		'tabela'  => 'CLIENTESXTIPOPARCEIRO',
+		'prefixo' => 'CXT',
+		'fields'  => $_POSTDADOS,
+		'msg'     => $pSMsg,
+		'url'     => '',
+		'debug'   => 'N'
+	);
+	$id = insertUpdate($dadosBanco);
+	return $id;
+}

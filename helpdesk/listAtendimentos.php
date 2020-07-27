@@ -1,8 +1,9 @@
 <?php
 include_once __DIR__.'/../twcore/teraware/php/constantes.php';
-$vAConfiguracaoTela = configuracoes_menu_acesso(6);
+$vAConfiguracaoTela = configuracoes_menu_acesso(545);
 include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
 include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
+include_once __DIR__.'/combos/comboPosicoesPadroes.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -32,25 +33,75 @@ include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
 
                 <div class="container-fluid">
                     <?php include_once '../includes/breadcrumb.php' ?>
-
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-
-									<?php
-									$vAConfiguracaoTela['FILTROS'] = $_POST;
-									$vAConfiguracaoTela['BTN_FILTROS'] = 'S';
-									$vAConfig['vATitulos'] = array('Razão Social', 'Nome Fantasia', 'CPF/CNPJ', 'Data Inclusão', 'Status');
-									$vAConfig['vACampos'] = array('CLIRAZAOSOCIAL', 'CLINOMEFANTASIA', 'CNPJCPF', 'CLIDATA_INC', 'CLISTATUS');
-									$vAConfig['vATipos'] = array('varchar', 'varchar', 'varchar', 'datetime', 'simNao');
-									include_once __DIR__.'/../twcore/teraware/componentes/gridPadrao.php'; ?>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+					
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-body">
+									
+									<a href="cadAtendimentos.php?method=insert" id="btnIncluir">
+									<button class="btn btn-primary px-4 btn-rounded float-left mt-0 mb-3">+ Novo Registro</button>
+									</a>
+									<button type="button" class="btn btn-primary waves-effect waves-light float-right" data-toggle="modal" data-animation="bounce" data-target=".bs-example-modal-center">+ Filtros</button>
+									<div class="table-responsive dash-social" style="overflow:auto">
+									<table id="datatable-buttons" class="table table-striped table-bordered dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+										<thead>
+											<tr>											
+												<th>Número</th>
+												<th>Posição Atual</th>                    
+												<th>Categoria</th>
+												<th>Prioridade</th>
+												<th>Cliente</th>
+												<th>Produto/Serviço</th>
+												<th>Assunto</th>
+												<th>Atendente</th>
+												<th>Abertura</th>
+												<th>Tempo Previsto</th>
+												<th>Conclusão</th>
+												<th>Ações</th>					
+											</tr>
+										</thead> 
+										<tbody>
+										<?php          
+																					
+											$_POST['vSStatusFiltro'] = 'S';
+											//$_POST['vSPosicaoFiltro'] = '1';		 		
+											$_POST['vSPosicao'] = 'ABERTO';			
+											$result = listAtendimentos($_POST);
+											$vITotalRegistros =  $result['quantidadeRegistros'];
+											foreach ($result['dados'] as $result1) :
+												$i++; ?>
+												<tr> 													
+													<td align="left"><?= adicionarCaracterLeft($result1['ATESEQUENCIAL'], 5);?></td>
+													<td align="left">
+														<div class="marcadorCelulaGrid" style="border-left:8px solid <?php echo '#'.$result1['POSICAO_COR'];?>;">
+															<?php echo $result1["POSICAO_ATUAL"]; ?>
+														</div>
+													</td>	 
+													<td align="left"><?= $result1['CATEGORIA'];?></td>
+													<td align="left"><?= $result1['PRIORIDADE_NOME'];?></td>
+													<td align="left"><?= $result1['CLINOMEFANTASIA'];?></td>
+													<td align="left"><?= $result1['PRODUTO'];?></td>
+													<td align="left"><?= $result1['ATEASSUNTO'];?></td>
+													<td align="left"><?= $result1['ATENDENTE'];?></td>
+													<td align="center"><?= formatar_data_hora($result1['ATEDATA_INC']);?></td>
+													<td align="center"><?= formatar_data_hora($result1['ATEDATA_INC']);?></td>
+													<td align="center"><?= formatar_data_hora($result1['ATEDATACONCLUSAO']);?></td>
+													<td align="center">
+														<a href="cadAtendimentos.php?oid=<?= $result1['ATECODIGO'];?>&method=update" class="mr-2" title="Editar Registro" alt="Editar Registro"><i class="fas fa-edit text-info font-16"></i></a>
+														<a href="#" onclick="excluirRegistroGrid('<?= $result1['ATECODIGO'];?>', '<?= $vAConfiguracaoTela['MENARQUIVOTRAN'];?>', 'excluirPadrao', '<?= $vAConfiguracaoTela['MENCODIGO'];?>')" title="Excluir Registro" alt="Excluir Registro"><i class="fas fa-trash-alt text-danger font-16"></i></a>
+													</td>						
+												</tr>
+											<?php endforeach;  ?>
+										</tbody>	
+									</table>
+									</div>
+								</div>
+								<tr>							  
+							</div>
+						</div> <!-- end col -->
+					</div> <!-- end row -->
+					
                 </div>
             </div>
 
@@ -68,6 +119,10 @@ include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
 					<div class="modal-body">
 					<form class="form-parsley" action="#" method="post" name="formPesquisar" id="formPesquisar">
 						<div class="form-group row">
+							<div class="col-md-6">                                                      
+								<label>Sigla</label>
+								<input class="form-control classnumerico" name="vICLISEQUENCIAL" id="vICLISEQUENCIAL" type="text" value="" title="SIGLA" >
+							</div> 
 							<div class="col-md-6">                                                      
 								<label>Nome Cliente</label>
 								<input class="form-control" name="vSCLINOME" id="vSCLINOME" type="text" value="" title="NOME CLIENTE" >
@@ -101,11 +156,11 @@ include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
 						</div>
 						<div class="form-group row">
 							<div class="col-md-6">
-								<label>Status</label>
-								<select name="vSStatusFiltro" id="vSStatusFiltro" class="custom-select" title="Status">
+								<label>Posição</label>
+								<select name="vSPosicaoFiltro" id="vSPosicaoFiltro" class="custom-select" title="Posição">
 									<option value="">  -------------  </option>
-									<?php foreach (comboTabelas('PARCEIROS - POSICAO') as $tabelas): ?>                                                            
-										<option value="<?php echo $tabelas['TABCODIGO']; ?>" ><?php echo $tabelas['TABDESCRICAO']; ?></option>
+									<?php foreach (comboPosicoesPadroes() as $tabelas): ?>                                                            
+										<option value="<?php echo $tabelas['POPCODIGO']; ?>"><?php echo $tabelas['POPNOME']; ?></option>
 									<?php endforeach; ?>
 								</select>
 							</div>

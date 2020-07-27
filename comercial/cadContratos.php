@@ -3,155 +3,237 @@ include_once __DIR__.'/../twcore/teraware/php/constantes.php';
 $vAConfiguracaoTela = configuracoes_menu_acesso(1949);
 include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
 include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
+include_once __DIR__.'/../cadastro/combos/comboProdutosxServicos.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
         <?php include_once '../includes/scripts_header.php' ?>
 
-		<!-- App css -->
+        <link href="../assets/plugins/dropify/css/dropify.min.css" rel="stylesheet">
+        <link href="../assets/plugins/filter/magnific-popup.css" rel="stylesheet" type="text/css" />
+
+        <!-- App css -->
         <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="../assets/css/icons.css" rel="stylesheet" type="text/css" />
         <link href="../assets/css/metisMenu.min.css" rel="stylesheet" type="text/css" />
         <link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
-		<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+		<link href="../assets/plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />
+		 
     </head>
-    <?php if ($vIOid > 0){ ?>
-    <body onload="exibirClientexConsultor('vICTRVENDEDOR', '<?= $vROBJETO['CLICODIGO']; ?>', '', '');">
-	<?php } else { ?>
 	<body>
-	<?php } ?>
-	
-	<?php include_once '../includes/menu.php' ?>
 
-			<div class="page-wrapper">
+        <?php include_once '../includes/menu.php' ?>
 
+        <div class="page-wrapper">
+
+            <!-- Page Content-->
             <div class="page-content">
 
                 <div class="container-fluid">
 
                     <?php include_once '../includes/breadcrumb.php' ?>
 
-                    <div class="row">
-                        <div class="col-lg-12 mx-auto">
+					<div class="row">
+                         <div class="col-lg-12 mx-auto">
                             <div class="card">
                                 <div class="card-body">
-                                    <form class="form-parsley" action="#" method="post" name="form<?= $vAConfiguracaoTela['MENTITULOFUNC'];?>" id="form<?= $vAConfiguracaoTela['MENTITULOFUNC'];?>">
 
-										<input type="hidden" name="vI<?= $vAConfiguracaoTela['MENPREFIXO'];?>CODIGO" id="vI<?= $vAConfiguracaoTela['MENPREFIXO'];?>CODIGO" value="<?= $vIOid; ?>"/>
+                                    <form class="form-parsley" action="#" method="post" name="form<?= $vAConfiguracaoTela['MENTITULOFUNC'];?>" id="form<?= $vAConfiguracaoTela['MENTITULOFUNC'];?>" enctype="multipart/form-data">
+                                        <input type="hidden" name="vI<?= $vAConfiguracaoTela['MENPREFIXO'];?>CODIGO" id="vI<?= $vAConfiguracaoTela['MENPREFIXO'];?>CODIGO" value="<?php echo $vIOid; ?>"/>
 										<input type="hidden" name="methodPOST" id="methodPOST" value="<?php if(isset($_GET['method'])){ echo $_GET['method']; }else{ echo "insert";} ?>"/>
 										<input type="hidden" name="vHTABELA" id="vHTABELA" value="<?= $vAConfiguracaoTela['MENTABELABANCO'] ?>"/>
 										<input type="hidden" name="vHPREFIXO" id="vHPREFIXO" value="<?= $vAConfiguracaoTela['MENPREFIXO']; ?>"/>
 										<input type="hidden" name="vHURL" id="vHURL" value="<?= $vAConfiguracaoTela['MENARQUIVOCAD']; ?>"/>
-										<div class="form-group row">
-											<div class="col-md-5">                                                      
-												<label>Sigla - Cliente
-													<small class="text-danger font-13">*</small>
-												</label>												
-												<input title="Sigla - Cliente" type="text" name="vHCLIENTE" id="vHCLIENTE" class="form-control obrigatorio autocomplete" data-hidden="#vICLICODIGO" value="<?php echo $vROBJETO['CLIENTE']; ?>" onblur="validarCliente();"/>
-												<span id="aviso-cliente" style="color: red;font-size: 11px; display: none;">O Cliente não foi selecionado corretamente!</span>
-												<input type="hidden" name="vICLICODIGO" id="vICLICODIGO" value="<?php if(isset($vIOid)) echo $vROBJETO['CLICODIGO']; ?>"/>
-											</div>
-											<div class="col-md-1 btnLimparCliente">
-												<br/>				  
-												<button type="button" class="btn btn-danger waves-effect" onclick="removerCliente();">Limpar</button><br>
-											</div>		
-											<div class="col-md-6">
-												<div id="divConsultor"></div>
-											</div> 	
-										</div>	
-										<div class="form-group row">	
-											<div class="col-md-4">
-												<label>Tipo Lançamento
-													<small class="text-danger font-13">*</small>
-												</label>
-												<select name="vICTRTIPOCONTRATO" id="vICTRTIPOCONTRATO" class="custom-select obrigatorio" title="Tipo Lançamento">
-													<option value="">  -------------  </option>
-													<?php foreach (comboTabelas('CONTAS A RECEBER - CENTRO DE CUSTO') as $tabelas): ?>                                                            
-														<option value="<?php echo $tabelas['TABCODIGO']; ?>" <?php if ($vROBJETO['CTRTIPOCONTRATO'] == $tabelas['TABCODIGO']) echo "selected='selected'"; ?>><?php echo $tabelas['TABDESCRICAO']; ?></option>
-													<?php endforeach; ?>
-												</select>
-											</div>
-											<div class="col-md-2">
-												<label>Dia Vencimento</label>
-												<input type="text" class="form-control classnumerico" name="vICTRDIAFATURAMENTO" id="vICTRDIAFATURAMENTO" maxlength="10" title="Dia Vencimento" value="<?= $vROBJETO['CTRDIAFATURAMENTO']; ?>"/>
-											</div>											
-										</div>	
-										<div class="form-group row">	
-											<div class="col-md-2">
-												<label>Data Início
-													<small class="text-danger font-13">*</small>
-												</label>
-												<input class="form-control obrigatorio" title="Data Assinatura" name="vDCTRDATAAINICIO" id="vDCTRDATAAINICIO" value="<?= $vROBJETO['CTRDATAAINICIO'];  ?>" type="date" >
-											</div>
-											<div class="col-md-2">
-												<label>Data Término
-													<small class="text-danger font-13">*</small>
-												</label>
-												<input class="form-control obrigatorio" title="Data Assinatura" name="vDCTRDATATERMINO" id="vDCTRDATATERMINO" value="<?= $vROBJETO['CTRDATATERMINO'];  ?>" type="date" >
-											</div>
-											<div class="col-md-2">
-												<label>Parcelas</label>
-												<input type="text" class="form-control classnumerico" name="vICTRPRAZO" id="vICTRPRAZO" maxlength="10" title="Dia Vencimento" value="<?= $vROBJETO['CTRPRAZO']; ?>"/>
-											</div>
-										</div>
-										<div class="form-group row">	
-											<div class="col-md-4">
-												<label>Valor das Parcelas</label>
-												<input type="text" class="form-control classmonetario" name="vMCTRVALORPARCELA" id="vMCTRVALORPARCELA" maxlength="10" title="Valor das Parcelas" value="<?= formatar_moeda($vROBJETO['CTRVALORPARCELA'], false); ?>"/>
-											</div>											
-										</div>
-										<div class="form-group row">
-											<div class="col-md-12">
-												<label>Observações</label>
-												<textarea class="form-control" id="vSCTRDESCRICAO" name="vSCTRDESCRICAO" rows="3"><?= $vROBJETO['CTRDESCRICAO']; ?></textarea>
+										
+                                    <!-- Nav tabs -->
+                                    <ul  class="nav nav-tabs" role="tablist">
+                                        <li class="nav-item waves-effect waves-light">
+                                            <a class="nav-link active" data-toggle="tab" href="#home-1" role="tab">Dados Gerais</a>
+                                        </li>
+										<?php if($vIOid > 0){ ?>
+										<li class="nav-item waves-effect waves-light">
+                                            <a class="nav-link" data-toggle="tab" href="#ged-1" role="tab" onclick="gerarGridJSONGED('../../utilitarios/transaction/transactionGED.php', 'div_ged', 'GED', '<?= $vIOid;?>');">Digitalizações/Arquivos</a>
+                                        </li>
+										<li class="nav-item waves-effect waves-light">
+                                            <a class="nav-link" data-toggle="tab" href="#faturamento" role="tab" onclick="gerarGridJSON('transactionClientesxFaturamento.php', 'div_faturamento', 'ClientesxFaturamento', '<?= $vIOid;?>');">Faturamento</a>
+                                        </li>
+                                        <?php } ?>                                        
+                                    </ul>
+                                    <!-- Nav tabs end -->
+
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+                                        <!-- Aba Dados Gerais -->
+                                        <div class="tab-pane active p-3" id="home-1" role="tabpanel">	
+											<div class="form-group row">
+												<div class="col-md-5">                                                      
+													<label>Cliente
+														<small class="text-danger font-13">*</small>
+													</label>												
+													<input title="Cliente" type="text" name="vHCLIENTE" id="vHCLIENTE" class="form-control obrigatorio autocomplete" data-hidden="#vICLICODIGO" value="<?php echo $vROBJETO['CLIENTE']; ?>" onblur="validarCliente();"/>
+													<span id="aviso-cliente" style="color: red;font-size: 11px; display: none;">O Cliente não foi selecionado corretamente!</span>
+													<input type="hidden" name="vICLICODIGO" id="vICLICODIGO" value="<?php if(isset($vIOid)) echo $vROBJETO['CLICODIGO']; ?>"/>
+												</div>
+												<div class="col-md-1 btnLimparCliente">
+													<br/>				  
+													<button type="button" class="btn btn-danger waves-effect" onclick="removerCliente();">Limpar</button><br>
+												</div>		
+												<div class="col-md-6">
+													<div id="divConsultor"></div>
+												</div> 	
 											</div>	
-                                        </div>
-										<div class="form-group row">
-											<div class="col-md-2">
-												<label>Status</label>
-												<select class="form-control" name="vSCTRPOSICAO" id="vSCTRPOSICAO">
-													<option value="S" <?php if ($vSDefaultStatusCad == "S") echo "selected='selected'"; ?>>Em Aberto</option>
-													<option value="N" <?php if ($vSDefaultStatusCad == "N") echo "selected='selected'"; ?>>Cancelado</option>
-												</select>
+											<div class="form-group row">
+												<div class="col-md-2">
+                                                    <label>Data de Início</label>
+                                                    <input class="form-control obrigatorio" title="Data de Início" name="vDCLIDATA_NASCIMENTO" id="vDCLIDATA_NASCIMENTO" value="<?= $vROBJETO['CLIDATA_NASCIMENTO'];  ?>" type="date" >
+                                                </div>
+												<div class="col-md-2">
+                                                    <label>Término da Vigência</label>
+                                                    <input class="form-control obrigatorio" title="Término da Vigência" name="vDCLIDATA_NASCIMENTO" id="vDCLIDATA_NASCIMENTO" value="<?= $vROBJETO['CLIDATA_NASCIMENTO'];  ?>" type="date" >
+                                                </div>
+												<div class="col-md-3">	
+													<label>Mensalidade Inicial
+														<small class="text-danger font-13">*</small>
+													</label>
+													<input class="form-control classmonetario obrigatorio" title="Mensalidade Inicial" name="vMCTPVALORAPAGAR" id="vMCTPVALORAPAGAR" value="<?php if(isset($vIOid)){ echo formatar_moeda($vROBJETO['CTPVALORAPAGAR'], false); }?>" type="text" >
+												</div>
+												<div class="col-md-3">	
+													<label>Mensalidade Atual
+														<small class="text-danger font-13">*</small>
+													</label>
+													<input class="form-control classmonetario obrigatorio" title="Mensalidade Atual" name="vMCTPVALORAPAGAR" id="vMCTPVALORAPAGAR" value="<?php if(isset($vIOid)){ echo formatar_moeda($vROBJETO['CTPVALORAPAGAR'], false); }?>" type="text" >
+												</div>
 											</div>
-											<div class="col-md-2">
-												<label>ID</label>
-												<input type="text" class="form-control" name="vH<?= $vAConfiguracaoTela['MENPREFIXO'];?>" id="vH<?= $vAConfiguracaoTela['MENPREFIXO'];?>CODIGO" title="ID" value="<?= adicionarCaracterLeft($vROBJETO['CTRCODIGO'], 6); ?>" readonly/>												
+											<div class="form-group row">	
+												<div class="col-md-4">   
+													<label>Produto/Serviço
+														<small class="text-danger font-13">*</small>
+													</label>
+													<select name="vHGED" id="vHGED" class="custom-select divObrigatorio" title="Produto/Serviço">
+														<option value="">  -------------  </option>
+														<?php foreach (comboProdutosxServicos() as $tabelas): ?>                                                            
+															<option value="<?php echo $tabelas['PXSCODIGO']; ?>" ><?php echo $tabelas['PXSNOME']; ?></option>
+														<?php endforeach; ?>
+													</select>                                                    
+												</div>
+												<div class="col-md-3">
+													<label>Situação
+														<small class="text-danger font-13">*</small>
+													</label>
+													<select title="Situação" id="vSCLITIPOCLIENTE" class="custom-select obrigatorio" name="vSCLITIPOCLIENTE" onchange="mostrarJxF(this.value);">
+														<option value="J" <?php if ($vROBJETO['CLITIPOCLIENTE'] == 'J') echo "selected='selected'"; ?>>Ativo</option>
+														<option value="F" <?php if ($vROBJETO['CLITIPOCLIENTE'] == 'F') echo "selected='selected'"; ?>>Inativo</option>
+														<option value="F" <?php if ($vROBJETO['CLITIPOCLIENTE'] == 'F') echo "selected='selected'"; ?>>Encerrado</option>
+														<option value="F" <?php if ($vROBJETO['CLITIPOCLIENTE'] == 'F') echo "selected='selected'"; ?>>Observações</option>	
+													</select>
+												</div>												
+											</div>	
+											<div class="form-group row">
+												<div class="col-md-12">                                                      
+													<label>Observações
+														<small class="text-danger font-13">*</small>
+													</label>
+													<textarea class="form-control" id="vSPXADESCRICAO" name="vSPXADESCRICAO" title="Descrição"><?= nl2br($vROBJETO['PXADESCRICAO']); ?></textarea>
+												</div>
 											</div>
-											<div class="col-md-2">
-												<label>Data Lançamento/Inclusão</label>
-												<input class="form-control" title="Lançamento/Inclusão" name="vDCTRDATA_INC" id="vDCTRDATA_INC" value="<?= formatar_data_hora($vROBJETO['CTRDATA_INC']); ?>" type="text" readonly>
+																						                                            
+										</div>
+                                    													
+										<!-- Aba Dados GED -->
+										<div class="tab-pane p-3" id="ged-1" role="tabpanel">
+											<div id="modal_div_ClientesxGED">
+												<div class="form-group row">                                                												
+													<div class="col-md-4">   
+														<label>Tipo Arquivo
+															<small class="text-danger font-13">*</small>
+														</label>
+														<select name="vHGED" id="vHGED" class="custom-select divObrigatorio" title="Tipo Arquivo">
+															<option value="">  -------------  </option>
+															<?php foreach (comboTabelas('GED - TIPO') as $tabelas): ?>                                                            
+																<option value="<?php echo $tabelas['TABCODIGO']; ?>" ><?php echo $tabelas['TABDESCRICAO']; ?></option>
+															<?php endforeach; ?>
+														</select>                                                    
+													</div>
+													<div class="file-field col-md-4">
+														<label>Escolher Arquivo
+															<small class="text-danger font-13">*</small>
+														</label>
+														<input type="file" id="fileUpload" name="fileUpload">
+												   </div>
+												   <div class="col-md-4">
+														<br/>				  
+														<button type="button" id="btnEnviar" class="btn btn-secondary waves-effect">Salvar Documentos</button><br>
+													</div>
+												</div>	
+											</div>	
+											<div class="form-group row">
+												<div id="div_ged" class="table-responsive"></div>
+											</div>
+										</div>																									
+										<div class="tab-pane p-3" id="faturamento" role="tabpanel">
+											<div class="form-group row">
+												<div id="div_faturamento" class="table-responsive"></div>
 											</div>
 										</div>
+										
+										<div class="tab-pane p-3" id="contratos" role="tabpanel">
+											<div class="form-group row">
+												<div id="div_contratos" class="table-responsive"></div>
+											</div>
+										</div>
+										
+										<div class="tab-pane p-3" id="oportunidades" role="tabpanel">
+											<div class="form-group row">
+												<div id="div_oportunidades" class="table-responsive"></div>
+											</div>
+										</div>
+                                      
 										<div class="form-group">
-											<label class="form-check-label is-invalid" for="invalidCheck3" style="color: red">
-												Campos em vermelho são de preenchimento obrigatório!
+											<label class="form-check-label" for="invalidCheck3" style="color: red">
+												Campos em vermelho são de preenchimento obrigatório!<br/>												
 											</label>
 										</div>
 										<?php include('../includes/botoes_cad_novo.php'); ?>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-			</div>
+                                    </div>
+                                    </form><!--end form-->
+                                </div><!--end card-body-->
+                            </div><!--end card-->
+                        </div><!--end col-->
 
-			<?php include_once '../includes/footer.php' ?>
-        </div>
+                    </div><!--end row-->
 
+                </div><!-- container -->
+            </div>			
+						
+			
+            <!-- end page content -->
+            <?php include_once '../includes/footer.php' ?>
+        </div>        		
+		
         <!-- jQuery  -->
         <script src="../assets/js/jquery.min.js"></script>
         <script src="../assets/js/bootstrap.bundle.min.js"></script>
         <script src="../assets/js/metisMenu.min.js"></script>
         <script src="../assets/js/waves.min.js"></script>
-        <script src="../assets/js/jquery.slimscroll.min.js"></script>		
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
 
-		<?php include_once '../includes/scripts_footer.php' ?>
+        <!-- Sweet-Alert  -->
+        <script src="../assets/plugins/sweet-alert2/sweetalert2.min.js"></script>
+        <script src="../assets/pages/jquery.sweet-alert.init.js"></script>
+
+        <script src="../assets/plugins/dropify/js/dropify.min.js"></script>
+        <script src="../assets/pages/jquery.profile.init.js"></script>
+
+        <script src="../assets/plugins/filter/isotope.pkgd.min.js"></script>
+        <script src="../assets/plugins/filter/masonry.pkgd.min.js"></script>
+        <script src="../assets/plugins/filter/jquery.magnific-popup.min.js"></script>
+        <script src="../assets/pages/jquery.gallery.inity.js"></script>
+		<script src="../assets/pages/jquery.form-upload.init.js"></script>
+		<script src="../assets/plugins/select2/select2.min.js"></script>
 		
-		<script src="../assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+        <?php include_once '../includes/scripts_footer.php' ?>
+        <!-- Cad Empresa js -->
 		<script src="js/cadContratos.js"></script>
-
     </body>
 </html>

@@ -87,14 +87,8 @@
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1989]['CONSULTA'] == "S") { ?>
 							<li><a href="../cadastro/listDocumentosPadroes.php"><i class="mdi mdi-account-group"></i>Documentos Padrões</a></li>	
 							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1956]['CONSULTA'] == "S") { ?>
-							<li><a href="../cadastro/listEtiquetas.php"><i class="mdi mdi-sticker"></i>Etiquetas</a></li>
-							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1943]['CONSULTA'] == "S") { ?>
 							<li><a href="../cadastro/listCidades.php"><i class="mdi mdi-office-building"></i>Cidades</a></li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1987]['CONSULTA'] == "S") { ?>
-							<li><a href="../cadastro/listFavorecidos.php"><i class="mdi mdi-account-group"></i>Favorecidos</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1957]['CONSULTA'] == "S") { ?>
 							<li><a href="../cadastro/listProdutosxServicos.php"><i class="mdi mdi-file-search-outline"></i>Produtos/Serviços</a></li>	
@@ -107,38 +101,7 @@
 							<?php } ?>
 						</ul><!--end submenu-->
 						<?php } ?>
-					</li><!--end has-submenu-->										
-					<li class="has-submenu">
-						<a href="#">
-								<svg class="nav-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-								    <g>
-										<g>
-											<path d="M276,68.1v219c0,3.7-2.5,6.8-6,7.7L81.1,343.4c-2.3,0.6-3.6,3.1-2.7,5.4C109.1,426,184.9,480.6,273.2,480
-												C387.8,479.3,480,386.5,480,272c0-112.1-88.6-203.5-199.8-207.8C277.9,64.1,276,65.9,276,68.1z"/>
-										</g>
-											<path class="svg-primary" d="M32,239.3c0,0,0.2,48.8,15.2,81.1c0.8,1.8,2.8,2.7,4.6,2.2l193.8-49.7c3.5-0.9,6.4-4.6,6.4-8.2V36c0-2.2-1.8-4-4-4
-											C91,33.9,32,149,32,239.3z"/>
-                                    </g>
-								</svg>
-							<span>CRM</span>
-						</a>
-						<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1973]['CONSULTA'] == "S") { ?>
-						<ul class="submenu">
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1956]['CONSULTA'] == "S") { ?>
-							<li><a href="../crm/listTriagem.php"><i class="mdi mdi-magnify"></i>Triagem</a></li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1982]['CONSULTA'] == "S") { ?>
-							<li><a href="../crm/listPosicoesCRM.php"><i class="mdi mdi-checkbox-multiple-marked-outline"></i>Posições</a></li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1962]['CONSULTA'] == "S") { ?>
-							<li><a href="../crm/listProspeccao.php"><i class="mdi mdi-lightbulb-on-outline"></i>Oportunidades</a></li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1954]['CONSULTA'] == "S") { ?>
-							<li><a href="../crm/listDashBoard.php"><i class="mdi mdi-calendar-check-outline"></i>Dashboard</a></li>
-							<?php } ?>
-						</ul><!--end submenu-->
-						<?php } ?>
-					</li><!--end has-submenu-->										
+					</li><!--end has-submenu-->																						
 					<li class="has-submenu">
 						<a href="#">
 								<svg class="nav-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -147,234 +110,41 @@
 							<span>Comercial</span>
 						</a>
 						<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1991]['CONSULTA'] == "S") { ?>
-						<ul class="submenu">
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1887]['CONSULTA'] == "S") { ?>
-							<li><a href="../comercial/listABs.php"><i class="mdi mdi-file-document"></i>ABs</a></li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1886]['CONSULTA'] == "S") { ?>
-							<li><a href="../comercial/listCAs.php"><i class="mdi mdi-file-document-outline"></i>CAs</a></li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1901]['CONSULTA'] == "S") { ?>
-							<li><a href="../comercial/listFolhas.php"><i class="mdi mdi-file-document-box-multiple-outline"></i>Folhas</a></li>
-							<?php } ?>
+						<ul class="submenu">							
+							
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1949]['CONSULTA'] == "S") { ?>
 							<li><a href="../comercial/listContratos.php"><i class="mdi mdi-file-document-box-multiple"></i>Contratos</a></li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1954]['CONSULTA'] == "S") { ?>
-							<li><a href="../comercial/listContratos.php"><i class="mdi mdi-map-search-outline"></i>Mapa de Comissões</a></li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1947]['CONSULTA'] == "S") { ?>
-							<li><a href="../comercial/listNotasFiscais.php"><i class="mdi mdi-receipt"></i>Notas Fiscais</a></li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1954]['CONSULTA'] == "S") { ?>
-							<li><a href="../crm/listProspeccao.php"><i class="mdi mdi-map-marker-radius"></i>Prospecção</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1954]['CONSULTA'] == "S") { ?>
 							<li><a href="../comercial/listDashBoard.php"><i class="mdi mdi-monitor-dashboard"></i>Dashboard</a></li>
 							<?php } ?>
 						</ul><!--end submenu-->
 						<?php } ?>
-					</li><!--end has-submenu-->										
+					</li><!--end has-submenu-->																															
+												
 					<li class="has-submenu">
 						<a href="#">
 								<svg class="nav-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
 									<path d="M467.3 168.1c-1.8 0-3.5.3-5.1 1l-177.6 92.1h-.1c-7.6 4.7-12.5 12.5-12.5 21.4v185.9c0 6.4 5.6 11.5 12.7 11.5 2.2 0 4.3-.5 6.1-1.4.2-.1.4-.2.5-.3L466 385.6l.3-.1c8.2-4.5 13.7-12.7 13.7-22.1V179.6c0-6.4-5.7-11.5-12.7-11.5zM454.3 118.5L272.6 36.8S261.9 32 256 32c-5.9 0-16.5 4.8-16.5 4.8L57.6 118.5s-8 3.3-8 9.5c0 6.6 8.3 11.5 8.3 11.5l185.5 97.8c3.8 1.7 8.1 2.6 12.6 2.6 4.6 0 8.9-1 12.7-2.7l185.4-97.9s7.5-4 7.5-11.5c.1-6.3-7.3-9.3-7.3-9.3zM227.5 261.2L49.8 169c-1.5-.6-3.3-1-5.1-1-7 0-12.7 5.1-12.7 11.5v183.8c0 9.4 5.5 17.6 13.7 22.1l.2.1 174.7 92.7c1.9 1.1 4.2 1.7 6.6 1.7 7 0 12.7-5.2 12.7-11.5V282.6c.1-8.9-4.9-16.8-12.4-21.4z"></path>
 								</svg>
-							<span>Estoque/Suprimentos</span>
+							<span>Helpdesk</span>
 						</a>
-						<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1990]['CONSULTA'] == "S") { ?>
-						<ul class="submenu">
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1974]['CONSULTA'] == "S") { ?>
-							<li><a href="../estoque/listHistoricoxEstoque.php"><i class="mdi mdi-calendar-clock"></i>Histórico de Estoque</a></li>
+						<ul class="submenu">							
+							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][109]['CONSULTA'] == "S") { ?>
+							<li><a href="../helpdesk/listAtendimentos.php"><i class="mdi mdi-calendar-clock"></i>Atendimentos</a></li>
 							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1952]['CONSULTA'] == "S") { ?>
-							<li><a href="../estoque/listProdutos.php"><i class="mdi mdi-file-search-outline"></i>Produtos</a></li>
+							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][109]['CONSULTA'] == "S") { ?>
+							<li><a href="../helpdesk/listPosicoesPadroes.php"><i class="mdi mdi-file-search-outline"></i>Posições Padrões</a></li> 
 							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1986]['CONSULTA'] == "S") { ?>
-							<li><a href="../estoque/listSolicitacaoCompra.php"><i class="mdi mdi-arrow-down-bold-box-outline"></i>Solitação de Compras</a></li>
+							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][109]['CONSULTA'] == "S") { ?>
+							<li><a href="../helpdesk/listPrioridades.php"><i class="mdi mdi-arrow-down-bold-box-outline"></i>Prioridades</a></li>
 							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1986]['CONSULTA'] == "S") { ?>
-							<li><a href="../estoque/listSolicitacaoSuprimentos.php"><i class="mdi mdi-arrow-down-bold-box-outline"></i>Solitação de Suprimentos</a></li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1954]['CONSULTA'] == "S") { ?>
-							<li><a href="../estoque/listDashBoard.php"><i class="mdi mdi-monitor-dashboard"></i>Dashboard</a></li>
-							<?php } ?>
+							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][109]['CONSULTA'] == "S") { ?>
+							<li><a href="../helpdesk/listDashBoard.php"><i class="mdi mdi-monitor-dashboard"></i>Dashboard</a></li>
+							<?php } ?>							
 						</ul><!--end submenu-->
-						<?php } ?>	
-					</li><!--end has-submenu-->										
-					<li class="has-submenu">
-						<a href="#">
-							<svg class="nav-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-								<path d="M32 96v256h448V96H32zm160.5 224h-80.4c0-26.6-21.5-48.1-48.1-48.1V192c35.3 0 64-28.7 64-64h64.5c-19.9 23.5-32.5 57.8-32.5 96s12.6 72.5 32.5 96zM448 271.9c-26 0-48 21.5-48 48.1h-80.5c19.9-23.5 32.5-57.8 32.5-96s-12.6-72.5-32.5-96H384c0 35.3 28.7 64 64 64v79.9zM32 384h448v32H32z"></path>
-							</svg>
-							<span>Financeiro</span>
-						</a>
-						<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1967]['CONSULTA'] == "S") { ?>
-						<ul class="submenu">
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][4]['CONSULTA'] == "S") { ?>
-							<li><a href="../financeiro/listBancos.php"><i class="mdi mdi-bank"></i>Bancos</a></li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1980]['CONSULTA'] == "S") { ?>
-							<li class="has-submenu">
-								<a href="#"><i class="mdi mdi-cash"></i>Conciliação Bancária</a>
-								<ul class="submenu">
-									<li><a href="../financeiro/cadConciliacaoRemessa.php">Gerar Arquivo Remessa</a></li>
-									<li><a href="../financeiro/cadConciliacaoRetorno.php">Importar Arquivo Retorno</a></li>
-								</ul>
-							</li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1983]['CONSULTA'] == "S") { ?>
-							<li><a href="../financeiro/listContasPagar.php"><i class="mdi mdi-cash-refund"></i>Contas a Pagar</a></li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1971]['CONSULTA'] == "S") { ?>
-							<li><a href="../financeiro/listContasReceber.php"><i class="mdi mdi-cash-multiple"></i>Contas a Receber</a></li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1984]['CONSULTA'] == "S") { ?>
-							<li class="has-submenu">
-								<a href="#"><i class="mdi mdi-cash"></i>Cobranças</a>
-								<ul class="submenu">
-									<li><a href="../financeiro/cadConciliacaoRetorno.php">Cálculo de Juros</a></li>
-									<li><a href="../financeiro/listCobrancas.php">Inadimplentes</a></li>									
-								</ul>
-							</li>							
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1970]['CONSULTA'] == "S") { ?>
-							<li><a href="../financeiro/listContasBancarias.php"><i class="mdi mdi-bank-transfer"></i>Contas Bancárias</a></li>
-							<?php } ?>
-							<li class="has-submenu">
-								<a href="#"><i class="mdi mdi-email-mark-as-unread"></i>Relatórios</a>
-								<ul class="submenu">									
-									<li><a href="../juridico/listProcessoxFases.php">Fases</a></li>
-								</ul>
-                            </li>	
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1954]['CONSULTA'] == "S") { ?>
-							<li><a href="../financeiro/listDashBoard.php"><i class="mdi mdi-monitor-dashboard"></i>Dashboard</a></li>
-							<?php } ?>
-						</ul><!--end submenu-->
-						<?php } ?>	
-					</li><!--end has-submenu-->										
-					<li class="has-submenu">
-						<a href="#">
-							<svg class="nav-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-								<path d="M352 144v-39.6C352 82 334 64 311.6 64H200.4C178 64 160 82 160 104.4V144H48v263.6C48 430 66 448 88.4 448h335.2c22.4 0 40.4-18 40.4-40.4V144H352zm-40 0H200v-40h112v40z"></path>
-							</svg>
-							<span>Jurídico</span>
-						</a>
-						<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1977]['CONSULTA'] == "S") { ?>
-						<ul class="submenu">
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1977]['CONSULTA'] == "S") { ?>
-							<li><a href="../juridico/listProcesso.php"><i class="mdi mdi-progress-check"></i>Processos</a></li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1977]['CONSULTA'] == "S") { ?>
-							<li class="has-submenu">
-								<a href="#"><i class="mdi mdi-email-mark-as-unread"></i>Relatórios</a>
-								<ul class="submenu">									
-									<li><a href="../juridico/listProcessoxFases.php">Fases</a></li>
-								</ul>
-                            </li>																				
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1977]['CONSULTA'] == "S") { ?>
-							<li><a href="../juridico/listDashBoard.php"><i class="mdi mdi-monitor-dashboard"></i>Dashboard</a></li>
-							<?php } ?>
-						</ul><!--end submenu-->
-						<?php } ?>	
-					</li><!--end has-submenu-->										
-					<li class="has-submenu">
-						<a href="#">
-							<svg class="nav-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-								<path d="M405.333 64H106.667C83.198 64 64 83.198 64 106.667v298.666C64 428.802 83.198 448 106.667 448h298.666C428.802 448 448 428.802 448 405.333V106.667C448 83.198 428.802 64 405.333 64zm-192 298.667L106.667 256l29.864-29.864 76.802 76.802 162.136-162.136 29.864 29.865-192 192z"></path>
-							</svg>
-							<span>Processos</span>
-						</a>
-						<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1977]['CONSULTA'] == "S") { ?>
-						<ul class="submenu">
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1945]['CONSULTA'] == "S") { ?>
-							<li><a href="../processos/listGuias.php"><i class="mdi mdi-file-search"></i>Guias</a></li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1981]['CONSULTA'] == "S") { ?>
-							<li><a href="../processos/listAverbacaoContratosINPI.php"><i class="mdi mdi-file-search-outline"></i>Averbação INPI</a></li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1948]['CONSULTA'] == "S") { ?>
-							<li><a href="../processos/listCodigoBarras.php"><i class="mdi mdi-barcode"></i>Código de Barras</a></li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1944]['CONSULTA'] == "S") { ?>
-							<li><a href="../processos/listDireitosAutorais.php"><i class="mdi mdi-copyright"></i>Direito Autorais</a></li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1953]['CONSULTA'] == "S") { ?>
-							<li class="has-submenu">
-								<a href="#"><i class="mdi mdi-bookmark-check"></i>Marcas</a>
-								<ul class="submenu">
-									<li><a href="../processos/listMarcasBrasil.php">Brasil</a></li>
-									<li><a href="../processos/listMarcasExterior.php">Exterior</a></li>
-								</ul>
-                            </li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1963]['CONSULTA'] == "S") { ?>
-							<li class="has-submenu">
-								<a href="#"><i class="mdi mdi-book"></i>Patentes</a>
-								<ul class="submenu">
-									<li><a href="../processos/listPatentesBrasil.php">Brasil</a></li>
-									<li><a href="../processos/listPatentesExterior.php">Exterior</a></li>
-								</ul>
-                            </li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1939]['CONSULTA'] == "S") { ?>
-							<li><a href="../processos/listProdutos.php"><i class="mdi mdi-file-search-outline"></i>Produtos</a></li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1951]['CONSULTA'] == "S") { ?>
-							<li><a href="../processos/listProgramaComputador.php"><i class="mdi mdi-laptop-windows"></i>Programas de Computador</a></li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1954]['CONSULTA'] == "S") { ?>
-							<li class="has-submenu">
-								<a href="#"><i class="mdi mdi-compare"></i>Similares</a>
-								<ul class="submenu">
-									<li><a href="../processos/listPatentesBrasil.php">Marcas</a></li>
-									<li><a href="../processos/listPatentesExterior.php">Patentes</a></li>
-								</ul>
-                            </li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1954]['CONSULTA'] == "S") { ?>
-							<li class="has-submenu">
-								<a href="#"><i class="mdi mdi-book-open-page-variant"></i>Importação Revista</a>
-								<ul class="submenu">
-									<li><a href="../processos/listPatentesBrasil.php">Marcas</a></li>
-									<li><a href="../processos/listPatentesExterior.php">Patentes</a></li>
-									<li><a href="../processos/listPatentesExterior.php">Softwares</a></li>
-									<li><a href="../processos/listPatentesExterior.php">Averbação</a></li>
-								</ul>
-                            </li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1954]['CONSULTA'] == "S") { ?>
-							<li class="has-submenu">
-								<a href="#"><i class="mdi mdi-email-mark-as-unread"></i>Geração de Cartas</a>
-								<ul class="submenu">
-									<li><a href="../processos/listPatentesBrasil.php">Processos</a></li>
-									<li><a href="../processos/listPatentesExterior.php">Similares</a></li>
-									<li><a href="../processos/listPatentesExterior.php">RPI</a></li>
-									<li><a href="../processos/listPatentesExterior.php">Prorrogação</a></li>
-									<li><a href="../processos/listPatentesExterior.php">Prorrogação</a></li>
-								</ul>
-                            </li>
-							<?php } ?>
-							<li class="has-submenu">
-								<a href="#"><i class="mdi mdi-email-mark-as-unread"></i>Tabelas</a>
-								<ul class="submenu">									
-									<li><a href="../processos/listTabelasxClassesxMarcas.php">Classes (Marcas)</a></li>
-									<li><a href="../processos/listTabelasxClassesDePara.php">Classes (De/Para)</a></li>
-									<li><a href="../processos/listTabelasxContadoresProcessos.php">Contadores de Processos</a></li>
-									<li><a href="../processos/listTabelasxDespachosMarcas.php">Despachos Marcas</a></li>
-									<li><a href="../processos/listTabelasxNovosDespachosMarcas.php">Novos Despachos Marcas</a></li>
-									<li><a href="../processos/listTabelasxDespachosPatentes.php">Despachos Patentes</a></li>
-									<li><a href="../processos/listTabelasxDespachosProgComp.php">Despachos Prog. Comp.</a></li>
-									<li><a href="../processos/listTabelasxDespachosAverbContratos.php">Despachos Averb. Contratos</a></li>
-								</ul>
-                            </li>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1954]['CONSULTA'] == "S") { ?>
-							<li><a href="../rh/listDashBoard.php"><i class="mdi mdi-monitor-dashboard"></i>Dashboard</a></li>
-							<?php } ?>
-						</ul>
-						<?php } ?>	
-					</li><!--end has-submenu-->										
+					</li><!--end has-submenu-->
+									
 					<li class="has-submenu">
 						<a href="#">
 							<svg class="nav-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -395,35 +165,9 @@
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][80]['CONSULTA'] == "S") { ?>
 							<li class="has-submenu">
-								<a href="#"><i class="mdi mdi-email-mark-as-unread"></i>Lançamentos</a>
-								<ul class="submenu">
-									<li><a href="../rh/listLancamentosUsuariosxAdiantamentos.php">Adiantamentos</a></li>
-									<li><a href="../rh/listLancamentosUsuariosxFaltas.php">Faltas</a></li>
-									<li><a href="../rh/listLancamentosUsuariosxRecebimentos.php">Folha de Pagamento</a></li>
-									<li><a href="../rh/listLancamentosUsuariosxValesTransporte.php">Vales</a></li>									
-								</ul>
-                            </li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][80]['CONSULTA'] == "S") { ?>
-							<li class="has-submenu">
 								<a href="#"><i class="mdi mdi-email-mark-as-unread"></i>Relatórios</a>
 								<ul class="submenu">									
-									<li><a href="../rh/listUsuariosxContasBancarias.php">Contas Bancárias</a></li>
 									<li><a href="../rh/listUsuariosxDesligamentos.php">Desligamento</a></li>
-									<li><a href="../rh/listUsuariosxDocumentoPendente.php">Documentos Pendentes</a></li>
-									<li><a href="../rh/listUsuariosxEscolaridade.php">Escolaridade</a></li>
-									<li><a href="../rh/listUsuariosxFeedback.php">FeedBack</a></li>
-									<li><a href="../rh/listUsuariosxFerias.php">Férias</a></li>
-									<li><a href="../rh/listUsuariosxRemuneracao.php">Remuneração</a></li>
-									<li><a href="../rh/listUsuariosxValesTransporte.php">Vales Transportes</a></li>
-								</ul>
-                            </li>
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][2002]['CONSULTA'] == "S") { ?>
-							<li class="has-submenu">
-								<a href="#"><i class="mdi mdi-email-mark-as-unread"></i>Vales Transportes</a>
-								<ul class="submenu">
-									<li><a href="../rh/listValesTransporte.php">Configuração</a></li>
 								</ul>
                             </li>
 							<?php } ?>
@@ -455,12 +199,7 @@
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1993]['CONSULTA'] == "S") { ?>
 							<li><a href="../utilitarios/listProtocolos.php"><i class="mdi mdi-calendar-multiselect"></i>Protocolos</a></li>							
-							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1950]['CONSULTA'] == "S") { ?>
-							<li><a href="../utilitarios/listRamais.php"><i class="mdi mdi-phone-log"></i>Ramais</a></li>
-							<!--<li><a href="../utilitarios/listSolicitacaoLigacao.php"><i class="mdi mdi-phone-incoming"></i>Solicitar Ligação</a></li>-->
-							<?php } ?>
-							<li><a href="../utilitarios/cadSolicitacaoSuprimentos.php?method=insert"><i class="mdi mdi-arrow-down-bold-box-outline"></i>Solicitar Suprimentos</a></li>
+							<?php } ?>							
 						</ul>
 					</li><!--end has-submenu-->	
 					<?php if ($_SESSION['SS_USUMASTER'] == 'S') { ?>	

@@ -9,7 +9,7 @@ include_once __DIR__.'/transaction/transactionLogin.php';
         <title><?= vSTituloSite; ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="Teraware Soluções em Software e Internet Ltda"  />
-		<meta name="description" content=".: Marpa - Marcas - Patentes - Inovações :."/>
+		<meta name="description" content=".: Gestão SRV - Sistema de Gestão Empresarial :."/>
 
         <!-- App favicon -->
         <link rel="shortcut icon" href="../assets/images/icon.png">
@@ -38,18 +38,18 @@ include_once __DIR__.'/transaction/transactionLogin.php';
                                 </div><!--end auth-logo-box-->
 
                                 <div class="text-center auth-logo-text">
-                                    <h4 class="mt-0 mb-3 mt-5">M.C. <br/> Sistema de Gestão de Empresarial</h4>
+                                    <h4 class="mt-0 mb-3 mt-5">Sistema de Gestão de Empresarial</h4>
                                 </div> <!--end auth-logo-text-->
 
                                 <form class="form-horizontal auth-form my-4" name="frmLogin" id="frmLogin" action="#" method="post" onsubmit="return validarForm();">
 
                                     <div class="form-group">
-                                        <label for="vSUsuario">Login</label>
+                                        <label for="vSUsuario">Login/E-mail</label>
                                         <div class="input-group mb-3">
                                             <span class="auth-form-icon">
-                                                <i class="dripicons-user"></i>
+                                                <i class="dripicons-mail"></i>
                                             </span>
-                                            <input type="text" class="form-control obrigatorio" title="Login" id="vSUsuario" name="vSUsuario" maxlength="150" placeholder="Digite seu login">
+                                            <input type="text" class="form-control obrigatorio" title="Login/E-mail" id="vSUsuario" name="vSUsuario" maxlength="150" placeholder="Digite seu login/e-mail">
                                         </div>
                                     </div><!--end form-group-->
 
@@ -86,12 +86,8 @@ include_once __DIR__.'/transaction/transactionLogin.php';
                     </div><!--end card-->
                     <div class="row mt-2 px-5">
                         <div class="col-1"></div>
-                        <div class="col-5 text-center">
-							<a href="https://www.grupomarpa.com.br/" class="">
-								<img src="../assets/images/logo-grupo-marpa.png" height="40" alt="logo" class="auth-logo">
-							</a>
-                        </div>
-                        <div class="col-5 text-center">
+
+                        <div class="col-10 text-center">
 							<a href="http://teraware.com.br" class="" target="_blank" title="Teraware - ERP | Sistemas Web | ERP Customizados | Projetos Especiais" alt="Teraware - ERP | Sistemas Web | ERP Customizados | Projetos Especiais">
 								<img src="../assets/images/tw-icone.png" height="35" alt="logo" class="auth-logo">
 							</a>							
