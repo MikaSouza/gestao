@@ -8,8 +8,11 @@
  	//Diretório raiz do sistema
   	define("DIR_ROOT", $_SERVER['DOCUMENT_ROOT'].'/app/');
       
-      //URL do login
- 	define("URL_LOGIN", 'http://app.tweduc.com.br/login.php');
+    //URL do login
+ 	define("URL_LOGIN", 'https://gestao-srv.teraware.net.br/autenticacao/login.php');
+	
+	//URL base
+	define("URL_BASE", 'https://gestao-srv.teraware.net.br/');
   
   	//Constantes Diversas
   	define("vSTituloSite", ".: Gestão SRV - Sistema de Gestão Empresarial :.");

@@ -24,6 +24,7 @@ include_once __DIR__.'/combos/comboEstados.php';
         <link href="../assets/css/metisMenu.min.css" rel="stylesheet" type="text/css" />
         <link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
 		<link href="../assets/plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="../assets/css/stylesUpload.css"/> 
 		 
     </head>
 	<?php if ($vIOid > 0){ ?>
@@ -201,10 +202,10 @@ include_once __DIR__.'/combos/comboEstados.php';
 											<div class="form-group row">
 												<div class="col-md-6">
 													<label>Representante</label>
-													<select name="vICLIREPRESENTANTE" id="vICLIREPRESENTANTE" class="custom-select" title="Representante">
+													<select name="vICLIRESPONSAVEL" id="vICLIRESPONSAVEL" class="custom-select" title="Representante">
 														<option value="">  -------------  </option>
 														<?php foreach (comboUsuarios() as $usuarios): ?>                                                            
-															<option value="<?php echo $usuarios['USUCODIGO']; ?>" <?php if ($vROBJETO['CLIREPRESENTANTE'] == $usuarios['USUCODIGO']) echo "selected='selected'"; ?>><?php echo $usuarios['USUNOME']; ?></option>
+															<option value="<?php echo $usuarios['USUCODIGO']; ?>" <?php if ($vROBJETO['CLIRESPONSAVEL'] == $usuarios['USUCODIGO']) echo "selected='selected'"; ?>><?php echo $usuarios['USUNOME']; ?></option>
 														<?php endforeach; ?>
 													</select>                                                    
 												</div>	
@@ -267,7 +268,7 @@ include_once __DIR__.'/combos/comboEstados.php';
 													<div class="card-header p-0" id="headingOne">
 														<h5 class="my-1">
 															<button class="btn btn-link text-dark" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-															Demais Contatos
+															Demais Contatos/Consulentes
 															</button>
 														</h5>
 													</div>
@@ -364,34 +365,23 @@ include_once __DIR__.'/combos/comboEstados.php';
 										</div>									
 										<!-- Aba Dados GED -->
 										<div class="tab-pane p-3" id="ged-1" role="tabpanel">
-											<div id="modal_div_ClientesxGED">
-												<div class="form-group row">                                                												
-													<div class="col-md-4">   
-														<label>Tipo Arquivo
-															<small class="text-danger font-13">*</small>
-														</label>
-														<select name="vHGED" id="vHGED" class="custom-select divObrigatorio" title="Tipo Arquivo">
-															<option value="">  -------------  </option>
-															<?php foreach (comboTabelas('GED - TIPO') as $tabelas): ?>                                                            
-																<option value="<?php echo $tabelas['TABCODIGO']; ?>" ><?php echo $tabelas['TABDESCRICAO']; ?></option>
-															<?php endforeach; ?>
-														</select>                                                    
+											<div class="form-group">
+												<div class="area-upload">
+													<label for="upload-file" class="label-upload">
+														<i class="fas fa-cloud-upload-alt"></i>
+														<div class="texto">Clique ou arraste o(s) arquivo(s) para esta área <br/>
+														Formatos permitidos (PDF, Word/Doc e Excel)
+														</div>
+													</label>
+													<input type="file" accept="*" id="upload-file" multiple/>
+
+													<div class="lista-uploads">
 													</div>
-													<div class="file-field col-md-4">
-														<label>Escolher Arquivo
-															<small class="text-danger font-13">*</small>
-														</label>
-														<input type="file" id="fileUpload" name="fileUpload">
-												   </div>
-												   <div class="col-md-4">
-														<br/>				  
-														<button type="button" id="btnEnviar" class="btn btn-secondary waves-effect">Salvar Documentos</button><br>
-													</div>
-												</div>	
-											</div>	
+												</div>
+											</div>											
 											<div class="form-group row">
 												<div id="div_ged" class="table-responsive"></div>
-											</div>
+											</div>											
 										</div>																									
 
 										<div class="tab-pane p-3" id="contratos" role="tabpanel">
@@ -560,7 +550,7 @@ include_once __DIR__.'/combos/comboEstados.php';
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title mt-0" id="exampleModalLabel">Incluir/Alterar Contato</h5>
+						<h5 class="modal-title mt-0" id="exampleModalLabel">Incluir/Alterar Contato/Consulente</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
@@ -570,27 +560,37 @@ include_once __DIR__.'/combos/comboEstados.php';
 						<input type="hidden" id="hdn_pai_Contatos" name="hdn_pai_Contatos" value="<?= $vIOid;?>">
 						<input type="hidden" id="hdn_filho_Contatos" name="hdn_filho_Contatos" value="">
 						<div class="form-group row">
-							<div class="col-sm-6">
-								<label>Contato</label>
-								<input class="form-control divObrigatorio" title="Contato" name="vHMCONNOME" id="vHMCONNOME" type="text" value="" >
-							</div>
+							<div class="col-sm-12">
+								<label>Contato/Consulente</label>
+								<input class="form-control divObrigatorio" title="Contato/Consulente" name="vHMCONNOME" id="vHMCONNOME" type="text" value="" >
+							</div>									
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-12">
+								<label>E-mail</label>
+								<input class="form-control divObrigatorio" title="E-mail" name="vHMCONEMAIL" id="vHMCONEMAIL" type="email" value="" >
+							</div>								
+						</div>
+						<div class="form-group row">							
 							<div class="col-sm-6">
 								<label>Telefone</label>
 								<input type="text" id="vHMCONFONE" name="vHMCONFONE" class="form-control" maxlength="14" title="Telefone Principal" value=""  onKeyPress="return digitos(event, this);" onkeyup="mascara('TEL', this, event)" />
-							</div>
-																		
-						</div>
-						<div class="form-group row">
-							<div class="col-sm-6">
-								<label>E-mail</label>
-								<input class="form-control divObrigatorio" title="E-mail" name="vHMCONEMAIL" id="vHMCONEMAIL" type="email" value="" >
 							</div>
 							<div class="col-sm-6"> 
 								<label>Telefone Celular</label>													
 								<input type="text" id="vHMCONCELULAR" name="vHMCONCELULAR" class="form-control" maxlength="15" title="Telefone Celular" value=""  onKeyPress="return digitos(event, this);" onkeyup="mascara('TEL', this, event)" />
 							</div>	
 						</div>
-						
+						<div class="form-group row">							
+							<div class="col-sm-6">
+								<label>Cargo</label>
+								<input type="text" id="vHMCONCARGO" name="vHMCONCARGO" class="form-control" maxlength="150" title="Cargo" value="" />
+							</div>
+							<div class="col-sm-6"> 
+								<label>Setor/Lotação</label>													
+								<input type="text" id="vHMCONSETOR" name="vHMCONSETOR" class="form-control" maxlength="150" title="Setor/Lotação" value="" />
+							</div>	
+						</div>
 						<div class="form-group row">
 							<div class="col-md-12 mt-3">
 								<button type="button" class="btn btn-primary btn-xs  waves-effect waves-light fa-pull-right" onclick="salvarModalCustosMateriasPrimas('modal_div_ClientesxContatos','transactionContatos.php', 'div_ClientesxContatos', 'ClientesxContatos', '<?= $vIOid;?>')">Salvar</button>								
@@ -635,5 +635,6 @@ include_once __DIR__.'/combos/comboEstados.php';
 				$("#vHTIPOPARCEIRO").select2({height: '38px !important'});
 			});
 		</script>
+		<script src="js/scriptUpload.js"></script>
     </body>
 </html>

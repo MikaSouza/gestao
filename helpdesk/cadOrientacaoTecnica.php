@@ -1,6 +1,6 @@
 <?php
 include_once __DIR__.'/../twcore/teraware/php/constantes.php';
-$vAConfiguracaoTela = configuracoes_menu_acesso(2027);
+$vAConfiguracaoTela = configuracoes_menu_acesso(2026);
 include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
 ?>
 <!DOCTYPE html>
@@ -38,22 +38,34 @@ include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
 										<input type="hidden" name="vHTABELA" id="vHTABELA" value="<?= $vAConfiguracaoTela['MENTABELABANCO'] ?>"/>
 										<input type="hidden" name="vHPREFIXO" id="vHPREFIXO" value="<?= $vAConfiguracaoTela['MENPREFIXO']; ?>"/>
 										<input type="hidden" name="vHURL" id="vHURL" value="<?= $vAConfiguracaoTela['MENARQUIVOCAD']; ?>"/>
-																			
-																				
 										<div class="form-group row">
 											<div class="col-md-6">                                                      
 												<label>Título
 													<small class="text-danger font-13">*</small>
 												</label>
-												<input class="form-control obrigatorio" name="vSATPDESCRICAO" id="vSATPDESCRICAO" type="text" value="<?= ($vIOid > 0 ? $vROBJETO['ATPDESCRICAO'] : ''); ?>" title="Título" >
+												<input class="form-control obrigatorio" name="vSOXTTITULO" id="vSOXTTITULO" type="text" value="<?= ($vIOid > 0 ? $vROBJETO['OXTTITULO'] : ''); ?>" title="Título" >
 											</div>											
-										</div>										
+										</div>
+										<div class="form-group row">
+											<div class="col-md-6">
+												<label>Número
+													<small class="text-danger font-13">*</small>
+												</label>
+												<input class="form-control obrigatorio" title="Número" name="vIOXTNUMERO" id="vIOXTNUMERO" value="<?= $vROBJETO['OXTNUMERO']; ?>" type="text" >
+											</div>
+											<div class="col-md-6">
+												<label>Ano
+													<small class="text-danger font-13">*</small>
+												</label>
+												<input class="form-control obrigatorio" title="Ano" name="vIOXTANO" id="vIOXTANO" value="<?= $vROBJETO['OXTANO']; ?>" type="text" >
+											</div>
+										</div>
 										<div class="form-group row">
 											<div class="col-md-12">                                                      
 												<label>Descrição
 													<small class="text-danger font-13">*</small>
 												</label>
-												<textarea class="form-control" id="vSATPDETALHAMENTO" name="vSATPDETALHAMENTO" title="Descrição"><?= nl2br($vROBJETO['ATPDETALHAMENTO']); ?></textarea>
+												<textarea class="form-control" id="vSOXTDESCRICAO" name="vSOXTDESCRICAO" title="Descrição"><?= $vROBJETO['OXTDESCRICAO']; ?></textarea>
 											</div>
 										</div>										
 										<div class="form-group row">
@@ -64,14 +76,14 @@ include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
 													<option value="N" <?php if ($vSDefaultStatusCad == "N") echo "selected='selected'"; ?>>Inativo</option>
 												</select>
 											</div>
-										</div>
-																					
+                                        </div>
+
 										<div class="form-group">
 											<label class="form-check-label is-invalid" for="invalidCheck3" style="color: red">
 												Campos em vermelho são de preenchimento obrigatório!
 											</label>
 										</div>
-										<?php include('../includes/botoes_cad_novo.php'); ?>									
+										<?php include('../includes/botoes_cad_novo.php'); ?>
                                     </form>
                                 </div>
                             </div>
@@ -99,6 +111,6 @@ include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
         <script src="../assets/pages/jquery.form-editor.init.js"></script> 
 
          <?php include_once '../includes/scripts_footer.php' ?>
-		<script src="js/cadPosicoesPadroes.js"></script>
+		<script src="js/cadOrientacaoTecnica.js"></script>
     </body>
 </html>

@@ -45,7 +45,19 @@ if(isset($_POST["method"]) && $_POST["method"] == 'excluirPadrao') {
 }
 
 function listClientes($_POSTDADOS){
-	$where = '';
+	$where = '';	
+	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLINOME']))
+		$where .= 'AND (C.CLIRAZAOSOCIAL LIKE ? OR C.CLINOMEFANTASIA LIKE ?) ';
+	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLICNPJ']))
+		$where .= 'AND C.CLICNPJ = ? ';
+	if(verificarVazio($_POSTDADOS['FILTROS']['vDDataInicio']))
+		$where .= 'AND C.CLIDATA_INC >= ? ';
+	if(verificarVazio($_POSTDADOS['FILTROS']['vDDataFim']))
+		$where .= 'AND C.CLIDATA_INC <= ? ';
+	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLICONTATO']))
+		$where .= 'AND C.CLICONTATO LIKE ? ';
+	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLIEMAIL']))
+		$where .= 'AND C.CLIEMAIL LIKE ? ';		
 	if(verificarVazio($_POSTDADOS['FILTROS']['vSStatusFiltro'])){
 		if($_POSTDADOS['FILTROS']['vSStatusFiltro'] == 'S')
 			$where .= "AND C.CLISTATUS = 'S' ";
@@ -53,19 +65,6 @@ function listClientes($_POSTDADOS){
 			$where .= "AND C.CLISTATUS = 'N' ";
 	}else
 		$where .= "AND C.CLISTATUS = 'S' ";
-
-	if(verificarVazio($_POSTDADOS['FILTROS']['vDDataInicio']))
-		$where .= 'AND C.CLIDATA_INC >= ? ';
-	if(verificarVazio($_POSTDADOS['FILTROS']['vDDataFim']))
-		$where .= 'AND C.CLIDATA_INC <= ? ';
-
-	if(verificarVazio($_POSTDADOS['FILTROS']['vICLISEQUENCIAL']))
-		$where .= 'AND C.CLISEQUENCIAL = ? ';
-	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLINOME']))
-		$where .= 'AND (C.CLIRAZAOSOCIAL LIKE ? OR C.CLINOMEFANTASIA LIKE ?) ';
-	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLICNPJ']))
-		$where .= 'AND C.CLICNPJ = ? ';
-	
 	$sql = "SELECT
 				C.CLICODIGO, C.CLISEQUENCIAL, C.CLINOMEFANTASIA, C.CLIRAZAOSOCIAL,
 				CONCAT(
@@ -86,6 +85,21 @@ function listClientes($_POSTDADOS){
 					'query' => $sql,
 					'parametros' => array()
 				);
+	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLINOME'])){
+		$pesquisa = $_POSTDADOS['FILTROS']['vSCLINOME'];
+		$arrayQuery['parametros'][] = array("%$pesquisa%", PDO::PARAM_STR);
+		$arrayQuery['parametros'][] = array("%$pesquisa%", PDO::PARAM_STR);
+	}
+	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLICNPJ']))
+		$arrayQuery['parametros'][] = array($_POSTDADOS['FILTROS']['vSCLICNPJ'], PDO::PARAM_STR);	
+	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLICONTATO'])){
+		$pesquisa = $_POSTDADOS['FILTROS']['vSCLICONTATO'];
+		$arrayQuery['parametros'][] = array("%$pesquisa%", PDO::PARAM_STR);
+	}
+	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLIEMAIL'])){
+		$pesquisa = $_POSTDADOS['FILTROS']['vSCLIEMAIL'];
+		$arrayQuery['parametros'][] = array("%$pesquisa%", PDO::PARAM_STR);
+	}
 	if(verificarVazio($_POSTDADOS['FILTROS']['vDDataInicio'])){
 		$varIni = $_POSTDADOS['FILTROS']['vDDataInicio']." 00:00:00";
 		$arrayQuery['parametros'][] = array($varIni, PDO::PARAM_STR);
@@ -93,22 +107,9 @@ function listClientes($_POSTDADOS){
 	if(verificarVazio($_POSTDADOS['FILTROS']['vDDataFim'])){
 		$varFim = $_POSTDADOS['FILTROS']['vDDataFim']." 23:59:59";
 		$arrayQuery['parametros'][] = array($varFim, PDO::PARAM_STR);
-	}
-	if(verificarVazio($_POSTDADOS['FILTROS']['vICLISEQUENCIAL'])){
-		$arrayQuery['parametros'][] = array($_POSTDADOS['FILTROS']['vICLISEQUENCIAL'], PDO::PARAM_INT);
-	}
-	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLINOME'])){
-		$pesquisa = $_POSTDADOS['FILTROS']['vSCLINOME'];
-		$arrayQuery['parametros'][] = array("%$pesquisa%", PDO::PARAM_STR);
-		$arrayQuery['parametros'][] = array("%$pesquisa%", PDO::PARAM_STR);
-	}
-	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLICNPJ'])){
-		$arrayQuery['parametros'][] = array($_POSTDADOS['FILTROS']['vSCLICNPJ'], PDO::PARAM_STR);
-	}
+	}	
 	$result = consultaComposta($arrayQuery);
-
 	return $result;
-
 }
 
 function insertUpdateClientes($_POSTCLI, $pSMsg = 'N'){
@@ -122,7 +123,7 @@ function insertUpdateClientes($_POSTCLI, $pSMsg = 'N'){
 		'fields'  => $_POSTCLI,
 		'msg'     => $pSMsg,
 		'url'     => '',
-		'debug'   => 'N'
+		'debug'   => 'S'
 		);	
 	$id = insertUpdate($dadosBanco);
 

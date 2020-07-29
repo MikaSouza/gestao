@@ -1,6 +1,6 @@
 <?php
 include_once __DIR__.'/../twcore/teraware/php/constantes.php';
-$vAConfiguracaoTela = configuracoes_menu_acesso(2027);
+$vAConfiguracaoTela = configuracoes_menu_acesso(2023);
 include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
 ?>
 <!DOCTYPE html>
@@ -38,9 +38,9 @@ include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
                                 <div class="card-body">
 
 									<?php
-									$vAConfig['vATitulos'] = array('Código', 'Número', 'Título', 'SLA Resposta', 'SLA Resolução', 'Data Inclusão', 'Ativo');
-									$vAConfig['vACampos'] = array('ATPCODIGO', 'ATPNUMERO', 'ATPDESCRICAO', 'ATPSLAPRIMEIROCONTATO', 'ATPSLARESOLUCAO', 'ATPDATA_INC', 'ATPSTATUS');
-									$vAConfig['vATipos'] = array('sequencial', 'varchar', 'varchar', 'varchar', 'varchar', 'datetime', 'simNao');
+									$vAConfig['vATitulos'] = array('Código', 'Nome', 'Data Inclusão', 'Ativo');
+									$vAConfig['vACampos'] = array('CHECODIGO', 'CHENOME', 'CHEDATA_INC', 'CHESTATUS');
+									$vAConfig['vATipos'] = array('sequencial', 'varchar', 'datetime', 'simNao');
 									include_once __DIR__.'/../twcore/teraware/componentes/gridPadrao.php'; ?>
 
                                 </div>

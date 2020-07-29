@@ -111,6 +111,9 @@ function listAtendimentos($_POSTDADOS){
 }
 
 function insertUpdateAtendimentos($_POSTDADOS, $pSMsg = 'N'){
+	
+	pre($_POSTDADOS);
+	return;
 	if ($_POSTDADOS['vIATECODIGO'] == '')
 		$_POSTDADOS['vIATESEQUENCIAL'] = proxima_Sequencial('ATENDIMENTO');
 
@@ -123,6 +126,10 @@ function insertUpdateAtendimentos($_POSTDADOS, $pSMsg = 'N'){
 		'debug'   => 'S'
 		);
 	$id = insertUpdate($dadosBanco);	
+	if ($_POSTDADOS['vIATECODIGO'] == '') {
+		include_once 'transactionAtendimentosxContatos.php';
+		insert_update_AtendimentosxContatosLote($id, $_POSTDADOS['vICLICODIGO'], $_POSTDADOS["vACONCODIGO"], $_POSTDADOS['vHAXCRESPONSAVEL'], 'S', 'N');
+	}	
 	return $id;
 }
 

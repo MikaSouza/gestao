@@ -42,7 +42,7 @@ include_once __DIR__.'/../rh/combos/comboUsuarios.php';
 									<?php
 									$vAConfiguracaoTela['FILTROS'] = $_POST;
 									$vAConfiguracaoTela['BTN_FILTROS'] = 'S';
-									$vAConfig['vATitulos'] = array("Número Contrato", "Sigla/Cliente", "Tipo de Contrato", "Consultor", 'Data de Início', 'Data de Término', 'Data de Cancelamento', "Data Cadastro", "Situação");
+									$vAConfig['vATitulos'] = array("Número Contrato", "Cliente", "Produto/Serviço", "Consultor", 'Data de Início', 'Data de Término', 'Data de Cancelamento', "Data Cadastro", "Situação");
 									$vAConfig['vACampos'] = array("CTRNROCONTRATO", "CLIENTE", "TIPOCONTRATO", "CONSULTOR", 'CTRDATAAINICIO', 'CTRDATATERMINO', 'CTRDATACANCELAMENTO', "CTRDATA_INC", "CXGSTATUS");
 									$vAConfig['vATipos'] = array("sequencial", "varchar", "varchar", "varchar", 'date', 'date', 'date', "datetime", "varchar");
 									include_once __DIR__.'/../twcore/teraware/componentes/gridPadrao.php'; ?>
@@ -69,10 +69,6 @@ include_once __DIR__.'/../rh/combos/comboUsuarios.php';
 					<div class="modal-body">
 					<form class="form-parsley" action="#" method="post" name="formPesquisar" id="formPesquisar">
 						<div class="form-group row">
-							<div class="col-md-6">                                                      
-								<label>Sigla</label>
-								<input class="form-control classnumerico" name="vICLISEQUENCIAL" id="vICLISEQUENCIAL" type="text" value="" title="SIGLA" >
-							</div> 
 							<div class="col-md-6">                                                      
 								<label>Nome Cliente</label>
 								<input class="form-control" name="vSCLINOME" id="vSCLINOME" type="text" value="" title="NOME CLIENTE" >
@@ -115,10 +111,10 @@ include_once __DIR__.'/../rh/combos/comboUsuarios.php';
 						</div>
 						<div class="form-group row">
 							<div class="col-md-6">
-								<label>Status</label>
-								<select name="vSStatusFiltro" id="vSStatusFiltro" class="custom-select" title="Status">
+								<label>Posição</label>
+								<select name="vSStatusFiltro" id="vSStatusFiltro" class="custom-select" title="Posição">
 									<option value="">  -------------  </option>
-									<?php foreach (comboTabelas('PARCEIROS - POSICAO') as $tabelas): ?>                                                            
+									<?php foreach (comboTabelas('CONTRATOS - POSICAO') as $tabelas): ?>                                                            
 										<option value="<?php echo $tabelas['TABCODIGO']; ?>" ><?php echo $tabelas['TABDESCRICAO']; ?></option>
 									<?php endforeach; ?>
 								</select>

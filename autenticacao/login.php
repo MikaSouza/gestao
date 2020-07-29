@@ -34,11 +34,11 @@ include_once __DIR__.'/transaction/transactionLogin.php';
                         <div class="card-body">
                             <div class="px-3">
                                 <div class="auth-logo-box">
-                                    <a href="<?= vSEmpresaSite; ?>" class="logo logo-admin"><img src="../assets/images/logo.png" height="55" alt="logo" class="auth-logo" style="border-radius: 0 !important"></a>
+                                    <a href="<?= vSEmpresaSite; ?>" class="logo logo-admin"><img src="../assets/images/logo_menu.png" alt="logo" class="auth-logo" style="border-radius: 0 !important"></a>
                                 </div><!--end auth-logo-box-->
 
                                 <div class="text-center auth-logo-text">
-                                    <h4 class="mt-0 mb-3 mt-5">Sistema de Gestão de Empresarial</h4>
+                                    <h4 class="mt-0 mb-3 mt-5">Sistema de Gestão de Empresarial</h4> 
                                 </div> <!--end auth-logo-text-->
 
                                 <form class="form-horizontal auth-form my-4" name="frmLogin" id="frmLogin" action="#" method="post" onsubmit="return validarForm();">

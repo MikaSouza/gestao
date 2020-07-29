@@ -41,7 +41,7 @@ include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
 									<?php
 									$vAConfiguracaoTela['FILTROS'] = $_POST;
 									$vAConfiguracaoTela['BTN_FILTROS'] = 'S';
-									$vAConfig['vATitulos'] = array('Razão Social', 'Nome Fantasia', 'CPF/CNPJ', 'Data Inclusão', 'Status');
+									$vAConfig['vATitulos'] = array('Razão Social', 'Nome Fantasia', 'CPF/CNPJ', 'Data Inclusão', 'Ativo');
 									$vAConfig['vACampos'] = array('CLIRAZAOSOCIAL', 'CLINOMEFANTASIA', 'CNPJCPF', 'CLIDATA_INC', 'CLISTATUS');
 									$vAConfig['vATipos'] = array('varchar', 'varchar', 'varchar', 'datetime', 'simNao');
 									include_once __DIR__.'/../twcore/teraware/componentes/gridPadrao.php'; ?>
@@ -69,24 +69,24 @@ include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
 					<form class="form-parsley" action="#" method="post" name="formPesquisar" id="formPesquisar">
 						<div class="form-group row">
 							<div class="col-md-6">                                                      
-								<label>Nome Cliente</label>
-								<input class="form-control" name="vSCLINOME" id="vSCLINOME" type="text" value="" title="NOME CLIENTE" >
+								<label>Cliente</label>
+								<input class="form-control" name="vSCLINOME" id="vSCLINOME" type="text" value="" title="Cliente" >
 							</div>							
 						</div>	
 						<div class="form-group row">
 							<div class="col-md-6">                                                        
 								<label>CNPJ/CPF</label>
-								<input class="form-control" name="vSCLICNPJ" id="vSCLICNPJ" type="text" title="CNPJ" value="" >
+								<input class="form-control" name="vSCLICNPJ" id="vSCLICNPJ" type="text" title="CNPJ/CPF" value="" >
 							</div> 
 						</div>	
 						<div class="form-group row">
 							<div class="col-md-6">                                                        
 								<label>Contato</label>
-								<input class="form-control" name="vSCLICNPJ" id="vSCLICNPJ" type="text" title="CNPJ" value="" >
+								<input class="form-control" name="vSCLICONTATO" id="vSCLICONTATO" type="text" title="Contato" value="" >
 							</div> 
 							<div class="col-md-6">                                                      
 								<label>E-mail</label>
-								<input class="form-control" name="vSCLIEMAIL" id="vSCLIEMAIL" type="text" value="" title="NOME CLIENTE" >
+								<input class="form-control" name="vSCLIEMAIL" id="vSCLIEMAIL" type="text" value="" title="E-mail" >
 							</div>							
 						</div>													
 						<div class="form-group row">
@@ -100,13 +100,12 @@ include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
 							</div>
 						</div>
 						<div class="form-group row">
-							<div class="col-md-6">
-								<label>Status</label>
-								<select name="vSStatusFiltro" id="vSStatusFiltro" class="custom-select" title="Status">
-									<option value="">  -------------  </option>
-									<?php foreach (comboTabelas('PARCEIROS - POSICAO') as $tabelas): ?>                                                            
-										<option value="<?php echo $tabelas['TABCODIGO']; ?>" ><?php echo $tabelas['TABDESCRICAO']; ?></option>
-									<?php endforeach; ?>
+							<div class="col-md-4">
+								<label>Ativo</label>
+								<select class="form-control" id="vSStatusFiltro" name="vSStatusFiltro">
+									<option value="A">Ambos</option>
+									<option value="N">Não</option>
+									<option value="S" selected >Sim</option>
 								</select>
 							</div>
 						</div>

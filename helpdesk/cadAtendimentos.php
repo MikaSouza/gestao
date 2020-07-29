@@ -1,6 +1,6 @@
 <?php
 include_once __DIR__.'/../twcore/teraware/php/constantes.php';
-$vAConfiguracaoTela = configuracoes_menu_acesso(545);
+$vAConfiguracaoTela = configuracoes_menu_acesso(2025);
 include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
 include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
 include_once __DIR__.'/../rh/combos/comboUsuarios.php';
@@ -66,7 +66,7 @@ include_once __DIR__.'/combos/comboPrioridades.php';
                                             <a class="nav-link" data-toggle="tab" href="#posicoes" role="tab" onclick="gerarGridJSON('transactionAtendimentoxHistoricos.php', 'div_historico', 'AtendimentoxHistoricos', '<?= $vIOid;?>');">Posições/Históricos</a>
                                         </li>
 										<li class="nav-item waves-effect waves-light">
-                                            <a class="nav-link" data-toggle="tab" href="#subAtendimentos" role="tab" onclick="gerarGridJSON('transactionAtendimentoxSubAtendimentos.php', 'div_subAtendimentos', 'AtendimentoxSubAtendimentos', '<?= $vIOid;?>');">Sub Atendimentos</a>
+                                            <a class="nav-link" data-toggle="tab" href="#subAtendimentos" role="tab" onclick="gerarGridJSON('transactionAtendimentoxSubAtendimentos.php', 'div_subAtendimentos', 'AtendimentoxSubAtendimentos', '<?= $vIOid;?>');">Plano de Trabalho</a>
                                         </li>		
 										<!-- outra versão
 										<li class="nav-item waves-effect waves-light">
@@ -99,8 +99,12 @@ include_once __DIR__.'/combos/comboPrioridades.php';
 													<br/>				  
 													<button type="button" class="btn btn-danger waves-effect" onclick="removerCliente();">Limpar</button><br>
 												</div>	
+											</div>	
+											<div class="form-group row">
 												<div class="col-md-6">
 													<div id="divContatos"></div>
+													<div id="gridContatos"></div>
+													<input type='hidden' name='vHAXCRESPONSAVEL' id='vHAXCRESPONSAVEL' />
 												</div>
 											</div>		
 											<div class="form-group row">
@@ -122,7 +126,7 @@ include_once __DIR__.'/combos/comboPrioridades.php';
 													<label>E-mail Informativo?
 														<small class="text-danger font-13">*</small>
 													</label>
-													<select name="vSATEENVIAREMAIL" id="vSATEENVIAREMAIL" class="custom-select obrigatorio" title="Atendente">
+													<select name="vSATEENVIAREMAIL" id="vSATEENVIAREMAIL" class="custom-select obrigatorio" title="E-mail Informativo?">
 														<option <?php if ($vSATEENVIAREMAIL == "S") echo "selected=selected"; ?>value="S">Sim</option>
 														<option <?php if ($vSATEENVIAREMAIL == "N") echo "selected=selected"; ?>value="N">Não</option>
 													</select>
@@ -164,7 +168,7 @@ include_once __DIR__.'/combos/comboPrioridades.php';
 													<label>Prioridade
 														<small class="text-danger font-13">*</small>
 													</label>
-													<select name="vIATPCODIGO" id="vIATPCODIGO" class="custom-select obrigatorio" title="Posição">
+													<select name="vIATPCODIGO" id="vIATPCODIGO" class="custom-select obrigatorio" title="Prioridade">
 														<option value="">  -------------  </option>
 														<?php 														
 														foreach (comboPrioridades() as $tabelas): ?>                                                            
@@ -305,7 +309,7 @@ include_once __DIR__.'/combos/comboPrioridades.php';
 										
 										<div class="tab-pane p-3" id="documentacao" role="tabpanel">
 											<div class="form-group row">
-                                                <div id="div_subAtendimentos" class="table-responsive"></div>                                                
+                                                <div id="div_documentacao" class="table-responsive"></div>                                                
                                             </div>
 										</div>
 
@@ -328,7 +332,8 @@ include_once __DIR__.'/combos/comboPrioridades.php';
 			
             <!-- end page content -->
             <?php include_once '../includes/footer.php' ?>
-        </div>        
+        </div>    
+ <!--		
 		<div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modalAtendimentoxHistoricos">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
@@ -424,7 +429,7 @@ include_once __DIR__.'/combos/comboPrioridades.php';
 				</div>
 			</div>
 		</div>
-		
+		-->
 		<!-- Modal Tabela Padrão -->
 		<div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="ModalTabelaPadrao">
 			<div class="modal-dialog modal-dialog-centered">

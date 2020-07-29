@@ -29,7 +29,7 @@ function exibirClientexContatos(vICLICODIGO, vICONCODIGO, pSMETHOD) {
         jQuery.ajax({
             async: true,
             type: "GET",
-            url: "../cadastro/combos/comboContatos.php",
+            url: "combos/comboAtendimentoxContatos.php",
             data: {
                 vICONCODIGO: vICONCODIGO,
                 vICLICODIGO: vICLICODIGO,
@@ -113,7 +113,7 @@ $(function () {
 			dataType: 'json',
 			data: data,
 			success: function(response) {
-				swal(':)', 'Dados atulizados com sucesso!', 'success');
+				swal(':)', 'Dados atualizados com sucesso!', 'success');
 				
 				$( "#modalContatos").modal("hide");	
 				gerarGridJSONContasPagar();
@@ -161,4 +161,148 @@ function fillContatos(pICONCODIGO){
 			$("#vSCONPRINCIPAL").val(json.CONPRINCIPAL);
 		}
 	});
+}
+
+var incluirNovoContato = function(){
+
+	var contato_id = $("#vHCONCODIGO").val(),
+		input_hidden = "";
+
+	if(contato_id != ""){
+
+		var isResponsavel = confirm("Este é o responsável pelo atendimento?") ? 'S' : 'N';
+
+		var modoExibicao = ( $("#vIATECODIGO").val() == "" ) ? "insert" : "update";
+
+		if( modoExibicao == "insert"){
+			if(isResponsavel == 'S'){ 
+				$("#AXCRESPONSAVEL").val(contato_id);
+			}
+			input_hidden = "<div id='hiddencontatos'><input type='hidden' name='vACONCODIGO[]' value='"+contato_id+"' /></div>";
+			console.log( input_hidden );
+			$("#gridContatos").append(input_hidden);
+			$("#vHCONCODIGO").val('');
+			gerarGridContato();
+
+		} else if( modoExibicao == "update"){
+
+			var data = {
+				method:  'incluirAtendimentosxContatos',
+				pIATECODIGO: $("#vIATECODIGO").val(),
+				pICLICODIGO: $("#vICLICODIGO").val(),
+				pICONCODIGO: $("#vHCONCODIGO").val(),
+				pSAXCRESPONSAVEL: isResponsavel
+			};
+
+			$.ajax({
+				url: "transaction/transactionAtendimentosxContatos.php",
+				type: 'POST',
+				data: data,
+				success: function(){
+					gerarGridContato();
+					$("#vHCONCODIGO").val('');
+				}
+			});
+		}
+
+	} else { sweetAlert("Oops...", "Por favor selecione um contato!", "warning"); }
+
+}
+
+var removerContato = function( vSCONCODIGO ){
+
+	var modoExibicao = ( $("#vIATECODIGO").val() == "" ) ? "insert" : "update";
+
+	var continuar = confirm("Deseja excluir esse registro?");
+
+	if(continuar){
+		if( modoExibicao == "insert"){
+			$("input[name='vACONCODIGO[]']").each(function(){
+				if($(this).val() == vSCONCODIGO){
+					$(this).remove();
+					gerarGridContato();
+					return false;
+				}
+			});
+		} else if( modoExibicao == "update"){
+
+
+			var data = {
+				method: 'deleta_AtendimentoxContato',
+				pSCONCODIGO: vSCONCODIGO,
+				pSATECODIGO: $("#vIATECODIGO").val()
+			};
+
+			$.ajax({
+				url: "transaction/transactionAtendimentosxContatos.php",
+				type: 'POST',
+				data: data,
+				success: function(){
+					gerarGridContato();
+				}
+			});
+
+		}
+	}
+}
+
+var gerarGridContato = function(){
+
+	var modoExibicao = ( $("#vIATECODIGO").val() == "" ) ? "insert" : "update",
+		data = "",
+		cliente_id = $("#vICLICODIGO").val();
+
+	if( cliente_id != "" ){
+
+		if( modoExibicao == "insert"){
+
+			var contatos_ids = [],
+				vSCONCODIGOS = '';
+
+			$("input[name='vACONCODIGO[]']").each(function(){
+				contatos_ids.push($(this).val());
+			});
+
+			vSCONCODIGOS = contatos_ids.join(",");
+
+			data = {
+				vIATECODIGO : '',
+				vICLICODIGO : cliente_id,
+				vICONCODIGOS: vSCONCODIGOS,
+				vSAXCRESPONSAVEL:$("#AXCRESPONSAVEL").val(),
+				hdn_metodo_search: 'search_AtendimentoxContato',
+				editavel: $("#formulario_editavel").val()
+			};
+
+		}else if( modoExibicao == "update"){
+
+			data = {
+				vIATECODIGO : $("#vIATECODIGO").val(),
+				vICLICODIGO : cliente_id,
+				vICONCODIGOS: '',
+				hdn_metodo_search: 'search_AtendimentoxContato',
+				editavel: $("#formulario_editavel").val()
+			};
+		}
+
+		$.ajax({
+			url: "transaction/transactionAtendimentosxContatos.php",
+			type: 'POST',
+			data: data,
+			async: false,
+			success: function(retorno){
+				$("#gridContatos").html(retorno);
+				if( $('input[name="vACONCODIGO[]"]').length > 0 ){
+					$("#vHCONCODIGO").removeClass("obrigatorio");
+				} else if( $('input[name="vACONCODIGO[]"]').length == 0 ){
+					if(! $("#vHCONCODIGO").hasClass("obrigatorio"))
+						$("#vHCONCODIGO").addClass("obrigatorio");
+				}
+			}
+		});
+
+	} else {
+		sweetAlert("Oops...", "O cliente deve ser selecionado antes do contato.", "warning"); 
+	}
+
 }

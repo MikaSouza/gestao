@@ -1,6 +1,6 @@
 <?php
 include_once __DIR__.'/../twcore/teraware/php/constantes.php';
-$vAConfiguracaoTela = configuracoes_menu_acesso(2027);
+$vAConfiguracaoTela = configuracoes_menu_acesso(2022);
 include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
 ?>
 <!DOCTYPE html>
@@ -26,7 +26,7 @@ include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
 		<?php include_once '../includes/menu.php' ?>
 
         <div class="page-wrapper">
-
+            
             <div class="page-content">
 
                 <div class="container-fluid">
@@ -36,11 +36,13 @@ include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-
-									<?php
-									$vAConfig['vATitulos'] = array('Código', 'Número', 'Título', 'SLA Resposta', 'SLA Resolução', 'Data Inclusão', 'Ativo');
-									$vAConfig['vACampos'] = array('ATPCODIGO', 'ATPNUMERO', 'ATPDESCRICAO', 'ATPSLAPRIMEIROCONTATO', 'ATPSLARESOLUCAO', 'ATPDATA_INC', 'ATPSTATUS');
-									$vAConfig['vATipos'] = array('sequencial', 'varchar', 'varchar', 'varchar', 'varchar', 'datetime', 'simNao');
+								
+									<?php 		
+									$vAConfiguracaoTela['FILTROS'] = $_POST;
+									$vAConfiguracaoTela['BTN_FILTROS'] = 'S';	
+									$vAConfig['vATitulos'] = array('Código', 'Título', 'Departamento', 'Data Inclusão', 'Ativo');
+									$vAConfig['vACampos'] = array('ATICODIGO', 'ATINOME', 'DEPARTAMENTO', 'ATIDATA_INC', 'ATISTATUS');
+									$vAConfig['vATipos'] = array('sequencial', 'varchar', 'varchar', 'datetime', 'simNao');
 									include_once __DIR__.'/../twcore/teraware/componentes/gridPadrao.php'; ?>
 
                                 </div>
@@ -53,7 +55,55 @@ include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
 
 			<?php include_once '../includes/footer.php' ?>
         </div>
+		<div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title mt-0" id="exampleModalLabel">Filtros</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">
+					<form class="form-parsley" action="#" method="post" name="formPesquisar" id="formPesquisar">
+						<div class="form-group row">
+							<div class="col-md-6">                                                      
+								<label>Descrição</label>
+								<input class="form-control" name="vSTABDESCRICAO" id="vSTABDESCRICAO" type="text" value="" title="Descrição" >
+							</div>							
+						</div>	
+													
+						<div class="form-group row">
+							<div class="col-md-6">
+								<label>Data Cadastro Entre: INÍCIO</label>
+								<input class="form-control" name="vDDataInicio" title="Data Início" id="vDDataInicio" type="date" maxlength="10">
+							</div>
+							<div class="col-md-6">
+								<label>FINAL</label>
+								<input class="form-control" name="vDDataFim" title="Data Fim" id="vDDataFim"  type="date" maxlength="10">
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-md-4">
+								<label>Ativo</label>
+								<select class="form-control" id="vSStatusFiltro" name="vSStatusFiltro">
+									<option value="A">AMBOS</option>
+									<option value="N">NÃO</option>
+									<option value="S" selected >SIM</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-md-12 mt-3">
+								<button type="submit" title="Pesquisar" class="btn btn-primary waves-effect waves-light fa-pull-right">Pesquisar</button>
+							</div>
+						</div>
+					</form>  
 
+					</div>
+				</div>
+			</div>
+		</div>
         <!-- jQuery  -->
         <script src="../assets/js/jquery.min.js"></script>
         <script src="../assets/js/bootstrap.bundle.min.js"></script>

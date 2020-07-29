@@ -4,7 +4,7 @@ $vAConfiguracaoTela = configuracoes_menu_acesso(1879);
 include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
 include_once __DIR__.'/../rh/combos/comboUsuarios.php';
 include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
-include_once __DIR__.'/../cadastro/combos/comboAtividades.php';
+//include_once __DIR__.'/../cadastro/combos/comboAtividades.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -69,10 +69,10 @@ include_once __DIR__.'/../cadastro/combos/comboAtividades.php';
 						</div>
 						<div class="form-group row divCliente">
 							<div class="col-md-12">                                                      
-								<label>Sigla - Cliente
+								<label>Cliente
 									<small class="text-danger font-13">*</small>
 								</label>			
-								<select name="vICLICODIGO" id="vICLICODIGO" title="Sigla - Cliente" class="form-control divObrigatorio" style="width: 100%;font-size: 13px;"/><br/>								
+								<select name="vICLICODIGO" id="vICLICODIGO" title="Cliente" class="form-control divObrigatorio" style="width: 100%;font-size: 13px;"/><br/>								
 								<input type="hidden" name="vICLICODIGO" id="vICLICODIGO" value=""/>
 							</div>								
 						</div>	
@@ -95,18 +95,7 @@ include_once __DIR__.'/../cadastro/combos/comboAtividades.php';
 							</div>
 						</div>
 						<div class="form-group row">
-							<div class="col-md-6">   
-								<label>Tipo de Contato/Atividade
-									<small class="text-danger font-13">*</small>
-								</label>
-								<select name="vIAGETIPO" id="vIAGETIPO" class="custom-select divObrigatorio" title="Tipo de Contato/Atividade">
-									<option value="">  -------------  </option>
-									<?php 									
-									foreach (comboAtividades() as $tabelas): ?>                                                            
-										<option value="<?php echo $tabelas['ATICODIGO']; ?>"><?php echo $tabelas['ATINOME']; ?></option>
-									<?php endforeach; ?>
-								</select>                                                    
-							</div>
+							
 							<div class="col-md-6">                                                      
 								<label>Responsável</label>
 								<select name="vIAGERESPONSAVEL" id="vIAGERESPONSAVEL" class="custom-select divObrigatorio" title="Responsável">
@@ -136,13 +125,6 @@ include_once __DIR__.'/../cadastro/combos/comboAtividades.php';
 								<select class="custom-select" name="vSAGEENVIAREMAIL" id="vSAGEENVIAREMAIL">
 									<option value="S">Sim</option>
 									<option value="N">Não</option>
-								</select>
-							</div>
-							<div class="col-md-5">        
-								<label>Copiar Supervisor?</label>
-								<select class="custom-select" name="vSAGECOPIARSUPERVISOR" id="vSAGECOPIARSUPERVISOR">
-									<option value="N">Não</option>
-									<option value="S">Sim</option>													
 								</select>
 							</div>
 						</div>

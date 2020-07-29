@@ -1,6 +1,6 @@
 <?php
 include_once __DIR__.'/../twcore/teraware/php/constantes.php';
-$vAConfiguracaoTela = configuracoes_menu_acesso(545);
+$vAConfiguracaoTela = configuracoes_menu_acesso(2025);
 include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
 include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
 include_once __DIR__.'/combos/comboPosicoesPadroes.php';

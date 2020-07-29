@@ -18,8 +18,9 @@ include_once __DIR__.'/../cadastro/combos/comboProdutosxServicos.php';
         <link href="../assets/css/icons.css" rel="stylesheet" type="text/css" />
         <link href="../assets/css/metisMenu.min.css" rel="stylesheet" type="text/css" />
         <link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
-		<link href="../assets/plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />
-		 
+		<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+		<link rel="stylesheet" href="../assets/css/stylesUpload.css"/> 
+		
     </head>
 	<body>
 
@@ -55,9 +56,6 @@ include_once __DIR__.'/../cadastro/combos/comboProdutosxServicos.php';
 										<li class="nav-item waves-effect waves-light">
                                             <a class="nav-link" data-toggle="tab" href="#ged-1" role="tab" onclick="gerarGridJSONGED('../../utilitarios/transaction/transactionGED.php', 'div_ged', 'GED', '<?= $vIOid;?>');">Digitalizações/Arquivos</a>
                                         </li>
-										<li class="nav-item waves-effect waves-light">
-                                            <a class="nav-link" data-toggle="tab" href="#faturamento" role="tab" onclick="gerarGridJSON('transactionClientesxFaturamento.php', 'div_faturamento', 'ClientesxFaturamento', '<?= $vIOid;?>');">Faturamento</a>
-                                        </li>
                                         <?php } ?>                                        
                                     </ul>
                                     <!-- Nav tabs end -->
@@ -86,109 +84,98 @@ include_once __DIR__.'/../cadastro/combos/comboProdutosxServicos.php';
 											<div class="form-group row">
 												<div class="col-md-2">
                                                     <label>Data de Início</label>
-                                                    <input class="form-control obrigatorio" title="Data de Início" name="vDCLIDATA_NASCIMENTO" id="vDCLIDATA_NASCIMENTO" value="<?= $vROBJETO['CLIDATA_NASCIMENTO'];  ?>" type="date" >
+                                                    <input class="form-control obrigatorio" title="Data de Início" name="vDCTRDATAAINICIO" id="vDCTRDATAAINICIO" value="<?= $vROBJETO['CTRDATAAINICIO'];  ?>" type="date" >
                                                 </div>
 												<div class="col-md-2">
                                                     <label>Término da Vigência</label>
-                                                    <input class="form-control obrigatorio" title="Término da Vigência" name="vDCLIDATA_NASCIMENTO" id="vDCLIDATA_NASCIMENTO" value="<?= $vROBJETO['CLIDATA_NASCIMENTO'];  ?>" type="date" >
-                                                </div>
-												<div class="col-md-3">	
-													<label>Mensalidade Inicial
-														<small class="text-danger font-13">*</small>
-													</label>
-													<input class="form-control classmonetario obrigatorio" title="Mensalidade Inicial" name="vMCTPVALORAPAGAR" id="vMCTPVALORAPAGAR" value="<?php if(isset($vIOid)){ echo formatar_moeda($vROBJETO['CTPVALORAPAGAR'], false); }?>" type="text" >
-												</div>
-												<div class="col-md-3">	
-													<label>Mensalidade Atual
-														<small class="text-danger font-13">*</small>
-													</label>
-													<input class="form-control classmonetario obrigatorio" title="Mensalidade Atual" name="vMCTPVALORAPAGAR" id="vMCTPVALORAPAGAR" value="<?php if(isset($vIOid)){ echo formatar_moeda($vROBJETO['CTPVALORAPAGAR'], false); }?>" type="text" >
-												</div>
-											</div>
+                                                    <input class="form-control obrigatorio" title="Término da Vigência" name="vDCTRDATATERMINO" id="vDCTRDATATERMINO" value="<?= $vROBJETO['CTRDATATERMINO'];  ?>" type="date" >
+                                                </div>												
+											</div>											
 											<div class="form-group row">	
 												<div class="col-md-4">   
 													<label>Produto/Serviço
 														<small class="text-danger font-13">*</small>
 													</label>
-													<select name="vHGED" id="vHGED" class="custom-select divObrigatorio" title="Produto/Serviço">
+													<select name="vIPXSCODIGO" id="vIPXSCODIGO" class="custom-select divObrigatorio" title="Produto/Serviço">
 														<option value="">  -------------  </option>
 														<?php foreach (comboProdutosxServicos() as $tabelas): ?>                                                            
-															<option value="<?php echo $tabelas['PXSCODIGO']; ?>" ><?php echo $tabelas['PXSNOME']; ?></option>
+															<option value="<?php echo $tabelas['PXSCODIGO']; ?>" <?php if ($vROBJETO['PXSCODIGO'] == $tabelas['PXSCODIGO']) echo "selected='selected'"; ?>><?php echo $tabelas['PXSNOME']; ?></option>
 														<?php endforeach; ?>
 													</select>                                                    
 												</div>
-												<div class="col-md-3">
-													<label>Situação
+												<div class="col-md-3">	
+													<label>Número Contrato
 														<small class="text-danger font-13">*</small>
 													</label>
-													<select title="Situação" id="vSCLITIPOCLIENTE" class="custom-select obrigatorio" name="vSCLITIPOCLIENTE" onchange="mostrarJxF(this.value);">
-														<option value="J" <?php if ($vROBJETO['CLITIPOCLIENTE'] == 'J') echo "selected='selected'"; ?>>Ativo</option>
-														<option value="F" <?php if ($vROBJETO['CLITIPOCLIENTE'] == 'F') echo "selected='selected'"; ?>>Inativo</option>
-														<option value="F" <?php if ($vROBJETO['CLITIPOCLIENTE'] == 'F') echo "selected='selected'"; ?>>Encerrado</option>
-														<option value="F" <?php if ($vROBJETO['CLITIPOCLIENTE'] == 'F') echo "selected='selected'"; ?>>Observações</option>	
-													</select>
-												</div>												
+													<input class="form-control obrigatorio" title="Número Contrato" name="vSCTRNROCONTRATO" id="vSCTRNROCONTRATO" value="<?php if(isset($vIOid)){ echo $vROBJETO['CTRNROCONTRATO']; }?>" type="text" >
+												</div>	
+												<div class="col-sm-3">
+													<div id="divPosicao"></div>													
+												</div>														
 											</div>	
 											<div class="form-group row">
 												<div class="col-md-12">                                                      
 													<label>Observações
 														<small class="text-danger font-13">*</small>
 													</label>
-													<textarea class="form-control" id="vSPXADESCRICAO" name="vSPXADESCRICAO" title="Descrição"><?= nl2br($vROBJETO['PXADESCRICAO']); ?></textarea>
+													<textarea class="form-control" id="vSCTRDESCRICAO" name="vSCTRDESCRICAO" title="Descrição"><?= nl2br($vROBJETO['CTRDESCRICAO']); ?></textarea>
 												</div>
 											</div>
-																						                                            
+											<div class="accordion" id="reformaSim2">
+												<div class="card border mb-0 shadow-none">
+													<div class="card-header p-0" id="headingOne">
+														<h5 class="my-1">
+															<button class="btn btn-link text-dark" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+															Informações Faturamento
+															</button>
+														</h5>
+													</div>
+													<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+														<div class="card-body">									
+															<div class="form-group row">
+																<div class="col-sm-4">
+																	<div id="divFormaCobranca"></div>													
+																</div>	
+																<div class="col-md-3">	
+																	<label>Mensalidade Inicial
+																		<small class="text-danger font-13">*</small>
+																	</label>
+																	<input class="form-control classmonetario obrigatorio" title="Mensalidade Inicial" name="vMCTRMENSALIDADEINICIAL" id="vMCTRMENSALIDADEINICIAL" value="<?php if(isset($vIOid)){ echo formatar_moeda($vROBJETO['CTRMENSALIDADEINICIAL'], false); }?>" type="text" >
+																</div>
+																<div class="col-md-3">	
+																	<label>Mensalidade Atual
+																		<small class="text-danger font-13">*</small>
+																	</label>
+																	<input class="form-control classmonetario obrigatorio" title="Mensalidade Atual" name="vMCTRMENSALIDADEATUAL" id="vMCTRMENSALIDADEATUAL" value="<?php if(isset($vIOid)){ echo formatar_moeda($vROBJETO['CTRMENSALIDADEATUAL'], false); }?>" type="text" >
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>		
+											</div>											                                            
 										</div>
                                     													
 										<!-- Aba Dados GED -->
 										<div class="tab-pane p-3" id="ged-1" role="tabpanel">
-											<div id="modal_div_ClientesxGED">
-												<div class="form-group row">                                                												
-													<div class="col-md-4">   
-														<label>Tipo Arquivo
-															<small class="text-danger font-13">*</small>
-														</label>
-														<select name="vHGED" id="vHGED" class="custom-select divObrigatorio" title="Tipo Arquivo">
-															<option value="">  -------------  </option>
-															<?php foreach (comboTabelas('GED - TIPO') as $tabelas): ?>                                                            
-																<option value="<?php echo $tabelas['TABCODIGO']; ?>" ><?php echo $tabelas['TABDESCRICAO']; ?></option>
-															<?php endforeach; ?>
-														</select>                                                    
+											<div class="form-group">
+												<div class="area-upload">
+													<label for="upload-file" class="label-upload">
+														<i class="fas fa-cloud-upload-alt"></i>
+														<div class="texto">Clique ou arraste o(s) arquivo(s) para esta área <br/>
+														Formatos permitidos (PDF, Word/Doc e Excel)
+														</div>
+													</label>
+													<input type="file" accept="*" id="upload-file" multiple/>
+
+													<div class="lista-uploads">
 													</div>
-													<div class="file-field col-md-4">
-														<label>Escolher Arquivo
-															<small class="text-danger font-13">*</small>
-														</label>
-														<input type="file" id="fileUpload" name="fileUpload">
-												   </div>
-												   <div class="col-md-4">
-														<br/>				  
-														<button type="button" id="btnEnviar" class="btn btn-secondary waves-effect">Salvar Documentos</button><br>
-													</div>
-												</div>	
-											</div>	
+												</div>
+											</div>											
 											<div class="form-group row">
 												<div id="div_ged" class="table-responsive"></div>
 											</div>
 										</div>																									
-										<div class="tab-pane p-3" id="faturamento" role="tabpanel">
-											<div class="form-group row">
-												<div id="div_faturamento" class="table-responsive"></div>
-											</div>
-										</div>
-										
-										<div class="tab-pane p-3" id="contratos" role="tabpanel">
-											<div class="form-group row">
-												<div id="div_contratos" class="table-responsive"></div>
-											</div>
-										</div>
-										
-										<div class="tab-pane p-3" id="oportunidades" role="tabpanel">
-											<div class="form-group row">
-												<div id="div_oportunidades" class="table-responsive"></div>
-											</div>
-										</div>
-                                      
+
 										<div class="form-group">
 											<label class="form-check-label" for="invalidCheck3" style="color: red">
 												Campos em vermelho são de preenchimento obrigatório!<br/>												
@@ -233,7 +220,37 @@ include_once __DIR__.'/../cadastro/combos/comboProdutosxServicos.php';
 		<script src="../assets/plugins/select2/select2.min.js"></script>
 		
         <?php include_once '../includes/scripts_footer.php' ?>
+		<script src="../assets/plugins/jquery-ui/jquery-ui.min.js"></script>
         <!-- Cad Empresa js -->
 		<script src="js/cadContratos.js"></script>
+		<script>
+			//Posição
+			var vAParameters =
+			{
+				 'vSTitulo': 'Posição',
+				 'vSTabTipo': 'CONTRATOS - POSICAO',
+				 'vSCampo': 'vICTRPOSICAO',
+				 'vIValor': '<?php echo $vROBJETO['CTRPOSICAO']; ?>',
+				 'vSDesabilitar' : '<?= $vSDisabled; ?>',
+				 'vSDiv': 'divPosicao',
+				 'vSObrigatorio': 'S',
+				 'vSMethod': '<?= $_GET['method']; ?>'
+			}
+			combo_padrao_tabelas(vAParameters);
+			//Forma de Cobrança
+			var vAParameters =
+			{
+				 'vSTitulo': 'Forma de Cobrança',
+				 'vSTabTipo': 'CONTAS A RECEBER - FORMA DE COBRANCA',
+				 'vSCampo': 'vICTRFORMACOBRANCA',
+				 'vIValor': '<?php echo $vROBJETO['CTRFORMACOBRANCA']; ?>',
+				 'vSDesabilitar' : '<?= $vSDisabled; ?>',
+				 'vSDiv': 'divFormaCobranca',
+				 'vSObrigatorio': 'S',
+				 'vSMethod': '<?= $_GET['method']; ?>'
+			}
+			combo_padrao_tabelas(vAParameters);
+		</script>	
+		<script src="js/scriptUpload.js"></script>
     </body>
 </html>

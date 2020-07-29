@@ -5,7 +5,7 @@ if (isset($_POST['hdn_metodo_search']) && $_POST['hdn_metodo_search'] == 'Client
 	listContatos($_POST['pIOID'], 'ClientesxContatos');
 
 if( $_GET['hdn_metodo_fill'] == 'fill_Contatos' )
-	fill_Contatos($_GET['vICLICODIGO'], $_GET['vICONTIPO'], $_GET['formatoRetorno']); 
+	fill_Contatos($_GET['vICLICODIGO'], $_GET['formatoRetorno']); 
 
 if( $_GET['hdn_metodo_fill'] == 'fill_ContatosPadrao' )
 	fill_ContatosPadrao($_GET['vICONCODIGO'], $_GET['formatoRetorno']); 
@@ -38,26 +38,23 @@ function listContatos($vIOIDPAI, $tituloModal){
 	$vAConfig['DIV_RETORNO'] = "div_contatos";
 	$vAConfig['FUNCAO_RETORNO'] = "ClientesxContatos"; 
 	$vAConfig['ID_PAI'] = $vIOIDPAI;
-	$vAConfig['vATitulos'] 	= array('', 'Nome', 'E-mail', 'Celular', 'Telefone', 'Data Inclusão');
-	$vAConfig['vACampos'] 	= array('CONCODIGO', 'CONNOME', 'CONEMAIL', 'CONCELULAR', 'CONFONE', 'CONDATA_INC');
-	$vAConfig['vATipos'] 	= array('chave', 'varchar', 'varchar', 'varchar', 'varchar', 'datetime');
+	$vAConfig['vATitulos'] 	= array('', 'Nome', 'E-mail', 'Telefone', 'Celular', 'Cargo', 'Setor/Lotação', 'Data Inclusão');
+	$vAConfig['vACampos'] 	= array('CONCODIGO', 'CONNOME', 'CONEMAIL', 'CONFONE', 'CONCELULAR', 'CONCARGO', 'CONSETOR"', 'CONDATA_INC');
+	$vAConfig['vATipos'] 	= array('chave', 'varchar', 'varchar', 'varchar', 'varchar', 'varchar', 'varchar', 'datetime');
 	include_once '../../twcore/teraware/componentes/gridPadraoFilha.php';
-
 	return ;
-
 }
 
 function insertUpdateContatos($_POSTDADOS, $pSMsg = 'N'){
-	if ($_POSTDADOS['vHINPICONNOME'] != ''){	
-		$_POSTDADOSCON['vICONCODIGO'] = $_POSTDADOS['vHINPICONCODIGO'];
-		$_POSTDADOSCON['vICONTIPO'] = 26933;
-		$_POSTDADOSCON['vSCONNOME'] = $_POSTDADOS['vHINPICONNOME']; 
+	if ($_POSTDADOS['vHCONNOME'] != ''){	
+		$_POSTDADOSCON['vICONCODIGO'] = $_POSTDADOS['vHCONCODIGO'];
+		$_POSTDADOSCON['vSCONNOME'] = $_POSTDADOS['vHCONNOME']; 
 		$_POSTDADOSCON['vICLICODIGO'] = $_POSTDADOS['vICLICODIGO'];
-		$_POSTDADOSCON['vSCONEMAIL'] = $_POSTDADOS['vHINPICONEMAIL'];
-		$_POSTDADOSCON['vSCONCELULAR'] = $_POSTDADOS['vHINPICONCELULAR'];
-		$_POSTDADOSCON['vSCONFONE'] = $_POSTDADOS['vHINPICONFONE'];
-		$_POSTDADOSCON['vSCONOBSERVACOES'] = $_POSTDADOS['vHINPICONOBSERVACOES'];	
-		$_POSTDADOSCON['vIEMPCODIGO'] = 1;
+		$_POSTDADOSCON['vSCONEMAIL'] = $_POSTDADOS['vHCONEMAIL'];
+		$_POSTDADOSCON['vSCONCELULAR'] = $_POSTDADOS['vHCONCELULAR'];
+		$_POSTDADOSCON['vSCONFONE'] = $_POSTDADOS['vHCONFONE'];
+		$_POSTDADOSCON['vSCONCARGO'] = $_POSTDADOS['vHCONCARGO'];	
+		$_POSTDADOSCON['vSCONSETOR'] = $_POSTDADOS['vHCONSETOR'];	
 		$_POSTDADOSEND['vSCONPRINCIPAL'] = $_POSTDADOS['vHCONPRINCIPAL'];
 		
 		$dadosBanco = array(
@@ -68,8 +65,7 @@ function insertUpdateContatos($_POSTDADOS, $pSMsg = 'N'){
 			'url'     => '',
 			'debug'   => 'N'
 			);
-		$id = insertUpdate($dadosBanco);
-		
+		$id = insertUpdate($dadosBanco);		
 		return $id; 
 	}	
 }

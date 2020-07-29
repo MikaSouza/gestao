@@ -596,19 +596,7 @@ include_once __DIR__.'/../cadastro/combos/comboEstados.php';
 				 'vSMethod': '<?= $_GET['method']; ?>'
 			}
 			combo_padrao_tabelas(vAParameters);
-			//Vínculo Empregatício
-			var vAParameters =
-			{
-				 'vSTitulo': 'Vínculo Empregatício',
-				 'vSTabTipo': 'USUARIOS - VINCULO',
-				 'vSCampo': 'vIUSUVINCULO',
-				 'vIValor': '<?php echo $vROBJETO['USUVINCULO']; ?>',
-				 'vSDesabilitar' : '<?= $vSDisabled; ?>',
-				 'vSDiv': 'divVinculoEmpregaticio',
-				 'vSObrigatorio': 'S',
-				 'vSMethod': '<?= $_GET['method']; ?>'
-			}
-			combo_padrao_tabelas(vAParameters);
+			
 			//Tipo Arquivo
 			var vAParameters =
 			{

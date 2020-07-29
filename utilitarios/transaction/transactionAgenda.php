@@ -152,7 +152,6 @@ function listAgendaCalendario($dados)
             'color'         => isColor($cor) ? $cor : '#6B6B6B',
             'concluido'     => $row['AGECONCLUIDO'],
             'enviar_email'  => $row['AGEENVIAREMAIL'],
-            'enviar_sms'    => $row['AGEENVIARSMS'],
         );
 
         array_push($events, $event);
@@ -191,7 +190,7 @@ function listAgenda($_POSTDADOS){
                 t.TABDESCRICAO,
                 t.TABCOR,
 				CONCAT(a.AGEHORAINICIO, " - ", a.AGEHORAFINAL) AS HORAS,                           
-				CONCAT("<a href=\'../cadastro/cadClientes.php?oid=", a.CLICODIGO, "&method=update\' target=\'_blank\'>", CONCAT(cli.IDSIGLA, "|", cli.CLINOME), "</a>") AS CLINOME,					
+				CONCAT("<a href=\'../cadastro/cadClientes.php?oid=", a.CLICODIGO, "&method=update\' target=\'_blank\'>", cli.CLINOMEFANTASIA, "</a>") AS CLINOME,					
                 u.USUNOME AS RESPONSAVEL,
 				u2.USUNOME AS AGENDOU,
                 m.MENTITULO,
@@ -207,7 +206,7 @@ function listAgenda($_POSTDADOS){
 				LEFT JOIN ATIVIDADES t4 ON t4.ATICODIGO = a.AGETIPO	
 			WHERE
 				1 = 1
-				'.	$where;				
+				'.	$where;					
 	$arrayQuery = array(
 					'query' => $sql,
 					'parametros' => array()

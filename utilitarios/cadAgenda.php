@@ -4,7 +4,7 @@ $vAConfiguracaoTela = configuracoes_menu_acesso(1879);
 include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
 include_once __DIR__.'/../rh/combos/comboUsuarios.php';
 include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
-include_once __DIR__.'/../cadastro/combos/comboAtividades.php';
+include_once __DIR__.'/../helpdesk/combos/comboAtividades.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -54,10 +54,10 @@ include_once __DIR__.'/../cadastro/combos/comboAtividades.php';
 										</div>
 										<div class="form-group row divCliente">
 											<div class="col-md-5">                                                      
-												<label>Sigla - Cliente
+												<label>Cliente
 													<small class="text-danger font-13">*</small>
 												</label>												
-												<input title="Sigla - Cliente" type="text" name="vHCLIENTE" id="vHCLIENTE" class="form-control obrigatorio autocomplete" data-hidden="#vICLICODIGO" value="<?php echo $vROBJETO['CLIENTE']; ?>" onblur="validarCliente();"/>
+												<input title="Cliente" type="text" name="vHCLIENTE" id="vHCLIENTE" class="form-control obrigatorio autocomplete" data-hidden="#vICLICODIGO" value="<?php echo $vROBJETO['CLIENTE']; ?>" onblur="validarCliente();"/>
 												<span id="aviso-cliente" style="color: red;font-size: 11px; display: none;">O Cliente não foi selecionado corretamente!</span>
 												<input type="hidden" name="vICLICODIGO" id="vICLICODIGO" value="<?php if(isset($vIOid)) echo $vROBJETO['CLICODIGO']; ?>"/>
 											</div>
@@ -89,7 +89,7 @@ include_once __DIR__.'/../cadastro/combos/comboAtividades.php';
 										</div>
 										<div class="form-group row">
 											<div class="col-md-6">   
-												<label>Tipo de Contato/Atividade
+												<label>Tipo de Atividade
 													<small class="text-danger font-13">*</small>
 												</label>
 												<select name="vIAGETIPO" id="vIAGETIPO" class="custom-select obrigatorio" title="Tipo de Contato/Atividade">
@@ -112,10 +112,10 @@ include_once __DIR__.'/../cadastro/combos/comboAtividades.php';
 										</div>											
 										<div class="form-group row">
 											<div class="col-md-12">                                                      
-												<label>Descrição
+												<label>Descrição/Especificação
 													<small class="text-danger font-13">*</small>
 												</label>
-												<textarea class="form-control obrigatorio" rows="4" id="vSAGEDESCRICAO" name="vSAGEDESCRICAO" title="Descrição"><?= $vROBJETO['AGEDESCRICAO']; ?></textarea>
+												<textarea class="form-control obrigatorio" rows="4" id="vSAGEDESCRICAO" name="vSAGEDESCRICAO" title="Descrição/Especificação"><?= $vROBJETO['AGEDESCRICAO']; ?></textarea>
 											</div>
 										</div>	
 										<div class="form-group row">
@@ -131,13 +131,6 @@ include_once __DIR__.'/../cadastro/combos/comboAtividades.php';
 												<select class="form-control" name="vSAGEENVIAREMAIL" id="vSAGEENVIAREMAIL">
 													<option value="S" <?php if ($vROBJETO['AGEENVIAREMAIL'] == "S") echo "selected='selected'"; ?>>Sim</option>
 													<option value="N" <?php if ($vROBJETO['AGEENVIAREMAIL'] == "N") echo "selected='selected'"; ?>>Não</option>
-												</select>
-											</div>
-											<div class="col-sm-3">
-												<label>Copiar Supervisor?</label>
-												<select class="form-control" name="vSAGECOPIARSUPERVISOR" id="vSAGECOPIARSUPERVISOR">
-													<option value="N" <?php if ($vROBJETO['AGECOPIARSUPERVISOR'] == "N") echo "selected='selected'"; ?>>Não</option>
-													<option value="S" <?php if ($vROBJETO['AGECOPIARSUPERVISOR'] == "S") echo "selected='selected'"; ?>>Sim</option>													
 												</select>
 											</div>
                                         </div>	

@@ -1,5 +1,5 @@
 <?php
-include_once __DIR__.'/../twcore/teraware/php/constantes.php';
+include_once __DIR__.'/../../twcore/teraware/php/constantes.php';
 
 if(isset($_POST["method"]) && $_POST["method"] == 'excluirPadrao') {
 	include_once '../../twcore/teraware/php/constantes.php';

@@ -1,7 +1,7 @@
 <?php
 include_once __DIR__.'/../twcore/teraware/php/constantes.php';
 $vAConfiguracaoTela = configuracoes_menu_acesso(1879);
-include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
+include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN']; 
 include_once __DIR__.'/../rh/combos/comboUsuarios.php';
 ?>
 <!DOCTYPE html>
@@ -74,11 +74,7 @@ include_once __DIR__.'/../rh/combos/comboUsuarios.php';
 					<div class="modal-body">
 					<form class="form-parsley" action="#" method="post" name="formPesquisar" id="formPesquisar">
 						<div class="form-group row">
-							<div class="col-md-6">                                                      
-								<label>Sigla</label>
-								<input class="form-control classnumerico" name="vICLISEQUENCIAL" id="vICLISEQUENCIAL" type="text" value="" title="SIGLA" >
-							</div> 
-							<div class="col-md-6">                                                      
+							<div class="col-md-12">                                                      
 								<label>Nome Cliente</label>
 								<input class="form-control" name="vSCLINOME" id="vSCLINOME" type="text" value="" title="NOME CLIENTE" >
 							</div>							
