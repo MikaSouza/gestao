@@ -41,7 +41,7 @@ document.querySelector('#upload-file').addEventListener('change', function() {
 function validarArquivo(file){
 	console.log(file);
 	// Tipos permitidos
-	var mime_types = [ 'image/jpeg', 'image/png', 'application/pdf', 'audio/ogg', 'audio/mpeg', 'video/mp4', 'video/ogg', 'application/zip', 'video/mpeg', 'image/gif' ];
+	var mime_types = [ 'image/jpeg', 'image/png', 'application/pdf', 'application/zip', 'image/gif' ];
 	
 	// Validar os tipos
 	if(mime_types.indexOf(file.type) == -1) {
@@ -61,12 +61,13 @@ function enviarArquivo(indice, barra){
 	var data = new FormData();
 	var request = new XMLHttpRequest();
 	
-	var vSATITOKEN = $("#vSATITOKEN").val();
-	console.log(vSATITOKEN);
-	
+	var vIATECODIGO = $("#vIATECODIGO").val();
+	var vHMENCODIGO = $("#vHMENCODIGO").val();
+	console.log(vIATECODIGO);
+	console.log(vHMENCODIGO);
 	//Adicionar ID TOKEN
-	data.append('vSATITOKEN', vSATITOKEN);
-	
+	data.append('vIATECODIGO', vIATECODIGO);
+	data.append('vHMENCODIGO', vHMENCODIGO);
 	//Adicionar arquivo
 	data.append('file', document.querySelector('#upload-file').files[indice]);
 	
@@ -93,6 +94,6 @@ function enviarArquivo(indice, barra){
 	request.responseType = 'json';
 	
 	// Caminho
-	request.open('post', 'upload.php'); 
+	request.open('post', 'upload_atendimento.php'); 
 	request.send(data);
 }

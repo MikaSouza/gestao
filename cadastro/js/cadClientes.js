@@ -257,17 +257,20 @@ function fillClientesxHistorico(pIFXSCODIGO,titulo){
 	});
 
 }
-function salvarModalClientesxHistorico(div_nome,pSTransaction, pSDivReturn, pMetodo, pIOID){
+function salvarModalClientesxContatos(div_nome, pSTransaction, pSDivReturn, pMetodo, pIOID){
 	var erros = validarCamposDiv(div_nome);
 	if(erros.length === 0){
 		var data = {
 			method: "incluir"+pMetodo,
             hdn_pai_codgo: $("#hdn_pai_"+pMetodo).val(),
             hdn_filho_codgo: $("#hdn_filho_"+pMetodo).val(),
-			vDCHGDATA: $("#vDCHGDATA").val(),
-			vICHGTIPO: $("#vICHGTIPO").val(),
-			vICHGPOSICAO: $("#vICHGPOSICAO").val(),
-			vSCHGHISTORICO: $("#vSCHGHISTORICO").val()
+			vHCONNOME: $("#vHMCONNOME").val(),
+			vHCONEMAIL: $("#vHMCONEMAIL").val(),
+			vHCONCELULAR: $("#vHMCONFONE").val(),
+			vHCONFONE: $("#vHMCONCELULAR").val(),
+			vHCONCARGO: $("#vHMCONCARGO").val(),
+			vHCONSETOR: $("#vHMCONSETOR").val(),
+			vHCONSENHA: $("#vHMCONSENHA").val()
 		};
 		$.ajax({
 			async: true,

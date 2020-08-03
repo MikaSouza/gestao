@@ -8,28 +8,28 @@
  	//Diretório raiz do sistema
   	define("DIR_ROOT", $_SERVER['DOCUMENT_ROOT'].'/app/');
       
-    //URL do login
- 	define("URL_LOGIN", 'https://gestao-srv.teraware.net.br/autenticacao/login.php');
+    //URL do login 
+ 	define("URL_LOGIN", 'https://jefersonbraga-atendimento-presencial.teraware.net.br/autenticacao/login.php');
 	
 	//URL base
-	define("URL_BASE", 'https://gestao-srv.teraware.net.br/');
+	define("URL_BASE", 'https://jefersonbraga-atendimento-presencial.teraware.net.br/');
   
   	//Constantes Diversas
-  	define("vSTituloSite", ".: Gestão SRV - Sistema de Gestão Empresarial :.");
- 	define("vSEmpresa", "Gestão SRV");
- 	define("vSEmpresaSite", "https://gestao.srv.br/");
- 	define("vSEmailSite", "contato@gestao.srv.br");
- 	define("vSFoneEmpresa", "(51) 3541 3355"); 
+  	define("vSTituloSite", ".: Jeferson Braga Advogados - Plataforma de Atendimento :.");
+ 	define("vSEmpresa", "Jeferson Braga Advogados");
+ 	define("vSEmpresaSite", "http://www.jefersonbraga.com.br/");
+ 	define("vSEmailSite", "contato@jefersonbraga.com.br");
+ 	define("vSFoneEmpresa", "(51) 3075.0303"); 
     define("cSChaveCEP", "ecb023b62d76c34e879b022accc6b06b");
 	
-	define("cSPalavraChave", "TWFlex");
+	define("cSPalavraChave", "TWJBA");
  
   	/*
   		DADOS DE ACESSO AO BANCO ERP
   	*/
-	define("vGUsername", "teraware");
-	define("vGPassword", "7g7LWEnB");
-	define("vGBancoSite", "teraware");
+	define("vGUsername", "teraware06");
+	define("vGPassword", "265APS6R");
+	define("vGBancoSite", "teraware06");
 	define("vGHostSite", "mysql.teraware.net.br");
   	
     //Essa variável é utilizada em todos os arquivos de cadastro.

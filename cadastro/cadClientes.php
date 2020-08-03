@@ -268,7 +268,7 @@ include_once __DIR__.'/combos/comboEstados.php';
 													<div class="card-header p-0" id="headingOne">
 														<h5 class="my-1">
 															<button class="btn btn-link text-dark" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-															Demais Contatos/Consulentes
+															Demais Contatos
 															</button>
 														</h5>
 													</div>
@@ -550,7 +550,7 @@ include_once __DIR__.'/combos/comboEstados.php';
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title mt-0" id="exampleModalLabel">Incluir/Alterar Contato/Consulente</h5>
+						<h5 class="modal-title mt-0" id="exampleModalLabel">Incluir/Alterar Contato</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
@@ -561,8 +561,8 @@ include_once __DIR__.'/combos/comboEstados.php';
 						<input type="hidden" id="hdn_filho_Contatos" name="hdn_filho_Contatos" value="">
 						<div class="form-group row">
 							<div class="col-sm-12">
-								<label>Contato/Consulente</label>
-								<input class="form-control divObrigatorio" title="Contato/Consulente" name="vHMCONNOME" id="vHMCONNOME" type="text" value="" >
+								<label>Contato</label>
+								<input class="form-control divObrigatorio" title="Contato" name="vHMCONNOME" id="vHMCONNOME" type="text" value="" >
 							</div>									
 						</div>
 						<div class="form-group row">
@@ -587,7 +587,7 @@ include_once __DIR__.'/combos/comboEstados.php';
 								<input type="text" id="vHMCONCARGO" name="vHMCONCARGO" class="form-control" maxlength="150" title="Cargo" value="" />
 							</div>
 							<div class="col-sm-6"> 
-								<label>Setor/Lotação</label>													
+								<label>Setor</label>													
 								<input type="text" id="vHMCONSETOR" name="vHMCONSETOR" class="form-control" maxlength="150" title="Setor/Lotação" value="" />
 							</div>	
 						</div>
