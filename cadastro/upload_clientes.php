@@ -22,7 +22,7 @@ if(move_uploaded_file($file['tmp_name'],$diretorio.'/'.$file['name'])){
 	// inserir banco de dados	
 	$dadosBanco = array(
 		'vIGEDCODIGO'   => '',
-		'vSGEDNOMEARQUIVO' 	=> nomeArquivo,
+		'vSGEDNOMEARQUIVO' 	=> $nomeArquivo,
 		'vSGEDDIRETORIO'  => $diretorio,
 		'vIGEDVINCULO'    => $_POST['vICLICODIGO'],
 		'vIMENCODIGO'    => $_POST['vHMENCODIGO'],

@@ -1742,7 +1742,7 @@ function enviarEmail($pAEmails, $pSAssunto, $pSMensagem, $pAEmailsCC = array()){
 	$mail->Password = 'Si@2018';
 	$mail->SMTPSecure = 'tls';
 	$mail->From = 'sistema@marpa.com.br';
-	$mail->FromName = 'Sistema Marcas e Patentes';
+	$mail->FromName = 'Gestão Inteligência em Administração Pública';
 	//$mail->SMTPDebug = 2;
 	foreach ($pAEmails as $address){
 		if (filter_var($address, FILTER_VALIDATE_EMAIL)) {

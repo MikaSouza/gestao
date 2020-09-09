@@ -10,6 +10,21 @@ if( $_GET['hdn_metodo_fill'] == 'fill_Contatos' )
 if( $_GET['hdn_metodo_fill'] == 'fill_ContatosPadrao' )
 	fill_ContatosPadrao($_GET['vICONCODIGO'], $_GET['formatoRetorno']); 
 
+if(isset($_POST["method"]) && $_POST["method"] == 'incluirClientesxContatos'){
+	$_POSTBEN['vHCONCODIGO'] = $_POST['hdn_filho_codigo'];
+	$_POSTBEN['vICLICODIGO'] = $_POST['hdn_pai_codigo'];
+	$_POSTBEN['vHCONNOME'] = $_POST['vHCONNOME'];
+	$_POSTBEN['vHCONEMAIL'] = $_POST['vHCONEMAIL'];
+	$_POSTBEN['vHCONCELULAR'] = $_POST['vHCONCELULAR'];
+	$_POSTBEN['vHCONFONE'] = $_POST['vHCONFONE'];
+	$_POSTBEN['vHCONCARGO'] = $_POST['vHCONCARGO'];
+	$_POSTBEN['vHCONSETOR'] = $_POST['vHCONSETOR'];
+	$_POSTBEN['vHCONSENHA'] = $_POST['vHCONSENHA'];
+	$_POSTBEN['vHCONPRINCIPAL'] = 'N';
+	$vIOID = insertUpdateContatos($_POSTBEN, 'N');
+	echo $vIOID;
+}
+
 if (isset($_POST["method"]) && $_POST["method"] == 'excluirCLI') {
 	echo excluirAtivarRegistros(array(
         "tabela"   => Encriptar("CONTATOS", 'crud'),
@@ -55,6 +70,7 @@ function insertUpdateContatos($_POSTDADOS, $pSMsg = 'N'){
 		$_POSTDADOSCON['vSCONFONE'] = $_POSTDADOS['vHCONFONE'];
 		$_POSTDADOSCON['vSCONCARGO'] = $_POSTDADOS['vHCONCARGO'];	
 		$_POSTDADOSCON['vSCONSETOR'] = $_POSTDADOS['vHCONSETOR'];	
+		$_POSTDADOSCON['vSCONSENHA'] = $_POSTDADOS['vHCONSENHA'];
 		$_POSTDADOSEND['vSCONPRINCIPAL'] = $_POSTDADOS['vHCONPRINCIPAL'];
 		
 		$dadosBanco = array(

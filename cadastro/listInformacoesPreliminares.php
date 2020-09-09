@@ -1,6 +1,6 @@
 <?php
 include_once __DIR__.'/../twcore/teraware/php/constantes.php';
-$vAConfiguracaoTela = configuracoes_menu_acesso(6);
+$vAConfiguracaoTela = configuracoes_menu_acesso(2030);
 include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
 include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
 ?>
@@ -32,48 +32,20 @@ include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
 
                 <div class="container-fluid">
                     <?php include_once '../includes/breadcrumb.php' ?>
-					
-					<div class="row">
+
+                    <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-									<a href="cadClientes.php?method=insert" id="btnIncluir">
-									<button class="btn btn-primary px-4 btn-rounded float-left mt-0 mb-3">+ Novo Registro</button>
-									</a>
-									<button type="button" class="btn btn-primary waves-effect waves-light float-right" data-toggle="modal" data-animation="bounce" data-target=".bs-example-modal-center">+ Filtros</button>
-									<div class="table-responsive dash-social" style="overflow:hidden">
-									<table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="height: 430px; overflow: auto; width: 100%">
-										<thead>
-											<tr>											
-												<th>Enviar I.P.</th>	
-												<th width="25px">AÇÕES</th>	
-												<th>Razão Social</th>
-												<th>Nome Fantasia</th>
-												<th>CPF/CNPJ</th>			
-												<th>Data Inclusão</th>	
-												<th>Ativo</th>
-											</tr>
-										</thead>
-									<?php 									
-									$result = listClientes($_POST);									
-									$vITotalRegistros =  $result['quantidadeRegistros'];
-									foreach ($result['dados'] as $result) :?>									
-										<tr>	
-											<td align="center"><input type='checkbox' title='ckPadrao' name='vEnviarEmail[]' value ='<?= $result['CLICODIGO'];?>' id='vEnviarEmail[]' /></td>											
-											<td align="center">
-												<a href="cadClientes.php?oid=<?= $result['CLICODIGO'];?>&method=update" class="mr-2" title="Editar Registro" alt="Editar Registro"><i class="fas fa-edit text-info font-16"></i></a>
-												<a href="#" onclick="excluirRegistroGrid('<?= $result['CLICODIGO']?>', 'transactionUsuario.php', 'excluirPadrao', '<?= $vAConfiguracaoTela['MENCODIGO'];?>')" title="Excluir Registro" alt="Excluir Registro"><i class="fas fa-trash-alt text-danger font-16"></i></a>
-											</td>
-											<td align="left"><?= $result['CLIRAZAOSOCIAL'];?></td> 
-											<td align="left"><?= $result['CLINOMEFANTASIA'];?></td>
-											<td align="left"><?= $result['CNPJCPF'];?></td>
-											<td align="center"><?= formatar_data_hora($result['CLIDATA_INC']);?></td>											
-											<td align="left"><?= ativoSimNao($result['CLISTATUS']);?></td>
-										</tr>
-									<?php endforeach; ?>
-									</table>	
-									</div>
-									<button type="button" title="Enviar E-mail" style="width:150px" onclick="enviarEmailInfoPreliminares();" class="btn btn-primary waves-effect waves-light">Enviar E-mail</button>
+
+									<?php
+									$vAConfiguracaoTela['FILTROS'] = $_POST;
+									$vAConfiguracaoTela['BTN_FILTROS'] = 'S';
+									$vAConfig['vATitulos'] = array('Cliente', 'Nome do Ente', 'Data Inclusão', 'Ativo');
+									$vAConfig['vACampos'] = array('CLIRAZAOSOCIAL', 'CLINOMEFANTASIA', 'CLIDATA_INC', 'CLISTATUS');
+									$vAConfig['vATipos'] = array('varchar', 'varchar', 'datetime', 'simNao');
+									include_once __DIR__.'/../twcore/teraware/componentes/gridPadrao.php'; ?>
+
                                 </div>
                             </div>
                         </div>
@@ -174,6 +146,6 @@ include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
         <script src="../assets/pages/jquery.datatable.init.js"></script>
 
         <?php include_once '../includes/scripts_footer.php' ?>
-		<script src="js/listClientes.js"></script>
+
     </body>
 </html>

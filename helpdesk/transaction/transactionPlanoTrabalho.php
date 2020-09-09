@@ -37,8 +37,8 @@ function listPlanoTrabalho(){
 
 	$sql = "SELECT
 			C.*
-		FROM PROCESSOSXATIVIDADES C			
-			WHERE C.PXASTATUS = 'S'
+		FROM PROCESSOSINTERNO C			
+			WHERE C.PRISTATUS = 'S'
 			ORDER BY 1";
 
 	$arrayQuery = array(
@@ -52,23 +52,44 @@ function listPlanoTrabalho(){
 }
 
 function insertUpdatePlanoTrabalho($_POSTDADOS, $pSMsg = 'N'){
+	print_r($_POSTDADOS);
 	$dadosBanco = array(
-		'tabela'  => 'PROCESSOSXATIVIDADES',
-		'prefixo' => 'PXA',
+		'tabela'  => 'PROCESSOSINTERNO',
+		'prefixo' => 'PRI',
 		'fields'  => $_POSTDADOS,
 		'msg'     => $pSMsg,
-		'url'     => 'cadPlanoTrabalho.php',
-		'debug'   => 'S'
-	);
+		'url'     => '',
+		'debug'   => 'N'
+		);
 	$id = insertUpdate($dadosBanco);
+	if (isset($_POSTDADOS['car'])) {
+		foreach ($_POSTDADOS['car'] as $i => $atividade) {
+			insertUpdate([
+				'tabela'  => 'PROCESSOSXATIVIDADES',
+				'prefixo' => 'PXA',
+				'debug'   => 'S',
+				'msg'     => 'N',
+				'fields'  => [
+					'vIPXACODIGO'    	=> '',
+					'vIPRICODIGO'    	=> $id,
+					'vITABDEPARTAMENTO' => $atividade['model'],
+					'vIPXAPRAZO'     	=> $atividade['dias'],
+					'vIATICODIGO' 	 	=> $atividade['make'],
+					'vSPXASTATUS' 	 	=> 'S',
+					'vIPXAPOSICAO'		=> 1 //$_POSTDADOS['vHPXAPOSICAO'][$i]
+				],
+			]);
+		}
+	}
+
 	return $id;
 }
 
 function fill_PlanoTrabalho($pOid){
 	$SqlMain = "SELECT
                     *
-                FROM PROCESSOSXATIVIDADES
-                    WHERE PXACODIGO  =".$pOid;
+                FROM PROCESSOSINTERNO
+                    WHERE PRICODIGO  =".$pOid;
 	$vConexao = sql_conectar_banco(vGBancoSite);
 	$resultSet = sql_executa(vGBancoSite, $vConexao,$SqlMain);
 	$registro = sql_retorno_lista($resultSet);

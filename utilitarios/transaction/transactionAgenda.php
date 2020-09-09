@@ -125,7 +125,6 @@ function listAgendaCalendario($dados)
             $sql .= " AND a.MENCODIGO = ".$dados['vinculo'];
         }
     }*/
-
     $Sql       = stripcslashes($sql);
     $vConexao  = sql_conectar_banco();
     $resultSet = sql_executa(vGBancoSite, $vConexao,$sql,false);
@@ -142,7 +141,7 @@ function listAgendaCalendario($dados)
             'url'           => '',
             'assignee'      => $row['USUNOME'],
             'assignee_id'   => $row['AGERESPONSAVEL'],
-            'clientName'    => $row['CLINOME'],
+            'clientName'    => $row['CLINOMEFANTASIA'],
             'clientId'      => $row['CLICODIGO'],
             'type'          => $row['TABDESCRICAO'],
             'type_id'       => $row['AGETIPO'],
@@ -237,7 +236,7 @@ function listAgenda($_POSTDADOS){
 }
 
 function insertUpdateAgenda($dados, $pSMsg = 'N'){
-	
+	if ($dados['vSAGEDATAFINAL'] == '') $dados['vSAGEDATAFINAL'] = $dados['vSAGEDATAINICIO'];
     $dadosBanco = array(
         'tabela'  => 'AGENDA',
         'prefixo' => 'AGE',
@@ -260,7 +259,7 @@ function enviarEmailAgendamento($dados)
 {
     $recipients = array();
     $SqlMain = "SELECT
-						c.CLINOME,
+						c.CLINOMEFANTASIA,
 						c.CLIEMAIL,
 						u.USUEMAIL,
 						u.USUNOME,	
@@ -279,7 +278,7 @@ function enviarEmailAgendamento($dados)
 		$vICLICODIGO = $regemails['CLICODIGO'];
 		$vSUSUEMAIL  = $regemails['USUEMAIL'];
 		$vSUSUNOME   = $regemails['USUNOME'];
-		$vSCLINOME   = $regemails['CLINOME'];
+		$vSCLINOME   = $regemails['CLINOMEFANTASIA'];
 		
 		$vISOECODIGO = str_pad($regemails['SOECODIGO'], 5, '0', STR_PAD_LEFT);
 		$data_atual  = formatar_data_hora($regemails['SOEDATA_INC']);
@@ -346,7 +345,7 @@ function fill_Agenda($codigo)
     include '../transaction/transactionCliente.php';
     $cliente = fill_cliente($fill['CLICODIGO']);
 
-    $fill['CLIENTE'] = $cliente['CLINOME'];
+    $fill['CLIENTE'] = $cliente['CLINOMEFANTASIA'];
 
     return $fill;
 }
@@ -364,7 +363,7 @@ function deleteAgenda($vIAGECODIGO)
 
 function fill_AgendaCalendario($pOid, $formatoRetorno = 'array' ){
 	$SqlMain = 	"SELECT
-	                a.*,  CONCAT(c.CLISEQUENCIAL,' - ', c.CLINOME) AS CLIENTE
+	                a.*, c.CLINOMEFANTASIA AS CLIENTE
 	            FROM
                     AGENDA a
 				LEFT JOIN CLIENTES c ON c.CLICODIGO = a.CLICODIGO	
@@ -385,7 +384,7 @@ function fill_AgendaCalendario($pOid, $formatoRetorno = 'array' ){
 
 function fill_AgendaTela($pOid){
 	$SqlMain = "SELECT
-	                a.*,  CONCAT(c.CLISEQUENCIAL,' - ', c.CLINOME) AS CLIENTE
+	                a.*, c.CLINOMEFANTASIA AS CLIENTE
 	            FROM
                     AGENDA a
 				LEFT JOIN CLIENTES c ON c.CLICODIGO = a.CLICODIGO	

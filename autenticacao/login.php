@@ -38,7 +38,7 @@ include_once __DIR__.'/transaction/transactionLogin.php';
                                 </div><!--end auth-logo-box-->
 
                                 <div class="text-center auth-logo-text">
-                                    <h4 class="mt-0 mb-3 mt-5">Sistema Gestão de Atividades e Atendimento</h4> 
+                                    <h4 class="mt-0 mb-3 mt-5">Info Gestão</h4> 
                                 </div> <!--end auth-logo-text-->
 
                                 <form class="form-horizontal auth-form my-4" name="frmLogin" id="frmLogin" action="#" method="post" onsubmit="return validarForm();">

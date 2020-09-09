@@ -6,7 +6,7 @@ $file = $_FILES['file'];
 
 $ret = [];
 
-$diretorio = '../ged/atendimentos/'.$_POST['vIATECODIGO'];
+$diretorio = '../ged/contratos/'.$_POST['vICTRCODIGO'];
 echo $diretorio;
 if (!is_dir($diretorio)) {
 	mkdir($diretorio, 0755, true);
@@ -24,7 +24,7 @@ if(move_uploaded_file($file['tmp_name'],$diretorio.'/'.$file['name'])){
 		'vIGEDCODIGO'   => '',
 		'vSGEDNOMEARQUIVO' 	=> $nomeArquivo,
 		'vSGEDDIRETORIO'  => $diretorio,
-		'vIGEDVINCULO'    => $_POST['vIATECODIGO'],
+		'vIGEDVINCULO'    => $_POST['vICTRCODIGO'],
 		'vIMENCODIGO'    => $_POST['vHMENCODIGO'],
 		'vSGEDTIPO'     => $file['type'],		
 		'vIGEDTAMANHO'  => $file['size'] 

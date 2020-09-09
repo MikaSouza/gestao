@@ -72,7 +72,7 @@ function listGED($vIOIDPAI, $pIOIDMENU){
 	
 	$sql = "SELECT
                 FS.*, T.TABDESCRICAO AS TIPO, U.USUNOME,
-				CONCAT('<a target=_blank href=/marpa_consultoria/ged/', FS.GEDDIRETORIO, '/', FS.GEDNOMEARQUIVO, '>ABRIR</a>') AS LINK
+				CONCAT('<a target=_blank href=/ged/', FS.GEDDIRETORIO, '/', FS.GEDNOMEARQUIVO, '>ABRIR</a>') AS LINK
             FROM
                 GED FS
 			LEFT JOIN TABELAS T ON T.TABCODIGO = FS.GEDTIPO	 

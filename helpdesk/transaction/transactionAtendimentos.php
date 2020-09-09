@@ -26,7 +26,6 @@ if(isset($_POST["method"]) && $_POST["method"] == 'excluirPadrao') {
 
 function listAtendimentos($_POSTDADOS){
 	$where = '';
-	print_r($_POSTDADOS);
 	if(verificarVazio($_POSTDADOS['vSStatusFiltro'])){
 		if($_POSTDADOS['vSStatusFiltro'] == 'S')
 			$where .= "AND a.ATESTATUS = 'S' ";
@@ -74,8 +73,7 @@ function listAtendimentos($_POSTDADOS){
 	$arrayQuery = array(
 					'query' => $sql,
 					'parametros' => array()
-				);
-	echo $sql;			
+				);		
 	if(verificarVazio($_POSTDADOS['vDDataInicio'])){
 		$varIni = $_POSTDADOS['vDDataInicio']." 00:00:00";
 		$arrayQuery['parametros'][] = array($varIni, PDO::PARAM_STR);
@@ -112,8 +110,7 @@ function listAtendimentos($_POSTDADOS){
 
 function insertUpdateAtendimentos($_POSTDADOS, $pSMsg = 'N'){
 	
-	pre($_POSTDADOS);
-	return;
+
 	if ($_POSTDADOS['vIATECODIGO'] == '')
 		$_POSTDADOS['vIATESEQUENCIAL'] = proxima_Sequencial('ATENDIMENTO');
 

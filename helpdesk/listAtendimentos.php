@@ -56,9 +56,9 @@ include_once __DIR__.'/combos/comboPosicoesPadroes.php';
 												<th>Assunto</th>
 												<th>Atendente</th>
 												<th>Abertura</th>
-												<th>Tempo Previsto</th>
 												<th>Conclusão</th>
-												<th>Ações</th>					
+												<th>Ações</th>	
+												<th></th>	
 											</tr>
 										</thead> 
 										<tbody>
@@ -85,12 +85,14 @@ include_once __DIR__.'/combos/comboPosicoesPadroes.php';
 													<td align="left"><?= $result1['ATEASSUNTO'];?></td>
 													<td align="left"><?= $result1['ATENDENTE'];?></td>
 													<td align="center"><?= formatar_data_hora($result1['ATEDATA_INC']);?></td>
-													<td align="center"><?= formatar_data_hora($result1['ATEDATA_INC']);?></td>
 													<td align="center"><?= formatar_data_hora($result1['ATEDATACONCLUSAO']);?></td>
 													<td align="center">
 														<a href="cadAtendimentos.php?oid=<?= $result1['ATECODIGO'];?>&method=update" class="mr-2" title="Editar Registro" alt="Editar Registro"><i class="fas fa-edit text-info font-16"></i></a>
 														<a href="#" onclick="excluirRegistroGrid('<?= $result1['ATECODIGO'];?>', '<?= $vAConfiguracaoTela['MENARQUIVOTRAN'];?>', 'excluirPadrao', '<?= $vAConfiguracaoTela['MENCODIGO'];?>')" title="Excluir Registro" alt="Excluir Registro"><i class="fas fa-trash-alt text-danger font-16"></i></a>
-													</td>						
+													</td>
+													<td align="center">
+														<button type="button" class="btn btn-secondary waves-effect" onclick="finalizarOportunidade('<?= $result['CXPCODIGO'];?>');">Relatório</button>														
+													</td>													
 												</tr>
 											<?php endforeach;  ?>
 										</tbody>	

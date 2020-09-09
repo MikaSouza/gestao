@@ -38,8 +38,8 @@ include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
                                 <div class="card-body">
 
 									<?php
-									$vAConfig['vATitulos'] = array('Código', 'Nome', 'Data Inclusão', 'Ativo');
-									$vAConfig['vACampos'] = array('CHECODIGO', 'CHENOME', 'CHEDATA_INC', 'CHESTATUS');
+									$vAConfig['vATitulos'] = array('Código', 'Título', 'Data Inclusão', 'Ativo');
+									$vAConfig['vACampos'] = array('PRICODIGO', 'PRINOME', 'PRIDATA_INC', 'PRISTATUS');
 									$vAConfig['vATipos'] = array('sequencial', 'varchar', 'datetime', 'simNao');
 									include_once __DIR__.'/../twcore/teraware/componentes/gridPadrao.php'; ?>
 

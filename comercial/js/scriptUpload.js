@@ -61,12 +61,12 @@ function enviarArquivo(indice, barra){
 	var data = new FormData();
 	var request = new XMLHttpRequest();
 	
-	var vICLICODIGO = $("#vICLICODIGO").val();
+	var vICTRCODIGO = $("#vICTRCODIGO").val();
 	var vHMENCODIGO = $("#vHMENCODIGO").val();
-	console.log(vICLICODIGO);
+	console.log(vICTRCODIGO);
 	console.log(vHMENCODIGO);
 	//Adicionar ID TOKEN
-	data.append('vICLICODIGO', vICLICODIGO);
+	data.append('vICTRCODIGO', vICTRCODIGO);
 	data.append('vHMENCODIGO', vHMENCODIGO);
 	//Adicionar arquivo
 	data.append('file', document.querySelector('#upload-file').files[indice]);

@@ -57,6 +57,8 @@ include_once __DIR__.'/combos/comboEstados.php';
 										<input type="hidden" name="vHPREFIXO" id="vHPREFIXO" value="<?= $vAConfiguracaoTela['MENPREFIXO']; ?>"/>
 										<input type="hidden" name="vHURL" id="vHURL" value="<?= $vAConfiguracaoTela['MENARQUIVOCAD']; ?>"/>
 										<input type="hidden" name="vIEMPCODIGO" id="vIEMPCODIGO" value="1"/>
+										<input type="hidden" name="vHMENCODIGO" id="vHMENCODIGO" value="<?= $vAConfiguracaoTela['MENCODIGO']; ?>"/>
+										
 										
                                     <!-- Nav tabs -->
                                     <ul  class="nav nav-tabs" role="tablist">
@@ -71,7 +73,7 @@ include_once __DIR__.'/combos/comboEstados.php';
                                         </li>
 										<?php if($vIOid > 0){ ?>
 										<li class="nav-item waves-effect waves-light">
-                                            <a class="nav-link" data-toggle="tab" href="#ged-1" role="tab" onclick="gerarGridJSONGED('../../utilitarios/transaction/transactionGED.php', 'div_ged', 'GED', '<?= $vIOid;?>');">Digitalizações/Arquivos</a>
+                                            <a class="nav-link" data-toggle="tab" href="#ged-1" role="tab" onclick="gerarGridJSONGED('../../utilitarios/transaction/transactionGED.php', 'div_ged', 'GED', '<?= $vIOid;?>', '6');">Digitalizações/Arquivos</a>
                                         </li>
 										<li class="nav-item waves-effect waves-light">
                                             <a class="nav-link" data-toggle="tab" href="#contratos" role="tab" onclick="gerarGridJSON('transactionClientesxContratos.php', 'div_contratos', 'ClientesxContratos', '<?= $vIOid;?>');">Contratos</a>
@@ -268,7 +270,7 @@ include_once __DIR__.'/combos/comboEstados.php';
 													<div class="card-header p-0" id="headingOne">
 														<h5 class="my-1">
 															<button class="btn btn-link text-dark" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-															Demais Contatos
+															Demais Contatos/Consulentes
 															</button>
 														</h5>
 													</div>
@@ -550,7 +552,7 @@ include_once __DIR__.'/combos/comboEstados.php';
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title mt-0" id="exampleModalLabel">Incluir/Alterar Contato</h5>
+						<h5 class="modal-title mt-0" id="exampleModalLabel">Incluir/Alterar Contato/Consulente</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
@@ -561,15 +563,19 @@ include_once __DIR__.'/combos/comboEstados.php';
 						<input type="hidden" id="hdn_filho_Contatos" name="hdn_filho_Contatos" value="">
 						<div class="form-group row">
 							<div class="col-sm-12">
-								<label>Contato</label>
-								<input class="form-control divObrigatorio" title="Contato" name="vHMCONNOME" id="vHMCONNOME" type="text" value="" >
+								<label>Contato/Consulente</label>
+								<input class="form-control divObrigatorio" title="Contato/Consulente" name="vHMCONNOME" id="vHMCONNOME" type="text" value="" >
 							</div>									
 						</div>
 						<div class="form-group row">
-							<div class="col-sm-12">
+							<div class="col-sm-6">
 								<label>E-mail</label>
 								<input class="form-control divObrigatorio" title="E-mail" name="vHMCONEMAIL" id="vHMCONEMAIL" type="email" value="" >
-							</div>								
+							</div>	
+							<div class="col-sm-6">
+								<label>Senha Portal</label>
+								<input class="form-control" title="Senha Portal" name="vHMCONSENHA" id="vHMCONSENHA" type="password" value="" >
+							</div>		
 						</div>
 						<div class="form-group row">							
 							<div class="col-sm-6">
@@ -587,13 +593,13 @@ include_once __DIR__.'/combos/comboEstados.php';
 								<input type="text" id="vHMCONCARGO" name="vHMCONCARGO" class="form-control" maxlength="150" title="Cargo" value="" />
 							</div>
 							<div class="col-sm-6"> 
-								<label>Setor</label>													
+								<label>Setor/Lotação</label>													
 								<input type="text" id="vHMCONSETOR" name="vHMCONSETOR" class="form-control" maxlength="150" title="Setor/Lotação" value="" />
 							</div>	
 						</div>
 						<div class="form-group row">
 							<div class="col-md-12 mt-3">
-								<button type="button" class="btn btn-primary btn-xs  waves-effect waves-light fa-pull-right" onclick="salvarModalCustosMateriasPrimas('modal_div_ClientesxContatos','transactionContatos.php', 'div_ClientesxContatos', 'ClientesxContatos', '<?= $vIOid;?>')">Salvar</button>								
+								<button type="button" class="btn btn-primary btn-xs  waves-effect waves-light fa-pull-right" onclick="salvarModalClientesxContatos('modal_div_ClientesxContatos','transactionContatos.php', 'div_ClientesxContatos', 'ClientesxContatos', '<?= $vIOid;?>')">Salvar</button>								
 							</div>
 						</div>
 					</form> 					

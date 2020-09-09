@@ -52,6 +52,7 @@ include_once __DIR__.'/combos/comboPrioridades.php';
 										<input type="hidden" name="vHPREFIXO" id="vHPREFIXO" value="<?= $vAConfiguracaoTela['MENPREFIXO']; ?>"/>
 										<input type="hidden" name="vHURL" id="vHURL" value="<?= $vAConfiguracaoTela['MENARQUIVOCAD']; ?>"/>
 										<input type="hidden" name="vIEMPCODIGO" id="vIEMPCODIGO" value="1"/>
+										<input type="hidden" name="vHMENCODIGO" id="vHMENCODIGO" value="<?= $vAConfiguracaoTela['MENCODIGO']; ?>"/>
 										
                                     <!-- Nav tabs -->
                                     <ul  class="nav nav-tabs" role="tablist">
@@ -60,13 +61,13 @@ include_once __DIR__.'/combos/comboPrioridades.php';
                                         </li>                                                                             
 										<?php if($vIOid > 0){ ?>
 										<li class="nav-item waves-effect waves-light">
-											<a class="nav-link" data-toggle="tab" href="#ged-1" role="tab" onclick="gerarGridJSONGED('../../utilitarios/transaction/transactionGED.php', 'div_ged', 'ClientesxGED', '<?= $vIOid;?>', '545');">GED/Anexos</a>                                            
+											<a class="nav-link" data-toggle="tab" href="#ged-1" role="tab" onclick="gerarGridJSONGED('../../utilitarios/transaction/transactionGED.php', 'div_ged', 'GED', '<?= $vIOid;?>', '2025');">Digitalizações/Arquivos</a>											                                          
                                         </li>	
 										<li class="nav-item waves-effect waves-light">											
                                             <a class="nav-link" data-toggle="tab" href="#posicoes" role="tab" onclick="gerarGridJSON('transactionAtendimentoxHistoricos.php', 'div_historico', 'AtendimentoxHistoricos', '<?= $vIOid;?>');">Posições/Históricos</a>
                                         </li>
 										<li class="nav-item waves-effect waves-light">
-                                            <a class="nav-link" data-toggle="tab" href="#subAtendimentos" role="tab" onclick="gerarGridJSON('transactionAtendimentoxSubAtendimentos.php', 'div_subAtendimentos', 'AtendimentoxSubAtendimentos', '<?= $vIOid;?>');">Plano de Trabalho</a>
+                                            <a class="nav-link" data-toggle="tab" href="#subAtendimentos" role="tab" onclick="gerarGridJSON('transactionAtendimentoxPlanoTrabalho.php', 'div_subAtendimentoxPlanoTrabalho', 'AtendimentoxPlanoTrabalho', '<?= $vIOid;?>');">Plano de Trabalho</a>
                                         </li>		
 										<!-- outra versão
 										<li class="nav-item waves-effect waves-light">
@@ -74,10 +75,10 @@ include_once __DIR__.'/combos/comboPrioridades.php';
                                         </li>
 										<li class="nav-item waves-effect waves-light">
                                             <a class="nav-link" data-toggle="tab" href="#ged-1" role="tab" onclick="gerarGridJSON('transactionClientesxGED.php', 'div_ged', 'ClientesxGED', '<?= $vIOid;?>');">Faturamento</a>
-                                        </li> -->
+                                        </li>
 										<li class="nav-item waves-effect waves-light">
                                             <a class="nav-link" data-toggle="tab" href="#documentacao" role="tab" onclick="gerarGridJSON('transactionClientesxGED.php', 'div_ged', 'ClientesxGED', '<?= $vIOid;?>');">Documentação Apoio</a>
-                                        </li>
+                                        </li> -->
                                         <?php } ?>                                        
                                     </ul>
                                     <!-- Nav tabs end -->
@@ -214,11 +215,7 @@ include_once __DIR__.'/combos/comboPrioridades.php';
 																<div class="col-md-2">
 																	<label>Hora Final</label>
 																	<input type="text" class="form-control" name="vSATEPREVISAOCONCLUSAOHORAFIM" id="vSATEPREVISAOCONCLUSAOHORAFIM" title="Hora Final" value="<?= $vROBJETO['ATEPREVISAOCONCLUSAOHORAFIM']; ?>"/>																										
-																</div>
-																<div class="col-md-2">
-																	<label>Total Horas Previstas</label>
-																	<input type="text" class="form-control obrigatorio" name="vSATEPREVISAOCONCLUSAOHORA" id="vSATEPREVISAOCONCLUSAOHORA" title="Total Horas Previstas" value="<?= $vROBJETO['ATEPREVISAOCONCLUSAOHORA']; ?>"/>																										
-																</div>
+																</div>			
 															</div>																	
 															</p>
 														</div>
@@ -303,15 +300,15 @@ include_once __DIR__.'/combos/comboPrioridades.php';
 										
 										<div class="tab-pane p-3" id="subAtendimentos" role="tabpanel">
 											<div class="form-group row">
-                                                <div id="div_subAtendimentos" class="table-responsive"></div>                                                
+                                                <div id="div_subAtendimentoxPlanoTrabalho" class="table-responsive"></div>                                                
                                             </div>
 										</div>
-										
+										<!--
 										<div class="tab-pane p-3" id="documentacao" role="tabpanel">
 											<div class="form-group row">
                                                 <div id="div_documentacao" class="table-responsive"></div>                                                
                                             </div>
-										</div>
+										</div>-->
 
 										<div class="form-group">
 											<label class="form-check-label" for="invalidCheck3" style="color: red">

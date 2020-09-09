@@ -44,7 +44,7 @@ include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
 												<label>Título
 													<small class="text-danger font-13">*</small>
 												</label>
-												<input class="form-control  obrigatorio" name="vSATINOME" id="vSATINOME" type="text" value="<?= $vROBJETO['ATINOME']?>" title="Título" >
+												<input class="form-control  obrigatorio" name="vSCHENOME" id="vSCHENOME" type="text" value="<?= $vROBJETO['CHENOME']?>" title="Título" >
 											</div>
 										</div>	
 										

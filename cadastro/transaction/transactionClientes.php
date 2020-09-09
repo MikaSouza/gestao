@@ -27,6 +27,15 @@ if (($_POST["methodPOST"] == "insert")||($_POST["methodPOST"] == "update")) {
 	$vRENDERECO = fill_Enderecos($vIOid, 'S');
 }
 
+if (isset($_GET['method'])) {
+	switch ($_GET['method']) {
+		case 'enviarEmailInfoSistema':
+			echo json_encode(enviarEmailInfoSistema($_POST['vACLICODIGO']));
+			break;
+	}
+
+}
+
 if( $_GET['hdn_metodo_fill'] == 'fill_Clientes' )
 	fill_Clientes($_GET['vICLICODIGO'], $_GET['formatoRetorno']);
 
@@ -237,4 +246,68 @@ function insertUpdateClientexTipoParceiro($_POSTDADOS, $pSMsg = 'N'){
 	);
 	$id = insertUpdate($dadosBanco);
 	return $id;
+}
+
+function enviarEmailInfoSistema($vACLICODIGO)
+{
+	$usuarios = consultaComposta([
+        'query' => 'SELECT
+        			   CLICODIGO,
+                       CLINOMEFANTASIA
+                    FROM
+                        CLIENTES
+                    WHERE
+                        CLICODIGO IN ('.implode(',', $vACLICODIGO).')',
+    ]);
+
+
+	$vSURLAcesso = "http://sites-gestao-srv.teraware.net.br/formulario";
+
+	foreach ($usuarios['dados'] AS $usuario) {
+
+		$Assunto = utf8_decode("INFORMAÇÕES PRELIMINARES PARA INÍCIO DAS ATIVIDADES");
+		$Mensagem = "<p>Prezado " .$usuario['CLINOMEFANTASIA'] . "<br /><br />
+						Informamos que para início das atividades solcitamos que preencha o formulário abaixo.<br />
+						Para acessar o sistema siga os seguintes passos:
+					</p>
+					<ul type='circle'>
+						<li>Acesse o endereço:<br/>
+						- Link: <a href='".$vSURLAcesso."' alt='INFORMAÇÕES PRELIMINARES PARA INÍCIO DAS ATIVIDADES'>".$vSURLAcesso."</a><br/>
+						</li>
+					</ul>
+					<br />
+					<p>Para dúvidas envie e-mail para nosso suporte técnico, para gestao@gestao.srv.br</p>
+					<p>Ou pelo telefone: (51) 3541-3355 ou Whats (51) 9 8443-2097</p>
+					<p>Gestão Inteligência em Administração Pública</p>
+					";
+
+		$pAEmails = ['godinho@teraware.com.br'];
+
+		ob_start();
+		$send[$usuario['CLICODIGO']] = enviarEmail($pAEmails, $Assunto, $Mensagem);
+		ob_end_clean();
+	}
+
+
+	$fails = array_filter($send, function($success) {
+        return !$success;
+    });
+
+    if (count($fails)) {
+        $response = [
+            'success' => false,
+            'msg'     => 'Não foi possível enviar E-mail para os clientes: '.implode(', ', array_keys($fails)),
+        ];
+
+        if (count($fails) != count($send)) {
+            $response['msg'] .= '. Os demais foram enviados com sucesso!';
+        }
+
+        return $response;
+    }
+
+    return [
+        'success' => true,
+        'msg' => 'Todos os E-mails foram enviados com sucesso!',
+    ];
 }

@@ -1,8 +1,8 @@
 <?php
 include_once __DIR__.'/../twcore/teraware/php/constantes.php';
 $vAConfiguracaoTela = configuracoes_menu_acesso(2023);
+pre($vAConfiguracaoTela);
 include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
-include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -41,10 +41,8 @@ include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
 										
 										<div class="form-group row">
 											<div class="col-md-4">
-												<label>Título
-													<small class="text-danger font-13">*</small>
-												</label>
-												<input class="form-control  obrigatorio" name="vSATINOME" id="vSATINOME" type="text" value="<?= $vROBJETO['ATINOME']?>" title="Título" >
+												<label>Título</label>
+												<label><?= $vROBJETO['CHENOME']?></label>
 											</div>
 										</div>	
 										
@@ -52,67 +50,28 @@ include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
 											<div class="col-12">
 												<div class="form-group row">
 													<div class="col-md-8"> 
-														<label>Pergunta
-															<small class="text-danger font-13">*</small>
-														</label>
-														<textarea title="Descrição" class="form-control obrigatorio" id="vSATIDESCRICAO" name="vSATIDESCRICAO" rows="3"><?= $vROBJETO['ATIDESCRICAO']; ?></textarea>
+														<label><?= $vROBJETO['CHEDESCRICAO']; ?></label>														
 													</div> 	
 												</div>	
-												<div class="card">
-													<div class="card-body">
-														
-														<form method="POST" class="form-horizontal well">
-															<fieldset>
-																<div class="repeater-default">
-																	<div data-repeater-list="car">
-																		<div data-repeater-item="">
-																			<div class="form-group row d-flex align-items-end">																		
-																				
-																				<div class="col-sm-4">
-																					<label class="control-label">Resposta</label>
-																					<input type="text" name="car[0][model]" value="Beetle" class="form-control">
-																				</div><!--end col-->																
-																	
-																				<div class="col-sm-2">
-																					<span data-repeater-delete="" class="btn btn-danger btn-sm">
-																						<span class="far fa-trash-alt mr-1"></span> Deletar Item
-																					</span>
-																				</div><!--end col-->
-																			</div><!--end row-->
-																		</div><!--end /div-->
-																
-																	</div><!--end repet-list-->
-																	<div class="form-group mb-0 row">
-																		<div class="col-sm-12">
-																			<span data-repeater-create="" class="btn btn-secondary">
-																				<span class="fas fa-plus"></span> Adicionar Item
-																			</span>
-																		</div><!--end col-->
-																	</div><!--end row-->                                         
-																</div> <!--end repeter-->                                           
-															</fieldset><!--end fieldset-->
-														</form><!--end form-->
-													</div><!--end card-body-->
-												</div><!--end card-->
-												<div class="form-group mb-0 row">
-													<div class="col-sm-12">
-														<span data-repeater-create="" class="btn btn-warning">
-															<span class="fas fa-plus"></span> Adicionar Nova Pergunta
-														</span>
-													</div><!--end col-->
-												</div><!--end row-->   
+												<div class="form-group row">
+													<div class="col-md-8"> 
+														<div class="custom-control custom-checkbox custom-control-inline">
+															<input type="checkbox" class="custom-control-input" id="customCheck1" name="car[0][features][]" value="ac">
+															<label class="custom-control-label" for="customCheck1">Air Conditioning</label>
+														</div>
+														<div class="custom-control custom-checkbox custom-control-inline">
+															<input type="checkbox" class="custom-control-input" id="customCheck1" name="car[0][features][]" value="ac">
+															<label class="custom-control-label" for="customCheck1">Air Conditioning</label>
+														</div>
+														<div class="custom-control custom-checkbox custom-control-inline">
+															<input type="checkbox" class="custom-control-input" id="customCheck1" name="car[0][features][]" value="ac">
+															<label class="custom-control-label" for="customCheck1">Air Conditioning</label>
+														</div> 
+													</div>
+												</div>	 
 											</div> <!-- end col -->
 										</div> <!-- end col -->
 																																																
-										<div class="form-group row">
-											<div class="col-md-2">
-												<label>Cadastro (Status)</label>
-												<select class="custom-select" name="vS<?= $vAConfiguracaoTela['MENPREFIXO'];?>STATUS" id="vS<?= $vAConfiguracaoTela['MENPREFIXO'];?>STATUS">
-													<option value="S" <?php if ($vSDefaultStatusCad == "S") echo "selected='selected'"; ?>>Ativo</option>
-													<option value="N" <?php if ($vSDefaultStatusCad == "N") echo "selected='selected'"; ?>>Inativo</option>
-												</select>
-											</div>	
-										</div>
 										<div class="form-group">
 											<label class="form-check-label is-invalid" for="invalidCheck3" style="color: red">
 												Campos em vermelho são de preenchimento obrigatório!
