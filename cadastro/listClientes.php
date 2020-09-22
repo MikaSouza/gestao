@@ -46,6 +46,7 @@ include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
 										<thead>
 											<tr>											
 												<th>Enviar I.P.</th>	
+												<th>Info. Pre.</th>
 												<th width="25px">AÇÕES</th>	
 												<th>Razão Social</th>
 												<th>Nome Fantasia</th>
@@ -59,7 +60,12 @@ include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
 									$vITotalRegistros =  $result['quantidadeRegistros'];
 									foreach ($result['dados'] as $result) :?>									
 										<tr>	
-											<td align="center"><input type='checkbox' title='ckPadrao' name='vEnviarEmail[]' value ='<?= $result['CLICODIGO'];?>' id='vEnviarEmail[]' /></td>											
+											<td align="center"><input type='checkbox' title='ckPadrao' name='vEnviarEmail[]' value ='<?= $result['CLICODIGO'];?>' id='vEnviarEmail[]' /></td>
+											<td align="center">
+												<a href="cadInformacoesPreliminares.php?oid=<?= $result['CLICODIGO'];?>&method=update">
+													<button type="button" class="btn btn-secondary waves-effect">Info. Pre.</button>
+												</a>
+											</td>	
 											<td align="center">
 												<a href="cadClientes.php?oid=<?= $result['CLICODIGO'];?>&method=update" class="mr-2" title="Editar Registro" alt="Editar Registro"><i class="fas fa-edit text-info font-16"></i></a>
 												<a href="#" onclick="excluirRegistroGrid('<?= $result['CLICODIGO']?>', 'transactionUsuario.php', 'excluirPadrao', '<?= $vAConfiguracaoTela['MENCODIGO'];?>')" title="Excluir Registro" alt="Excluir Registro"><i class="fas fa-trash-alt text-danger font-16"></i></a>

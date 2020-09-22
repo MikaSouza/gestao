@@ -4,7 +4,7 @@ include_once __DIR__.'/../../twcore/teraware/php/constantes.php';
 if (($_POST["methodPOST"] == "insert")||($_POST["methodPOST"] == "update")) {
     $vIOid = insertUpdateInformacoesPreliminares($_POST, 'N');
 	sweetAlert('', '', 'S', 'cadInformacoesPreliminares.php?method=update&oid='.$vIOid, 'S');
-    return;    
+    return;
 } else if (($_GET["method"] == "consultar")||($_GET["method"] == "update")) {
     $vROBJETO = fill_InformacoesPreliminares($_GET['oid'], $vAConfiguracaoTela);
     $vIOid = $vROBJETO[$vAConfiguracaoTela['MENPREFIXO'].'CODIGO'];
@@ -29,7 +29,7 @@ if(isset($_POST["method"]) && $_POST["method"] == 'excluirPadrao') {
 }
 
 function listInformacoesPreliminares($_POSTDADOS){
-	$where = '';	
+	$where = '';
 	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLINOME']))
 		$where .= 'AND (C.CLIRAZAOSOCIAL LIKE ? OR C.CLINOMEFANTASIA LIKE ?) ';
 	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLICNPJ']))
@@ -41,30 +41,23 @@ function listInformacoesPreliminares($_POSTDADOS){
 	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLICONTATO']))
 		$where .= 'AND C.CLICONTATO LIKE ? ';
 	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLIEMAIL']))
-		$where .= 'AND C.CLIEMAIL LIKE ? ';		
+		$where .= 'AND C.CLIEMAIL LIKE ? ';
 	if(verificarVazio($_POSTDADOS['FILTROS']['vSStatusFiltro'])){
 		if($_POSTDADOS['FILTROS']['vSStatusFiltro'] == 'S')
 			$where .= "AND C.CLISTATUS = 'S' ";
 		else if($_POSTDADOS['FILTROS']['vSStatusFiltro'] == 'N')
 			$where .= "AND C.CLISTATUS = 'N' ";
 	}else
-		$where .= "AND C.CLISTATUS = 'S' ";
+		$where .= "AND C.FORSTATUS = 'S' ";
 	$sql = "SELECT
-				C.CLICODIGO, C.CLISEQUENCIAL, C.CLINOMEFANTASIA, C.CLIRAZAOSOCIAL,
-				CONCAT(
-					(CASE WHEN C.CLITIPOCLIENTE = 'J' THEN
-					C.CLICNPJ
-					ELSE
-					C.CLICPF
-					END)
-					) as CNPJCPF,
-				C.CLIDATA_INC, C.CLIDATA_ALT, C.CLISTATUS
+				C.*, T.CLINOMEFANTASIA
 			FROM
-				CLIENTES C						
+				FORMULARIO C
+			LEFT JOIN CLIENTES T ON T.CLICODIGO = C.CLICODIGO
 			WHERE
 				1 = 1
 			".	$where	."
-			LIMIT 250	";	
+			LIMIT 250	";
 	$arrayQuery = array(
 					'query' => $sql,
 					'parametros' => array()
@@ -75,7 +68,7 @@ function listInformacoesPreliminares($_POSTDADOS){
 		$arrayQuery['parametros'][] = array("%$pesquisa%", PDO::PARAM_STR);
 	}
 	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLICNPJ']))
-		$arrayQuery['parametros'][] = array($_POSTDADOS['FILTROS']['vSCLICNPJ'], PDO::PARAM_STR);	
+		$arrayQuery['parametros'][] = array($_POSTDADOS['FILTROS']['vSCLICNPJ'], PDO::PARAM_STR);
 	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLICONTATO'])){
 		$pesquisa = $_POSTDADOS['FILTROS']['vSCLICONTATO'];
 		$arrayQuery['parametros'][] = array("%$pesquisa%", PDO::PARAM_STR);
@@ -91,32 +84,28 @@ function listInformacoesPreliminares($_POSTDADOS){
 	if(verificarVazio($_POSTDADOS['FILTROS']['vDDataFim'])){
 		$varFim = $_POSTDADOS['FILTROS']['vDDataFim']." 23:59:59";
 		$arrayQuery['parametros'][] = array($varFim, PDO::PARAM_STR);
-	}	
+	}
 	$result = consultaComposta($arrayQuery);
 	return $result;
 }
 
 function insertUpdateInformacoesPreliminares($_POSTCLI, $pSMsg = 'N'){
-	if ($_POSTCLI['vSCLITIPOCLIENTE'] == 'F'){
-		$_POSTCLI['vSCLIRAZAOSOCIAL'] = $_POSTCLI['vHCLINOME'];
-		$_POSTCLI['vSCLINOMEFANTASIA'] = $_POSTCLI['vHCLINOME'];	
-	}
 	$dadosBanco = array(
-		'tabela'  => 'CLIENTES',
-		'prefixo' => 'CLI',
+		'tabela'  => 'FORMULARIO',
+		'prefixo' => 'FOR',
 		'fields'  => $_POSTCLI,
 		'msg'     => $pSMsg,
 		'url'     => '',
 		'debug'   => 'S'
-		);	
+		);
 	$id = insertUpdate($dadosBanco);
 	return $id;
 }
 
 function fill_InformacoesPreliminares($pOid, $formatoRetorno = 'array' ){
 	$SqlMain = 'SELECT c.*
-				 From CLIENTES c
-				 Where c.CLICODIGO = '.$pOid;
+				 From FORMULARIO c
+				 Where c.FORCODIGO = '.$pOid;
 	$vConexao = sql_conectar_banco(vGBancoSite);
 	$resultSet = sql_executa(vGBancoSite, $vConexao,$SqlMain);
 	$registro = sql_retorno_lista($resultSet);

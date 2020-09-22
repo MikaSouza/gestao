@@ -4,12 +4,12 @@ include_once __DIR__.'/../../twcore/teraware/php/constantes.php';
 if (($_POST["methodPOST"] == "insert")||($_POST["methodPOST"] == "update")) {
     $vIOid = insertUpdateClientes($_POST, 'N');
 	sweetAlert('', '', 'S', 'cadClientes.php?method=update&oid='.$vIOid, 'S');
-    return;    
+    return;
 } else if (($_GET["method"] == "consultar")||($_GET["method"] == "update")) {
     $vROBJETO = fill_Clientes($_GET['oid'], $vAConfiguracaoTela);
     $vIOid = $vROBJETO[$vAConfiguracaoTela['MENPREFIXO'].'CODIGO'];
     $vSDefaultStatusCad = $vROBJETO[$vAConfiguracaoTela['MENPREFIXO'].'STATUS'];
-	
+
 	// tipo parceiro
 	if($vIOid > 0){
 		foreach (buscaClientexTipoParceiro($vIOid) as $tabelas):
@@ -17,8 +17,8 @@ if (($_POST["methodPOST"] == "insert")||($_POST["methodPOST"] == "update")) {
 		endforeach;
 		$contArray = count($arrayPreMold);
 	}
-	
-	//incluir contatos	
+
+	//incluir contatos
 	include_once 'transactionContatos.php';
 	$vRCONTATO = fill_Contatos($vIOid, 'S');
 
@@ -54,7 +54,7 @@ if(isset($_POST["method"]) && $_POST["method"] == 'excluirPadrao') {
 }
 
 function listClientes($_POSTDADOS){
-	$where = '';	
+	$where = '';
 	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLINOME']))
 		$where .= 'AND (C.CLIRAZAOSOCIAL LIKE ? OR C.CLINOMEFANTASIA LIKE ?) ';
 	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLICNPJ']))
@@ -66,7 +66,7 @@ function listClientes($_POSTDADOS){
 	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLICONTATO']))
 		$where .= 'AND C.CLICONTATO LIKE ? ';
 	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLIEMAIL']))
-		$where .= 'AND C.CLIEMAIL LIKE ? ';		
+		$where .= 'AND C.CLIEMAIL LIKE ? ';
 	if(verificarVazio($_POSTDADOS['FILTROS']['vSStatusFiltro'])){
 		if($_POSTDADOS['FILTROS']['vSStatusFiltro'] == 'S')
 			$where .= "AND C.CLISTATUS = 'S' ";
@@ -85,11 +85,11 @@ function listClientes($_POSTDADOS){
 					) as CNPJCPF,
 				C.CLIDATA_INC, C.CLIDATA_ALT, C.CLISTATUS
 			FROM
-				CLIENTES C						
+				CLIENTES C
 			WHERE
 				1 = 1
 			".	$where	."
-			LIMIT 250	";	
+			LIMIT 250	";
 	$arrayQuery = array(
 					'query' => $sql,
 					'parametros' => array()
@@ -100,7 +100,7 @@ function listClientes($_POSTDADOS){
 		$arrayQuery['parametros'][] = array("%$pesquisa%", PDO::PARAM_STR);
 	}
 	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLICNPJ']))
-		$arrayQuery['parametros'][] = array($_POSTDADOS['FILTROS']['vSCLICNPJ'], PDO::PARAM_STR);	
+		$arrayQuery['parametros'][] = array($_POSTDADOS['FILTROS']['vSCLICNPJ'], PDO::PARAM_STR);
 	if(verificarVazio($_POSTDADOS['FILTROS']['vSCLICONTATO'])){
 		$pesquisa = $_POSTDADOS['FILTROS']['vSCLICONTATO'];
 		$arrayQuery['parametros'][] = array("%$pesquisa%", PDO::PARAM_STR);
@@ -116,7 +116,7 @@ function listClientes($_POSTDADOS){
 	if(verificarVazio($_POSTDADOS['FILTROS']['vDDataFim'])){
 		$varFim = $_POSTDADOS['FILTROS']['vDDataFim']." 23:59:59";
 		$arrayQuery['parametros'][] = array($varFim, PDO::PARAM_STR);
-	}	
+	}
 	$result = consultaComposta($arrayQuery);
 	return $result;
 }
@@ -124,7 +124,7 @@ function listClientes($_POSTDADOS){
 function insertUpdateClientes($_POSTCLI, $pSMsg = 'N'){
 	if ($_POSTCLI['vSCLITIPOCLIENTE'] == 'F'){
 		$_POSTCLI['vSCLIRAZAOSOCIAL'] = $_POSTCLI['vHCLINOME'];
-		$_POSTCLI['vSCLINOMEFANTASIA'] = $_POSTCLI['vHCLINOME'];	
+		$_POSTCLI['vSCLINOMEFANTASIA'] = $_POSTCLI['vHCLINOME'];
 	}
 	$dadosBanco = array(
 		'tabela'  => 'CLIENTES',
@@ -133,7 +133,7 @@ function insertUpdateClientes($_POSTCLI, $pSMsg = 'N'){
 		'msg'     => $pSMsg,
 		'url'     => '',
 		'debug'   => 'S'
-		);	
+		);
 	$id = insertUpdate($dadosBanco);
 
 	//incluir endereços
@@ -148,7 +148,7 @@ function insertUpdateClientes($_POSTCLI, $pSMsg = 'N'){
 	//Principal
 	$_POSTCLI['vHTABCODIGO'] = 26933;
 	insertUpdateContatos($_POSTCLI, 'N');
-	
+
 	// tipo parceiro
 	if ($_POSTCLI['vHTIPOPARCEIRO']) {
 		foreach ($_POSTCLI['vHTIPOPARCEIRO'] as $result){
@@ -265,9 +265,9 @@ function enviarEmailInfoSistema($vACLICODIGO)
 
 	foreach ($usuarios['dados'] AS $usuario) {
 
-		$Assunto = utf8_decode("INFORMAÇÕES PRELIMINARES PARA INÍCIO DAS ATIVIDADES");
+		$Assunto = "INFORMAÇÕES PRELIMINARES PARA INÍCIO DAS ATIVIDADES";
 		$Mensagem = "<p>Prezado " .$usuario['CLINOMEFANTASIA'] . "<br /><br />
-						Informamos que para início das atividades solcitamos que preencha o formulário abaixo.<br />
+						Informamos que para início das atividades solicitamos que preencha o formulário abaixo.<br />
 						Para acessar o sistema siga os seguintes passos:
 					</p>
 					<ul type='circle'>

@@ -42,7 +42,7 @@ include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
 									$vAConfiguracaoTela['FILTROS'] = $_POST;
 									$vAConfiguracaoTela['BTN_FILTROS'] = 'S';
 									$vAConfig['vATitulos'] = array('Cliente', 'Nome do Ente', 'Data Inclusão', 'Ativo');
-									$vAConfig['vACampos'] = array('CLIRAZAOSOCIAL', 'CLINOMEFANTASIA', 'CLIDATA_INC', 'CLISTATUS');
+									$vAConfig['vACampos'] = array('CLINOMEFANTASIA', 'FORPERGUNTA1', 'FORDATA_INC', 'FORSTATUS');
 									$vAConfig['vATipos'] = array('varchar', 'varchar', 'datetime', 'simNao');
 									include_once __DIR__.'/../twcore/teraware/componentes/gridPadrao.php'; ?>
 
