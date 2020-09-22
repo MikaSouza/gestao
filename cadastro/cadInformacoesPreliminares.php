@@ -116,8 +116,8 @@ include_once __DIR__ . '/../cadastro/combos/comboTabelas.php';
 														<small class="text-danger font-13">*</small>
 													</label>
 													<select title="Tipo Pessoa" id="vSFORPOSREGINTERNO" class="custom-select obrigatorio" name="vSFORPOSREGINTERNO">
-														<option value="S" <?php if ($vROBJETO['POSREGINTERNO'] == 'S') echo "selected='selected'"; ?>>Sim</option>
-														<option value="N" <?php if ($vROBJETO['POSREGINTERNO'] == 'N') echo "selected='selected'"; ?>>Não</option>
+														<option value="Sim" <?php if ($vROBJETO['FORPOSREGINTERNO'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
+														<option value="Não" <?php if ($vROBJETO['FORPOSREGINTERNO'] == 'Não') echo "selected='selected'"; ?>>Não</option>
 													</select>
 												</div>
 											</div>
@@ -132,11 +132,11 @@ include_once __DIR__ . '/../cadastro/combos/comboTabelas.php';
 														<small class="text-danger font-13">*</small>
 													</label>
 													<select title="Tipo Pessoa" id="vSFORCARGORESPINT" class="custom-select obrigatorio" name="vSFORCARGORESPINT">
-														<option value="Presidente" <?php if ($vROBJETO['CARGORESPINT'] == 'Presidente') echo "selected='selected'"; ?>>Presidente</option>
-														<option value="Coordenador" <?php if ($vROBJETO['CARGORESPINT'] == 'Coordenador') echo "selected='selected'"; ?>>Coordenador</option>
-														<option value="Diretor" <?php if ($vROBJETO['CARGORESPINT'] == 'Diretor') echo "selected='selected'"; ?>>Diretor</option>
-														<option value="Chefe" <?php if ($vROBJETO['CARGORESPINT'] == 'Chefe') echo "selected='selected'"; ?>>Chefe</option>
-														<option value="Outro" <?php if ($vROBJETO['CARGORESPINT'] == 'Outro') echo "selected='selected'"; ?>>Outro</option>
+														<option value="Presidente" <?php if ($vROBJETO['FORCARGORESPINT'] == 'Presidente') echo "selected='selected'"; ?>>Presidente</option>
+														<option value="Coordenador" <?php if ($vROBJETO['FORCARGORESPINT'] == 'Coordenador') echo "selected='selected'"; ?>>Coordenador</option>
+														<option value="Diretor" <?php if ($vROBJETO['FORCARGORESPINT'] == 'Diretor') echo "selected='selected'"; ?>>Diretor</option>
+														<option value="Chefe" <?php if ($vROBJETO['FORCARGORESPINT'] == 'Chefe') echo "selected='selected'"; ?>>Chefe</option>
+														<option value="Outro" <?php if ($vROBJETO['FORCARGORESPINT'] == 'Outro') echo "selected='selected'"; ?>>Outro</option>
 													</select>
 												</div>
 												<div class="col-md-6">
@@ -152,11 +152,11 @@ include_once __DIR__ . '/../cadastro/combos/comboTabelas.php';
 														<small class="text-danger font-13">*</small>
 													</label>
 													<select title="Tipo Pessoa" id="vSFORFORMRESPINT" class="custom-select obrigatorio" name="vSFORFORMRESPINT">
-														<option value="1ª grau incompleto" <?php if ($vROBJETO['FORMRESPINT'] == '1ª grau incompleto') echo "selected='selected'"; ?>>1ª grau incompleto</option>
-														<option value="1ª grau completo" <?php if ($vROBJETO['FORMRESPINT'] == '1ª grau completo') echo "selected='selected'"; ?>>1ª grau completo</option>
-														<option value="2º grau incompleto" <?php if ($vROBJETO['FORMRESPINT'] == '2º grau incompleto') echo "selected='selected'"; ?>>2º grau incompleto</option>
-														<option value="2º grau completo" <?php if ($vROBJETO['FORMRESPINT'] == '2º grau completo') echo "selected='selected'"; ?>>2º grau completo</option>
-														<option value="Nível Superior. Descrever:" <?php if ($vROBJETO['FORMRESPINT'] == 'Nível Superior. Descrever:') echo "selected='selected'"; ?>>Nível Superior. Descrever:</option>
+														<option value="1ª grau incompleto" <?php if ($vROBJETO['FORFORMRESPINT'] == '1ª grau incompleto') echo "selected='selected'"; ?>>1ª grau incompleto</option>
+														<option value="1ª grau completo" <?php if ($vROBJETO['FORFORMRESPINT'] == '1ª grau completo') echo "selected='selected'"; ?>>1ª grau completo</option>
+														<option value="2º grau incompleto" <?php if ($vROBJETO['FORFORMRESPINT'] == '2º grau incompleto') echo "selected='selected'"; ?>>2º grau incompleto</option>
+														<option value="2º grau completo" <?php if ($vROBJETO['FORFORMRESPINT'] == '2º grau completo') echo "selected='selected'"; ?>>2º grau completo</option>
+														<option value="Nível Superior. Descrever:" <?php if ($vROBJETO['FORFORMRESPINT'] == 'Nível Superior. Descrever:') echo "selected='selected'"; ?>>Nível Superior. Descrever:</option>
 													</select>
 												</div>
 												<div class="col-md-6">
@@ -174,8 +174,8 @@ include_once __DIR__ . '/../cadastro/combos/comboTabelas.php';
 														<small class="text-danger font-13">*</small>
 													</label>
 													<select title="Tipo Pessoa" id="vSFORDEDEXCRESPINT" class="custom-select obrigatorio" name="vSFORDEDEXCRESPINT">
-														<option value="Sim" <?php if ($vROBJETO['DEDEXCRESPINT'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
-														<option value="Não" <?php if ($vROBJETO['DEDEXCRESPINT'] == 'Não') echo "selected='selected'"; ?>>Não</option>
+														<option value="Sim" <?php if ($vROBJETO['FORDEDEXCRESPINT'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
+														<option value="Não" <?php if ($vROBJETO['FORDEDEXCRESPINT'] == 'Não') echo "selected='selected'"; ?>>Não</option>
 													</select>
 												</div>
 											</div>
@@ -187,8 +187,8 @@ include_once __DIR__ . '/../cadastro/combos/comboTabelas.php';
 												<div class="col-md-6">
 													<label>É servidor de Carreira?</label>
 													<select title="Inscrição Estadual" title="Inscrição Estadual" id="vSFORSERCARRRESPINT" class="custom-select" name="vSFORSERCARRRESPINT">
-														<option value="Sim" <?php if ($vROBJETO['SERCARRRESPINT'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
-														<option value="Não" <?php if ($vROBJETO['SERCARRRESPINT'] == 'Não') echo "selected='selected'"; ?>>Não</option>
+														<option value="Sim" <?php if ($vROBJETO['FORSERCARRRESPINT'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
+														<option value="Não" <?php if ($vROBJETO['FORSERCARRRESPINT'] == 'Não') echo "selected='selected'"; ?>>Não</option>
 													</select>
 												</div>
 											</div>
@@ -196,17 +196,17 @@ include_once __DIR__ . '/../cadastro/combos/comboTabelas.php';
 												<div class="col-md-6">
 													<label>Está em estágio probatório?</label>
 													<select title="Inscrição Estadual" title="Inscrição Estadual" id="vSFORESTPROBRESPINT" class="custom-select" name="vSFORESTPROBRESPINT">
-														<option value="Sim" <?php if ($vROBJETO['ESTPROBRESPINT'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
-														<option value="Não" <?php if ($vROBJETO['ESTPROBRESPINT'] == 'Não') echo "selected='selected'"; ?>>Não</option>
+														<option value="Sim" <?php if ($vROBJETO['FORESTPROBRESPINT'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
+														<option value="Não" <?php if ($vROBJETO['FORESTPROBRESPINT'] == 'Não') echo "selected='selected'"; ?>>Não</option>
 													</select>
 												</div>
 												<div class="col-md-6">
 													<label>Realizou algum curso de atualização na área de Controle Interno da Administração..</label>
 													<select title="Inscrição Estadual" title="Inscrição Estadual" id="vSFORREACURRESPINT" class="custom-select" name="vSFORREACURRESPINT">
-														<option value="Nenhum" <?php if ($vROBJETO['REACURRESPINT'] == 'Nenhum') echo "selected='selected'"; ?>>Nenhum</option>
-														<option value="Um" <?php if ($vROBJETO['REACURRESPINT'] == 'Um') echo "selected='selected'"; ?>>Um</option>
-														<option value="Dois à quatro" <?php if ($vROBJETO['REACURRESPINT'] == 'Dois à quatro') echo "selected='selected'"; ?>>Dois à quatro</option>
-														<option value="Cinco ou mais" <?php if ($vROBJETO['REACURRESPINT'] == 'Cinco ou mais') echo "selected='selected'"; ?>>Cinco ou mais</option>
+														<option value="Nenhum" <?php if ($vROBJETO['FORREACURRESPINT'] == 'Nenhum') echo "selected='selected'"; ?>>Nenhum</option>
+														<option value="Um" <?php if ($vROBJETO['FORREACURRESPINT'] == 'Um') echo "selected='selected'"; ?>>Um</option>
+														<option value="Dois à quatro" <?php if ($vROBJETO['FORREACURRESPINT'] == 'Dois à quatro') echo "selected='selected'"; ?>>Dois à quatro</option>
+														<option value="Cinco ou mais" <?php if ($vROBJETO['FORREACURRESPINT'] == 'Cinco ou mais') echo "selected='selected'"; ?>>Cinco ou mais</option>
 													</select>
 												</div>
 											</div>
@@ -228,11 +228,11 @@ include_once __DIR__ . '/../cadastro/combos/comboTabelas.php';
 														<small class="text-danger font-13">*</small>
 													</label>
 													<select title="Tipo Pessoa" id="vSFORFORMEMBINT" class="custom-select obrigatorio" name="vSFORFORMEMBINT">
-														<option value="1ª grau incompleto" <?php if ($vROBJETO['FORMEMBINT'] == '1ª grau incompleto') echo "selected='selected'"; ?>>1ª grau incompleto</option>
-														<option value="1ª grau completo" <?php if ($vROBJETO['FORMEMBINT'] == '1ª grau completo') echo "selected='selected'"; ?>>1ª grau completo</option>
-														<option value="2º grau incompleto" <?php if ($vROBJETO['FORMEMBINT'] == '2º grau incompleto') echo "selected='selected'"; ?>>2º grau incompleto</option>
-														<option value="2º grau completo" <?php if ($vROBJETO['FORMEMBINT'] == '2º grau completo') echo "selected='selected'"; ?>>2º grau completo</option>
-														<option value="Nível Superior. Descrever:" <?php if ($vROBJETO['FORMEMBINT'] == 'Nível Superior. Descrever:') echo "selected='selected'"; ?>>Nível Superior. Descrever:</option>
+														<option value="1ª grau incompleto" <?php if ($vROBJETO['FORFORMEMBINT'] == '1ª grau incompleto') echo "selected='selected'"; ?>>1ª grau incompleto</option>
+														<option value="1ª grau completo" <?php if ($vROBJETO['FORFORMEMBINT'] == '1ª grau completo') echo "selected='selected'"; ?>>1ª grau completo</option>
+														<option value="2º grau incompleto" <?php if ($vROBJETO['FORFORMEMBINT'] == '2º grau incompleto') echo "selected='selected'"; ?>>2º grau incompleto</option>
+														<option value="2º grau completo" <?php if ($vROBJETO['FORFORMEMBINT'] == '2º grau completo') echo "selected='selected'"; ?>>2º grau completo</option>
+														<option value="Nível Superior. Descrever:" <?php if ($vROBJETO['FORFORMEMBINT'] == 'Nível Superior. Descrever:') echo "selected='selected'"; ?>>Nível Superior. Descrever:</option>
 													</select>
 												</div>
 											</div>
@@ -250,8 +250,8 @@ include_once __DIR__ . '/../cadastro/combos/comboTabelas.php';
 												<div class="col-md-6">
 													<label>Tem dedicação exclusiva no Controle Interno</label>
 													<select title="Inscrição Estadual" title="Inscrição Estadual" id="vSFORDEDEXCMEMBINT" class="custom-select" name="vSFORDEDEXCMEMBINT">
-														<option value="Sim" <?php if ($vROBJETO['DEDEXCMEMBINT'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
-														<option value="Não" <?php if ($vROBJETO['DEDEXCMEMBINT'] == 'Não') echo "selected='selected'"; ?>>Não</option>
+														<option value="Sim" <?php if ($vROBJETO['FORDEDEXCMEMBINT'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
+														<option value="Não" <?php if ($vROBJETO['FORDEDEXCMEMBINT'] == 'Não') echo "selected='selected'"; ?>>Não</option>
 													</select>
 												</div>
 												<div class="col-md-6">
@@ -263,15 +263,15 @@ include_once __DIR__ . '/../cadastro/combos/comboTabelas.php';
 												<div class="col-md-6">
 													<label>É servidor de Carreira</label>
 													<select title="Inscrição Estadual" title="Inscrição Estadual" id="vSFORSERCARRMEMBINT" class="custom-select" name="vSFORSERCARRMEMBINT">
-														<option value="Sim" <?php if ($vROBJETO['SERCARRMEMBINT'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
-														<option value="Não" <?php if ($vROBJETO['SERCARRMEMBINT'] == 'Não') echo "selected='selected'"; ?>>Não</option>
+														<option value="Sim" <?php if ($vROBJETO['FORSERCARRMEMBINT'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
+														<option value="Não" <?php if ($vROBJETO['FORSERCARRMEMBINT'] == 'Não') echo "selected='selected'"; ?>>Não</option>
 													</select>
 												</div>
 												<div class="col-md-6">
 													<label>Está em estágio probatório</label>
 													<select title="Tipo Pessoa" id="vSFORESTPROBMEMBINT" class="custom-select obrigatorio" name="vSFORESTPROBMEMBINT">
-														<option value="Sim" <?php if ($vROBJETO['ESTPROBMEMBINT'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
-														<option value="Não" <?php if ($vROBJETO['ESTPROBMEMBINT'] == 'Não') echo "selected='selected'"; ?>>Não</option>
+														<option value="Sim" <?php if ($vROBJETO['FORESTPROBMEMBINT'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
+														<option value="Não" <?php if ($vROBJETO['FORESTPROBMEMBINT'] == 'Não') echo "selected='selected'"; ?>>Não</option>
 													</select>
 												</div>
 											</div>
@@ -279,10 +279,10 @@ include_once __DIR__ . '/../cadastro/combos/comboTabelas.php';
 												<div class="col-md-6">
 													<label>Realizou algum curso de atualização na área de Controle Interno da Administração..</label>
 													<select title="Inscrição Estadual" title="Inscrição Estadual" id="vSFORREACURMEMBINT" class="custom-select" name="vSFORREACURMEMBINT">
-														<option value="Nenhum" <?php if ($vROBJETO['REACURMEMBINT'] == 'Nenhum') echo "selected='selected'"; ?>>Nenhum</option>
-														<option value="Um" <?php if ($vROBJETO['REACURMEMBINT'] == 'Um') echo "selected='selected'"; ?>>Um</option>
-														<option value="Dois à quatro" <?php if ($vROBJETO['REACURMEMBINT'] == 'Dois à quatro') echo "selected='selected'"; ?>>Dois à quatro</option>
-														<option value="Cinco ou mais" <?php if ($vROBJETO['REACURMEMBINT'] == 'Cinco ou mais') echo "selected='selected'"; ?>>Cinco ou mais</option>
+														<option value="Nenhum" <?php if ($vROBJETO['FORREACURMEMBINT'] == 'Nenhum') echo "selected='selected'"; ?>>Nenhum</option>
+														<option value="Um" <?php if ($vROBJETO['FORREACURMEMBINT'] == 'Um') echo "selected='selected'"; ?>>Um</option>
+														<option value="Dois à quatro" <?php if ($vROBJETO['FORREACURMEMBINT'] == 'Dois à quatro') echo "selected='selected'"; ?>>Dois à quatro</option>
+														<option value="Cinco ou mais" <?php if ($vROBJETO['FORREACURMEMBINT'] == 'Cinco ou mais') echo "selected='selected'"; ?>>Cinco ou mais</option>
 													</select>
 												</div>
 											</div>
@@ -297,13 +297,20 @@ include_once __DIR__ . '/../cadastro/combos/comboTabelas.php';
 													<label>8.1 - A Unidade de Controle Interno possui um planejamento/programa de trabalho com a descrição das suas atividades?
 														<small class="text-danger font-13">*</small>
 													</label>
-													<input class="form-control obrigatorio" name="vSFORPOSSPLAUNIINT" id="vSFORPOSSPLAUNIINT" type="text" value="<?= ($vIOid > 0 ? $vROBJETO['FORPOSSPLAUNIINT'] : ''); ?>">
+													<select title="Inscrição Estadual" title="Inscrição Estadual" id="vSFORPOSSPLAUNIINT" class="custom-select" name="vSFORPOSSPLAUNIINT">
+														<option value="Sim" <?php if ($vROBJETO['FORPOSSPLAUNIINT'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
+														<option value="Não" <?php if ($vROBJETO['FORPOSSPLAUNIINT'] == 'Não') echo "selected='selected'"; ?>>Não</option>
+													</select>
 												</div>
 												<div class="col-md-6">
 													<label>8.2 Procedimentos de Auditoria
 														<small class="text-danger font-13">*</small>
 													</label>
-													<input class="form-control obrigatorio" name="vSFORPROAUDUNIINT" id="vSFORPROAUDUNIINT" type="text" value="<?= ($vIOid > 0 ? $vROBJETO['FORPROAUDUNIINT'] : ''); ?>">
+													<select title="Inscrição Estadual" title="Inscrição Estadual" id="vSFORPROAUDUNIINT" class="custom-select" name="vSFORPROAUDUNIINT">
+														<option value="Sim" <?php if ($vROBJETO['FORPROAUDUNIINT'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
+														<option value="Não" <?php if ($vROBJETO['FORPROAUDUNIINT'] == 'Não') echo "selected='selected'"; ?>>Não</option>
+														<option value="Raramente" <?php if ($vROBJETO['FORPROAUDUNIINT'] == 'Raramente') echo "selected='selected'"; ?>>Raramente</option>
+													</select>
 												</div>
 											</div>
 											<div class="form-group row">
@@ -311,21 +318,21 @@ include_once __DIR__ . '/../cadastro/combos/comboTabelas.php';
 													<label>Descrever o resumo das auditorias realizadas nos últimos 06 meses
 														<small class="text-danger font-13">*</small>
 													</label>
-													<textarea class="form-control obrigatorio" name="vSFORDESCRESUNIINT" id="vSFORDESCRESUNIINT" type="text"><?= $fill['FORFREQREUNIAOUNIINT'] ?></textarea>
+													<textarea class="form-control obrigatorio" name="vSFORDESCRESUNIINT" id="vSFORDESCRESUNIINT" type="text"><?= nl2br($vROBJETO['FORDESCRESUNIINT']); ?></textarea>
 												</div>
 												<div class="col-md-6">
 													<label>8.3 - Verificações, Controles e Acompanhamentos</label>
 													<select title="Inscrição Estadual" title="Inscrição Estadual" id="vSFORVERCONMUNIINT" class="custom-select" name="vSFORVERCONMUNIINT">
-														<option value="Sim" <?php if ($vROBJETO['VERCONMUNIINT'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
-														<option value="Não" <?php if ($vROBJETO['VERCONMUNIINT'] == 'Não') echo "selected='selected'"; ?>>Não</option>
-														<option value="Raramente" <?php if ($vROBJETO['VERCONMUNIINT'] == 'Raramente') echo "selected='selected'"; ?>>Raramente</option>
+														<option value="Sim" <?php if ($vROBJETO['FORVERCONMUNIINT'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
+														<option value="Não" <?php if ($vROBJETO['FORVERCONMUNIINT'] == 'Não') echo "selected='selected'"; ?>>Não</option>
+														<option value="Raramente" <?php if ($vROBJETO['FORVERCONMUNIINT'] == 'Raramente') echo "selected='selected'"; ?>>Raramente</option>
 													</select>
 												</div>
 											</div>
 											<div class="form-group row">
 												<div class="col-md-6">
 													<label>Descrever as espécies de verificações, controles e acompanhamentos..</label>
-													<textarea class="form-control obrigatorio" name="vSFORDESCVERCONUNIINT" id="vSFORDESCVERCONUNIINT" type="text" value="<?= ($vIOid > 0 ? $vROBJETO['FORDESCVERCONUNIINT'] : ''); ?>"></textarea>
+													<textarea class="form-control obrigatorio" name="vSFORDESCVERCONUNIINT" id="vSFORDESCVERCONUNIINT" type="text"><?= nl2br($vROBJETO['FORDESCVERCONUNIINT']); ?></textarea>
 												</div>
 												<div class="col-md-6">
 													<label>8.4 - Emissão de Relatórios</label>
@@ -333,9 +340,9 @@ include_once __DIR__ . '/../cadastro/combos/comboTabelas.php';
 														<small class="text-danger font-13">*</small>
 													</label>
 													<select title="Tipo Pessoa" id="vSFORAUDEMIREL" class="custom-select obrigatorio" name="vSFORAUDEMIREL">
-														<option value="Sim" <?php if ($vROBJETO['AUDEMIREL'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
-														<option value="Não" <?php if ($vROBJETO['AUDEMIREL'] == 'Não') echo "selected='selected'"; ?>>Não</option>
-														<option value="Raramente" <?php if ($vROBJETO['AUDEMIREL'] == 'Raramente') echo "selected='selected'"; ?>>Raramente</option>
+														<option value="Sim" <?php if ($vROBJETO['FORAUDEMIREL'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
+														<option value="Não" <?php if ($vROBJETO['FORAUDEMIREL'] == 'Não') echo "selected='selected'"; ?>>Não</option>
+														<option value="Raramente" <?php if ($vROBJETO['FORAUDEMIREL'] == 'Raramente') echo "selected='selected'"; ?>>Raramente</option>ster
 													</select>
 												</div>
 											</div>
@@ -349,9 +356,9 @@ include_once __DIR__ . '/../cadastro/combos/comboTabelas.php';
 														<small class="text-danger font-13">*</small>
 													</label>
 													<select title="Tipo Pessoa" id="vSFORVEREMIREL" class="custom-select obrigatorio" name="vSFORVEREMIREL">
-														<option value="Sim" <?php if ($vROBJETO['VEREMIREL'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
-														<option value="Não" <?php if ($vROBJETO['VEREMIREL'] == 'Não') echo "selected='selected'"; ?>>Não</option>
-														<option value="Raramente" <?php if ($vROBJETO['VEREMIREL'] == 'Raramente') echo "selected='selected'"; ?>>Raramente</option>
+														<option value="Sim" <?php if ($vROBJETO['FORVEREMIREL'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
+														<option value="Não" <?php if ($vROBJETO['FORVEREMIREL'] == 'Não') echo "selected='selected'"; ?>>Não</option>
+														<option value="Raramente" <?php if ($vROBJETO['FORVEREMIREL'] == 'Raramente') echo "selected='selected'"; ?>>Raramente</option>
 													</select>
 												</div>
 											</div>
@@ -365,9 +372,9 @@ include_once __DIR__ . '/../cadastro/combos/comboTabelas.php';
 														<small class="text-danger font-13">*</small>
 													</label>
 													<select title="Tipo Pessoa" id="vSFORACOMEMIREL" class="custom-select obrigatorio" name="vSFORACOMEMIREL">
-														<option value="Sim" <?php if ($vROBJETO['ACOMEMIREL'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
-														<option value="Não" <?php if ($vROBJETO['ACOMEMIREL'] == 'Não') echo "selected='selected'"; ?>>Não</option>
-														<option value="Raramente" <?php if ($vROBJETO['ACOMEMIREL'] == 'Raramente') echo "selected='selected'"; ?>>Raramente</option>
+														<option value="Sim" <?php if ($vROBJETO['FORACOMEMIREL'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
+														<option value="Não" <?php if ($vROBJETO['FORACOMEMIREL'] == 'Não') echo "selected='selected'"; ?>>Não</option>
+														<option value="Raramente" <?php if ($vROBJETO['FORACOMEMIREL'] == 'Raramente') echo "selected='selected'"; ?>>Raramente</option>
 													</select>
 												</div>
 											</div>
@@ -387,8 +394,8 @@ include_once __DIR__ . '/../cadastro/combos/comboTabelas.php';
 												<div class="col-md-6">
 													<label>8.6 - Os responsáveis pelo recebimento dos relatórios emitidos pela Unidade..</label>
 													<select title="Inscrição Estadual" title="Inscrição Estadual" id="vSFORRESPONRELAT" class="custom-select" name="vSFORRESPONRELAT">
-														<option value="Sim" <?php if ($vROBJETO['RESPONRELAT'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
-														<option value="Não" <?php if ($vROBJETO['RESPONRELAT'] == 'Não') echo "selected='selected'"; ?>>Não</option>
+														<option value="Sim" <?php if ($vROBJETO['FORRESPONRELAT'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
+														<option value="Não" <?php if ($vROBJETO['FORRESPONRELAT'] == 'Não') echo "selected='selected'"; ?>>Não</option>
 													</select>
 												</div>
 												<div class="col-md-6">
@@ -396,8 +403,8 @@ include_once __DIR__ . '/../cadastro/combos/comboTabelas.php';
 														<small class="text-danger font-13">*</small>
 													</label>
 													<select title="Tipo Pessoa" id="vSFORENTRERELAT" class="custom-select obrigatorio" name="vSFORENTRERELAT">
-														<option value="Sim" <?php if ($vROBJETO['ENTRERELAT'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
-														<option value="Não" <?php if ($vROBJETO['ENTRERELAT'] == 'Não') echo "selected='selected'"; ?>>Não</option>
+														<option value="Sim" <?php if ($vROBJETO['FORENTRERELAT'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
+														<option value="Não" <?php if ($vROBJETO['FORENTRERELAT'] == 'Não') echo "selected='selected'"; ?>>Não</option>
 													</select>
 												</div>
 											</div>
@@ -405,51 +412,53 @@ include_once __DIR__ . '/../cadastro/combos/comboTabelas.php';
 												<div class="col-md-6">
 													<label>8.8 - A Unidade de Controle Interno emite Normas Internas Operacionais</label>
 													<select title="Inscrição Estadual" title="Inscrição Estadual" id="vSFOREMISSAOINT" class="custom-select" name="vSFOREMISSAOINT">
-														<option value="Sim" <?php if ($vROBJETO['EMISSAOINT'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
-														<option value="Não" <?php if ($vROBJETO['EMISSAOINT'] == 'Não') echo "selected='selected'"; ?>>Não</option>
+														<option value="Sim" <?php if ($vROBJETO['FOREMISSAOINT'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
+														<option value="Não" <?php if ($vROBJETO['FOREMISSAOINT'] == 'Não') echo "selected='selected'"; ?>>Não</option>
 													</select>
 												</div>
 												<div class="col-md-6">
 													<label>Se a resposta foi sim, qual ato administrativo foi usado para implantação das normas
 														<small class="text-danger font-13">*</small>
 													</label>
-													<input class="form-control obrigatorio" name="vSFORATOADMNORM" id="vSFORATOADMNORM" type="text" value="<?= ($vIOid > 0 ? $vROBJETO['FORATOADMNORM"'] : ''); ?>">
+													<input class="form-control obrigatorio" name="vSFORATOADMNORM" id="vSFORATOADMNORM" type="text" value="<?= ($vIOid > 0 ? $vROBJETO['FORATOADMNORM'] : ''); ?>">
 												</div>
 											</div>
 											<div class="form-group row">
 												<div class="col-md-6">
 													<label>8.9 - A Unidade de Controle Interno costuma registrar atividades em atas</label>
 													<select title="Inscrição Estadual" title="Inscrição Estadual" id="vSFORUNIINTREGATA" class="custom-select" name="vSFORUNIINTREGATA">
-														<option value="Sim" <?php if ($vROBJETO['UNIINTREGATA'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
-														<option value="Não" <?php if ($vROBJETO['UNIINTREGATA'] == 'Não') echo "selected='selected'"; ?>>Não</option>
+														<option value="Sim" <?php if ($vROBJETO['FORUNIINTREGATA'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
+														<option value="Não" <?php if ($vROBJETO['FORUNIINTREGATA'] == 'Não') echo "selected='selected'"; ?>>Não</option>
 													</select>
 												</div>
 												<div class="col-md-6">
 													<label>Se a resposta foi sim, qual ato administrativo foi usado para implantação das normas
 														<small class="text-danger font-13">*</small>
 													</label>
-													<input class="form-control obrigatorio" name="vSFORTIPOUNIINTREGATA" id="vSFORTIPOUNIINTREGATA" type="text" value="<?= ($vIOid > 0 ? $vROBJETO['FORTIPOUNIINTREGATA"'] : ''); ?>">
+													<input class="form-control obrigatorio" name="vSFORTIPOUNIINTREGATA" id="vSFORTIPOUNIINTREGATA" type="text" value="<?= ($vIOid > 0 ? $vROBJETO['FORTIPOUNIINTREGATA'] : ''); ?>">
 												</div>
 											</div>
 											<div class="form-group row">
 												<div class="col-md-6">
 													<label>8.10 - A Unidade de Controle Interno costuma participar de reuniões setoriais</label>
 													<select title="Inscrição Estadual" title="Inscrição Estadual" id="vSFORUNIINTREUNIAO" class="custom-select" name="vSFORUNIINTREUNIAO">
-														<option value="Sim" <?php if ($vROBJETO['UNIINTREUNIAO'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
-														<option value="Não" <?php if ($vROBJETO['UNIINTREUNIAO'] == 'Não') echo "selected='selected'"; ?>>Não</option>
+														<option value="Sim" <?php if ($vROBJETO['FORUNIINTREUNIAO'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
+														<option value="Não" <?php if ($vROBJETO['FORUNIINTREUNIAO'] == 'Não') echo "selected='selected'"; ?>>Não</option>
 													</select>
 												</div>
 												<div class="col-md-6">
 													<label>Tente explicar um pouco sobre a frequência, setores e quais espécies de reuniões
 														<small class="text-danger font-13">*</small>
 													</label>
-													<textarea class="form-control" id="vSFORFREQREUNIAOUNIINT" name="vSFORFREQREUNIAOUNIINT" rows="3"><?= $fill['FORFREQREUNIAOUNIINT'] ?></textarea>
+													<textarea class="form-control" id="vSFORFREQREUNIAOUNIINT" name="vSFORFREQREUNIAOUNIINT" rows="3"><?= nl2br($vROBJETO['FORFREQREUNIAOUNIINT']); ?></textarea>
 												</div>
 											</div>
 											<div class="form-group row">
 												<div class="col-md-6">
 													<label>8.11 - A Unidade de Controle Interno atua como auxiliar do Tribunal de Contas do seu Estado</label>
 													<select title="Inscrição Estadual" title="Inscrição Estadual" id="vSFORATUAAUXUNIINT" class="custom-select" name="vSFORATUAAUXUNIINT">
+														<option value="Sim" <?php if ($vROBJETO['FORATUAAUXUNIINT'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
+														<option value="Não" <?php if ($vROBJETO['FORATUAAUXUNIINT'] == 'Não') echo "selected='selected'"; ?>>Não</option>
 														<option value="Sim" <?php if ($vROBJETO['ATUAAUXUNIINT'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
 														<option value="Não" <?php if ($vROBJETO['ATUAAUXUNIINT'] == 'Não') echo "selected='selected'"; ?>>Não</option>
 													</select>
@@ -458,7 +467,7 @@ include_once __DIR__ . '/../cadastro/combos/comboTabelas.php';
 											<div class="form-group row">
 												<div class="col-md-6">
 													<label>8.12 - Que ferramentas são utilizadas para interação com o TCE? Sistema informatizado, e-mail, preenchimento de relatórios? Por favor descreva</label>
-													<textarea class="form-control" id="vSFORFERRAMENTASINT" name="vSFORFERRAMENTASINT" rows="3"><?= $fill['FORFERRAMENTASINT'] ?></textarea>
+													<textarea class="form-control" id="vSFORFERRAMENTASINT" name="vSFORFERRAMENTASINT" rows="3"><?= nl2br($vROBJETO['FORFERRAMENTASINT']); ?></textarea>
 												</div>
 											</div>
 										</div>
