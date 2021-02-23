@@ -17,7 +17,7 @@ $vAAvisos = comboAvisos();
 		<div class="slimscroll notification-list">
 			<?php foreach ($vAAvisos['dados'] as $tabelas): ?>        
 				<!-- item-->
-				<a href="http://app.twflex.com.br/cadastro/cadAvisos.php?method=update&oid=<?= $tabelas['AVICODIGO'];?>" class="dropdown-item notify-item active">
+				<a href="https://gestao-srv.teraware.net.br/cadastro/cadAvisos.php?oid=<?= $tabelas['AVICODIGO'];?>&method=consultar" class="dropdown-item notify-item active">
 					<div class="notify-icon bg-warning"><i class="mdi mdi-checkbox-marked-outline"></i></div>
 					<p class="notify-details"><?= $tabelas['AVITITULO']; ?><small class="text-muted"><?= formatar_data($tabelas['AVIDATAINICIAL']); ?></small></p>
 				</a>			

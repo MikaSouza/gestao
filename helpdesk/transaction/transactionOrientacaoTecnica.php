@@ -1,7 +1,7 @@
 <?php
 
 if (($_POST["methodPOST"] == "insert")||($_POST["methodPOST"] == "update")) {
-    $vIOid = insertUpdateOrientacaoTecnica($_POST, 'N');
+    $vIOid = insertUpdateOrientacaoTecnica($_POST, 'S');
     return;
 } else if (($_GET["method"] == "consultar")||($_GET["method"] == "update")) {
     $vROBJETO = fill_OrientacaoTecnica($_GET['oid'], $vAConfiguracaoTela);
@@ -72,13 +72,17 @@ function listOrientacaoTecnica($_POSTDADOS){
 }
 
 function insertUpdateOrientacaoTecnica($_POSTDADOS, $pSMsg = 'N'){
+	if($_FILES['vHARQUIVO']['error'] == 0){		
+		$nomeArquivo = $_POSTDADOS['vIOXTNUMERO'].'_'.$_POSTDADOS['vIOXTANO'].'.pdf';
+		uploadArquivo($_FILES['vHARQUIVO'], '../ged/orientacao_tecnica', $nomeArquivo);
+	} 
 	$dadosBanco = array(
 		'tabela'  => 'ORIENTACAOTECNICA',
 		'prefixo' => 'OXT',
 		'fields'  => $_POSTDADOS,
 		'msg'     => $pSMsg,
 		'url'     => 'cadOrientacaoTecnica.php',
-		'debug'   => 'S'
+		'debug'   => 'N'
 		);
 	$id = insertUpdate($dadosBanco);	
 	return $id; 

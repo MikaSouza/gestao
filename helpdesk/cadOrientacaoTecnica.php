@@ -31,7 +31,7 @@ include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
                         <div class="col-lg-12 mx-auto">
                             <div class="card">
                                 <div class="card-body">
-                                    <form class="form-parsley" action="#" method="post" name="form<?= $vAConfiguracaoTela['MENTITULOFUNC'];?>" id="form<?= $vAConfiguracaoTela['MENTITULOFUNC'];?>">
+                                    <form class="form-parsley" action="#" method="post" name="form<?= $vAConfiguracaoTela['MENTITULOFUNC'];?>" id="form<?= $vAConfiguracaoTela['MENTITULOFUNC'];?>" enctype="multipart/form-data">
 
 										<input type="hidden" name="vI<?= $vAConfiguracaoTela['MENPREFIXO'];?>CODIGO" id="vI<?= $vAConfiguracaoTela['MENPREFIXO'];?>CODIGO" value="<?php echo $vIOid; ?>"/>
 										<input type="hidden" name="methodPOST" id="methodPOST" value="<?php if(isset($_GET['method'])){ echo $_GET['method']; }else{ echo "insert";} ?>"/>
@@ -44,21 +44,34 @@ include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
 													<small class="text-danger font-13">*</small>
 												</label>
 												<input class="form-control obrigatorio" name="vSOXTTITULO" id="vSOXTTITULO" type="text" value="<?= ($vIOid > 0 ? $vROBJETO['OXTTITULO'] : ''); ?>" title="Título" >
-											</div>											
+											</div>		
+											<div class="col-md-6">	
+												<?php $vSCaminho = '../ged/orientacao_tecnica/'.$vROBJETO['OXTNUMERO'].'_'.$vROBJETO['OXTANO'].'.pdf';
+												if (file_exists($vSCaminho)) {  ?>
+												<br/><a href="<?= $vSCaminho;?>" target="_blank">
+												<button type="button" class="btn btn-secondary waves-effect">ABRIR ARQUIVO ANEXADO AQUI</button><br></a>												  
+												<?php }  ?>	
+											</div>	
 										</div>
 										<div class="form-group row">
-											<div class="col-md-6">
+											<div class="col-md-3">
 												<label>Número
 													<small class="text-danger font-13">*</small>
 												</label>
-												<input class="form-control obrigatorio" title="Número" name="vIOXTNUMERO" id="vIOXTNUMERO" value="<?= $vROBJETO['OXTNUMERO']; ?>" type="text" >
+												<input class="form-control obrigatorio" title="Número" name="vIOXTNUMERO" id="vIOXTNUMERO" type="number" maxlength="4" value="<?php if(isset($vIOid)){ echo $vROBJETO['OXTNUMERO']; }?>" >
 											</div>
-											<div class="col-md-6">
+											<div class="col-md-3">
 												<label>Ano
 													<small class="text-danger font-13">*</small>
 												</label>
-												<input class="form-control obrigatorio" title="Ano" name="vIOXTANO" id="vIOXTANO" value="<?= $vROBJETO['OXTANO']; ?>" type="text" >
+												<input class="form-control obrigatorio" title="Ano" name="vIOXTANO" id="vIOXTANO" type="number" maxlength="4" value="<?php if(isset($vIOid)){ echo $vROBJETO['OXTANO']; } else echo date('Y');?>" >												
 											</div>
+											<div class="col-md-6">
+												<label>Incluir/Alterar Arquivo
+													<small class="text-danger font-13">*</small>
+												</label>
+												<input class="form-control" type="file" name="vHARQUIVO" id="vHARQUIVO">												
+										   </div>
 										</div>
 										<div class="form-group row">
 											<div class="col-md-12">                                                      
