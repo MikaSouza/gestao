@@ -1725,23 +1725,21 @@ function valorPorExtensoPorcentagem($valor=0) {
 }
 
 function enviarEmail($pAEmails, $pSAssunto, $pSMensagem, $pAEmailsCC = array()){
-
-	$phpmailer_diretorio_base = '/var/www/html/marpa_consultoria/twcore/vendors/phpmailer/';
+	$phpmailer_diretorio_base = $_SERVER['DOCUMENT_ROOT'].'twcore/vendors/phpmailer/';	
 	require_once $phpmailer_diretorio_base.'PHPMailerAutoload.php';
 
 	$mail = new PHPMailer;
 	$mail->setLanguage('br', $phpmailer_diretorio_base.'language/');
 	$mail->isSMTP();
 
-	$mail->Host = 'smtp.kinghost.net';
-	// $mail->Host = 'smtp.marpa.com.br';
+	$mail->Host = 'smtp.gmail.com';
 	$mail->CharSet = 'UTF-8';
 	$mail->SMTPAuth = true;
-	$mail->Port = 587;
-	$mail->Username = 'sistema@marpa.com.br';
-	$mail->Password = 'Si@2018';
-	$mail->SMTPSecure = 'tls';
-	$mail->From = 'sistema@marpa.com.br';
+	$mail->Port = 465;
+	$mail->Username = 'contato@teraware.com.br'; 
+	$mail->Password = 'NZA98email';
+	$mail->SMTPSecure = 'ssl';
+	$mail->From = 'contato@teraware.com.br';
 	$mail->FromName = 'Gestão Inteligência em Administração Pública';
 	//$mail->SMTPDebug = 2;
 	foreach ($pAEmails as $address){
