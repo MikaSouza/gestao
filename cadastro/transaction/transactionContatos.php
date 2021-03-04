@@ -1,17 +1,26 @@
 <?php
 include_once __DIR__ . '/../../twcore/teraware/php/constantes.php';
 
-if (isset($_POST['hdn_metodo_search']) && $_POST['hdn_metodo_search'] == 'ClientesxContatos')
+if (isset($_POST['hdn_metodo_search']) && $_POST['hdn_metodo_search'] == 'ClientesxContatos') {
     listContatos($_POST['pIOID'], 'ClientesxContatos');
+}
 
-if (isset($_POST['method']) && $_POST['method'] == 'incluirClientesxContatos')
+if (isset($_POST['method']) && $_POST['method'] == 'incluirClientesxContatos') {
     insertUpdateContatos($_POST);
+}
 
-if ($_GET['hdn_metodo_fill'] == 'fill_Contatos')
+if ($_GET['hdn_metodo_fill'] == 'fill_Contatos') {
     fill_Contatos($_GET['vICLICODIGO'], $_GET['vICONTIPO'], $_GET['formatoRetorno']);
+}
 
-if ($_GET['hdn_metodo_fill'] == 'fill_ContatosPadrao')
+if ($_GET['hdn_metodo_fill'] == 'fill_ContatosPadrao') {
     fill_ContatosPadrao($_GET['vICONCODIGO'], $_GET['formatoRetorno']);
+}
+
+if ($_GET['hdn_metodo_fill'] == 'gerarSenhaContatos') {
+    echo gerarSenhaAleatoria(9, true, false);
+}
+
 
 // if (isset($_POST["method"]) && $_POST["method"] == 'incluirClientesxContatos') {
 //     $_POSTBEN['vHCONCODIGO'] = $_POST['hdn_filho_codigo'];
@@ -29,7 +38,7 @@ if ($_GET['hdn_metodo_fill'] == 'fill_ContatosPadrao')
 // }
 
 if (isset($_POST["method"]) && $_POST["method"] == 'excluirFilho') {
-	echo excluirAtivarRegistros(array(
+    echo excluirAtivarRegistros(array(
         "tabela"   => Encriptar("CONTATOS", 'crud'),
         "prefixo"  => "CON",
         "status"   => "N",
@@ -56,6 +65,7 @@ function listContatos($vIOIDPAI, $tituloModal)
     $vAConfig['DIV_RETORNO'] = "div_contatos";
     $vAConfig['FUNCAO_RETORNO'] = "ClientesxContatos";
     $vAConfig['ID_PAI'] = $vIOIDPAI;
+    $vAConfig['BTN_EDITAR'] = '';
     $vAConfig['vATitulos']     = array('', 'Nome', 'E-mail', 'Telefone', 'Celular', 'Cargo', 'Setor/Lotação', 'Data Inclusão');
     $vAConfig['vACampos']     = array('CONCODIGO', 'CONNOME', 'CONEMAIL', 'CONFONE', 'CONCELULAR', 'CONCARGO', 'CONSETOR', 'CONDATA_INC');
     $vAConfig['vATipos']     = array('chave', 'varchar', 'varchar', 'varchar', 'varchar', 'varchar', 'varchar', 'datetime');
