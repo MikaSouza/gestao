@@ -9,10 +9,10 @@
   	define("DIR_ROOT", $_SERVER['DOCUMENT_ROOT'].'/app/');
 
     //URL do login
- 	define("URL_LOGIN", 'https://gestao-srv.teraware.net.br/autenticacao/login.php');
+ 	define("URL_LOGIN", 'https://gestao-srv.twflex.com.br/autenticacao/login.php');
 
 	//URL base
-	define("URL_BASE", 'https://gestao-srv.teraware.net.br/');
+	define("URL_BASE", 'https://gestao-srv.twflex.com.br/');
 
   	//Constantes Diversas
   	define("vSTituloSite", ".: Gestão SRV - Sistema de Gestão Empresarial :.");
@@ -30,7 +30,7 @@
 	define('cSTelefone2', ' (51) 9 8443-2097');
 	define('cSTelefone3', '');
 	define('cSEncriptacao', '');
-	define('cSSiteEmpresa', 'gestao-srv.teraware.net.br');
+	define('cSSiteEmpresa', 'https://gestao-srv.twflex.com.br/');
 	define('cSNomeEmpresa', 'Gestão SRV');
 	define('cSEmailRecebimento', 'gestao@gestao.srv.br');
 
@@ -39,10 +39,10 @@
   	/*
   		DADOS DE ACESSO AO BANCO ERP
   	*/
-	define("vGUsername", "teraware");
+	define("vGUsername", "twflex14");
 	define("vGPassword", "7g7LWEnB");
-	define("vGBancoSite", "teraware");
-	define("vGHostSite", "mysql.teraware.net.br");
+	define("vGBancoSite", "twflex14");
+	define("vGHostSite", "mysql08-farm2.uni5.net");
 
     //Essa variável é utilizada em todos os arquivos de cadastro.
     //Deve ser adicionado em cada arquivo .cad o valor do status para ela.

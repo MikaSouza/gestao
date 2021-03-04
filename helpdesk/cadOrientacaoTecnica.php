@@ -5,125 +5,161 @@ include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <?php include_once '../includes/scripts_header.php' ?>
 
-        <!-- App css -->
-        <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/css/icons.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/css/metisMenu.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
+<head>
+	<?php include_once '../includes/scripts_header.php' ?>
 
-    </head>
-    <body>
+	<!-- App css -->
+	<link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/css/icons.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/css/metisMenu.min.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
 
-		<?php include_once '../includes/menu.php' ?>
+</head>
 
-        <div class="page-wrapper">
+<body>
 
-            <div class="page-content">
+	<?php include_once '../includes/menu.php' ?>
 
-                <div class="container-fluid">
+	<div class="page-wrapper">
 
-                    <?php include_once '../includes/breadcrumb.php' ?>
+		<div class="page-content">
 
-                    <div class="row">
-                        <div class="col-lg-12 mx-auto">
-                            <div class="card">
-                                <div class="card-body">
-                                    <form class="form-parsley" action="#" method="post" name="form<?= $vAConfiguracaoTela['MENTITULOFUNC'];?>" id="form<?= $vAConfiguracaoTela['MENTITULOFUNC'];?>" enctype="multipart/form-data">
+			<div class="container-fluid">
 
-										<input type="hidden" name="vI<?= $vAConfiguracaoTela['MENPREFIXO'];?>CODIGO" id="vI<?= $vAConfiguracaoTela['MENPREFIXO'];?>CODIGO" value="<?php echo $vIOid; ?>"/>
-										<input type="hidden" name="methodPOST" id="methodPOST" value="<?php if(isset($_GET['method'])){ echo $_GET['method']; }else{ echo "insert";} ?>"/>
-										<input type="hidden" name="vHTABELA" id="vHTABELA" value="<?= $vAConfiguracaoTela['MENTABELABANCO'] ?>"/>
-										<input type="hidden" name="vHPREFIXO" id="vHPREFIXO" value="<?= $vAConfiguracaoTela['MENPREFIXO']; ?>"/>
-										<input type="hidden" name="vHURL" id="vHURL" value="<?= $vAConfiguracaoTela['MENARQUIVOCAD']; ?>"/>
-										<div class="form-group row">
-											<div class="col-md-6">                                                      
-												<label>Título
-													<small class="text-danger font-13">*</small>
-												</label>
-												<input class="form-control obrigatorio" name="vSOXTTITULO" id="vSOXTTITULO" type="text" value="<?= ($vIOid > 0 ? $vROBJETO['OXTTITULO'] : ''); ?>" title="Título" >
-											</div>		
-											<div class="col-md-6">	
-												<?php $vSCaminho = '../ged/orientacao_tecnica/'.$vROBJETO['OXTNUMERO'].'_'.$vROBJETO['OXTANO'].'.pdf';
-												if (file_exists($vSCaminho)) {  ?>
-												<br/><a href="<?= $vSCaminho;?>" target="_blank">
-												<button type="button" class="btn btn-secondary waves-effect">ABRIR ARQUIVO ANEXADO AQUI</button><br></a>												  
-												<?php }  ?>	
-											</div>	
-										</div>
-										<div class="form-group row">
-											<div class="col-md-3">
-												<label>Número
-													<small class="text-danger font-13">*</small>
-												</label>
-												<input class="form-control obrigatorio" title="Número" name="vIOXTNUMERO" id="vIOXTNUMERO" type="number" maxlength="4" value="<?php if(isset($vIOid)){ echo $vROBJETO['OXTNUMERO']; }?>" >
-											</div>
-											<div class="col-md-3">
-												<label>Ano
-													<small class="text-danger font-13">*</small>
-												</label>
-												<input class="form-control obrigatorio" title="Ano" name="vIOXTANO" id="vIOXTANO" type="number" maxlength="4" value="<?php if(isset($vIOid)){ echo $vROBJETO['OXTANO']; } else echo date('Y');?>" >												
-											</div>
-											<div class="col-md-6">
-												<label>Incluir/Alterar Arquivo
-													<small class="text-danger font-13">*</small>
-												</label>
-												<input class="form-control" type="file" name="vHARQUIVO" id="vHARQUIVO">												
-										   </div>
-										</div>
-										<div class="form-group row">
-											<div class="col-md-12">                                                      
-												<label>Descrição
-													<small class="text-danger font-13">*</small>
-												</label>
-												<textarea class="form-control" id="vSOXTDESCRICAO" name="vSOXTDESCRICAO" title="Descrição"><?= $vROBJETO['OXTDESCRICAO']; ?></textarea>
-											</div>
-										</div>										
-										<div class="form-group row">
-											<div class="col-sm-3">
-												<label>Cadastro (Status)</label>
-												<select class="form-control" name="vS<?= $vAConfiguracaoTela['MENPREFIXO'];?>STATUS" id="vS<?= $vAConfiguracaoTela['MENPREFIXO'];?>STATUS">
-													<option value="S" <?php if ($vSDefaultStatusCad == "S") echo "selected='selected'"; ?>>Ativo</option>
-													<option value="N" <?php if ($vSDefaultStatusCad == "N") echo "selected='selected'"; ?>>Inativo</option>
-												</select>
-											</div>
-                                        </div>
+				<?php include_once '../includes/breadcrumb.php' ?>
 
-										<div class="form-group">
-											<label class="form-check-label is-invalid" for="invalidCheck3" style="color: red">
-												Campos em vermelho são de preenchimento obrigatório!
+				<div class="row">
+					<div class="col-lg-12 mx-auto">
+						<div class="card">
+							<div class="card-body">
+								<form class="form-parsley" action="#" method="post"
+									name="form<?= $vAConfiguracaoTela['MENTITULOFUNC'];?>"
+									id="form<?= $vAConfiguracaoTela['MENTITULOFUNC'];?>" enctype="multipart/form-data">
+
+									<input type="hidden" name="vI<?= $vAConfiguracaoTela['MENPREFIXO'];?>CODIGO"
+										id="vI<?= $vAConfiguracaoTela['MENPREFIXO'];?>CODIGO"
+										value="<?php echo $vIOid; ?>" />
+									<input type="hidden" name="methodPOST" id="methodPOST" value="<?php if (isset($_GET['method'])) {
+    echo $_GET['method'];
+} else {
+    echo "insert";
+} ?>" />
+									<input type="hidden" name="vHTABELA" id="vHTABELA"
+										value="<?= $vAConfiguracaoTela['MENTABELABANCO'] ?>" />
+									<input type="hidden" name="vHPREFIXO" id="vHPREFIXO"
+										value="<?= $vAConfiguracaoTela['MENPREFIXO']; ?>" />
+									<input type="hidden" name="vHURL" id="vHURL"
+										value="<?= $vAConfiguracaoTela['MENARQUIVOCAD']; ?>" />
+									<div class="form-group row">
+										<div class="col-md-6">
+											<label>Título
+												<small class="text-danger font-13">*</small>
 											</label>
+											<input class="form-control obrigatorio" name="vSOXTTITULO" id="vSOXTTITULO"
+												type="text" value="<?= ($vIOid > 0 ? $vROBJETO['OXTTITULO'] : ''); ?>"
+												title="Título">
 										</div>
-										<?php include('../includes/botoes_cad_novo.php'); ?>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+										<div class="col-md-6">
+											<?php $vSCaminho = '../ged/orientacao_tecnica/'.$vROBJETO['OXTNUMERO'].'_'.$vROBJETO['OXTANO'].'.pdf';
+                                                if (file_exists($vSCaminho)) {
+                                                    ?>
+											<br /><a href="<?= $vSCaminho; ?>" target="_blank">
+												<button type="button" class="btn btn-secondary waves-effect">ABRIR
+													ARQUIVO ANEXADO AQUI</button><br></a>
+											<?php
+                                                }  ?>
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="col-md-3">
+											<label>Número
+												<small class="text-danger font-13">*</small>
+											</label>
+											<input class="form-control obrigatorio" title="Número" name="vIOXTNUMERO"
+												id="vIOXTNUMERO" type="number" maxlength="4" value="<?php if (isset($vIOid)) {
+                                                    echo $vROBJETO['OXTNUMERO'];
+                                                }?>">
+										</div>
+										<div class="col-md-3">
+											<label>Ano
+												<small class="text-danger font-13">*</small>
+											</label>
+											<input class="form-control obrigatorio" title="Ano" name="vIOXTANO"
+												id="vIOXTANO" type="number" maxlength="4" value="<?php if (isset($vIOid)) {
+                                                    echo $vROBJETO['OXTANO'];
+                                                } else {
+                                                    echo date('Y');
+                                                }?>">
+										</div>
+										<div class="col-md-6">
+											<label>Incluir/Alterar Arquivo
+												<small class="text-danger font-13">*</small>
+											</label>
+											<input class="form-control obrigatorio" type="file" name="vHARQUIVO"
+												id="vHARQUIVO">
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="col-md-12">
+											<label>Descrição
+												<small class="text-danger font-13">*</small>
+											</label>
+											<textarea class="form-control" id="vSOXTDESCRICAO" name="vSOXTDESCRICAO"
+												title="Descrição"><?= $vROBJETO['OXTDESCRICAO']; ?></textarea>
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="col-sm-3">
+											<label>Cadastro (Status)</label>
+											<select class="form-control"
+												name="vS<?= $vAConfiguracaoTela['MENPREFIXO'];?>STATUS"
+												id="vS<?= $vAConfiguracaoTela['MENPREFIXO'];?>STATUS">
+												<option value="S" <?php if ($vSDefaultStatusCad == "S") {
+                                                    echo "selected='selected'";
+                                                } ?>>Ativo</option>
+												<option value="N" <?php if ($vSDefaultStatusCad == "N") {
+                                                    echo "selected='selected'";
+                                                } ?>>Inativo</option>
+											</select>
+										</div>
+									</div>
 
-            <?php include_once '../includes/footer.php' ?>
-        </div>
+									<div class="form-group">
+										<label class="form-check-label is-invalid" for="invalidCheck3"
+											style="color: red">
+											Campos em vermelho são de preenchimento obrigatório!
+										</label>
+									</div>
+									<?php include('../includes/botoes_cad_novo.php'); ?>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-        <!-- jQuery  -->
-        <script src="../assets/js/jquery.min.js"></script>
-        <script src="../assets/js/bootstrap.bundle.min.js"></script>
-        <script src="../assets/js/metisMenu.min.js"></script>
-        <script src="../assets/js/waves.min.js"></script>
-        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+		<?php include_once '../includes/footer.php' ?>
+	</div>
 
-		<!-- Sweet-Alert  -->
-        <script src="../assets/plugins/sweet-alert2/sweetalert2.min.js"></script>
-        <script src="../assets/pages/jquery.sweet-alert.init.js"></script>
-		
-		<!--Wysiwig js-->
-        <script src="../assets/plugins/tinymce/tinymce.min.js"></script>
-        <script src="../assets/pages/jquery.form-editor.init.js"></script> 
+	<!-- jQuery  -->
+	<script src="../assets/js/jquery.min.js"></script>
+	<script src="../assets/js/bootstrap.bundle.min.js"></script>
+	<script src="../assets/js/metisMenu.min.js"></script>
+	<script src="../assets/js/waves.min.js"></script>
+	<script src="../assets/js/jquery.slimscroll.min.js"></script>
 
-         <?php include_once '../includes/scripts_footer.php' ?>
-		<script src="js/cadOrientacaoTecnica.js"></script>
-    </body>
+	<!-- Sweet-Alert  -->
+	<script src="../assets/plugins/sweet-alert2/sweetalert2.min.js"></script>
+	<script src="../assets/pages/jquery.sweet-alert.init.js"></script>
+
+	<!--Wysiwig js-->
+	<script src="../assets/plugins/tinymce/tinymce.min.js"></script>
+	<script src="../assets/pages/jquery.form-editor.init.js"></script>
+
+	<?php include_once '../includes/scripts_footer.php' ?>
+	<script src="js/cadOrientacaoTecnica.js"></script>
+</body>
+
 </html>

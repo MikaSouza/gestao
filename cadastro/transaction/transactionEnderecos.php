@@ -1,26 +1,33 @@
 <?php
 include_once __DIR__.'/../../twcore/teraware/php/constantes.php';
 
-if (isset($_POST['hdn_metodo_search']) && $_POST['hdn_metodo_search'] == 'ClientesxEnderecos')
-	listEnderecos($_POST['pIOID'], 'ClientesxEnderecos');
+if (isset($_POST['hdn_metodo_search']) && $_POST['hdn_metodo_search'] == 'ClientesxEnderecos') {
+    listEnderecos($_POST['pIOID'], 'ClientesxEnderecos');
+}
 
-if( $_GET['hdn_metodo_fill'] == 'fill_Enderecos' )
-	fill_Enderecos($_GET['vICLICODIGO'], $_GET['vITABCODIGO'], $_GET['formatoRetorno']); 
+if ($_GET['hdn_metodo_fill'] == 'fill_Enderecos') {
+    fill_Enderecos($_GET['vIENDCODIGO'], $_GET['formatoRetorno']);
+}
 
-if (isset($_POST["method"]) && $_POST["method"] == 'excluirCLI') {
-	echo excluirAtivarRegistros(array(
+if (isset($_POST["method"]) && $_POST["method"] == 'excluirFilho') {
+    echo excluirAtivarRegistros(array(
         "tabela"   => Encriptar("ENDERECOS", 'crud'),
-        "prefixo"  => "CLI",
+        "prefixo"  => "END",
         "status"   => "N",
         "ids"      => $_POST['pSCodigos'],
         "mensagem" => "S",
-        "empresa"  => "S",
+        "empresa"  => "N",
     ));
 }
 
-function listEnderecos($vIOIDPAI, $tituloModal){
+if (isset($_POST['method']) && $_POST['method'] == 'incluirEndereco') {
+    insertUpdateEnderecos($_POST);
+}
 
-	$sql = "SELECT
+
+function listEnderecos($vIOIDPAI, $tituloModal)
+{
+    $sql = "SELECT
 	                r.*,
 	             	e.ESTSIGLA,
 	                c.CIDDESCRICAO,
@@ -34,77 +41,102 @@ function listEnderecos($vIOIDPAI, $tituloModal){
 	            LEFT JOIN
 	                CIDADES c
 	            ON
-	                r.CIDCODIGO = c. CIDCODIGO
+	                r.CIDCODIGO = c.CIDCODIGO
 		       	LEFT JOIN
 	                TABELAS t
 	            ON
-	                r.TABCODIGO = t. TABCODIGO
+	                r.TABCODIGO = t.TABCODIGO
 				WHERE
 					r.ENDSTATUS = 'S'
+                AND
+                    r.ENDPADRAO <> 'S'
 				AND
 					r.CLICODIGO = ".$vIOIDPAI;
-	$arrayQuery = array(
-					'query' => $sql,
-					'parametros' => array()
-				);
-	$result = consultaComposta($arrayQuery);
-	$vAConfig['TRANSACTION'] = "transactionEnderecos.php";
-	$vAConfig['DIV_RETORNO'] = "div_enderecos";
-	$vAConfig['FUNCAO_RETORNO'] = "ClientesxEnderecos"; 
-	$vAConfig['ID_PAI'] = $vIOIDPAI;
-	$vAConfig['vATitulos'] 	= array('', 'Tipo', 'Logradouro', 'Nro', 'Complemento', 'Bairro', 'CEP', 'Cidade', 'UF');
-	$vAConfig['vACampos'] 	= array('ENDCODIGO', 'TABDESCRICAO', 'ENDLOGRADOURO', 'ENDNROLOGRADOURO', 'ENDCOMPLEMENTO', 'ENDBAIRRO', 'ENDCEP', 'CIDDESCRICAO', 'ESTSIGLA');
-	$vAConfig['vATipos'] 	= array('chave', 'varchar', 'varchar', 'varchar', 'varchar', 'varchar', 'varchar', 'varchar', 'varchar');
-	include_once '../../twcore/teraware/componentes/gridPadraoFilha.php';
+    $arrayQuery = array(
+                    'query' => $sql,
+                    'parametros' => array()
+                );
+    $result = consultaComposta($arrayQuery);
+    $vAConfig['TRANSACTION'] = "transactionEnderecos.php";
+    $vAConfig['DIV_RETORNO'] = "div_enderecos";
+    $vAConfig['FUNCAO_RETORNO'] = "ClientesxEnderecos";
+    $vAConfig['ID_PAI'] = $vIOIDPAI;
+    $vAConfig['vATitulos'] 	= array('', 'Tipo', 'Logradouro', 'Nro', 'Complemento', 'Bairro', 'CEP', 'Cidade', 'UF');
+    $vAConfig['vACampos'] 	= array('ENDCODIGO', 'TABDESCRICAO', 'ENDLOGRADOURO', 'ENDNROLOGRADOURO', 'ENDCOMPLEMENTO', 'ENDBAIRRO', 'ENDCEP', 'CIDDESCRICAO', 'ESTSIGLA');
+    $vAConfig['vATipos'] 	= array('chave', 'varchar', 'varchar', 'varchar', 'varchar', 'varchar', 'varchar', 'varchar', 'varchar');
+    include_once '../../twcore/teraware/componentes/gridPadraoFilha.php';
 
-	return ;
+    return ;
 }
 
-function insertUpdateEnderecos($_POSTDADOS, $pSMsg = 'N'){
-	if ($_POSTDADOS['vHENDLOGRADOURO'] != ''){
-		$_POSTDADOSEND['vIENDCODIGO'] = $_POSTDADOS['vHENDCODIGO'];
-		$_POSTDADOSEND['vITABCODIGO'] = 426;
-		$_POSTDADOSEND['vSENDLOGRADOURO'] = $_POSTDADOS['vHENDLOGRADOURO']; 
-		$_POSTDADOSEND['vIESTCODIGO'] = $_POSTDADOS['vHESTCODIGO'];
-		$_POSTDADOSEND['vICIDCODIGO'] = $_POSTDADOS['vHCIDCODIGO'];
-		$_POSTDADOSEND['vSENDNROLOGRADOURO'] = $_POSTDADOS['vHENDNROLOGRADOURO'];
-		$_POSTDADOSEND['vSENDBAIRRO'] = $_POSTDADOS['vHENDBAIRRO'];
-		$_POSTDADOSEND['vSENDCEP'] = $_POSTDADOS['vHENDCEP'];
-		$_POSTDADOSEND['vSENDCOMPLEMENTO'] = $_POSTDADOS['vHENDCOMPLEMENTO'];			
-		$_POSTDADOSEND['vICLICODIGO'] = $_POSTDADOS['vICLICODIGO'];
-		$_POSTDADOSEND['vSENDPADRAO'] = $_POSTDADOS['vHENDPADRAO'];
-		$dadosBanco = array(
-			'tabela'  => 'ENDERECOS',
-			'prefixo' => 'END',
-			'fields'  => $_POSTDADOSEND,
-			'msg'     => $pSMsg,
-			'url'     => '',
-			'debug'   => 'N'
-			);
-		$id = insertUpdate($dadosBanco);
-		return $id; 
-	}		
+function insertUpdateEnderecos($parametros, $pSMsg = 'N')
+{
+    $dadosBanco = array(
+        'tabela'  => 'ENDERECOS',
+        'prefixo' => 'END',
+        'fields'  => $parametros,
+        'msg'     => $pSMsg,
+        'url'     => '',
+        'debug'   => 'N'
+        );
+    $id = insertUpdate($dadosBanco);
+    return $id;
 }
 
-function fill_Enderecos($vICLICODIGO, $vSCONTIPO, $formatoRetorno = 'array'){
-	
-	$sql = "SELECT *
+function fill_Enderecos($vIENDCODIGO, $formatoRetorno = 'array')
+{
+    $sql = "SELECT *
 			FROM ENDERECOS
 			WHERE ENDSTATUS = 'S'
-			AND CLICODIGO = ? 
-			AND ENDPADRAO = ? ";
-	$arrayQuery = array(
-					'query' => $sql,
-					'parametros' => array(
-						 array($vICLICODIGO, PDO::PARAM_INT),
-						 array($vSCONTIPO, PDO::PARAM_STR)
-					)
-				);
-	$result = consultaComposta($arrayQuery);
-	$registro = $result['dados'][0];	
-	if( $formatoRetorno == 'array')
-		return $registro !== null ? $registro : "N";
-	else if( $formatoRetorno == 'json' )
-		echo json_encode($registro);
-	return $registro !== null ? $registro : "N";
+			AND ENDCODIGO = ?";
+    $arrayQuery = array(
+                    'query' => $sql,
+                    'parametros' => array(
+                         array($vIENDCODIGO, PDO::PARAM_INT)
+                    )
+                );
+    $result = consultaComposta($arrayQuery);
+    $registro = $result['dados'][0];
+    if ($formatoRetorno == 'array') {
+        return $registro !== null ? $registro : "N";
+    } elseif ($formatoRetorno == 'json') {
+        echo json_encode($registro);
+    }
+    return $registro !== null ? $registro : "N";
+}
+
+function getEnderecosByCodigoCliente($clicodigo)
+{
+    $sql = "SELECT
+	                r.*,
+	             	e.ESTSIGLA,
+	                c.CIDDESCRICAO,
+	                t.TABDESCRICAO
+	            FROM
+	                ENDERECOS r
+	            LEFT JOIN
+	                ESTADOS e
+	            ON
+	                r.ESTCODIGO = e.ESTCODIGO
+	            LEFT JOIN
+	                CIDADES c
+	            ON
+	                r.CIDCODIGO = c.CIDCODIGO
+		       	LEFT JOIN
+	                TABELAS t
+	            ON
+	                r.TABCODIGO = t.TABCODIGO
+				WHERE
+					r.ENDSTATUS = 'S'
+                AND
+                    r.ENDPADRAO = 'S'
+				AND
+					r.CLICODIGO = {$clicodigo}";
+    $arrayQuery = array(
+                    'query' => $sql,
+                    'parametros' => array()
+                );
+    $result = consultaComposta($arrayQuery);
+
+    return $result['dados'][0];
 }
