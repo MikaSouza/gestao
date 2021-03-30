@@ -27,36 +27,45 @@ if (isset($_POST['method']) && $_POST['method'] == 'incluirEndereco') {
 
 function listEnderecos($vIOIDPAI, $tituloModal)
 {
-    $sql = "SELECT
-	                r.*,
-	             	e.ESTSIGLA,
-	                c.CIDDESCRICAO,
-	                t.TABDESCRICAO
-	            FROM
-	                ENDERECOS r
-	            LEFT JOIN
-	                ESTADOS e
-	            ON
-	                r.ESTCODIGO = e.ESTCODIGO
-	            LEFT JOIN
-	                CIDADES c
-	            ON
-	                r.CIDCODIGO = c.CIDCODIGO
-		       	LEFT JOIN
-	                TABELAS t
-	            ON
-	                r.TABCODIGO = t.TABCODIGO
-				WHERE
-					r.ENDSTATUS = 'S'
-                AND
-                    r.ENDPADRAO <> 'S'
-				AND
-					r.CLICODIGO = ".$vIOIDPAI;
-    $arrayQuery = array(
-                    'query' => $sql,
-                    'parametros' => array()
-                );
-    $result = consultaComposta($arrayQuery);
+
+    if($vIOIDPAI != "")
+    {
+
+        $sql = "SELECT
+            r.*,
+            e.ESTSIGLA,
+            c.CIDDESCRICAO,
+            t.TABDESCRICAO
+        FROM
+            ENDERECOS r
+        LEFT JOIN
+            ESTADOS e
+        ON
+            r.ESTCODIGO = e.ESTCODIGO
+        LEFT JOIN
+            CIDADES c
+        ON
+            r.CIDCODIGO = c.CIDCODIGO
+        LEFT JOIN
+            TABELAS t
+        ON
+            r.TABCODIGO = t.TABCODIGO
+        WHERE
+            r.ENDSTATUS = 'S'
+        AND
+            r.ENDPADRAO <> 'S'
+        AND
+            r.CLICODIGO = '{$vIOIDPAI}'";
+
+        $arrayQuery = array(
+                        'query' => $sql,
+                        'parametros' => array()
+                    );
+        $result = consultaComposta($arrayQuery);
+    }else{
+        $result['quantidadeRegistros'] = 0;
+    }
+
     $vAConfig['TRANSACTION'] = "transactionEnderecos.php";
     $vAConfig['DIV_RETORNO'] = "div_enderecos";
     $vAConfig['FUNCAO_RETORNO'] = "ClientesxEnderecos";
