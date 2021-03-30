@@ -50,17 +50,24 @@ if (isset($_POST["method"]) && $_POST["method"] == 'excluirFilho') {
 
 function listContatos($vIOIDPAI, $tituloModal)
 {
-    $sql = "SELECT
-				c.*
-			FROM
-				CONTATOS c
-			WHERE
-                c.CONSTATUS = 'S' AND c.CLICODIGO = " . $vIOIDPAI;
-    $arrayQuery = array(
-        'query' => $sql,
-        'parametros' => array()
-    );
-    $result = consultaComposta($arrayQuery);
+    if($vIOIDPAI != "")
+    {
+        $sql = "SELECT
+                    c.*
+                FROM
+                    CONTATOS c
+                WHERE
+                    c.CONSTATUS = 'S' AND c.CLICODIGO =  '{$vIOIDPAI}' ";
+        $arrayQuery = array(
+            'query' => $sql,
+            'parametros' => array()
+        );
+        $result = consultaComposta($arrayQuery);
+    }else{
+        $result['quantidadeRegistros'] = 0;
+    }
+
+
     $vAConfig['TRANSACTION'] = "transactionContatos.php";
     $vAConfig['DIV_RETORNO'] = "div_contatos";
     $vAConfig['FUNCAO_RETORNO'] = "ClientesxContatos";
