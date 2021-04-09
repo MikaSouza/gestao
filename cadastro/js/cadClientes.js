@@ -325,48 +325,53 @@ function fillClientesxHistorico(pIFXSCODIGO, titulo) {
     });
 }
 
-function salvarModalContatos(
-    div_nome,
-    pSTransaction,
-    pSDivReturn,
-    pMetodo,
-    pIOID
-) {
-    var erros = validarCamposDiv(div_nome);
+function salvarContato() {
+    const vICLICODIGO = $("#vICLICODIGO").val();
+    const DIV_NOME = "modalClientesxContatos";
+
+    var erros = validarCamposDiv(DIV_NOME);
     if (erros.length === 0) {
         var data = {
-            method: "incluir" + pMetodo,
-            vICLICODIGO: $("#hdn_pai_" + pMetodo).val(),
-            vHCONCODIGO: $("#hdn_filho_" + pMetodo).val(),
-            vHCONNOME: $("#vHMCONNOME").val(),
-            vHCONEMAIL: $("#vHMCONEMAIL").val(),
-            vHCONCELULAR: $("#vHMCONFONE").val(),
-            vHCONFONE: $("#vHMCONCELULAR").val(),
-            vHCONCARGO: $("#vHMCONCARGO").val(),
-            vHCONSETOR: $("#vHMCONSETOR").val(),
-            vHCONSENHA: $("#vHMCONSENHA").val(),
+            method: "incluir-contato",
+            vICLICODIGO: vICLICODIGO,
+            vICONCODIGO: $("vHMCONCODIGO").val(),
+            vSCONNOME: $("#vHMCONNOME").val(),
+            vSCONEMAIL: $("#vHMCONEMAIL").val(),
+            vSCONCELULAR: $("#vHMCONFONE").val(),
+            vSCONFONE: $("#vHMCONCELULAR").val(),
+            vSCONCARGO: $("#vHMCONCARGO").val(),
+            vSCONSETOR: $("#vHMCONSETOR").val(),
+            vSCONSENHA: $("#vHMCONSENHA").val(),
         };
         $.ajax({
             async: true,
             type: "POST",
-            url: "transaction/" + pSTransaction,
+            url: "transaction/transactionContatos.php",
+            dataType: "json",
             data: data,
-            success: function (msg) {
-                swal({
-                    title: "",
-                    text: "Cadastro realizado com sucesso",
-                    type: "success",
-                });
-                gerarGridJSON(pSTransaction, pSDivReturn, pMetodo, pIOID);
-                $("#modal" + pMetodo).modal("hide");
-                limparCamposDialog(div_nome);
-                return true;
+            success: function (response) {
+                if (response.success) {
+                    swal({
+                        title: "",
+                        text: "Cadastro realizado com sucesso",
+                        type: "success",
+                    });
+                    $("#tbody_contatos").prepend(
+                        gerarLinhaContato(response.registro)
+                    );
+                } else {
+                    sweetAlert(
+                        "Oops...",
+                        "Ocorreu um erro ao inserir o registro!",
+                        "error"
+                    );
+                }
+                $("#modalClientesxContatos").modal("hide");
             },
             error: function (msg) {
-                limparCamposDialog(div_nome);
+                limparCamposDialog(DIV_NOME);
                 sweetAlert("Oops...", "Ocorreu um erro inesperado!", "error");
-                alert(msg);
-                $("#modal" + pMetodo).modal("hide");
+                $("#modalClientesxContatos").modal("hide");
                 return false;
             },
         });
@@ -377,29 +382,6 @@ function salvarModalContatos(
             type: "warning",
         });
     }
-}
-
-function fillContatos(pICONCODIGO) {
-    var vSUrl =
-        "transaction/transactionContatos.php?hdn_metodo_fill=fill_ContatosPadrao&vICONCODIGO=" +
-        pICONCODIGO +
-        "&formatoRetorno=json";
-    $.getJSON(vSUrl, function (json) {
-        console.log({ json });
-        for (var i in json) {
-            $("#vHMCONNOME").val(json.CONNOME);
-            $("#vHMCONEMAIL").val(json.CONEMAIL);
-            $("#vHMCONCELULAR").val(json.CONCELULAR);
-            $("#vHMCONFONE").val(json.CONFONE);
-            $("#vSCONCPF").val(json.CONCPF);
-            $("#vHMCONSENHA").val(json.CONSENHA);
-            $("#vHMCONCARGO").val(json.CONCARGO);
-            $("#vSCONRAMAL").val(json.CONRAMAL);
-            $("#vICONCODIGO").val(json.CONCODIGO);
-            $("#vICLICODIGO").val(json.CLICODIGO);
-            $("#vHMCONSETOR").val(json.CONSETOR);
-        }
-    });
 }
 
 function fillEndereco(pIENDCODIGO) {
@@ -477,5 +459,301 @@ function salvarModalClientesxEnderecos() {
         });
     } else {
         swal({ title: "Opss..", text: erros.join("\n"), type: "warning" });
+    }
+}
+
+function gerarLinhaContato(data) {
+    const linhas = [...data]
+        .map(
+            ({
+                CONCODIGO,
+                CONNOME,
+                CONEMAIL,
+                CONSENHA,
+                CONFONE,
+                CONCELULAR,
+                CONCARGO,
+                CONSETOR,
+                DATA_INCLUSAO,
+            }) => `
+		<tr id="contato-${CONCODIGO}">
+            <td align="center">${exibirCheckboxEnviaremail(
+                CONCODIGO,
+                CONSENHA
+            )}</td>
+			<td align="left">${CONNOME}</td>
+			<td align="left">${CONEMAIL}</td>
+			<td align="left">${CONFONE}</td>
+			<td align="left">${CONCELULAR}</td>
+			<td align="left">${CONCARGO}</td>
+			<td align="left">${CONSETOR}</td>
+            <td align="center">${DATA_INCLUSAO}</td>
+            <td style="text-align:center;width:220px">${exibirBotaoListaContato(
+                CONCODIGO
+            )}</td>
+		</tr>`
+        )
+        .join("");
+
+    return linhas;
+}
+
+function exibirCheckboxEnviaremail(concodigo, consenha) {
+    let checkbox = "";
+    if (consenha) {
+        checkbox = `<input type="checkbox" name="vEnviarAcesso[]" value="${concodigo}">`;
+    }
+    return checkbox;
+}
+
+function exibirBotaoEnviarAcesso() {
+    return `<tr>
+                <td colspan="9" style="text-left">
+                    <button type="button" title="Enviar Acesso" style="width:150px" onclick="enviarAcessos();"
+                    class="btn btn-primary waves-effect waves-light">Enviar Acesso</button>
+                </td>
+            </tr>`;
+}
+
+function exibirBotaoListaContato(concodigo) {
+    let botao = "";
+    botao = ` <button type="button" class="mb-1 btn btn-secondary waves-effect" onclick="editarContato(${concodigo})"><i class="fas fa-edit font-16"></i></button>
+            <button type="button" class="mb-1 ml-2 btn btn-danger waves-effect" style="color:white" onclick="excluirContato(${concodigo})"><i class="fas fa-trash-alt font-16"></i></button>`;
+
+    return botao;
+}
+
+function exibirLinhaSemContato() {
+    return `
+		<tr>
+			<td colspan="9" style="text-align:center;">Nenhum contato encontrado.</td>
+		</tr>
+	`;
+}
+
+function listarContatos(clicodigo) {
+    $.ajax({
+        async: true,
+        type: "POST",
+        dataType: "json",
+        url: "transaction/transactionContatos.php",
+        data: {
+            method: "listar-contatos",
+            clicodigo: clicodigo,
+        },
+        success: function (response) {
+            if (response.success) {
+                $("#tbody_contatos").html(gerarLinhaContato(response.contatos));
+                $("#tfoot_contatos").html(exibirBotaoEnviarAcesso());
+            } else {
+                $("#tbody_contatos").html(exibirLinhaSemContato());
+                swal.fire("Oops...", response.message, "error");
+            }
+        },
+        error: function (response) {
+            swal.fire("Oops...", "Ocorreu um erro inesperado!", "error");
+        },
+    });
+}
+
+function enviarAcessos() {
+    let codigos = [];
+    $("input[type=checkbox][name='vEnviarAcesso[]']:checked").each(function (
+        index,
+        el
+    ) {
+        codigos.push($(this).val());
+    });
+
+    if (codigos.length > 0) {
+        swal.fire({
+            title: "Enviar E-mail Acesso",
+            text:
+                "Você Deseja Enviar o E-mail com o acesso para os contatos selecionados?",
+            type: "info",
+            showCancelButton: true,
+            confirmButtonText: "Sim, enviar!",
+            cancelButtonText: "Não, enviar!",
+            reverseButtons: true,
+        }).then((result) => {
+            if (result.value) {
+                Swal.showLoading();
+                $.ajax({
+                    url: "transaction/transactionContatos.php",
+                    type: "POST",
+                    async: false,
+                    dataType: "json",
+                    data: {
+                        method: "enviarAcesso",
+                        concodigos: codigos,
+                    },
+                    success: function (response) {
+                        console.clear();
+                        console.log(response);
+                        if (response.success) {
+                            swal("", response.msg, "success");
+                        } else {
+                            swal("", response.msg, "error");
+                        }
+                        $(
+                            "input[type=checkbox][name='vEnviarAcesso[]']:checked"
+                        ).prop("checked", false);
+                    },
+                    error: function (response) {
+                        console.error({ response });
+                        swal(
+                            "",
+                            "Ocorreu uma falha no envio dos E-mails",
+                            "error"
+                        );
+                    },
+                    // always: function () {
+                    //     Swal.hideLoading();
+                    //     // alert( "complete" );
+                    // },
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                swal.fire(
+                    "Cancelado",
+                    "O registro não foi enviado :)",
+                    "error"
+                );
+            }
+        });
+    } else {
+        swal.fire("", "Marque ao menos um registro :)", "error");
+    }
+}
+
+/**
+ * Função que exibe o Formulário de Cadastro/Edição de Contato
+ * @param int concodigo
+ */
+function exibirFormContato(concodigo) {
+    if (concodigo) {
+        editarContato(concodigo);
+    } else {
+        $("#vHMCONCODIGO").val("");
+        $("#vHMCONNOME").val("");
+        $("#vHMCONEMAIL").val("");
+        $("#vHMCONFONE").val("");
+        $("#vHMCONCELULAR").val("");
+        $("#vHMCONCARGO").val("");
+        $("#vHMCONSETOR").val("");
+        $("#vHMCONSENHA").val("");
+        $("#modalClientesxContatos").modal("show");
+    }
+}
+/**
+ * Função que busca os dados de um Registro de Contato
+ * @param int concodigo
+ */
+function editarContato(concodigo) {
+    $.ajax({
+        async: true,
+        type: "POST",
+        dataType: "json",
+        url: "transaction/transactionContatos.php",
+        data: {
+            method: "show-contato",
+            concodigo: concodigo,
+        },
+        success: function (response) {
+            let {
+                CONCODIGO,
+                CONNOME,
+                CONEMAIL,
+                CONFONE,
+                CONCELULAR,
+                CONCARGO,
+                CONSETOR,
+                CONSENHA,
+            } = response;
+            if (CONCODIGO && CONNOME && CONEMAIL) {
+                $("#vHMCONCODIGO").val(CONCODIGO);
+                $("#vHMCONNOME").val(CONNOME);
+                $("#vHMCONEMAIL").val(CONEMAIL);
+                $("#vHMCONFONE").val(CONFONE);
+                $("#vHMCONCELULAR").val(CONCELULAR);
+                $("#vHMCONCARGO").val(CONCARGO);
+                $("#vHMCONSETOR").val(CONSETOR);
+                $("#vHMCONSENHA").val(CONSENHA);
+                $("#modalClientesxContatos").modal("show");
+            }
+        },
+        error: function (response) {
+            sweetAlert("Oops...", "Ocorreu um erro inesperado!", "error");
+            $("#modalClientesxContatos").modal("hide");
+        },
+    });
+}
+
+/**
+ * Função que Inativa um registro de Contato
+ * @param int concodigo
+ */
+function excluirContato(concodigo) {
+    if (concodigo) {
+        swal.fire({
+            title: "Deseja excluir/inativar o(s) registro(s) selecionados?",
+            text: "Excluir/Inativar registro(s)!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Sim, excluir!",
+            cancelButtonText: "Não, cancelar!",
+            reverseButtons: true,
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: "POST",
+                    url: "transaction/transactionContatos.php",
+                    data: {
+                        method: "excluir-contato",
+                        concodigo: concodigo,
+                    },
+                    async: false,
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.registrosExcluidos > 0) {
+                            swal.fire(
+                                "Excluído!",
+                                "Registro(s) excluído(s) com sucesso.",
+                                "success"
+                            );
+                            $("#contato-" + concodigo).remove();
+
+                            if ($("#tbody_contatos tr").length == 0) {
+                                $("#tbody_contatos").html(
+                                    exibirLinhaSemContato()
+                                );
+                            }
+                        }
+                    },
+                    error: function (msg) {
+                        swal.fire(
+                            "Oops...",
+                            "Ocorreu um erro inesperado! " + msg,
+                            "error"
+                        );
+                        return false;
+                    },
+                });
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swal.fire(
+                    "Cancelado",
+                    "O registro não foi excluído :)",
+                    "error"
+                );
+            }
+        });
+    } else {
+        swal.fire(
+            "Ops..",
+            "Selecione ao menos um registro para ser excluído :)",
+            "error"
+        );
     }
 }

@@ -89,7 +89,7 @@ include_once __DIR__ . '/combos/comboEstados.php';
 											</li>
 											<li class="nav-item waves-effect waves-light">
 												<a class="nav-link" data-toggle="tab" href="#contatos" role="tab"
-													onclick="gerarGridJSON('transactionContatos.php', 'div_contatos', 'ClientesxContatos', '<?= $vIOid; ?>');">Contatos</a>
+													onclick="listarContatos(<?php echo $vIOid; ?>);">Contatos</a>
 											</li>
 											<li class="nav-item waves-effect waves-light">
 												<a class="nav-link" data-toggle="tab" href="#enderecos-1" role="tab"
@@ -399,12 +399,37 @@ include_once __DIR__ . '/combos/comboEstados.php';
 															aria-labelledby="headingOne"
 															data-parent="#accordionExample">
 															<div class="card-body">
-																<p class="mb-0 text-muted">
+																<p class="mb-0 text-muted"></p>
 																<div class="form-group row">
-																	<div id="div_contatos" class="table-responsive">
+																	<div id="div_contatos"
+																		class="table-responsive mt-5">
+																		<button type="button"
+																			onclick="exibirFormContato();"
+																			class="btn btn-primary px-4 btn-rounded float-right mt-0 mb-3">+
+																			Novo Registro</button>
+																		<table id="datatable-buttons"
+																			class="table table-striped table-bordered dt-responsive nowrap"
+																			style="overflow: auto; width: 100%">
+																			<thead>
+																				<tr class="text-center">
+																					<th>Acesso</th>
+																					<th>Nome</th>
+																					<th>E-mail</th>
+																					<th>Telefone</th>
+																					<th>Celular</th>
+																					<th>Cargo</th>
+																					<th>Setor/Lotação</th>
+																					<th>Data Inclusão</th>
+																					<th>Ação</th>
+																				</tr>
+																			</thead>
+																			<tbody id="tbody_contatos">
+																			</tbody>
+																			<tfoot id="tfoot_contatos">
+																			</tfoot>
+																		</table>
 																	</div>
 																</div>
-																</p>
 															</div>
 														</div>
 													</div>
@@ -412,7 +437,7 @@ include_once __DIR__ . '/combos/comboEstados.php';
 											</div>
 											<!-- Aba Contatos end -->
 
-											<!-- Aba Dados Documento -->
+											<!-- Aba Dados Endereço -->
 											<div class="tab-pane p-3" id="enderecos-1" role="tabpanel">
 												<div class="accordion" id="reformaSim3">
 													<div class="card border mb-0 shadow-none">
@@ -557,17 +582,10 @@ include_once __DIR__ . '/combos/comboEstados.php';
 											<?php include('../includes/botoes_cad_novo.php'); ?>
 										</div>
 									</form>
-									<!--end form-->
 								</div>
-								<!--end card-body-->
 							</div>
-							<!--end card-->
 						</div>
-						<!--end col-->
-
 					</div>
-					<!--end row-->
-
 				</div><!-- container -->
 			</div>
 
@@ -742,7 +760,7 @@ include_once __DIR__ . '/combos/comboEstados.php';
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title mt-0" id="exampleModalLabel">Incluir/Alterar Contato/Consulente</h5>
+						<h5 class="modal-title mt-0" id="exampleModalLabel">Incluir/Alterar Contato</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
@@ -750,15 +768,12 @@ include_once __DIR__ . '/combos/comboEstados.php';
 					<div class="modal-body">
 						<form class="form-parsley" action="#" method="post" name="formClientesxContatos"
 							id="formClientesxContatos">
-							<input type="hidden" id="hdn_pai_ClientesxContatos" name="hdn_pai_ClientesxContatos"
-								value="<?= $vIOid; ?>">
-							<input type="hidden" id="hdn_filho_ClientesxContatos" name="hdn_filho_ClientesxContatos"
-								value="">
+							<input type="hidden" id="vHMCONCODIGO" name="vHMCONCODIGO" value="">
 							<div class="form-group row">
 								<div class="col-sm-12">
-									<label>Contato/Consulente</label>
-									<input class="form-control divObrigatorio" title="Contato/Consulente"
-										name="vHMCONNOME" id="vHMCONNOME" type="text" value="">
+									<label>Contato</label>
+									<input class="form-control divObrigatorio" title="Contato" name="vHMCONNOME"
+										id="vHMCONNOME" type="text" value="">
 								</div>
 							</div>
 							<div class="form-group row">
@@ -806,7 +821,7 @@ include_once __DIR__ . '/combos/comboEstados.php';
 								<div class="col-md-12 mt-3">
 									<button type="button"
 										class="btn btn-primary btn-xs  waves-effect waves-light fa-pull-right"
-										onclick="salvarModalContatos('modalClientesxContatos','transactionContatos.php', 'div_contatos', 'ClientesxContatos', '<?= $vIOid; ?>')">Salvar</button>
+										onclick="salvarContato()">Salvar</button>
 								</div>
 							</div>
 						</form>

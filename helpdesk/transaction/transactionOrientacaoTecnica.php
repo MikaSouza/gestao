@@ -1,5 +1,4 @@
 <?php
-
 if (($_POST["methodPOST"] == "insert")||($_POST["methodPOST"] == "update")) {
     $vIOid = insertUpdateOrientacaoTecnica($_POST, 'S');
     return;
@@ -8,7 +7,6 @@ if (($_POST["methodPOST"] == "insert")||($_POST["methodPOST"] == "update")) {
     $vIOid = $vROBJETO[$vAConfiguracaoTela['MENPREFIXO'].'CODIGO'];
     $vSDefaultStatusCad = $vROBJETO[$vAConfiguracaoTela['MENPREFIXO'].'STATUS'];
 }
-
 if (isset($_POST["method"]) && $_POST["method"] == 'excluirPadrao') {
     include_once '../../twcore/teraware/php/constantes.php';
     $pAConfiguracaoTela = configuracoes_menu_acesso($_POST["vIOIDMENU"]);
@@ -22,7 +20,6 @@ if (isset($_POST["method"]) && $_POST["method"] == 'excluirPadrao') {
     );
     echo excluirAtivarRegistros($config_excluir);
 }
-
 function listOrientacaoTecnica($_POSTDADOS)
 {
     $where = '';
@@ -35,18 +32,15 @@ function listOrientacaoTecnica($_POSTDADOS)
     } else {
         $where .= "AND C.OXTSTATUS = 'S' ";
     }
-
     if (verificarVazio($_POSTDADOS['FILTROS']['vDDataInicio'])) {
         $where .= 'AND C.OXTDATA_INC >= ? ';
     }
     if (verificarVazio($_POSTDADOS['FILTROS']['vDDataFim'])) {
         $where .= 'AND C.OXTDATA_INC <= ? ';
     }
-
     if (verificarVazio($_POSTDADOS['FILTROS']['vIOXTSEQUENCIAL'])) {
         $where .= 'AND C.OXTSEQUENCIAL = ? ';
     }
-
     $sql = "SELECT
 				*
 			FROM
@@ -55,7 +49,6 @@ function listOrientacaoTecnica($_POSTDADOS)
 				1 = 1
 			".	$where	."
 			LIMIT 50	";
-
     $arrayQuery = array(
                     'query' => $sql,
                     'parametros' => array()
@@ -72,29 +65,32 @@ function listOrientacaoTecnica($_POSTDADOS)
         $arrayQuery['parametros'][] = array($_POSTDADOS['FILTROS']['vIOXTSEQUENCIAL'], PDO::PARAM_INT);
     }
     $result = consultaComposta($arrayQuery);
-
     return $result;
 }
-
-function insertUpdateOrientacaoTecnica($_POSTDADOS, $pSMsg = 'N')
+function insertUpdateOrientacaoTecnica($parametros, $pSMsg = 'N')
 {
     if ($_FILES['vHARQUIVO']['error'] == 0) {
-        $extension = pathinfo($_FILES['vHARQUIVO']['name'], PATHINFO_EXTENSION);
-        $nomeArquivo = $_POSTDADOS['vIOXTNUMERO'].'_'.$_POSTDADOS['vIOXTANO'].'.'.$extension;
+        $nomeArquivo = $parametros['vIOXTNUMERO'].'_'.$parametros['vIOXTANO'].'.pdf';
         uploadArquivo($_FILES['vHARQUIVO'], '../ged/orientacao_tecnica', $nomeArquivo);
     }
     $dadosBanco = array(
         'tabela'  => 'ORIENTACAOTECNICA',
         'prefixo' => 'OXT',
-        'fields'  => $_POSTDADOS,
-        'msg'     => $pSMsg,
-        'url'     => 'cadOrientacaoTecnica.php',
+        'fields'  => $parametros,
+        'msg'     => 'N',
+        'url'     => '',
         'debug'   => 'N'
         );
     $id = insertUpdate($dadosBanco);
+    if (empty($parametros['vIOXTCODIGO'])) {
+        $orientacao['codigo'] = $id;
+        $orientacao['titulo'] = $parametros['vSOXTTITULO'];
+        $orientacao['arquivo'] = $nomeArquivo;
+        enviarOrientacaoTecnica($orientacao);
+    }
+    sweetAlert('', '', 'S', 'cadOrientacaoTecnica.php?method=update&oid=' . $id, 'S');
     return $id;
 }
-
 function fill_OrientacaoTecnica($pOid)
 {
     $SqlMain = 'SELECT c.*
@@ -104,4 +100,62 @@ function fill_OrientacaoTecnica($pOid)
     $resultSet = sql_executa(vGBancoSite, $vConexao, $SqlMain);
     $registro = sql_retorno_lista($resultSet);
     return $registro !== null ? $registro : "N";
+}
+function getEmailContatos()
+{
+    $result = consultaComposta([
+        'parametros' => "SELECT DISTINCT
+							c.CONEMAIL
+						FROM
+							CONTATOS c
+						LEFT JOIN
+							CLIENTES l ON c.CLICODIGO = l.CLICODIGO
+						WHERE
+							c.CONSTATUS = 'S'
+						AND
+							l.CLISTATUS = 'S'",
+        'parametros' => [],
+    ]);
+    return $result['dados'];
+}
+function enviarOrientacaoTecnica($orientacao)
+{
+    require_once __DIR__.'/../../twcore/vendors/phpmailer/email.php';
+    // $emails = getEmailContatos();
+    $emails = ['atendimento@teraware.com.br', 'gestao@gestao.srv.br', 'nathan@gestao.srv.br'];
+    $enviados = [];
+    foreach ($emails as $email) {
+        $dadosEmail = array(
+            'titulo'        => $orientacao['titulo'],
+            'descricao'     => 'Olá!<br />
+								Acaba de ser disponibilizada uma nova Orientação Técnica no sistema INFOGESTÃO. <br/>
+								Para acessar o sistema, clique no link a seguir:',
+            'destinatarios' => array(
+                $email,
+            ),
+            'fields' => array(
+                'Orientação Técnica'    => 'https://gestao.srv.br/orientacoes-tecnicas',
+            )
+        );
+        $enviados[] = emailField($dadosEmail);
+    }
+    $fails = array_filter($enviados, function ($enviado) {
+        return $enviado != 1;
+    });
+    if (count($fails) > 0) {
+        $response = [
+                'success' => false,
+                'msg'     => 'Não foi possível enviar E-mail.'
+            ];
+        if (count($fails) != count($enviados)) {
+            $response['msg'] .= '. Os demais foram enviados com sucesso!';
+        }
+        echo json_encode($response);
+        die();
+    } else {
+        echo json_encode([
+                'success' => true,
+                'msg' => 'Todos os E-mails foram enviados com sucesso!',
+            ]);
+    }
 }
