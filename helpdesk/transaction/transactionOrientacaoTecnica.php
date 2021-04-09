@@ -144,8 +144,9 @@ function enviarOrientacaoTecnica($orientacao)
     foreach ($emails as $email) {
         $dadosEmail = array(
             'titulo'        => $orientacao['titulo'],
-            'descricao'     => 'Informamos a você que foi adicionada uma nova Orientação Técnica. <br/>
-								Para acessar o sistema siga os seguintes passos:',
+            'descricao'     => 'Olá!<br />
+								Acaba de ser disponibilizada uma nova Orientação Técnica no sistema INFOGESTÃO. <br/>
+								Para acessar o sistema, clique no link a seguir:',
             'destinatarios' => array(
                 $email,
             ),
