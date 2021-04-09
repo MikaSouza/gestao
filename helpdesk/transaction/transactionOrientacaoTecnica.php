@@ -1,5 +1,4 @@
 <?php
-
 if (($_POST["methodPOST"] == "insert")||($_POST["methodPOST"] == "update")) {
     $vIOid = insertUpdateOrientacaoTecnica($_POST, 'S');
     return;
@@ -8,7 +7,6 @@ if (($_POST["methodPOST"] == "insert")||($_POST["methodPOST"] == "update")) {
     $vIOid = $vROBJETO[$vAConfiguracaoTela['MENPREFIXO'].'CODIGO'];
     $vSDefaultStatusCad = $vROBJETO[$vAConfiguracaoTela['MENPREFIXO'].'STATUS'];
 }
-
 if (isset($_POST["method"]) && $_POST["method"] == 'excluirPadrao') {
     include_once '../../twcore/teraware/php/constantes.php';
     $pAConfiguracaoTela = configuracoes_menu_acesso($_POST["vIOIDMENU"]);
@@ -22,7 +20,6 @@ if (isset($_POST["method"]) && $_POST["method"] == 'excluirPadrao') {
     );
     echo excluirAtivarRegistros($config_excluir);
 }
-
 function listOrientacaoTecnica($_POSTDADOS)
 {
     $where = '';
@@ -35,18 +32,15 @@ function listOrientacaoTecnica($_POSTDADOS)
     } else {
         $where .= "AND C.OXTSTATUS = 'S' ";
     }
-
     if (verificarVazio($_POSTDADOS['FILTROS']['vDDataInicio'])) {
         $where .= 'AND C.OXTDATA_INC >= ? ';
     }
     if (verificarVazio($_POSTDADOS['FILTROS']['vDDataFim'])) {
         $where .= 'AND C.OXTDATA_INC <= ? ';
     }
-
     if (verificarVazio($_POSTDADOS['FILTROS']['vIOXTSEQUENCIAL'])) {
         $where .= 'AND C.OXTSEQUENCIAL = ? ';
     }
-
     $sql = "SELECT
 				*
 			FROM
@@ -55,7 +49,6 @@ function listOrientacaoTecnica($_POSTDADOS)
 				1 = 1
 			".	$where	."
 			LIMIT 50	";
-
     $arrayQuery = array(
                     'query' => $sql,
                     'parametros' => array()
@@ -72,10 +65,8 @@ function listOrientacaoTecnica($_POSTDADOS)
         $arrayQuery['parametros'][] = array($_POSTDADOS['FILTROS']['vIOXTSEQUENCIAL'], PDO::PARAM_INT);
     }
     $result = consultaComposta($arrayQuery);
-
     return $result;
 }
-
 function insertUpdateOrientacaoTecnica($parametros, $pSMsg = 'N')
 {
     if ($_FILES['vHARQUIVO']['error'] == 0) {
@@ -91,20 +82,15 @@ function insertUpdateOrientacaoTecnica($parametros, $pSMsg = 'N')
         'debug'   => 'N'
         );
     $id = insertUpdate($dadosBanco);
-
     if (empty($parametros['vIOXTCODIGO'])) {
         $orientacao['codigo'] = $id;
         $orientacao['titulo'] = $parametros['vSOXTTITULO'];
         $orientacao['arquivo'] = $nomeArquivo;
-
         enviarOrientacaoTecnica($orientacao);
     }
-
     sweetAlert('', '', 'S', 'cadOrientacaoTecnica.php?method=update&oid=' . $id, 'S');
-
     return $id;
 }
-
 function fill_OrientacaoTecnica($pOid)
 {
     $SqlMain = 'SELECT c.*
@@ -115,7 +101,6 @@ function fill_OrientacaoTecnica($pOid)
     $registro = sql_retorno_lista($resultSet);
     return $registro !== null ? $registro : "N";
 }
-
 function getEmailContatos()
 {
     $result = consultaComposta([
@@ -133,14 +118,12 @@ function getEmailContatos()
     ]);
     return $result['dados'];
 }
-
 function enviarOrientacaoTecnica($orientacao)
 {
     require_once __DIR__.'/../../twcore/vendors/phpmailer/email.php';
     // $emails = getEmailContatos();
     $emails = ['atendimento@teraware.com.br', 'gestao@gestao.srv.br', 'nathan@gestao.srv.br'];
     $enviados = [];
-
     foreach ($emails as $email) {
         $dadosEmail = array(
             'titulo'        => $orientacao['titulo'],
@@ -156,21 +139,17 @@ function enviarOrientacaoTecnica($orientacao)
         );
         $enviados[] = emailField($dadosEmail);
     }
-
     $fails = array_filter($enviados, function ($enviado) {
         return $enviado != 1;
     });
-
     if (count($fails) > 0) {
         $response = [
                 'success' => false,
                 'msg'     => 'Não foi possível enviar E-mail.'
             ];
-
         if (count($fails) != count($enviados)) {
             $response['msg'] .= '. Os demais foram enviados com sucesso!';
         }
-
         echo json_encode($response);
         die();
     } else {
