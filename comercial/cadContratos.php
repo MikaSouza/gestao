@@ -70,7 +70,7 @@ include_once __DIR__.'/../cadastro/combos/comboProdutosxServicos.php';
 													<label>Cliente
 														<small class="text-danger font-13">*</small>
 													</label>												
-													<input title="Cliente" type="text" name="vHCLIENTE" id="vHCLIENTE" class="form-control obrigatorio autocomplete" data-hidden="#vICLICODIGO" value="<?php echo $vROBJETO['CLIENTE']; ?>" onblur="validarCliente();"/>
+													<input title="Cliente" type="text" name="vHCLIENTE" id="vHCLIENTE" class="form-control obrigatorio autocomplete" data-hidden="#vICLICODIGO" value="<?php echo $vROBJETO['CLIENTE']; ?>" <?= ativoSimNao($result['CLISTATUS']);?> onblur="validarCliente();"/>
 													<span id="aviso-cliente" style="color: red;font-size: 11px; display: none;">O Cliente não foi selecionado corretamente!</span>
 													<input type="hidden" name="vICLICODIGO" id="vICLICODIGO" value="<?php if(isset($vIOid)) echo $vROBJETO['CLICODIGO']; ?>"/>
 												</div>
@@ -117,7 +117,7 @@ include_once __DIR__.'/../cadastro/combos/comboProdutosxServicos.php';
 											<div class="form-group row">
 												<div class="col-md-12">                                                      
 													<label>Observações
-														<small class="text-danger font-13">*</small>
+														<small class="text-danger font-13"></small>
 													</label>
 													<textarea class="form-control" id="vSCTRDESCRICAO" name="vSCTRDESCRICAO" title="Descrição"><?= nl2br($vROBJETO['CTRDESCRICAO']); ?></textarea>
 												</div>
@@ -164,6 +164,8 @@ include_once __DIR__.'/../cadastro/combos/comboProdutosxServicos.php';
 														<i class="fas fa-cloud-upload-alt"></i>
 														<div class="texto">Clique ou arraste o(s) arquivo(s) para esta área <br/>
 														Formatos permitidos (PDF, Word/Doc e Excel)
+														<p>Os arquivos devem ser salvos nas seguintes formatações: Sem acentuação e sem espaços.</p>
+														<p>No seguinte formato: meu-arquivo-deleitura.pdf ou meu_arquivo_de_leitura.pdf</p>
 														</div>
 													</label>
 													<input type="file" accept="*" id="upload-file" multiple/>
