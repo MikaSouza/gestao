@@ -1,8 +1,8 @@
 <?php
 include_once __DIR__.'/../../twcore/teraware/php/constantes.php';
 
-if (($_POST["methodPOST"] == "insert")||($_POST["methodPOST"] == "update")) {	
-    $vIOid = insertUpdateGrupoAcessos($_POST, 'N'); 
+if (($_POST["methodPOST"] == "insert")||($_POST["methodPOST"] == "update")) {
+    $vIOid = insertUpdateGrupoAcessos($_POST, 'N');
 	sweetAlert('', '', 'S', 'cadGrupoAcessos.php?method=update&oid='.$vIOid, 'S');
     return;
 } else if (($_GET["method"] == "consultar")||($_GET["method"] == "update")) {
@@ -40,8 +40,8 @@ if (isset($_GET['method']) && $_GET['method'] == 'searchGruposAcessosUsuarios') 
 					FROM GRUPOSACESSO a,
 						GRUPOSACESSOSXACESSOS g
 					WHERE
-						a.GRACODIGO = g.GRACODIGO AND 
-						g.GXASTATUS = 'S' AND 
+						a.GRACODIGO = g.GRACODIGO AND
+						g.GXASTATUS = 'S' AND
 						a.GRAPERFIL = ".$_GET['pSPerfil'];
 	$vConexao = sql_conectar_banco();
 	$RS_MAIN = sql_executa(vGBancoSite, $vConexao, $SqlAcessos);
@@ -53,7 +53,7 @@ if (isset($_GET['method']) && $_GET['method'] == 'searchGruposAcessosUsuarios') 
 		$vSCONSULTA = $reg_RS['CONSULTA'];
 		$vSINCLUSAO = $reg_RS['INCLUSAO'];
 		$vSALTERACAO = $reg_RS['ALTERACAO'];
-		$vSEXCLUSAO = $reg_RS['EXCLUSAO'];		
+		$vSEXCLUSAO = $reg_RS['EXCLUSAO'];
 
 		$vAAcessos[$i] = array(
 							'ACESSOCOD' => $vSACESSOCOD,
@@ -73,10 +73,10 @@ function listGrupoAcessos(){
 	$sql = "SELECT
                 g.*, t.TABDESCRICAO AS GRUPO
 			FROM
-				GRUPOSACESSO g 
-			LEFT JOIN TABELAS t ON t.TABCODIGO = g.GRAPERFIL	
+				GRUPOSACESSO g
+			LEFT JOIN TABELAS t ON t.TABCODIGO = g.GRAPERFIL
 			WHERE
-				g.GRASTATUS = 'S' 
+				g.GRASTATUS = 'S'
 			ORDER BY 1 ";
 
 	$arrayQuery = array(
@@ -93,7 +93,7 @@ function fill_GrupoAcessos($pOid, $formatoRetorno = 'array'){
 	$SqlMain = "SELECT
                     *
                 FROM GRUPOSACESSO
-                    WHERE GRACODIGO  =".$pOid;	
+                    WHERE GRACODIGO  =".$pOid;
 	$vConexao = sql_conectar_banco(vGBancoSite);
 	$resultSet = sql_executa(vGBancoSite, $vConexao,$SqlMain);
 	$registro = sql_retorno_lista($resultSet);
@@ -106,13 +106,13 @@ function fill_GrupoAcessos($pOid, $formatoRetorno = 'array'){
 
 function insertUpdateLoteUsuariosxAcessos($_POSTDADOS, $vIGRACODIGO){
 	// incluir acessos novos
-	foreach ($_POSTDADOS['vLOidLista'] as $key => $value) 
-	{		
-		if(in_array($value, $_POSTDADOS['vKConsulta']))	$dadosAcesso['vSGXACONSULTA'] = 'S'; else $dadosAcesso['vSGXACONSULTA'] = 'N';	
-		if(in_array($value, $_POSTDADOS['vKInclusao']))	$dadosAcesso['vSGXAINCLUSAO'] = 'S'; else $dadosAcesso['vSGXAINCLUSAO'] = 'N';	
-		if(in_array($value, $_POSTDADOS['vKAlteracao'])) $dadosAcesso['vSGXAALTERACAO'] = 'S'; else $dadosAcesso['vSGXAALTERACAO'] = 'N';	
-		if(in_array($value, $_POSTDADOS['vKExclusao']))	$dadosAcesso['vSGXAEXCLUSAO'] = 'S'; else $dadosAcesso['vSGXAEXCLUSAO'] = 'N';	
-					
+	foreach ($_POSTDADOS['vLOidLista'] as $key => $value)
+	{
+		if(in_array($value, $_POSTDADOS['vKConsulta']))	$dadosAcesso['vSGXACONSULTA'] = 'S'; else $dadosAcesso['vSGXACONSULTA'] = 'N';
+		if(in_array($value, $_POSTDADOS['vKInclusao']))	$dadosAcesso['vSGXAINCLUSAO'] = 'S'; else $dadosAcesso['vSGXAINCLUSAO'] = 'N';
+		if(in_array($value, $_POSTDADOS['vKAlteracao'])) $dadosAcesso['vSGXAALTERACAO'] = 'S'; else $dadosAcesso['vSGXAALTERACAO'] = 'N';
+		if(in_array($value, $_POSTDADOS['vKExclusao']))	$dadosAcesso['vSGXAEXCLUSAO'] = 'S'; else $dadosAcesso['vSGXAEXCLUSAO'] = 'N';
+
 		$dadosAcesso['vIGRACODIGO'] = $vIGRACODIGO;
 		$dadosAcesso['vIMENCODIGO'] = $value;
 		$dadosAcesso['vIGXACODIGO'] = $_POSTDADOS['vLGXACODIGO'][$key];
@@ -131,11 +131,11 @@ function insertUpdateGrupoAcessos($_POSTDADOS, $pSMsg = 'N'){
 		'url'     => '',
 		'debug'   => 'N'
 		);
-	$id = insertUpdate($dadosBanco);	
-	
+	$id = insertUpdate($dadosBanco);
+
 	insertUpdateLoteUsuariosxAcessos($_POSTDADOS, $id);
-	
-	return $id; 
+
+	return $id;
 }
 
 function insertUpdateGrupoAcessosxAcessos($dados, $pSMsg = 'N')
@@ -175,41 +175,61 @@ function listGrupoAcessosxAcessos($vIGRACODIGO){
 					'query' => $sql,
 					'parametros' => array()
 				);
-	$result = consultaComposta($arrayQuery);	
+	$result = consultaComposta($arrayQuery);
 	?>
-	<div class="table-responsive">
-		<table class="table mb-0">
-			<thead class="thead-light">
-				<tr>
-					<th>Acesso</th>
-					<th>Consulta</th>
-					<th>Inclusão</th>
-					<th>Alteração</th>
-					<th>Exclusão</th>
-				</tr>
-			</thead>
-			<tbody>			
-			<?php 
+<div class="table-responsive">
+	<table class="table mb-0">
+		<thead class="thead-light">
+			<tr>
+				<th>Acesso</th>
+				<th>
+					<label style="color: #50649c;background-color: #eff2f9;border-color: #eaf0f7;">
+						<input type="checkbox" style="display:none;"
+							onclick="marcarTodosNome('formGrupoAcessos', 'vKConsulta[]')" />Consulta
+					</label>
+				</th>
+				<th>
+					<label style="color: #50649c;background-color: #eff2f9;border-color: #eaf0f7;">
+						<input type="checkbox" style="display:none;"
+							onclick="marcarTodosNome('formGrupoAcessos', 'vKInclusao[]')" />Inclusão
+					</label>
+				</th>
+				<th>
+					<label style="color: #50649c;background-color: #eff2f9;border-color: #eaf0f7;">
+						<input type="checkbox" style="display:none;"
+							onclick="marcarTodosNome('formGrupoAcessos', 'vKAlteracao[]')" />Alteração
+					</label>
+				</th>
+				<th>
+					<label style="color: #50649c;background-color: #eff2f9;border-color: #eaf0f7;">
+						<input type="checkbox" style="display:none;"
+							onclick="marcarTodosNome('formGrupoAcessos', 'vKExclusao[]')" />Exclusão
+					</label>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
 			$vConexao     = sql_conectar_banco(vGBancoSite);
 			foreach ($result['dados'] as $result) :
-			
+
 				$SqlAcesso = "Select
                                     GXACODIGO,
                                     GXAINCLUSAO,
                                     GXAALTERACAO,
                                     GXAEXCLUSAO,
-                                    GXACONSULTA								
+                                    GXACONSULTA
 								From
-                                    GRUPOSACESSOSXACESSOS  
+                                    GRUPOSACESSOSXACESSOS
 								Where
 									GXASTATUS = 'S' AND
                                     MENCODIGO = '".$result['MENCODIGO']."' and
-                                    GRACODIGO = '".$vIGRACODIGO."' ";				
+                                    GRACODIGO = '".$vIGRACODIGO."' ";
 				$RS_ACESSO = sql_executa(vGBancoSite, $vConexao,$SqlAcesso,FALSE);
 				$vSConsulta = 'N';
 				$vSInclusao = 'N';
 				$vSAlteracao = 'N';
-				$vSExclusao = 'N';				
+				$vSExclusao = 'N';
 				$vSStatusInicialConsulta = '';
 				$vSStatusInicialInclusao = '';
 				$vSStatusInicialExclusao = '';
@@ -221,48 +241,62 @@ function listGrupoAcessosxAcessos($vIGRACODIGO){
 					$vSAlteracao = $reg_acesso['GXAALTERACAO'];
 					$vSExclusao = $reg_acesso['GXAEXCLUSAO'];
 					$vIGXACODIGO = $reg_acesso['GXACODIGO'];
-				}						
+				}
 				if($result['MENGRUPO'] == $result['MENTITULO'])
 					$vSNomenclatura = "<b>".$result['MENGRUPO']."</b>";
 				else
 					$vSNomenclatura = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- ".$result['MENTITULO'];
 			?>
-				<tr>
-					<td><?php echo $vSNomenclatura; ?></td>
-					<td>
-						<div class="checkbox checkbox-success">
-							<input type="checkbox" name="vKConsulta[]" id="vKConsulta<?= $result['MENCODIGO']; ?>" <?php if($_GET['metodo'] == 'consultar')  echo "disabled";?> <?php if($vSConsulta == 'S') echo "checked";?> value="<?php echo $result['MENCODIGO'];?>" />							
-							<label for="vKConsulta<?= $result['MENCODIGO']; ?>"></label>
-						</div>
-				   </td>
-					<td>
-						<div class="checkbox checkbox-primary">
-							<input type="checkbox" name="vKInclusao[]" id="vKInclusao<?php echo $result['MENCODIGO']; ?>" <?php if($_GET['metodo'] == 'consultar')  echo "disabled";?>  <?php if($vSInclusao == 'S') echo "checked";?> value="<?php echo $result['MENCODIGO'];?>" />
-							<label for="vKInclusao<?php echo $result['MENCODIGO']; ?>"></label>
-						</div>
-					</td>
-					<td>
-						<div class="checkbox checkbox-warning">
-							<input type="checkbox" name="vKAlteracao[]" id="vKAlteracao<?php echo $result['MENCODIGO']; ?>" <?php if($_GET['metodo'] == 'consultar')  echo "disabled";?> <?php if($vSAlteracao == 'S') echo "checked";?> value="<?php echo $result['MENCODIGO'];?>" />
-							<label for="vKAlteracao<?php echo $result['MENCODIGO']; ?>"></label>
-						</div>
-					</td>
-					<td>
-						<div class="checkbox checkbox-danger">
-							<input type="checkbox" name="vKExclusao[]" id="vKExclusao<?php echo $result['MENCODIGO']; ?>" <?php if($_GET['metodo'] == 'consultar')  echo "disabled";?> <?php if($vSExclusao == 'S') echo "checked";?> value="<?php echo $result['MENCODIGO'];?>" />
-							<label for="vKExclusao<?php echo $result['MENCODIGO']; ?>"></label>
-						</div>
-				   </td>
-				</tr>
-				<input type="hidden" name="vLOidLista[]" id="vLOidLista" value="<?= $result['MENCODIGO'];?>" />
-				<input type="hidden" name="vLGXACODIGO[]" id="vLGXACODIGO" value="<?= $vIGXACODIGO;?>" />
-			<?php 
+			<tr>
+				<td>
+					<label>
+						<input type="checkbox" style="display:none;"
+							onclick="marcasTodosLinha(<?= $result['MENCODIGO']; ?>)"><?php echo $vSNomenclatura; ?>
+					</label>
+				</td>
+				<td>
+					<div class="checkbox checkbox-success">
+						<input type="checkbox" name="vKConsulta[]" id="vKConsulta<?= $result['MENCODIGO']; ?>"
+							<?php if($_GET['metodo'] == 'consultar')  echo "disabled";?>
+							<?php if($vSConsulta == 'S') echo "checked";?> value="<?php echo $result['MENCODIGO'];?>" />
+						<label for="vKConsulta<?= $result['MENCODIGO']; ?>"></label>
+					</div>
+				</td>
+				<td>
+					<div class="checkbox checkbox-primary">
+						<input type="checkbox" name="vKInclusao[]" id="vKInclusao<?php echo $result['MENCODIGO']; ?>"
+							<?php if($_GET['metodo'] == 'consultar')  echo "disabled";?>
+							<?php if($vSInclusao == 'S') echo "checked";?> value="<?php echo $result['MENCODIGO'];?>" />
+						<label for="vKInclusao<?php echo $result['MENCODIGO']; ?>"></label>
+					</div>
+				</td>
+				<td>
+					<div class="checkbox checkbox-warning">
+						<input type="checkbox" name="vKAlteracao[]" id="vKAlteracao<?php echo $result['MENCODIGO']; ?>"
+							<?php if($_GET['metodo'] == 'consultar')  echo "disabled";?>
+							<?php if($vSAlteracao == 'S') echo "checked";?>
+							value="<?php echo $result['MENCODIGO'];?>" />
+						<label for="vKAlteracao<?php echo $result['MENCODIGO']; ?>"></label>
+					</div>
+				</td>
+				<td>
+					<div class="checkbox checkbox-danger">
+						<input type="checkbox" name="vKExclusao[]" id="vKExclusao<?php echo $result['MENCODIGO']; ?>"
+							<?php if($_GET['metodo'] == 'consultar')  echo "disabled";?>
+							<?php if($vSExclusao == 'S') echo "checked";?> value="<?php echo $result['MENCODIGO'];?>" />
+						<label for="vKExclusao<?php echo $result['MENCODIGO']; ?>"></label>
+					</div>
+				</td>
+			</tr>
+			<input type="hidden" name="vLOidLista[]" id="vLOidLista" value="<?= $result['MENCODIGO'];?>" />
+			<input type="hidden" name="vLGXACODIGO[]" id="vLGXACODIGO" value="<?= $vIGXACODIGO;?>" />
+			<?php
 			endforeach;
 			?>
-			</tbody>
-		</table>
-	</div>
-	<?php
-	
+		</tbody>
+	</table>
+</div>
+<?php
+
 	return;
 }

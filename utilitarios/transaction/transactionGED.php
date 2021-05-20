@@ -98,8 +98,9 @@ function listGED($vIOIDPAI, $pIOIDMENU)
     $vAConfig['TRANSACTION'] = "../../utilitarios/transaction/transactionGED.php";
     $vAConfig['DIV_RETORNO'] = "div_ged";
     $vAConfig['FUNCAO_RETORNO'] = "GED";
-    $vAConfig['ID_PAI'] = $vIOIDPAI;
+    $vAConfig['ID_PAI'] = $vIOIDPAI; 
     $vAConfig['BTN_NOVO_REGISTRO'] = 'N';
+	$vAConfig['BTN_EDITAR'] = 'N';
     $vAConfig['vATitulos'] 	= array('', 'Data', 'Usuário', 'Tipo', 'Arquivo', 'Link');
     $vAConfig['vACampos'] 	= array('GEDCODIGO', 'GEDDATA_INC', 'USUNOME', 'TIPO', 'GEDNOMEARQUIVO', 'LINK');
     $vAConfig['vATipos'] 	= array('chave', 'datetime', 'varchar', 'varchar', 'varchar', 'varchar', 'varchar');

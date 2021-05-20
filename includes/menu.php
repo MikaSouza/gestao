@@ -14,11 +14,7 @@
 	<nav class="topbar-main top-barra sm-top-barra" style="margin: 0 auto">
 		<!-- LOGO -->
 		<div class="topbar-left">
-			<?php if (($_SESSION['SS_USUMASTER'] == 'S') || ($_SESSION['SI_USUCODIGO'] == 49)) { ?>
 			<a href="../cadastro/" class="logo">
-			<?php } else { ?>
-				<a href="../../marpa_intranet/" class="logo">
-			<?php } ?>
 				<span>
 					<img src="../assets/images/logo_menu.png" alt="logo-small" class="logo-int-vipal sm-logo-int-vipal">
 				</span>
@@ -38,10 +34,10 @@
 				</a>
 				<div class="dropdown-menu dropdown-menu-right">
 					<a class="dropdown-item" href="<?= URL_BASE;?>rh/contaUsuario.php"><i class="dripicons-user text-muted mr-2"></i> Conta</a>
-					<a class="dropdown-item" href="http://helpdesk.teraware.com.br/login.php" target="_blank"><i class="dripicons-help text-muted mr-2"></i> Atendimento</a>
-					<a class="dropdown-item" target="_blank" href="../manual/manualUtilitarios.pdf"><i class="dripicons-wallet text-muted mr-2"></i> Manual</a>
+					<a class="dropdown-item" href="http://helpdesk.teraware.com.br/login.php" target="_blank"><i class="fa fa-comments"></i> Abrir Atendimento(s)</a>
+					<!--<a class="dropdown-item" target="_blank" href="../manual/manualUtilitarios.pdf"><i class="dripicons-wallet text-muted mr-2"></i> Manual</a>-->
 					<?php if ($_SESSION['SS_USUMASTER'] == 'S') { ?>
-					<a class="dropdown-item" href="#"><i class="dripicons-gear text-muted mr-2"></i> Configurações</a>					
+					<!--<a class="dropdown-item" href="#"><i class="dripicons-gear text-muted mr-2"></i> Configurações</a>-->				
 					<?php } ?>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="../includes/logout.php"><i class="dripicons-exit text-muted mr-2"></i> Sair</a>
@@ -79,28 +75,28 @@
 						<?php if ($_SESSION['SA_ACESSOS']['TABELA'][109]['CONSULTA'] == "S") { ?>
 						<ul class="submenu">
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1954]['CONSULTA'] == "S") { ?>
-							<li><a href="../cadastro/listAvisos.php"><i class="mdi mdi-progress-alert"></i>Avisos</a></li>
+							<li><a href="../cadastro/listAvisos.php"><i class="fas fa-thumbtack"></i>Avisos</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][6]['CONSULTA'] == "S") { ?>
-							<li><a href="../cadastro/listClientes.php"><i class="mdi mdi-account-group"></i>Clientes</a></li>
+							<li><a href="../cadastro/listClientes.php"><i class="far fa-handshake"></i>Clientes</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][2030]['CONSULTA'] == "S") { ?>
-							<li><a href="../cadastro/listInformacoesPreliminares.php"><i class="mdi mdi-briefcase-edit-outline"></i>Info Preliminares</a></li>
+							<li><a href="../cadastro/listInformacoesPreliminares.php"><i class="fas fa-edit"></i>Info Preliminares</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1989]['CONSULTA'] == "S") { ?>
-							<li><a href="../cadastro/listDocumentosPadroes.php"><i class="mdi mdi-clipboard-text-play-outline"></i>Documentos Padrões</a></li>	
+							<li><a href="../cadastro/listDocumentosPadroes.php"><i class="far fa-address-card"></i>Documentos Padrões</a></li>	
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1943]['CONSULTA'] == "S") { ?>
-							<li><a href="../cadastro/listCidades.php"><i class="mdi mdi-office-building"></i>Cidades</a></li>
+							<li><a href="../cadastro/listCidades.php"><i class="fas fa-hotel"></i>Cidades</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1957]['CONSULTA'] == "S") { ?>
-							<li><a href="../cadastro/listProdutosxServicos.php"><i class="mdi mdi-file-search-outline"></i>Produtos/Serviços</a></li>	
+							<li><a href="../cadastro/listProdutosxServicos.php"><i class="fas fa-project-diagram"></i>Produtos/Serviços</a></li>	
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][18]['CONSULTA'] == "S") { ?>
-							<li><a href="../cadastro/listTabelas.php"><i class="mdi mdi-table-edit"></i>Tabelas</a></li>
+							<li><a href="../cadastro/listTabelas.php"><i class="fas fa-table"></i>Tabelas</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1957]['CONSULTA'] == "S") { ?>
-							<li><a href="../cadastro/listDashBoard.php"><i class="mdi mdi-monitor-dashboard"></i>Dashboard</a></li>
+							<li><a href="../cadastro/listDashBoard.php"><i class="fas fa-chart-pie"></i>Dashboard</a></li>
 							<?php } ?>
 						</ul><!--end submenu-->
 						<?php } ?>
@@ -119,7 +115,7 @@
 							<li><a href="../comercial/listContratos.php"><i class="mdi mdi-file-document-box-multiple"></i>Contratos</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1954]['CONSULTA'] == "S") { ?>
-							<li><a href="../comercial/listDashBoard.php"><i class="mdi mdi-monitor-dashboard"></i>Dashboard</a></li>
+							<li><a href="../comercial/listDashBoard.php"><i class="fas fa-chart-pie"></i>Dashboard</a></li>
 							<?php } ?>
 						</ul><!--end submenu-->
 						<?php } ?>
@@ -134,28 +130,28 @@
 						</a>
 						<ul class="submenu">							
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][2025]['CONSULTA'] == "S") { ?>
-							<li><a href="../helpdesk/listAtendimentos.php"><i class="mdi mdi-calendar-clock"></i>Atendimentos</a></li>
+							<li><a href="../helpdesk/listAtendimentos.php"><i class="far fa-comments"></i>Atendimentos</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][2022]['CONSULTA'] == "S") { ?>
-							<li><a href="../helpdesk/listAtividades.php"><i class="mdi mdi-menu-open"></i>Atividades</a></li>
+							<li><a href="../helpdesk/listAtividades.php"><i class="fas fa-tasks"></i>Atividades</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][2023]['CONSULTA'] == "S") { ?> 
-							<li><a href="../helpdesk/listCheckList.php"><i class="mdi mdi-format-list-checks"></i>CheckList</a></li>
+							<li><a href="../helpdesk/listCheckList.php"><i class="fas fa-check-double"></i>CheckList</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][2024]['CONSULTA'] == "S") { ?> 
-							<li><a href="../helpdesk/listPlanoTrabalho.php"><i class="mdi mdi-format-line-spacing"></i>Plano de Trabalho</a></li>
+							<li><a href="../helpdesk/listPlanoTrabalho.php"><i class="fas fa-stream"></i>Plano de Trabalho</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][2028]['CONSULTA'] == "S") { ?>
-							<li><a href="../helpdesk/listPosicoesPadroes.php"><i class="mdi mdi-file-search-outline"></i>Posições Padrões</a></li> 
+							<li><a href="../helpdesk/listPosicoesPadroes.php"><i class="fas fa-database"></i>Posições Padrões</a></li> 
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][2027]['CONSULTA'] == "S") { ?>
-							<li><a href="../helpdesk/listPrioridades.php"><i class="mdi mdi-priority-high"></i>Prioridades</a></li>
+							<li><a href="../helpdesk/listPrioridades.php"><i class="fa fa-list-ol"></i>Prioridades</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][2026]['CONSULTA'] == "S") { ?>
 							<li><a href="../helpdesk/listOrientacaoTecnica.php"><i class="mdi mdi-lead-pencil"></i>Orientação Técnica</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][109]['CONSULTA'] == "S") { ?>
-							<li><a href="../helpdesk/listDashBoard.php"><i class="mdi mdi-monitor-dashboard"></i>Dashboard</a></li>
+							<li><a href="../helpdesk/listDashBoard.php"><i class="fas fa-chart-pie"></i>Dashboard</a></li>
 							<?php } ?>							
 						</ul><!--end submenu-->
 					</li><!--end has-submenu-->
@@ -173,13 +169,13 @@
 							<li><a href="../rh/listUsuario.php"><i class="dripicons-user"></i>Colaboradores/Usuários</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][645]['CONSULTA'] == "S") { ?>
-							<li><a href="../rh/listGrupoAcessos.php"><i class="dripicons-user-group"></i>Grupos Acessos</a></li>
+							<li><a href="../rh/listGrupoAcessos.php"><i class="fa fa-users"></i>Grupos Acessos</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][80]['CONSULTA'] == "S") { ?>
-							<li><a href="../rh/listLogsAcessos.php"><i class="mdi mdi-progress-check"></i>Logs Acessos</a></li>
+							<li><a href="../rh/listLogsAcessos.php"><i class="far fa-eye"></i>Logs Acessos</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1957]['CONSULTA'] == "S") { ?>
-							<li><a href="../rh/listDashBoard.php"><i class="mdi mdi-monitor-dashboard"></i>Dashboard</a></li>
+							<li><a href="../rh/listDashBoard.php"><i class="fas fa-chart-pie"></i>Dashboard</a></li>
 							<?php } ?>
 						</ul>
 						<?php } ?>
@@ -193,13 +189,13 @@
 						</a>
 						<ul class="submenu">
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1879]['CONSULTA'] == "S") { ?>
-							<li><a href="../utilitarios/listAgenda.php"><i class="mdi mdi-calendar-multiselect"></i>Agenda</a></li>
+							<li><a href="../utilitarios/listAgenda.php"><i class="fas fa-calendar"></i>Agenda</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1879]['CONSULTA'] == "S") { ?>
-							<li><a href="../utilitarios/listAgendaCalendario.php"><i class="mdi mdi-calendar-multiselect"></i>Agenda Calendário</a></li>							
+							<li><a href="../utilitarios/listAgendaCalendario.php"><i class="far fa-calendar-alt"></i>Agenda Calendário</a></li>							
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1879]['CONSULTA'] == "S") { ?>
-							<li><a href="../utilitarios/listGED.php"><i class="mdi mdi-file-multiple"></i>Digitalizações/GED</a></li>
+							<li><a href="../utilitarios/listGED.php"><i class="fas fa-copy"></i>Digitalizações/GED</a></li>
 							<?php } ?>					
 						</ul>
 					</li><!--end has-submenu-->	
@@ -219,16 +215,19 @@
 						</a>
 						<ul class="submenu">
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1975]['CONSULTA'] == "S") { ?>
-							<li><a href="../sistema/listMenus.php"><i class="mdi mdi-menu-open"></i>Menus</a></li>
+							<li><a href="../sistema/listMenus.php"><i class="fas fa-sitemap"></i>Menus</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1975]['CONSULTA'] == "S") { ?>
 							<li><a href="../sistema/listEmpresaUsuaria.php"><i class="mdi mdi-factory"></i>Empresa Usuária</a></li>							
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1975]['CONSULTA'] == "S") { ?>
-							<li><a href="../sistema/listParametros.php"><i class="dripicons-gear"></i>Parâmetros</a></li>
+							<li><a href="../sistema/listParametros.php"><i class="fas fa-tasks"></i>Parâmetros</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1975]['CONSULTA'] == "S") { ?>
-							<li><a href="../sistema/listPeriodicidades.php"><i class="mdi mdi-calendar-check-outline"></i>Peridiocidades</a></li>
+							<li><a href="../sistema/listPeriodicidades.php"><i class="far fa-calendar-alt"></i>Peridiocidades</a></li>
+							<?php } ?>
+							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1975]['CONSULTA'] == "S") { ?>
+							<li><a href="https://www.gestao.srv.br/tw/interface/login.php"target="_blank"> <i class="fas fa-desktop"></i>Admin Site</a></li>
 							<?php } ?>
 						</ul>
 					</li><!--end has-submenu-->		

@@ -28,6 +28,7 @@ document.querySelector('#upload-file').addEventListener('change', function() {
 		if(info.error == undefined){
 			text.innerHTML = info.success;
 			enviarArquivo(i, barra); //Enviar
+			
 		}else{
 			text.innerHTML = info.error;
 			barra.classList.add("error");
@@ -35,6 +36,7 @@ document.querySelector('#upload-file').addEventListener('change', function() {
 		
 		//Adicionar barra
 		document.querySelector('.lista-uploads').appendChild(barra);
+		
 	};
 });
 
@@ -94,6 +96,14 @@ function enviarArquivo(indice, barra){
 	request.responseType = 'json';
 	
 	// Caminho
-	request.open('post', 'upload_contratos.php'); 
+	request.open('post', 'upload_clientes.php'); 
 	request.send(data);
+	gerarGridJSONGED(
+                        '../../utilitarios/transaction/transactionGED.php',
+                        'div_ged',
+                        'GED',
+                        $("#vICLICODIGO").val(),
+						$("#vHMENCODIGO").val()
+                    );
+	
 }

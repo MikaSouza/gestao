@@ -2,7 +2,7 @@
 <meta charset="utf-8" />
 <title><?= vSTituloSite; ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta content="Marpa - Marcas e Patentes" name="description" />
+<meta content="Gestão SRV - Sistema de Gestão" name="description" />
 <meta content="Teraware Soluções em Software e internet" name="author" />
 
 <!-- App favicon -->

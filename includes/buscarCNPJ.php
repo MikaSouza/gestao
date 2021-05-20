@@ -25,18 +25,12 @@ if (!valida_CNPJ($cnpj)){
 	$Sql = "SELECT
 				c.CLICODIGO,				
 				c.CLICNPJ,
-				c.CLINOME,
+				c.CLINOMEFANTASIA,
 				c.CLIDATA_INICIO_ATIVIDADES,
 				c.CLIFONE,
 				c.CLIEMAIL,
 				c.CLIREGIMETRIBUTARIO,
 				c.CLISITUACAORECEITA,
-				c.CLIREGIMETRIBUTARIO,
-				c.CLICAPITALSOCIAL,
-				c.CLIPORTE,
-				c.CLINATUREZAJURIDICA,
-				c.CLICNAEPRINCIPAL,
-				c.CLICNAESECUNDARIO,
 				c.CLIRESPONSAVEL
 			FROM
 				CLIENTES c
@@ -54,7 +48,7 @@ if (!valida_CNPJ($cnpj)){
 			$vSBloqueia = 'N';
 			//return $vSMSG;
 		} else { // Bloqueado
-			$vSMSG = 'Cliente pertence a carteira de outro representante, bloqueado para uso.';
+			$vSMSG = 'Cliente já cadastrado na base!, bloqueado para uso.';
 			//return $vSMSG;
 			$vSBloqueia = 'S';
 		}		
@@ -91,13 +85,8 @@ if (!valida_CNPJ($cnpj)){
 			'vICLICODIGO'		 => $reg_post['CLICODIGO'],
 			'vSCLISITUACAORECEITA'  	 => $reg_post['CLISITUACAORECEITA'],
 			'vDCLIDATA_INICIO_ATIVIDADES'  => formatar_data($reg_post['CLIDATA_INICIO_ATIVIDADES']),	
-			'vSCLINOME'	 => $reg_post['CLINOME'],			
-			'vICLIPORTE'		 => $reg_post['CLIPORTE'],
-			'vMCLICAPITALSOCIAL' => formatar_moeda($reg_post['CLICAPITALSOCIAL'], false),
-			'vICLIREGIMETRIBUTARIO' => $reg_post['CLIREGIMETRIBUTARIO'],
-			'vICLINATUREZAJURIDICA' => $reg_post['CLINATUREZAJURIDICA'],
-			'vSCLICNAEPRINCIPAL' => $reg_post['CLICNAEPRINCIPAL'],
-			'vSCLICNAESECUNDARIO' => $reg_post['CLICNAESECUNDARIO'],				
+			'vSCLINOME'	 => $reg_post['CLINOMEFANTASIA'],			
+			'vICLIREGIMETRIBUTARIO' => $reg_post['CLIREGIMETRIBUTARIO'],		
 						
 			'vSCLIFONE'  		 => $reg_post['CLIFONE'],
 			'vSCLIEMAIL'  		 => $reg_post['CLIEMAIL'],
@@ -123,10 +112,10 @@ if ($vICLICODIGO == 0) { // buscar receita
 	$retorno = json_decode($retorno, true);
 		
 	if ($retorno['return'] == 'OK') { // sucesso
-		//print_r($retorno);
+		//print_r($retorno); 
 				
 		$tipo 			 		= $retorno['result']['tipo'];
-		$abertura    	 		= $retorno['result']['abertura'];
+		$abertura    	 		= formatar_data_banco($retorno['result']['abertura']);
 		$nome     		 		= $retorno['result']['nome'];
 		$fantasia        		= $retorno['result']['fantasia'];
 		$porte         	 		= $retorno['result']['porte'];
@@ -146,7 +135,6 @@ if ($vICLICODIGO == 0) { // buscar receita
 		$telefone           	= $retorno['result']['telefone'];
 		$situacao           	= $retorno['result']['situacao'];
 		$motivo_situacao_cadastral = $retorno['result']['motivo_situacao_cadastral'];
-		$capital_social     	= $retorno['result']['capital_social'];
 		$socio		        	= $retorno['result']['quadro_socios'][0];
 		$socio2		        	= $retorno['result']['quadro_socios'];				
 		
@@ -177,18 +165,15 @@ if ($vICLICODIGO == 0) { // buscar receita
 			$vSBloqueia = 'N';
 		}			
 		//'vICLIPORTE'		 => getTabela($porte, 'EMPRESAS - PORTE'),
+		$IdUf = getIdUf(trim($uf));
 		$vARetorno = [
 			'vSMSG' => $vSMSG,
 			'vSBloqueia' => $vSBloqueia,
 			'vICLICODIGO'		 => '',
 			'vICLISITUACAORECEITA'  	 => $vISituacao,
 			'vDCLIDATA_INICIO_ATIVIDADES'  => $abertura,	
-			'vSCLINOME'	 		 => $nome,						
-			'vSCLICAPITALSOCIAL' => $capital_social,
-			'vICLIREGIMETRIBUTARIO' => '',
-			'vICLINATUREZAJURIDICA' => getTabela($natureza_juridica, 'EMPRESAS - NATUREZA JURIDICA'),
-			'vSCLICNAEPRINCIPAL' => $cnae_principal_code.' '.$cnae_principal_text,
-			'vSCLICNAESECUNDARIO' => $cnae_secundaria_code.' '.$cnae_secundaria_text,						
+			'vSCLINOMEFANTASIA'	 		 => $fantasia,		
+			'vSCLIRAZAOSOCIAL'	 		 => $nome,		
 			'vSCLIFONE'  		 => $telefone,
 			'vSCLIEMAIL'  		 => $email,			
 			"vITLOCODIGO"        => 41,				
@@ -197,8 +182,8 @@ if ($vICLICODIGO == 0) { // buscar receita
 			"vSENDCOMPLEMENTO"   => $complemento,
 			"vSENDBAIRRO"        => $bairro,
 			"vSENDCEP"           => formatar_cep(filterNumber($cep)),
-			"vIESTCODIGO"        => getIdUf(trim($uf)),
-			"vICIDCODIGO"        => getIdCidade($municipio)								
+			"vIESTCODIGO"        => $IdUf,
+			"vICIDCODIGO"        => getIdCidade($municipio, $IdUf)								
 			
 		];
 		//echo json_encode($vARetorno);
@@ -213,16 +198,16 @@ if ($vICLICODIGO == 0) { // buscar receita
 	}		
 }		
 
-function getIdCidade($pSNomeCidade, $pIEstCodigo=null){
+function getIdCidade($pSNomeCidade, $pIEstCodigo=null){ 
 	if($pSNomeCidade != ''){
 		$pSNomeCidade = strtoupper($pSNomeCidade);
 		$sql = "SELECT
 					CIDCODIGO
 				 FROM
 					CIDADES
-				 WHERE CIDDESCRICAO LIKE ?
+				 WHERE UPPER(CIDDESCRICAO) LIKE ?
 				 AND ESTCODIGO = ?
-				 AND CIDSTATUS = 'S' ";
+				 AND CIDSTATUS = 'S' ";				
 	    $arrayQuery = array(
 		  'query' => $sql,
 		  'parametros' => array(

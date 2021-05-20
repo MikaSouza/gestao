@@ -110,27 +110,7 @@
 				style="cursor: pointer;" title="Editar Registro" alt="Editar Registro"><i
 					class="fas fa-edit text-info font-16"></i></a>
 			<?php
-        }
-        if ($vAConfig['BTN_INCLUIR_CUSTOS']) {
-            ?>
-			<a onclick="exibirModalCadCustos(<?=$vIOIDFILHO?>,'<?=$tituloModalCustos?>')" class="mr-2 mdi"
-				style="cursor: pointer;" title="Incluir Custos" alt="Incluir Custos"><i
-					class="fas fa-dollar-sign text-info font-16"></i></a>
-			<?php
-        }
-        if ($vSOrigem == 'P') {
-            ?>
-			<a href="#"
-				onclick="excluirRegistroGridFilhaMedidaReformaInsumos('<?= $vIOIDFILHO; ?>', '<?= $vAConfig['TRANSACTION']; ?>', 'excluirFilhoP', '<?= $vAConfig['DIV_RETORNO']; ?>', '<?= $vAConfig['ID_PAI']; ?>', '<?= $vAConfig['FUNCAO_RETORNO']; ?>')"
-				title="Excluir Registro" alt="Excluir Registro"><i class="fas fa-trash-alt text-danger font-16"></i></a>
-			<?php
-        } elseif ($vSOrigem == 'O') {
-            ?>
-			<a href="#"
-				onclick="excluirRegistroGridFilhaMedidaReformaInsumos('<?= $vIOIDFILHO; ?>', '<?= $vAConfig['TRANSACTION']; ?>', 'excluirFilhoO', '<?= $vAConfig['DIV_RETORNO']; ?>', '<?= $vAConfig['ID_PAI']; ?>', '<?= $vAConfig['FUNCAO_RETORNO']; ?>')"
-				title="Excluir Registro" alt="Excluir Registro"><i class="fas fa-trash-alt text-danger font-16"></i></a>
-			<?php
-        }
+        }        
         if ($vAConfig['BTN_EXCLUIR'] == '') {
             ?>
 			<a href="#"

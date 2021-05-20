@@ -1,5 +1,7 @@
 <?php
 include_once __DIR__.'/../../twcore/teraware/php/constantes.php';
+include_once __DIR__.'/../../cadastro/combos/comboAtividades.php';
+include_once __DIR__.'/../../cadastro/combos/comboTabelas.php';
 
 if (isset($_POST['hdn_metodo_search']) && $_POST['hdn_metodo_search'] == 'AtendimentoxPlanoTrabalho')
 	listAtendimentoxPlanoTrabalhoFilhos($_POST['pIOID'], 'AtendimentoxPlanoTrabalho');
@@ -35,7 +37,7 @@ if(isset($_POST["method"]) && $_POST["method"] == 'excluirFilho') {
 
 if(isset($_POST["method"]) && $_POST["method"] == 'incluirAtendimentoxPlanoTrabalho'){
 	$remuneracao['vIAXPCODIGO'] 		 	  	 = $_POST['hdn_filho_codgo'];
-	$remuneracao['vIUSUCODIGO'] 		 	  	 = $_POST['hdn_pai_codgo'];	
+	$remuneracao['vIUSUCODIGO'] 		 	  	 = $_POST['hdn_pai_codgo'];
 	$remuneracao['vDAXPDATAALTERACAOSALARIAL']   = $_POST['vDAXPDATAALTERACAOSALARIAL'];
 	$remuneracao['vMAXPSALARIOATUAL'] 	 		 = $_POST['vMAXPSALARIOATUAL'];
 	$remuneracao['vSAXPMOTIVOALTERACAOSALARIAL'] = $_POST['vSAXPMOTIVOALTERACAOSALARIAL'];
@@ -105,30 +107,99 @@ function listAtendimentoxPlanoTrabalho(){
 
 }
 
-function listAtendimentoxPlanoTrabalhoFilhos($vIOIDPAI, $tituloModal){
-	$sql = "SELECT axt.*, a.ATINOME, a.ATIDESCRICAO, 
+function buscaPeriodoPlanoTrabalho($vIOIDPAI,$retorno = 'array'){
+
+	$sql = "SELECT axt.*, a.ATINOME, a.ATIDESCRICAO,
 			u.USUNOME AS RESPONSAVEL, t.TABDESCRICAO AS DEPARTAMENTO,
-			g.AGEDATAINICIO, g.AGEDATAFINAL, g.AGESITUACAO	
-			FROM ATENDIMENTOXPLANOTRABALHO axt 
+			g.AGEDATAINICIO, g.AGEDATAFINAL, g.AGESITUACAO
+			FROM ATENDIMENTOXPLANOTRABALHO axt
 			LEFT JOIN ATIVIDADES a ON a.ATICODIGO = axt.ATICODIGO
 			LEFT JOIN USUARIOS u ON u.USUCODIGO = axt.AXPRESPONSAVEL
 			LEFT JOIN TABELAS t ON t.TABCODIGO = u.TABDEPARTAMENTO
 			LEFT JOIN AGENDA g ON g.AGECODIGO = axt.AGECODIGO
 			WHERE axt.AXPSTATUS = 'S' AND
-				axt.ATECODIGO = ".$vIOIDPAI; 	
-	$arrayQuery = array( 
+				axt.ATECODIGO = ".$vIOIDPAI;
+	$arrayQuery = array(
 					'query' => $sql,
 					'parametros' => array()
 				);
 	$result = consultaComposta($arrayQuery);
+
+	if($retorno == 'chart') {
+		foreach ($result['dados'] as $lista) {
+			$lista['AGEDATAFINAL'] = verificarVazio($lista['AGEDATAFINAL']) ? $lista['AGEDATAFINAL'] : date('Y-m-d');
+
+			$lista['AGEDATAINICIO'] = ($lista['AGEDATAINICIO'] > date('Y-m-d') || $lista['AGEDATAINICIO'] == '0000-00-00') ?  date('Y-m-d') : $lista['AGEDATAINICIO'];
+			$lista['AGEDATAFINAL'] = ($lista['AGEDATAFINAL'] > date('Y-m-d') || $lista['AGEDATAFINAL'] == '0000-00-00') ?  date('Y-m-d') : $lista['AGEDATAFINAL'];
+
+			$arrayRetorno[] = [$lista['ATINOME'], $lista['AGEDATAINICIO'], $lista['AGEDATAFINAL']];
+		}
+		return $arrayRetorno;
+	}else{
+		return $result;
+	}
+
+}
+
+function listAtendimentoxPlanoTrabalhoFilhos($vIOIDPAI, $tituloModal){
+
+
+	$result = buscaPeriodoPlanoTrabalho($vIOIDPAI,'array');
+
 	$vAConfig['TRANSACTION'] = "transactionAtendimentoxPlanoTrabalho.php";
 	$vAConfig['DIV_RETORNO'] = "div_subAtendimentos";
 	$vAConfig['FUNCAO_RETORNO'] = "AtendimentoxPlanoTrabalho";
 	$vAConfig['ID_PAI'] = $vIOIDPAI;
+	$tituloModal = 'AtividadePlanoTrabalho';
 	$vAConfig['vATitulos']     = array('', 'Data Previsão', 'Atividade', 'Especificação', 'Departamento', 'Responsável', 'Situação', 'Conclusão');
 	$vAConfig['vACampos']      = array('AXPCODIGO', 'AGEDATAINICIO', 'ATINOME', 'ATIDESCRICAO', 'DEPARTAMENTO', 'RESPONSAVEL', 'AGESITUACAO', 'AXPDATACONCLUSAO');
 	$vAConfig['vATipos']       = array('chave', 'date', 'varchar', 'varchar', 'varchar', 'varchar', 'simNao', 'varchar');
-	include_once '../../twcore/teraware/componentes/gridPadraoFilha.php'; 
+	?>
+
+	<?php include_once '../../twcore/teraware/componentes/gridPadraoFilha.php'; ?>
+
+
+	<?php
+
+
 	return;
 }
+
+
+function fill_ProcessosxAtividades($pOid)
+{
+	// $fill = consultaComposta([
+	// 	'query' => "SELECT
+	// 					a.PXACODIGO,
+	// 					a.PXASTATUS,
+	// 					a.TABDEPARTAMENTO,
+	// 					a.PXAPRAZO,
+	// 					a.ATICODIGO,
+	// 					a.PXAPOSICAO
+	// 				FROM
+	// 					PROCESSOSXATIVIDADES a
+	// 				INNER JOIN ATENDIMENTOXPLANOTRABALHO axt ON axt.PRICODIGO = a.PRICODIGO
+	// 				WHERE
+	// 					axt.ATECODIGO = ?
+	// 				AND
+	// 					a.PXASTATUS = 'S'
+	// 				GROUP BY ATICODIGO,TABDEPARTAMENTO
+	// 				ORDER BY
+	// 					a.PXAPOSICAO ASC",
+	// 	'parametros' => [
+	// 		[$pOid, PDO::PARAM_INT],
+	// 	],
+	// ]);
+
+	$fill['dados'][] = [
+		'ATICODIGO'    => 0,
+		'ATISTATUS'    => 'S',
+		'TABDEPARTAMENTO'    => 0,
+		'ATIPRAZO'     => '',
+		'ATIATIVIDADE' => '',
+	];
+
+	return $fill['dados'];
+}
+
 ?>

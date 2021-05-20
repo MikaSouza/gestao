@@ -1,4 +1,4 @@
-$(function(){	
+$(function(){
 
 	var form;
     $('#fileUpload').change(function (event) {
@@ -8,29 +8,29 @@ $(function(){
 		form.append('vIGEDVINCULO', $("#vIUSUCODIGO").val());
 		form.append('vSGEDDIRETORIO', 'usuarios');
 		form.append('vIMENCODIGO', 1966);
-		form.append('method', 'incluirGED'); 
+		form.append('method', 'incluirGED');
 		form.append('vIGEDTIPO', $("#vHGEDTIPO").val());
     });
 
     $('#btnEnviar').click(function () {
-		var erros = validarCamposDiv('modal_div_ClientesxGED');		
+		var erros = validarCamposDiv('modal_div_ClientesxGED');
 		if(erros.length === 0){
 			var hdn_pai_codigo = $("#vIUSUCODIGO").val();
 			$.ajax({
 				url: "../utilitarios/transaction/transactionGED.php",
 				data: form,
-				processData: false, 
+				processData: false,
 				contentType: false,
 				type: 'POST',
 				success: function (data) {
-					swal({title : "", text :"Cadastro realizado com sucesso", type : "success"});					
+					swal({title : "", text :"Cadastro realizado com sucesso", type : "success"});
 					gerarGridJSONGED('../../utilitarios/transaction/transactionGED.php', 'div_ged', 'GED', hdn_pai_codigo, '1966');
 					return true;
 				}
 			});
 		} else {
 			swal({title : "Opss..", text : erros.join("\n"), type : "warning"});
-		}	
+		}
     });
 
 });
@@ -90,7 +90,7 @@ $(function(){
 
 function exibirAcessosGrupos(vIUSUPERFIL)
 {
-	
+
 	$('input:checkbox').prop('checked',false);
 
 	//var pSPerfil = document.getElementById("vIUSUPERFIL").value;
@@ -118,5 +118,56 @@ function exibirAcessosGrupos(vIUSUPERFIL)
 				}
 			}
 		});
-	});	
-}	
+	});
+}
+
+
+function enviarAcessos(){
+
+	var array = document.getElementsByClassName('acessos');
+	var arraySelecionados = [];
+
+	for (let i = 0; i < array.length; i++) {
+		if(array[i].checked){
+			var arr = array[i].id.split("-");
+			arraySelecionados.push(arr[1]);
+		}
+
+	}
+	var data = {
+		method: "enviarAcessos",
+		arraySelecionados: arraySelecionados
+	};
+
+	// console.log(data);
+
+	$.ajax({
+		async: true,
+		type: "POST",
+		url: "transaction/transactionUsuario.php",
+		data: data,
+		beforeSend: function() {
+			Swal.fire({
+				position: 'center',
+				icon: 'warning',
+				title: 'Carregando!',
+				text: 'Rotina sendo executada...',
+				showConfirmButton: false
+			});
+		},
+		success: function(msg){
+
+			// console.log(msg);
+			swal({title : "", text :"Acessos enviados com sucesso!", type : "success"});
+
+			return true;
+		},
+		error: function(msg) {
+			sweetAlert("Oops...", "Ocorreu um erro inesperado!", "error");
+			alert(msg);
+			$( "#modal"+pMetodo ).modal("hide");
+			return false;
+		}
+	});
+
+}

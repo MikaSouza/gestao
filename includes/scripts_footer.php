@@ -5,6 +5,12 @@
 <!-- App js -->
 <script src="../assets/js/app.js"></script>
 
+
+<!-- Start of  Zendesk Widget script -->
+<script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=af96b062-0118-4830-8057-059fc7ceca25"> </script>
+<!-- End of  Zendesk Widget script -->
+
+
 <!-- Funcoes js -->
 <script src="../assets/js/funcoes.js"></script>
 <!-- MaskedInput -->
@@ -23,4 +29,5 @@
 			<?php } ?>
         });
     </script>
+	
 <?php } ?>

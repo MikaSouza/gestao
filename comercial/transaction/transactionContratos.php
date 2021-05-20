@@ -28,19 +28,19 @@ function listContratos($_POSTDADOS)
     $where = '';
     if (verificarVazio($_POSTDADOS['FILTROS']['vSStatusFiltro'])) {
         if ($_POSTDADOS['FILTROS']['vSStatusFiltro'] == 'S') {
-            $where .= "AND C.CLISTATUS = 'S' ";
+            $where .= "AND e.CTRSTATUS = 'S' ";
         } elseif ($_POSTDADOS['FILTROS']['vSStatusFiltro'] == 'N') {
-            $where .= "AND C.CLISTATUS = 'N' ";
+            $where .= "AND e.CTRSTATUS = 'N' ";
         }
     } else {
-        $where .= "AND C.CLISTATUS = 'S' ";
+        $where .= "AND e.CTRSTATUS = 'S' ";
     }
 
     if (verificarVazio($_POSTDADOS['FILTROS']['vDDataInicio'])) {
-        $where .= 'AND C.CLIDATA_INC >= ? ';
+        $where .= 'AND e.CTRDATA_INC >= ? ';
     }
     if (verificarVazio($_POSTDADOS['FILTROS']['vDDataFim'])) {
-        $where .= 'AND C.CLIDATA_INC <= ? ';
+        $where .= 'AND e.CTRDATA_INC <= ? ';
     }
 
     if (verificarVazio($_POSTDADOS['FILTROS']['vICLISEQUENCIAL'])) {

@@ -129,7 +129,7 @@ function excluirRegistroGridFilha(
                     method: pSMethod,
                 },
                 success: function (msg) {
-                    swal.fire("Excluído!", msg, "success");
+                    swal.fire("Excluído!", msg, "success"); 
 
                     gerarGridJSON(
                         pSTransaction,

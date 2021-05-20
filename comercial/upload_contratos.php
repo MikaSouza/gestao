@@ -14,14 +14,14 @@ if (!is_dir($diretorio)) {
 	chmod($diretorio, 0755);
 }
 include_once __DIR__.'/transaction/transactionContratosxGED.php';
-if(move_uploaded_file($file['tmp_name'],$diretorio.'/'.$file['name'])){
+$nomeArquivo = removerAcentoEspacoCaracter($file['name']);
+if(move_uploaded_file($file['tmp_name'],$diretorio.'/'.$nomeArquivo)){
     $ret["status"] = "success";
     $ret["path"] = $diretorio.'/'. $file['name'];
     $ret["name"] = $file['name'];
-	$nomeArquivo = removerAcentoEspacoCaracter($file['name']);
 	// inserir banco de dados	
 	$dadosBanco = array(
-		'vIGEDCODIGO'   => '',
+		'vIGEDCODIGO'   => '', 
 		'vSGEDNOMEARQUIVO' 	=> $nomeArquivo,
 		'vSGEDDIRETORIO'  => $diretorio,
 		'vIGEDVINCULO'    => $_POST['vICTRCODIGO'],

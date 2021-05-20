@@ -37,7 +37,7 @@ function listPlanoTrabalho(){
 
 	$sql = "SELECT
 			C.*
-		FROM PROCESSOSINTERNO C			
+		FROM PROCESSOSINTERNO C
 			WHERE C.PRISTATUS = 'S'
 			ORDER BY 1";
 

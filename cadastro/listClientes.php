@@ -68,7 +68,7 @@ include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
 											</td>	
 											<td align="center">
 												<a href="cadClientes.php?oid=<?= $result['CLICODIGO'];?>&method=update" class="mr-2" title="Editar Registro" alt="Editar Registro"><i class="fas fa-edit text-info font-16"></i></a>
-												<a href="#" onclick="excluirRegistroGrid('<?= $result['CLICODIGO']?>', 'transactionUsuario.php', 'excluirPadrao', '<?= $vAConfiguracaoTela['MENCODIGO'];?>')" title="Excluir Registro" alt="Excluir Registro"><i class="fas fa-trash-alt text-danger font-16"></i></a>
+												<a href="#" onclick="excluirRegistroGrid('<?= $result['CLICODIGO']?>', 'transactionClientes.php', 'excluirPadrao', '<?= $vAConfiguracaoTela['MENCODIGO'];?>')" title="Excluir Registro" alt="Excluir Registro"><i class="fas fa-trash-alt text-danger font-16"></i></a>
 											</td>
 											<td align="left"><?= $result['CLIRAZAOSOCIAL'];?></td> 
 											<td align="left"><?= $result['CLINOMEFANTASIA'];?></td>

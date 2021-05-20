@@ -4,6 +4,7 @@ $vAConfiguracaoTela = configuracoes_menu_acesso(1949);
 include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
 include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
 include_once __DIR__.'/../cadastro/combos/comboProdutosxServicos.php';
+include_once __DIR__ . '/../rh/combos/comboUsuarios.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -22,7 +23,11 @@ include_once __DIR__.'/../cadastro/combos/comboProdutosxServicos.php';
 		<link rel="stylesheet" href="../assets/css/stylesUpload.css"/> 
 		
     </head>
+	<?php if ($vIOid > 0){ ?>
+    <body onload="exibirClientexConsultor('vICTRVENDEDOR', '<?= $vROBJETO['CLICODIGO']; ?>', '', '');">
+	<?php } else { ?>
 	<body>
+	<?php } ?>
 
         <?php include_once '../includes/menu.php' ?>
 
@@ -79,7 +84,13 @@ include_once __DIR__.'/../cadastro/combos/comboProdutosxServicos.php';
 													<button type="button" class="btn btn-danger waves-effect" onclick="removerCliente();">Limpar</button><br>
 												</div>		
 												<div class="col-md-6">
-													<div id="divConsultor"></div>
+													<label>Representante</label>
+													<select name="vICTRVENDEDOR" id="vICTRVENDEDOR" class="custom-select" title="Representante">
+														<option value=""> ------------- </option>
+														<?php foreach (comboUsuarios() as $usuarios) : ?>
+															<option value="<?php echo $usuarios['USUCODIGO']; ?>" <?php if ($vROBJETO['CTRVENDEDOR'] == $usuarios['USUCODIGO']) echo "selected='selected'"; ?>><?php echo $usuarios['USUNOME']; ?></option>
+														<?php endforeach; ?>
+													</select>
 												</div> 	
 											</div>	
 											<div class="form-group row">
@@ -253,6 +264,12 @@ include_once __DIR__.'/../cadastro/combos/comboProdutosxServicos.php';
 				 'vSMethod': '<?= $_GET['method']; ?>'
 			}
 			combo_padrao_tabelas(vAParameters);
+			
+			<?php if($vIOid == 0){ ?>
+			$(function(){
+				$(".btnLimparCliente").hide();
+			});	
+			<?php } ?>
 		</script>	
 		<script src="js/scriptUpload.js"></script>
     </body>

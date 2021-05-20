@@ -1,18 +1,7 @@
-drwxr-xr-x   2 teraware teraware     4096 Jun  2 14:50 .
-drwxr-xr-x  16 teraware teraware     4096 Jun  2 14:56 ..
--rw-r--r--   1 teraware teraware     6588 Jun  2 14:49 CJKdata.php
--rw-r--r--   1 teraware teraware     4133 Jun  2 14:49 functions.php
--rw-r--r--   1 teraware teraware    62508 Jun  2 14:49 ind_bn_1_001.volt.php
--rw-r--r--   1 teraware teraware   192099 Jun  2 14:49 ind_gu_1_001.volt.php
--rw-r--r--   1 teraware teraware    97204 Jun  2 14:49 ind_hi_1_001.volt.php
--rw-r--r--   1 teraware teraware    74440 Jun  2 14:50 ind_kn_1_001.volt.php
--rw-r--r--   1 teraware teraware    35640 Jun  2 14:50 ind_ml_1_001.volt.php
--rw-r--r--   1 teraware teraware    80717 Jun  2 14:50 ind_or_1_001.volt.php
--rw-r--r--   1 teraware teraware    32828 Jun  2 14:50 ind_pa_1_001.volt.php
--rw-r--r--   1 teraware teraware     6204 Jun  2 14:50 ind_ta_1_001.volt.php
--rw-r--r--   1 teraware teraware    33943 Jun  2 14:50 ind_te_1_001.volt.php
--rw-r--r--   1 teraware teraware     7888 Jun  2 14:50 no_image.jpg
--rw-r--r--   1 teraware teraware     2250 Jun  2 14:50 out.php
--rw-r--r--   1 teraware teraware     6135 Jun  2 14:50 subs_core.php
--rw-r--r--   1 teraware teraware     8479 Jun  2 14:50 subs_win-1252.php
--rw-r--r--   1 teraware teraware    15390 Jun  2 14:50 upperCase.php
+// Exports the "imagetools" plugin for usage with module loaders
+// Usage:
+//   CommonJS:
+//     require('tinymce/plugins/imagetools')
+//   ES2015:
+//     import 'tinymce/plugins/imagetools'
+require('./plugin.js');

@@ -12,7 +12,8 @@ function listContratos($vIOIDPAI, $tituloModal)
 				t.CLINOMEFANTASIA AS CLIENTE,
 				b.PXSNOME as TIPOCONTRATO,
                 b2.TABDESCRICAO AS POSICAO,
-                u.USUNOME AS CONSULTOR
+                u.USUNOME AS CONSULTOR,
+				CONCAT('<a href=\'../comercial/cadContratos.php?oid=', e.CTRCODIGO, '&amp;method=update\' target=\'_blank\'> ', CTRNROCONTRATO, '</a>') AS LINKCONTRATO
 			FROM CONTRATOS e
 			LEFT JOIN PRODUTOSXSERVICOS b ON b.PXSCODIGO = e.PXSCODIGO
 			LEFT JOIN TABELAS b2 ON b2.TABCODIGO = e.CTRPOSICAO
@@ -33,9 +34,9 @@ function listContratos($vIOIDPAI, $tituloModal)
     $vAConfig['ID_PAI'] = $vIOIDPAI;
     $vAConfig['BTN_NOVO_REGISTRO'] = 'N';
     $vAConfig['BTN_EDITAR'] = 'N';
-    $vAConfig['BTN_EXCLUIR'] = 'N';
+    $vAConfig['BTN_EXCLUIR'] = 'N'; 
     $vAConfig['vATitulos'] = array("Número Contrato", "Produto/Serviço", "Consultor", 'Data de Início', 'Data de Término', "Situação", "Data Cadastro");
-    $vAConfig['vACampos'] = array("CTRNROCONTRATO", "TIPOCONTRATO", "CONSULTOR", 'CTRDATAAINICIO', 'CTRDATATERMINO', "POSICAO", "CTRDATA_INC");
+    $vAConfig['vACampos'] = array("LINKCONTRATO", "TIPOCONTRATO", "CONSULTOR", 'CTRDATAAINICIO', 'CTRDATATERMINO', "POSICAO", "CTRDATA_INC");
     $vAConfig['vATipos'] = array("sequencial", "varchar", "varchar", 'date', 'date', "varchar", "datetime");
 
     include_once '../../twcore/teraware/componentes/gridPadraoFilha.php';

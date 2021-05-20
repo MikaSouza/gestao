@@ -97,7 +97,7 @@ function listClientes($_POSTDADOS)
 				CLIENTES C
 			WHERE
 				1 = 1
-			" .	$where	. "
+			" .    $where    . "
 			LIMIT 250	";
     $arrayQuery = array(
         'query' => $sql,
@@ -155,10 +155,10 @@ function insertUpdateClientes($_POSTCLI, $pSMsg = 'N')
     insertUpdateEnderecos($_POSTCLI, 'N');
 
     //incluir contatos
-    // include_once 'transactionContatos.php';
+    include_once 'transactionContatos.php';
     //Principal
-    // $_POSTCLI['vHTABCODIGO'] = 26933;
-    // insertUpdateContatos($_POSTCLI, 'N');
+    $_POSTCLI['vHTABCODIGO'] = 26933;
+    insertUpdateContatos($_POSTCLI, 'N');
 
     // tipo parceiro
     if ($_POSTCLI['vHTIPOPARCEIRO']) {
@@ -222,7 +222,7 @@ function buscaClientexTipoParceiro($vICLICODIGO)
         )
     );
     $list = consultaComposta($arrayQuery);
-    return	$list['dados'];
+    return    $list['dados'];
 }
 
 function testaNoBanco($idEmp, $idPreMold)
@@ -245,7 +245,7 @@ function testaNoBanco($idEmp, $idPreMold)
         )
     );
     $list = consultaComposta($arrayQuery);
-    return	$list['quantidadeRegistros'];
+    return    $list['quantidadeRegistros'];
 }
 
 

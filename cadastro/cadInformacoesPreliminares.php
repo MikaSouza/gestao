@@ -342,7 +342,7 @@ include_once __DIR__ . '/../cadastro/combos/comboTabelas.php';
 													<select title="Tipo Pessoa" id="vSFORAUDEMIREL" class="custom-select obrigatorio" name="vSFORAUDEMIREL">
 														<option value="Sim" <?php if ($vROBJETO['FORAUDEMIREL'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
 														<option value="Não" <?php if ($vROBJETO['FORAUDEMIREL'] == 'Não') echo "selected='selected'"; ?>>Não</option>
-														<option value="Raramente" <?php if ($vROBJETO['FORAUDEMIREL'] == 'Raramente') echo "selected='selected'"; ?>>Raramente</option>ster
+														<option value="Raramente" <?php if ($vROBJETO['FORAUDEMIREL'] == 'Raramente') echo "selected='selected'"; ?>>Raramente</option>
 													</select>
 												</div>
 											</div>
@@ -459,8 +459,6 @@ include_once __DIR__ . '/../cadastro/combos/comboTabelas.php';
 													<select title="Inscrição Estadual" title="Inscrição Estadual" id="vSFORATUAAUXUNIINT" class="custom-select" name="vSFORATUAAUXUNIINT">
 														<option value="Sim" <?php if ($vROBJETO['FORATUAAUXUNIINT'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
 														<option value="Não" <?php if ($vROBJETO['FORATUAAUXUNIINT'] == 'Não') echo "selected='selected'"; ?>>Não</option>
-														<option value="Sim" <?php if ($vROBJETO['ATUAAUXUNIINT'] == 'Sim') echo "selected='selected'"; ?>>Sim</option>
-														<option value="Não" <?php if ($vROBJETO['ATUAAUXUNIINT'] == 'Não') echo "selected='selected'"; ?>>Não</option>
 													</select>
 												</div>
 											</div>

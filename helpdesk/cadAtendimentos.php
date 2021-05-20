@@ -6,6 +6,9 @@ include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
 include_once __DIR__.'/../rh/combos/comboUsuarios.php';
 include_once __DIR__.'/combos/comboPosicoesPadroes.php';
 include_once __DIR__.'/combos/comboPrioridades.php';
+include_once __DIR__.'/../cadastro/combos/comboAtividades.php';
+include_once __DIR__.'/transaction/transactionAtendimentoxPlanoTrabalho.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -21,8 +24,8 @@ include_once __DIR__.'/combos/comboPrioridades.php';
         <link href="../assets/css/metisMenu.min.css" rel="stylesheet" type="text/css" />
         <link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
 		<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-		<link rel="stylesheet" href="../assets/css/stylesUpload.css"/> 
-    </head>	
+		<link rel="stylesheet" href="../assets/css/stylesUpload.css"/>
+    </head>
 	<?php if ($vIOid > 0){ ?>
     <body onload="exibirClientexContatos('<?= $vROBJETO['CLICODIGO'];?>', '', '');">
 	<?php } else { ?>
@@ -53,22 +56,22 @@ include_once __DIR__.'/combos/comboPrioridades.php';
 										<input type="hidden" name="vHURL" id="vHURL" value="<?= $vAConfiguracaoTela['MENARQUIVOCAD']; ?>"/>
 										<input type="hidden" name="vIEMPCODIGO" id="vIEMPCODIGO" value="1"/>
 										<input type="hidden" name="vHMENCODIGO" id="vHMENCODIGO" value="<?= $vAConfiguracaoTela['MENCODIGO']; ?>"/>
-										
+
                                     <!-- Nav tabs -->
                                     <ul  class="nav nav-tabs" role="tablist">
                                         <li class="nav-item waves-effect waves-light">
                                             <a class="nav-link active" data-toggle="tab" href="#home-1" role="tab">Dados Gerais</a>
-                                        </li>                                                                             
+                                        </li>
 										<?php if($vIOid > 0){ ?>
 										<li class="nav-item waves-effect waves-light">
-											<a class="nav-link" data-toggle="tab" href="#ged-1" role="tab" onclick="gerarGridJSONGED('../../utilitarios/transaction/transactionGED.php', 'div_ged', 'GED', '<?= $vIOid;?>', '2025');">Digitalizações/Arquivos</a>											                                          
-                                        </li>	
-										<li class="nav-item waves-effect waves-light">											
+											<a class="nav-link" data-toggle="tab" href="#ged-1" role="tab" onclick="gerarGridJSONGED('../../utilitarios/transaction/transactionGED.php', 'div_ged', 'GED', '<?= $vIOid;?>', '2025');">Digitalizações/Arquivos</a>
+                                        </li>
+										<li class="nav-item waves-effect waves-light">
                                             <a class="nav-link" data-toggle="tab" href="#posicoes" role="tab" onclick="gerarGridJSON('transactionAtendimentoxHistoricos.php', 'div_historico', 'AtendimentoxHistoricos', '<?= $vIOid;?>');">Posições/Históricos</a>
                                         </li>
 										<li class="nav-item waves-effect waves-light">
                                             <a class="nav-link" data-toggle="tab" href="#subAtendimentos" role="tab" onclick="gerarGridJSON('transactionAtendimentoxPlanoTrabalho.php', 'div_subAtendimentoxPlanoTrabalho', 'AtendimentoxPlanoTrabalho', '<?= $vIOid;?>');">Plano de Trabalho</a>
-                                        </li>		
+                                        </li>
 										<!-- outra versão
 										<li class="nav-item waves-effect waves-light">
                                             <a class="nav-link" data-toggle="tab" href="#ged-1" role="tab" onclick="gerarGridJSON('transactionClientesxGED.php', 'div_ged', 'ClientesxGED', '<?= $vIOid;?>');">Despesas</a>
@@ -79,7 +82,7 @@ include_once __DIR__.'/combos/comboPrioridades.php';
 										<li class="nav-item waves-effect waves-light">
                                             <a class="nav-link" data-toggle="tab" href="#documentacao" role="tab" onclick="gerarGridJSON('transactionClientesxGED.php', 'div_ged', 'ClientesxGED', '<?= $vIOid;?>');">Documentação Apoio</a>
                                         </li> -->
-                                        <?php } ?>                                        
+                                        <?php } ?>
                                     </ul>
                                     <!-- Nav tabs end -->
 
@@ -88,39 +91,39 @@ include_once __DIR__.'/combos/comboPrioridades.php';
                                         <!-- Aba Dados Gerais -->
                                         <div class="tab-pane active p-3" id="home-1" role="tabpanel">
 											<div class="form-group row">
-												<div class="col-md-5">                                                      
+												<div class="col-md-5">
 													<label>Cliente
 														<small class="text-danger font-13">*</small>
-													</label>												
+													</label>
 													<input title="Cliente" type="text" name="vHCLIENTE" id="vHCLIENTE" class="form-control obrigatorio autocomplete" data-hidden="#vICLICODIGO" value="<?php echo $vROBJETO['CLINOMEFANTASIA']; ?>" onblur="validarCliente();"/>
 													<span id="aviso-cliente" style="color: red;font-size: 11px; display: none;">O Cliente não foi selecionado corretamente!</span>
 													<input type="hidden" name="vICLICODIGO" id="vICLICODIGO" value="<?php if(isset($vIOid)) echo $vROBJETO['CLICODIGO']; ?>"/>
 												</div>
 												<div class="col-md-1 btnLimparCliente">
-													<br/>				  
+													<br/>
 													<button type="button" class="btn btn-danger waves-effect" onclick="removerCliente();">Limpar</button><br>
-												</div>	
-											</div>	
+												</div>
+											</div>
 											<div class="form-group row">
 												<div class="col-md-6">
 													<div id="divContatos"></div>
 													<div id="gridContatos"></div>
 													<input type='hidden' name='vHAXCRESPONSAVEL' id='vHAXCRESPONSAVEL' />
 												</div>
-											</div>		
+											</div>
 											<div class="form-group row">
 												<div class="col-md-6">
 													<div id="divProduto"></div>
 												</div>
-											</div>	
+											</div>
 											<div class="form-group row">
-												<div class="col-md-3">   
+												<div class="col-md-3">
                                                     <div id="divTipo"></div>
                                                 </div>
-												<div class="col-md-3">   
+												<div class="col-md-3">
                                                     <div id="divOrigem"></div>
                                                 </div>
-												<div class="col-md-3">   
+												<div class="col-md-3">
                                                     <div id="divCategoria"></div>
                                                 </div>
 												<div class="col-md-3">
@@ -131,7 +134,7 @@ include_once __DIR__.'/combos/comboPrioridades.php';
 														<option <?php if ($vSATEENVIAREMAIL == "S") echo "selected=selected"; ?>value="S">Sim</option>
 														<option <?php if ($vSATEENVIAREMAIL == "N") echo "selected=selected"; ?>value="N">Não</option>
 													</select>
-												</div>												
+												</div>
 											</div>
 											<div class="form-group row">
 												<div class="col-md-6">
@@ -140,52 +143,52 @@ include_once __DIR__.'/combos/comboPrioridades.php';
 													</label>
 													<select name="vIATEATENDENTE" id="vIATEATENDENTE" class="custom-select obrigatorio" title="Atendente">
 														<option value="">  -------------  </option>
-														<?php foreach (comboUsuarios('') as $tabelas): ?>                                                            
+														<?php foreach (comboUsuarios('') as $tabelas): ?>
 															<option value="<?php echo $tabelas['USUCODIGO']; ?>" <?php if ($vROBJETO['ATEATENDENTE'] == $tabelas['USUCODIGO']) echo "selected='selected'"; ?>><?php echo $tabelas['USUNOME']; ?></option>
 														<?php endforeach; ?>
 													</select>
-												</div>												
+												</div>
                                                 <div class="col-md-6">
                                                     <label>Posição
                                                         <small class="text-danger font-13">*</small>
                                                     </label>
 													<select name="vSATEPOSICAOATUAL" id="vSATEPOSICAOATUAL" class="custom-select obrigatorio" title="Posição">
                                                         <option value="">  -------------  </option>
-														<?php 														
-														foreach (comboPosicoesPadroes() as $tabelas): ?>                                                            
+														<?php
+														foreach (comboPosicoesPadroes() as $tabelas): ?>
 															<option value="<?php echo $tabelas['POPCODIGO']; ?>" <?php if ($vROBJETO['ATEPOSICAOATUAL'] == $tabelas['POPCODIGO']) echo "selected='selected'"; ?>><?php echo $tabelas['POPNOME']; ?></option>
 														<?php endforeach; ?>
 													</select>
-												</div>											
-											</div>	
+												</div>
+											</div>
 											<div class="form-group row">
-                                                <div class="col-md-6">                                                     
+                                                <div class="col-md-6">
 													<label>Assunto
 														<small class="text-danger font-13">*</small>
 													</label>
 													<input class="form-control obrigatorio" name="vSATEASSUNTO" id="vSATEASSUNTO" type="text" value="<?= ($vIOid > 0 ? $vROBJETO['ATEASSUNTO'] : ''); ?>" title="Assunto" >
-												</div>			
+												</div>
 												<div class="col-md-6">
 													<label>Prioridade
 														<small class="text-danger font-13">*</small>
 													</label>
 													<select name="vIATPCODIGO" id="vIATPCODIGO" class="custom-select obrigatorio" title="Prioridade">
 														<option value="">  -------------  </option>
-														<?php 														
-														foreach (comboPrioridades() as $tabelas): ?>                                                            
+														<?php
+														foreach (comboPrioridades() as $tabelas): ?>
 															<option value="<?php echo $tabelas['ATPCODIGO']; ?>" <?php if ($vROBJETO['ATPCODIGO'] == $tabelas['ATPCODIGO']) echo "selected='selected'"; ?>><?php echo $tabelas['ATPNUMERO'].' - '. $tabelas['ATPDESCRICAO']; ?></option>
 														<?php endforeach; ?>
 													</select>
-												</div>		
-                                            </div>											
+												</div>
+                                            </div>
 											<div class="form-group row">
-												<div class="col-md-12">                                                      
+												<div class="col-md-12">
 													<label>Descrição
 														<small class="text-danger font-13">*</small>
 													</label>
 													<textarea class="form-control" id="vSATEMENSAGEM" name="vSATEMENSAGEM" title="Descrição"><?= nl2br($vROBJETO['ATEMENSAGEM']); ?></textarea>
 												</div>
-											</div>											
+											</div>
 
 											<div class="accordion" id="reformaSim">
 												<div class="card border mb-0 shadow-none">
@@ -206,7 +209,7 @@ include_once __DIR__.'/combos/comboPrioridades.php';
 																</div>
 																<div class="col-md-2">
 																	<label>Hora Inicial</label>
-																	<input type="text" class="form-control" name="vSATEPREVISAOCONCLUSAOHORAINI" id="vSATEPREVISAOCONCLUSAOHORAINI" title="Hora Inicial" value="<?= $vROBJETO['ATEPREVISAOCONCLUSAOHORAINI']; ?>"/>																										
+																	<input type="text" class="form-control" name="vSATEPREVISAOCONCLUSAOHORAINI" id="vSATEPREVISAOCONCLUSAOHORAINI" title="Hora Inicial" value="<?= $vROBJETO['ATEPREVISAOCONCLUSAOHORAINI']; ?>"/>
 																</div>
 																<div class="col-md-2">
 																	<label>Data Final</label>
@@ -214,14 +217,15 @@ include_once __DIR__.'/combos/comboPrioridades.php';
 																</div>
 																<div class="col-md-2">
 																	<label>Hora Final</label>
-																	<input type="text" class="form-control" name="vSATEPREVISAOCONCLUSAOHORAFIM" id="vSATEPREVISAOCONCLUSAOHORAFIM" title="Hora Final" value="<?= $vROBJETO['ATEPREVISAOCONCLUSAOHORAFIM']; ?>"/>																										
-																</div>			
-															</div>																	
+																	<input type="text" class="form-control" name="vSATEPREVISAOCONCLUSAOHORAFIM" id="vSATEPREVISAOCONCLUSAOHORAFIM" title="Hora Final" value="<?= $vROBJETO['ATEPREVISAOCONCLUSAOHORAFIM']; ?>"/>
+																</div>
+															</div>
 															</p>
 														</div>
 													</div>
 												</div>
 											</div>
+
 											<?php if($vIOid > 0){ ?>
 											<div class="accordion" id="reformaSim">
 												<div class="card border mb-0 shadow-none">
@@ -242,7 +246,7 @@ include_once __DIR__.'/combos/comboPrioridades.php';
 																</div>
 																<div class="col-md-2">
 																	<label>Data Abertura</label>
-																	<input type="text" class="form-control" disabled name="vHATEDATA_INC" id="vHATEDATA_INC" title="Data Abertura" value="<?= formatar_data_hora($vROBJETO['ATEDATA_INC']); ?>"/>																										
+																	<input type="text" class="form-control" disabled name="vHATEDATA_INC" id="vHATEDATA_INC" title="Data Abertura" value="<?= formatar_data_hora($vROBJETO['ATEDATA_INC']); ?>"/>
 																</div>
 																<div class="col-md-2">
 																	<label>Usuário Inclusão</label>
@@ -250,25 +254,25 @@ include_once __DIR__.'/combos/comboPrioridades.php';
 																</div>
 																<div class="col-md-2">
 																	<label>Data Alteração</label>
-																	<input type="text" class="form-control" disabled name="vHATEDATA_ALT" id="vHATEDATA_ALT" title="Data Alteração" value="<?= formatar_data_hora($vROBJETO['ATEDATA_ALT']); ?>"/>																										
+																	<input type="text" class="form-control" disabled name="vHATEDATA_ALT" id="vHATEDATA_ALT" title="Data Alteração" value="<?= formatar_data_hora($vROBJETO['ATEDATA_ALT']); ?>"/>
 																</div>
 																<div class="col-md-2">
 																	<label>Usuário Alteração</label>
-																	<input type="text" class="form-control" disabled name="vHATEUSU_ALT" id="vHATEUSU_ALT" title="Usuário Alteração" value="<?= $vROBJETO['USUARIOALTERACAO']; ?>"/>																										
+																	<input type="text" class="form-control" disabled name="vHATEUSU_ALT" id="vHATEUSU_ALT" title="Usuário Alteração" value="<?= $vROBJETO['USUARIOALTERACAO']; ?>"/>
 																</div>
 																<div class="col-md-2">
 																	<label>Data Conclusão</label>
-																	<input type="text" class="form-control" disabled name="vHATEDATACONCLUSAO" id="vHATEDATACONCLUSAO" title="Data Conclusão" value="<?= formatar_data_hora($vROBJETO['ATEDATACONCLUSAO']); ?>"/>																										
+																	<input type="text" class="form-control" disabled name="vHATEDATACONCLUSAO" id="vHATEDATACONCLUSAO" title="Data Conclusão" value="<?= formatar_data_hora($vROBJETO['ATEDATACONCLUSAO']); ?>"/>
 																</div>
-															</div>																	
+															</div>
 															</p>
 														</div>
 													</div>
 												</div>
 											</div>
 											<?php } ?>
-										</div>                                  		
-									
+										</div>
+
 										<!-- Aba Dados GED -->
 										<div class="tab-pane p-3" id="ged-1" role="tabpanel">
 											<div class="form-group">
@@ -284,35 +288,38 @@ include_once __DIR__.'/combos/comboPrioridades.php';
 													<div class="lista-uploads">
 													</div>
 												</div>
-											</div>											
+											</div>
 											<div class="form-group row">
 												<div id="div_ged" class="table-responsive"></div>
 											</div>
-										</div>	
-										
-										<!--Aba Posicoes -->			
+										</div>
+
+										<!--Aba Posicoes -->
                                         <div class="tab-pane p-3" id="posicoes" role="tabpanel">
                                             <div class="form-group row">
-                                                <div id="div_historico" class="table-responsive"></div>                                                
+                                                <div id="div_historico" class="table-responsive"></div>
                                             </div>
                                         </div>
-                                        <!-- Aba Posicoes end -->										
-										
+                                        <!-- Aba Posicoes end -->
+
 										<div class="tab-pane p-3" id="subAtendimentos" role="tabpanel">
 											<div class="form-group row">
-                                                <div id="div_subAtendimentoxPlanoTrabalho" class="table-responsive"></div>                                                
-                                            </div>
+                                                <div id="div_subAtendimentoxPlanoTrabalho" class="table-responsive"></div>
+											</div>
+											<div class="form-group row">
+												<div id="graficoTime"></div>
+											</div>
 										</div>
 										<!--
 										<div class="tab-pane p-3" id="documentacao" role="tabpanel">
 											<div class="form-group row">
-                                                <div id="div_documentacao" class="table-responsive"></div>                                                
+                                                <div id="div_documentacao" class="table-responsive"></div>
                                             </div>
 										</div>-->
 
 										<div class="form-group">
 											<label class="form-check-label" for="invalidCheck3" style="color: red">
-												Campos em vermelho são de preenchimento obrigatório!<br/>												
+												Campos em vermelho são de preenchimento obrigatório!<br/>
 											</label>
 										</div>
 										<?php include('../includes/botoes_cad_novo.php'); ?>
@@ -325,12 +332,12 @@ include_once __DIR__.'/combos/comboPrioridades.php';
                     </div><!--end row-->
 
                 </div><!-- container -->
-            </div>									
-			
+            </div>
+
             <!-- end page content -->
             <?php include_once '../includes/footer.php' ?>
-        </div>    
- <!--		
+        </div>
+ <!--
 		<div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modalAtendimentoxHistoricos">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
@@ -350,26 +357,26 @@ include_once __DIR__.'/combos/comboPrioridades.php';
 								</label>
 								<select name="vIATEATENDENTE" id="vIATEATENDENTE" class="custom-select obrigatorio" title="Atendente">
 									<option value="">  -------------  </option>
-									<?php foreach (comboUsuarios('') as $tabelas): ?>                                                            
+									<?php foreach (comboUsuarios('') as $tabelas): ?>
 										<option value="<?php echo $tabelas['USUCODIGO']; ?>" <?php if ($vROBJETO['ATEATENDENTE'] == $tabelas['USUCODIGO']) echo "selected='selected'"; ?>><?php echo $tabelas['USUNOME']; ?></option>
 									<?php endforeach; ?>
 								</select>
 							</div>
-							<div class="col-md-6"> 
+							<div class="col-md-6">
 								<label>Posição
 									<small class="text-danger font-13">*</small>
 								</label>
 								<select name="vSATEPOSICAOATUAL" id="vSATEPOSICAOATUAL" class="custom-select obrigatorio" title="Posição">
 									<option value="">  -------------  </option>
-									<?php 														
-									foreach (comboPosicoesPadroes() as $tabelas): ?>                                                            
+									<?php
+									foreach (comboPosicoesPadroes() as $tabelas): ?>
 										<option value="<?php echo $tabelas['POPCODIGO']; ?>" <?php if ($vROBJETO['ATEPOSICAOATUAL'] == $tabelas['POPCODIGO']) echo "selected='selected'"; ?>><?php echo $tabelas['POPNOME']; ?></option>
 									<?php endforeach; ?>
 								</select>
-							</div>	
+							</div>
 							<div class="col-md-12">
 								<label>Motivo Alteração</label>
-								<textarea title="Motivo Alteração" class="form-control" id="vSUXRMOTIVOALTERACAOSALARIAL" name="vSUXRMOTIVOALTERACAOSALARIAL" rows="3"></textarea>							
+								<textarea title="Motivo Alteração" class="form-control" id="vSUXRMOTIVOALTERACAOSALARIAL" name="vSUXRMOTIVOALTERACAOSALARIAL" rows="3"></textarea>
 							</div>
 						</div>
 						<div class="row">
@@ -381,52 +388,78 @@ include_once __DIR__.'/combos/comboPrioridades.php';
 				</div>
 			</div>
 		</div>
-		<div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modalClientesxContatos">
+		-->
+		<div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modalAtividadePlanoTrabalho">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title mt-0" id="exampleModalLabel">Incluir/Alterar Contato</h5>
+						<h5 class="modal-title mt-0" id="exampleModalLabel">Incluir/Alterar Atividades</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
 					</div>
 					<div class="modal-body">
 						<form class="form-parsley" action="#" method="post" name="formContatos" id="formContatos">
-						<input type="hidden" id="hdn_pai_Enderecos" name="hdn_pai_Enderecos" value="<?= $vIOid;?>">
-						<input type="hidden" id="hdn_filho_Enderecos" name="hdn_filho_Enderecos" value="">
+						<input type="hidden" id="hdn_pai_AtividadePlanoTrabalho" name="hdn_pai_AtividadePlanoTrabalho" value="<?= $vIOid;?>">
+						<input type="hidden" id="hdn_filho_AtividadePlanoTrabalho" name="hdn_filho_AtividadePlanoTrabalho" value="">
+
+						<div class="form-group row">
+
+							<div class="col-sm-6">
+								<label class="control-label">Atividade</label>
+								<select id="vHMATICODIGO" class="form-control">
+									<?php
+										foreach (comboAtividades('') as $cbAtividade):
+											if ($cbAtividade['ATICODIGO'] == $atividade['ATICODIGO']): ?>
+												<option selected value="<?php echo $cbAtividade['ATICODIGO'] ?>"><?php echo $cbAtividade['ATINOME'] ?></option>
+											<?php else: ?>
+												<option value="<?php echo $cbAtividade['ATICODIGO'] ?>"><?php echo $cbAtividade['ATINOME'] ?></option>
+											<?php
+												endif;
+										endforeach;
+									?>
+								</select>
+							</div><!--end col-->
+
+							<div class="col-sm-6">
+								<label class="control-label">Departamento</label>
+								<select id="vHMDEPARTAMENTO" class="form-control">
+									<option value="">  -------------  </option>
+									<?php foreach (comboTabelas('USUARIOS - DEPARTAMENTOS') as $tabelas): ?>
+										<option value="<?php echo $tabelas['TABCODIGO']; ?>" <?php if ($vROBJETO['TABDEPARTAMENTO'] == $tabelas['TABCODIGO']) echo "selected='selected'"; ?>><?php echo $tabelas['TABDESCRICAO']; ?></option>
+									<?php endforeach; ?>
+								</select>
+							</div><!--end col-->
+
+						</div>
+
 						<div class="form-group row">
 							<div class="col-sm-6">
-								<label>Contato</label>
-								<input class="form-control" title="Contato" name="vHCONNOME" id="vHCONNOME" type="text" value="<?= $vRCONTATO['CONNOME'];?>" >
+								<label>Data Previsão</label>
+								<input class="form-control" title="E-mail" name="vHMDATAPREVISAO" id="vHMDATAPREVISAO" type="email" value="<?= $vRCONTATO['CONEMAIL'];?>" >
 							</div>
 							<div class="col-sm-6">
-								<label>Telefone</label>
-								<input type="text" id="vHCONFONE" name="vHCONFONE" class="form-control" maxlength="14" title="Telefone Principal" value="<?= $vRCONTATO['CONFONE']; ?>"  onKeyPress="return digitos(event, this);" onkeyup="mascara('TEL', this, event)" />
-							</div>
-																		
+								<label class="control-label">Responsável</label>
+								<select id="vHMRESPONSAVEL" class="form-control">
+									<option value="">  -------------  </option>
+									<?php foreach (comboTabelas('USUARIOS - DEPARTAMENTOS') as $tabelas): ?>
+										<option value="<?php echo $tabelas['TABCODIGO']; ?>" <?php if ($vROBJETO['TABDEPARTAMENTO'] == $tabelas['TABCODIGO']) echo "selected='selected'"; ?>><?php echo $tabelas['TABDESCRICAO']; ?></option>
+									<?php endforeach; ?>
+								</select>
+							</div><!--end col-->
 						</div>
-						<div class="form-group row">
-							<div class="col-sm-6">
-								<label>E-mail</label>
-								<input class="form-control" title="E-mail" name="vHCONEMAIL" id="vHCONEMAIL" type="email" value="<?= $vRCONTATO['CONEMAIL'];?>" >
-							</div>
-							<div class="col-sm-6">
-								<label>Telefone Celular</label>													
-								<input type="text" id="vHCONCELULAR" name="vHCONCELULAR" class="form-control" maxlength="15" title="Telefone Celular" value="<?= $vRCONTATO['CONCELULAR']; ?>"  onKeyPress="return digitos(event, this);" onkeyup="mascara('TEL', this, event)" />
-							</div>	
-						</div>
-						
+
 						<div class="form-group row">
 							<div class="col-md-12 mt-3">
-								<button type="button" class="btn btn-primary btn-xs  waves-effect waves-light fa-pull-right" onclick="salvarModalCustosMateriasPrimas('modal_div_ClientesxContatos','transactionContatos.php', 'div_ClientesxContatos', 'ClientesxContatos', '<?= $vIOid;?>')">Salvar</button>								
+								<button type="button" class="btn btn-primary btn-xs  waves-effect waves-light fa-pull-right" onclick="salvarModalCustosMateriasPrimas('modal_div_ClientesxContatos','transactionContatos.php', 'div_ClientesxContatos', 'ClientesxContatos', '<?= $vIOid;?>')">Salvar</button>
 							</div>
 						</div>
-					</form> 					
+					</form>
 					</div>
 				</div>
 			</div>
 		</div>
-		-->
+
 		<!-- Modal Tabela Padrão -->
 		<div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="ModalTabelaPadrao">
 			<div class="modal-dialog modal-dialog-centered">
@@ -438,7 +471,7 @@ include_once __DIR__.'/combos/comboPrioridades.php';
 						</button>
 					</div>
 					<div class="modal-body">
-						 <div class="row" id="modal_div_tabela_padrao"> 
+						 <div class="row" id="modal_div_tabela_padrao">
 							<input type="hidden" id="vHTABPARTITULO" name="vHTABPARTITULO" value="">
 							<input type="hidden" id="vHTABPARNAME" name="vHTABPARNAME" value="">
 							<input type="hidden" id="vHTABPARDIV" name="vHTABPARDIV" value="">
@@ -450,14 +483,14 @@ include_once __DIR__.'/combos/comboPrioridades.php';
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-primary btn-xs waves-effect waves-light fa-pull-right" onclick="salvarModalTabelaPadrao('')">Salvar</button>						
+							<button type="button" class="btn btn-primary btn-xs waves-effect waves-light fa-pull-right" onclick="salvarModalTabelaPadrao('')">Salvar</button>
 							<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+
         <!-- jQuery  -->
         <script src="../assets/js/jquery.min.js"></script>
         <script src="../assets/js/bootstrap.bundle.min.js"></script>
@@ -479,8 +512,11 @@ include_once __DIR__.'/combos/comboPrioridades.php';
 		<script src="../assets/pages/jquery.form-upload.init.js"></script>
 		<!--Wysiwig js-->
         <script src="../assets/plugins/tinymce/tinymce.min.js"></script>
-        <script src="../assets/pages/jquery.form-editor.init.js"></script> 
-		
+        <script src="../assets/pages/jquery.form-editor.init.js"></script>
+
+		<script src="../assets/plugins/repeater/jquery.repeater.min.js"></script>
+		<script src="../assets/pages/jquery.form-repeater.js"></script>
+
         <?php include_once '../includes/scripts_footer.php' ?>
 		<script src="../assets/plugins/jquery-ui/jquery-ui.min.js"></script>
         <!-- Cad Empresa js -->
@@ -498,7 +534,7 @@ include_once __DIR__.'/combos/comboPrioridades.php';
 				 'vSObrigatorio': 'S',
 				 'vSMethod': '<?= $_GET['method']; ?>'
 			}
-			combo_padrao_tabelas(vAParameters);	
+			combo_padrao_tabelas(vAParameters);
 			//Tipo
 			var vAParameters =
 			{
@@ -524,8 +560,37 @@ include_once __DIR__.'/combos/comboPrioridades.php';
 				 'vSObrigatorio': 'S',
 				 'vSMethod': '<?= $_GET['method']; ?>'
 			}
-			combo_padrao_tabelas(vAParameters);	
+			combo_padrao_tabelas(vAParameters);
 		</script>
+
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script type="text/javascript" src="js/graficos.js"></script>
+
+		<?php
+
+		if($vIOid > 0){
+
+			$ARRAY = buscaPeriodoPlanoTrabalho($vIOid,'chart');
+			$ARR = json_encode($ARRAY);
+
+			//print_r($ARRAY);
+			?>
+
+			<script type="text/javascript" DEFER="DEFER">
+				var dataObject =
+				{
+					title: 'Servidor - Tempo de Contribuição',
+					width: 850,
+					height: 500,
+					div_retorno: 'graficoTime',
+					data: <?= $ARR; ?>
+				}
+				chartTimeline( dataObject );
+			</script>
+			<!-- FIM GRAFICO TIMELINE -->
+		<?php } ?>
+
+
 		<script src="js/scriptUpload.js"></script>
     </body>
 </html>
