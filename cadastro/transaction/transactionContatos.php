@@ -191,7 +191,7 @@ function enviarEmailAcessoSistema($concodigos)
 								<br />
 								",
 			'destinatarios' => array(
-				'atendimento@teraware.com.br'
+				'gestao@gestao.srv.br', $contato['CONEMAIL']
 			),
 			'fields' => array()
 		);
@@ -328,64 +328,104 @@ function listContatos($vIOIDPAI, $tituloModal)
 		);
 		$result = consultaComposta($arrayQuery);
 
-    ?>
-	<button type="button" class="btn btn-primary px-4 btn-rounded float-right mt-0 mb-3"
-	onclick="exibirFormModal('','modal_div_<?=$tituloModal?>','<?=$tituloModal?>')">+ Novo Registro</button>
+?>
+		<button type="button" class="btn btn-primary px-4 btn-rounded float-right mt-0 mb-3" onclick="exibirFormModal('','modal_div_<?= $tituloModal ?>','<?= $tituloModal ?>')">+ Novo Registro</button>
 
-	<table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap"
-	style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-	<thead>
-		<tr>
-			<th>Nome</th><th>E-mail</th><th>Telefone</th><th>Celular</th><th>Cargo</th><th>Setor</th><th>Data Inclusão</th>
-			<th>Enviar Acesso</th>
-			<th>Ações</th>
-		</tr>
-	</thead>
-	<?php
-    $colsp = count($vAConfig['vATitulos']);
-    $arrayGrid = $result;
+		<table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>E-mail</th>
+					<th>Telefone</th>
+					<th>Celular</th>
+					<th>Cargo</th>
+					<th>Setor</th>
+					<th>Data Inclusão</th>
+					<th>Enviar Acesso</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+			<?php
+			$colsp = count($vAConfig['vATitulos']);
+			$arrayGrid = $result;
 
-    if ($arrayGrid['quantidadeRegistros'] == 0) {
-        echo "<td align='center' colspan='".$colsp."'>Sem dados disponíveis na tabela.</td>";
-    } else {
-        foreach ($arrayGrid['dados'] as $arrayGrid) : ?>
+			if ($arrayGrid['quantidadeRegistros'] == 0) {
+				echo "<td align='center' colspan='" . $colsp . "'>Sem dados disponíveis na tabela.</td>";
+			} else {
+				foreach ($arrayGrid['dados'] as $arrayGrid) : ?>
 
-	<tr>
-		<td align="left"><?= $arrayGrid['CONNOME'];?></td>
-		<td align="left"><?= $arrayGrid['CONEMAIL'];?></td>
-		<td align="left"><?= $arrayGrid['CONFONE'];?></td>
-		<td align="left"><?= $arrayGrid['CONCELULAR'];?></td>
-		<td align="left"><?= $arrayGrid['CONCARGO'];?></td>
-		<td align="left"><?= $arrayGrid['CONSETOR'];?></td>
-		<td align="center"><?= formatar_data($arrayGrid['CONDATA_INC']);?></td>
-		<td align="center"><input type='checkbox' title='ckPadrao'
-													name='vEnviarAcesso[]' value='<?=$arrayGrid['CONCODIGO'];?>'
-													id='vEnviarAcesso[]' /></td>
-		<td>			
-			<a onclick="exibirFormModal(<?=$arrayGrid['CONCODIGO'];?>,'','<?=$tituloModal?>')" class="mr-2 mdi"
-				style="cursor: pointer;" title="Editar Registro" alt="Editar Registro"><i
-					class="fas fa-edit text-info font-16"></i></a>
-			<a href="#"
-				onclick="excluirRegistroGridFilha('<?= $arrayGrid['CONCODIGO']; ?>', 'transactionContatos.php', 'excluirFilho', 'div_contatos', '<?= $vIOIDPAI; ?>', 'ClientesxContatos')"
-				title="Excluir Registro" alt="Excluir Registro"><i class="fas fa-trash-alt text-danger font-16"></i></a>
-		</td>
-	</tr>
-	
-	<?php endforeach;
-    }
-    ?>
-	<tr>
-		<td align="right" colspan="8"> 
-			<button type="button" title="Enviar Acesso" style="width:150px"
-									onclick="enviarAcessos();" class="btn btn-primary waves-effect waves-light">Enviar
-									Acesso</button>
-		</td>
-		<td align="left">&nbsp</td> 
-	</tr>							
-	</table>
-	
-	<?php
+					<tr>
+						<td align="left"><?= $arrayGrid['CONNOME']; ?></td>
+						<td align="left"><?= $arrayGrid['CONEMAIL']; ?></td>
+						<td align="left"><?= $arrayGrid['CONFONE']; ?></td>
+						<td align="left"><?= $arrayGrid['CONCELULAR']; ?></td>
+						<td align="left"><?= $arrayGrid['CONCARGO']; ?></td>
+						<td align="left"><?= $arrayGrid['CONSETOR']; ?></td>
+						<td align="center"><?= formatar_data($arrayGrid['CONDATA_INC']); ?></td>
+						<td align="center"><input type='checkbox' title='ckPadrao' name='vEnviarAcesso[]' value='<?= $arrayGrid['CONCODIGO']; ?>' id='vEnviarAcesso[]' /></td>
+						<td>
+							<a onclick="exibirFormModal(<?= $arrayGrid['CONCODIGO']; ?>,'','<?= $tituloModal ?>')" class="mr-2 mdi" style="cursor: pointer;" title="Editar Registro" alt="Editar Registro"><i class="fas fa-edit text-info font-16"></i></a>
+							<a href="#" onclick="excluirRegistroGridFilha('<?= $arrayGrid['CONCODIGO']; ?>', 'transactionContatos.php', 'excluirFilho', 'div_contatos', '<?= $vIOIDPAI; ?>', 'ClientesxContatos')" title="Excluir Registro" alt="Excluir Registro"><i class="fas fa-trash-alt text-danger font-16"></i></a>
+						</td>
+					</tr>
+
+			<?php endforeach;
+			}
+			?>
+			<tr>
+				<td align="right" colspan="8">
+					<button type="button" title="Enviar Acesso" style="width:150px" onclick="enviarAcessos();" class="btn btn-primary waves-effect waves-light">Enviar
+						Acesso</button>
+				</td>
+				<td align="left">&nbsp</td>
+			</tr>
+		</table>
+
+<?php
 
 		return;
 	}
+}
+
+function listContatosHome($vICLICODIGO)
+{
+	$sql = "SELECT CONNOME, CONEMAIL, CONCELULAR, CONFONE, CONCARGO
+			FROM CONTATOS
+			WHERE CONSTATUS = 'S'
+			AND CLICODIGO = ?
+			AND CONPRINCIPAL = 'N'
+			LIMIT 2";
+	$arrayQuery = array(
+		'query' => $sql,
+		'parametros' => array(
+			array($vICLICODIGO, PDO::PARAM_INT)
+		)
+	);
+	$result = consultaComposta($arrayQuery);
+	return $result;
+}
+
+
+function fill_ContatosHome($vICLICODIGO, $vSCONTIPO, $formatoRetorno = 'array')
+{
+	$sql = "SELECT *
+			FROM CONTATOS
+			WHERE CONSTATUS = 'S'
+			AND CLICODIGO = ?
+			AND CONPRINCIPAL = ? ";
+	$arrayQuery = array(
+		'query' => $sql,
+		'parametros' => array(
+			array($vICLICODIGO, PDO::PARAM_INT),
+			array($vSCONTIPO, PDO::PARAM_STR)
+		)
+	);
+	$result = consultaComposta($arrayQuery);
+	$registro = $result['dados'][0];
+	if ($formatoRetorno == 'array') {
+		return $registro !== null ? $registro : "N";
+	} elseif ($formatoRetorno == 'json') {
+		echo json_encode($registro);
+	}
+	return $registro !== null ? $registro : "N";
 }
