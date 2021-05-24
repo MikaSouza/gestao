@@ -38,20 +38,21 @@ if (isset($_POST["method"]) && $_POST["method"] == 'excluirFilho') {
 	));
 }
 
-function insertUpdateEnderecos($_POSTDADOS, $pSMsg = 'N'){
+function insertUpdateEnderecos($_POSTDADOS, $pSMsg = 'N')
+{
 	if (($_POSTDADOS['vHENDLOGRADOURO'] != '') || ($_POSTDADOS['vHESTCODIGO'] != '') || ($_POSTDADOS['vHCIDCODIGO'] != '') ||
 		($_POSTDADOS['vHENDNROLOGRADOURO'] != '') || ($_POSTDADOS['vHENDBAIRRO'] != '') || ($_POSTDADOS['vHENDCEP'] != '') ||
-		($_POSTDADOS['vHENDCOMPLEMENTO'] != '')	)
-	{
+		($_POSTDADOS['vHENDCOMPLEMENTO'] != '')
+	) {
 		$_POSTDADOSEND['vIENDCODIGO'] = $_POSTDADOS['vHENDCODIGO'];
 		$_POSTDADOSEND['vITABCODIGO'] = 426;
-		$_POSTDADOSEND['vSENDLOGRADOURO'] = $_POSTDADOS['vHENDLOGRADOURO']; 
+		$_POSTDADOSEND['vSENDLOGRADOURO'] = $_POSTDADOS['vHENDLOGRADOURO'];
 		$_POSTDADOSEND['vIESTCODIGO'] = $_POSTDADOS['vHESTCODIGO'];
 		$_POSTDADOSEND['vICIDCODIGO'] = $_POSTDADOS['vHCIDCODIGO'];
 		$_POSTDADOSEND['vSENDNROLOGRADOURO'] = $_POSTDADOS['vHENDNROLOGRADOURO'];
 		$_POSTDADOSEND['vSENDBAIRRO'] = $_POSTDADOS['vHENDBAIRRO'];
 		$_POSTDADOSEND['vSENDCEP'] = $_POSTDADOS['vHENDCEP'];
-		$_POSTDADOSEND['vSENDCOMPLEMENTO'] = $_POSTDADOS['vHENDCOMPLEMENTO'];			
+		$_POSTDADOSEND['vSENDCOMPLEMENTO'] = $_POSTDADOS['vHENDCOMPLEMENTO'];
 		$_POSTDADOSEND['vICLICODIGO'] = $_POSTDADOS['vICLICODIGO'];
 		$_POSTDADOSEND['vSENDPADRAO'] = $_POSTDADOS['vHENDPADRAO'];
 		$dadosBanco = array(
@@ -61,10 +62,10 @@ function insertUpdateEnderecos($_POSTDADOS, $pSMsg = 'N'){
 			'msg'     => $pSMsg,
 			'url'     => '',
 			'debug'   => 'N'
-			);
+		);
 		$id = insertUpdate($dadosBanco);
-		return $id; 
-	}		
+		return $id;
+	}
 }
 
 function fill_EnderecosPadrao($vIENDCODIGO, $formatoRetorno = 'array')
@@ -222,4 +223,44 @@ function listEnderecos($vIOIDPAI, $tituloModal)
 	include_once '../../twcore/teraware/componentes/gridPadraoFilha.php';
 
 	return;
+}
+
+
+function fill_EnderecosHome($vICLICODIGO, $vSENDTIPO, $formatoRetorno = 'array')
+{
+
+	$sql = "SELECT
+				r.*,
+				e.ESTSIGLA,
+				c.CIDDESCRICAO
+			FROM
+				ENDERECOS r
+			LEFT JOIN
+			    ESTADOS e
+			ON
+				r.ESTCODIGO = e.ESTCODIGO
+			LEFT JOIN
+				CIDADES c
+			ON
+				r.CIDCODIGO = c.CIDCODIGO
+			WHERE
+				r.ENDSTATUS = 'S'
+			AND
+				r.CLICODIGO = ?
+			AND
+				r.ENDPADRAO = ? ";
+	$arrayQuery = array(
+		'query' => $sql,
+		'parametros' => array(
+			array($vICLICODIGO, PDO::PARAM_INT),
+			array($vSENDTIPO, PDO::PARAM_STR)
+		)
+	);
+	$result = consultaComposta($arrayQuery);
+	$registro = $result['dados'][0];
+	if ($formatoRetorno == 'array')
+		return $registro !== null ? $registro : "N";
+	else if ($formatoRetorno == 'json')
+		echo json_encode($registro);
+	return $registro !== null ? $registro : "N";
 }
