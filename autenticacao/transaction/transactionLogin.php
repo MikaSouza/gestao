@@ -21,7 +21,7 @@ if ((verificarVazio($email)) && (verificarVazio($_POST["vSSenha"]))) {
 	$login = loginApp($email, $senha);
 	if ($login['USUCODIGO'] !== false && is_numeric($login['USUCODIGO'])) {
 		// Usuario
-        $_SESSION['SS_TIPOLOGIN'] = 'U';
+		$_SESSION['SS_TIPOLOGIN'] = 'U';
 		$_SESSION['SI_USUCODIGO'] = $login['USUCODIGO'];
 		$_SESSION['SS_USUNOME'] = $login['USUNOME'];
 		$_SESSION['SS_USUSETOR'] = $login['SETOR'];
@@ -62,10 +62,10 @@ if ((verificarVazio($email)) && (verificarVazio($_POST["vSSenha"]))) {
 			'vICONCODIGO'  => $login['CONCODIGO']
 			);
 		insertUpdateRadiosLogsAcessos($dadosBanco, 'N'); */
-		header('location:' . URL_BASE . 'cadastro/indexClientes.php');            
+		header('location:' . URL_BASE . 'cadastro/indexClientes.php?id=' . $login['CLICODIGO']);
 	} else {
 		header('location:login.php?vMGS=E');
-	}	
+	}
 } else {
 	return false;
 }
@@ -107,8 +107,8 @@ function loginApp($documento, $senha)
 			return false;
 		}
 	} else {
-        //verificar login cliente
-        $sql = "SELECT
+		//verificar login cliente
+		$sql = "SELECT
 				C.CONCODIGO,
 				C.CONSENHA,
 				C.CONNOME,
@@ -126,31 +126,31 @@ function loginApp($documento, $senha)
 				L.CTRSTATUS = 'S' AND
 				L.CTRPOSICAO IN (27026, 27115) AND
 				C.CONEMAIL = ? 	";
-        $dadosBanco = array(
-                        'query' => $sql,
-                        'parametros' => array(
-                            array($documento, PDO::PARAM_STR)
-                        )
-                    );
-        $list = consultaComposta($dadosBanco);
-        if ($list['quantidadeRegistros'] > 0) {
-            $vSPassou = 'N';
-            foreach ($list['dados'] as $result1) {
-                //$vSSenhaAtual = Desencriptar($result1['CONSENHA'], cSPalavraChave);
-                $vSSenhaAtual = $result1['CONSENHA'];
-                if ($vSSenhaAtual == $senha) {
-                    $vSPassou = 'S';
-                    unset($result1['CONSENHA']);
-                    return $result1;
-                }
-            }
-            if ($vSPassou == 'N') {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
+		$dadosBanco = array(
+			'query' => $sql,
+			'parametros' => array(
+				array($documento, PDO::PARAM_STR)
+			)
+		);
+		$list = consultaComposta($dadosBanco);
+		if ($list['quantidadeRegistros'] > 0) {
+			$vSPassou = 'N';
+			foreach ($list['dados'] as $result1) {
+				//$vSSenhaAtual = Desencriptar($result1['CONSENHA'], cSPalavraChave);
+				$vSSenhaAtual = $result1['CONSENHA'];
+				if ($vSSenhaAtual == $senha) {
+					$vSPassou = 'S';
+					unset($result1['CONSENHA']);
+					return $result1;
+				}
+			}
+			if ($vSPassou == 'N') {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
 }
 
 function verificarUsername($username)
