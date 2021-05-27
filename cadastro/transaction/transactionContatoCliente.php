@@ -2,9 +2,9 @@
 include_once __DIR__ . '/../../twcore/teraware/php/constantes.php';
 
 if (($_POST["methodPOST"] == "insert") || ($_POST["methodPOST"] == "update")) {
-    $vIOid = insertUpdateContatoCliente($_POST, 'N');
-    sweetAlert('', '', 'S', 'contaCliente.php', 'S');
-    return;
+	$vIOid = insertUpdateContatoCliente($_POST, 'N');
+	sweetAlert('', '', 'S', 'contaCliente.php?id=' . $GET['id'], 'S');
+	return;
 }
 function showContatoCliente($concodigo)
 {
@@ -36,24 +36,24 @@ function showContatoCliente($concodigo)
 
 function insertUpdateContatoCliente($_POSTCLI, $pSMsg = 'N')
 {
-	if($_FILES['vHCONFOTO']['error'] == 0){
+	if ($_FILES['vHCONFOTO']['error'] == 0) {
 		$nomeArquivo = removerAcentoEspacoCaracter($_FILES['vHCONFOTO']['name']);
-		$nomeArquivo = substr(str_replace(',','',number_format(microtime(true)*1000000,0)),0,10).'_'.$nomeArquivo;
-		uploadArquivo($_FILES['vHCONFOTO'], '../ged/usuarios_fotos', $nomeArquivo);
-		$_POSTDADOS['vHCONFOTO'] = $nomeArquivo;
-		$_SESSION['SS_USUFOTO'] = $nomeArquivo;
-		$_SESSION['SS_USUNOME'] = $_POSTCLI['vHMCONNOME'];
-		$_SESSION['SS_USUSETOR'] = $_POSTCLI['vHMCONSETOR'];
+		$nomeArquivo = substr(str_replace(',', '', number_format(microtime(true) * 1000000, 0)), 0, 10) . '_' . $nomeArquivo;
+		uploadArquivo($_FILES['vHCONFOTO'], '../ged/contatos_fotos', $nomeArquivo);
+		$_POSTCLI['vSCONFOTO'] = $nomeArquivo;
+		// $_SESSION['SS_USUFOTO'] = $nomeArquivo;
+		// $_SESSION['SS_USUNOME'] = $_POSTCLI['vHMCONNOME'];
+		// $_SESSION['SS_USUSETOR'] = $_POSTCLI['vHMCONSETOR'];
 	}
-    $dadosBanco = array(
-        'tabela'  => 'CONTATOS',
-        'prefixo' => 'CON',
-        'fields'  => $_POSTCLI,
-        'msg'     => $pSMsg,
-        'url'     => '',
-        'debug'   => 'N'
-    );
-    $id = insertUpdate($dadosBanco);
+	$dadosBanco = array(
+		'tabela'  => 'CONTATOS',
+		'prefixo' => 'CON',
+		'fields'  => $_POSTCLI,
+		'msg'     => $pSMsg,
+		'url'     => '',
+		'debug'   => 'S'
+	);
+	$id = insertUpdate($dadosBanco);
 
-    return $id;
+	return $id;
 }
