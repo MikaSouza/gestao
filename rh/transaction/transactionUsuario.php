@@ -222,7 +222,7 @@ function insertUpdateUsuario($_POSTDADOS, $pSMsg = 'N')
 		'fields'  => $_POSTDADOS,
 		'msg'     => $pSMsg,
 		'url'     => '',
-		'debug'   => 'S'
+		'debug'   => 'N'
 	);
 	$id = insertUpdate($dadosBanco);
 	if (!verificarVazio($cod_usuario)) {

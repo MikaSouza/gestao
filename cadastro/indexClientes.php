@@ -7,6 +7,8 @@ include_once __DIR__ . '/transaction/transactionClientes.php';
 include_once __DIR__ . '/transaction/transactionEnderecos.php';
 include_once __DIR__ . '/transaction/transactionContatos.php';
 
+$vSName = 'indexCliente';
+
 //buscar o contrato
 include_once '../comercial/transaction/transactionContratos.php';
 $contrato_ativo =  fill_Contratos($_SESSION['SI_CTRCODIGO']);
@@ -55,61 +57,10 @@ $vRCONTATOHOME = fill_ContatosHome($_GET['id'], 'N');
 			<div class="container-fluid">
 
 				<div class="row">
-					<div class="col-lg-12 mx-auto">
-						<div class="card">
-							<div class="card-body invoice-head">
-								<div class="row">
-									<div class="col-lg-4">
-										<div class="card client-card">
-											<div class="card-body text-center">
-												<h5 class=" client-name"><?= $vROBJETOHOME['CLINOMEFANTASIA']; ?></h5> <br />
-												<span class="text-muted mr-3"><i class="fas fa-crosshairs mr-2 text-info"></i><?= $vRENDERECOHOME['CIDDESCRICAO']; ?> <?= $vRENDERECOHOME['ESTSIGLA']; ?></span><br />
-												<span class="text-muted"><i class="	fas fa-phone mr-2 text-info"></i>
-													<?php if (isset($vRCONTATOHOME['CONFONE'])) echo $vRCONTATOHOME['CONFONE'];
-													else echo '';
-													?>
-													<?php if (isset($vRCONTATOHOME['CONCELULAR'])) echo $vRCONTATOHOME['CONCELULAR'];
-													else echo '';
-													?>
-												</span>
-											</div>
-										</div>
-									</div>
-									<?php $contatos_cliente = listContatosHome($_GET['id']);
-									foreach ($contatos_cliente['dados'] as $contatos_cliente) : ?>
-										<div class="col-lg-4">
-											<div class="card client-card">
-												<div class="card-body text-center">
-													<h5 class=" client-name">
-														<?= $contatos_cliente['CONNOME']; ?><br /><?= $contatos_cliente['CONCARGO']; ?>
-													</h5>
-													<span class="text-muted mr-3"><i class="dripicons-mail mr-2 text-info"></i><?= $contatos_cliente['CONEMAIL']; ?></span><br>
-													<!--<span class="text-muted"><i class="	fas fa-phone mr-2 text-info"></i><? //= $contatos_cliente['CONCELULAR'];
-																																?></span>-->
-													<span class="text-muted"><i class="	fas fa-phone mr-2 text-info"></i><?= $contatos_cliente['CONFONE']; ?></span>
-													&nbsp; &nbsp;<span class="text-muted mr-3"><i class="far fa-address-book mr-2 text-info"></i>Cargo: &nbsp;<?= $vRCONTATOHOME['CONCARGO']; ?></span><br>
-
-												</div>
-											</div>
-										</div></br>
-									<?php endforeach ?>
-
-								</div>
-								<!--end row-->
-							</div>
-							<!--end card-body-->
-						</div>
-						<!--end row-->
-					</div>
-					<!--end row-->
-				</div>
-				<!--end row-->
-
-				<div class="row">
 					<div class="col-12">
 						<div class="card">
 							<div class="card-body">
-								<h4 class="header-title mt-0 mb-3" style="text-align: center !important;"><b>Orientações Técnicas</b></h4>
+								<h4 class="header-title mt-0 mb-3" style="text-align: center !important;"><b>ORIENTAÇÕES TÉCNICAS</b><br>UCCI - Unidade Central de Controle Interno<br> Atuação Preventiva = Controle Interno Eficiente</h4>
 								<div class="table-responsive dash-social" style="overflow:hidden">
 									<form id="frmGrid" name="frmGrid">
 										<table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;display: block; overflow-x: auto;">
@@ -191,6 +142,27 @@ $vRCONTATOHOME = fill_ContatosHome($_GET['id'], 'N');
 	<!-- Required datatable js -->
 	<script src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
 	<script src="../assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$.fn.dataTable.moment('DD/MM/YYYY HH:mm:ss'); //Formatação com Hora
+			$.fn.dataTable.moment('DD/MM/YYYY'); //Formatação sem Hora
+			var table = $('#datatable-buttons').dataTable({
+				"iDisplayLength": 500,
+				"lengthChange": false,
+				"responsive": false,
+				"buttons": ["copy", "excel", "pdf", "colvis"],
+				// Campo ordenado por padrão (ao carregar página).
+				// O 1 é a coluna a ser ordenada lembrando que começa com 0
+				"order": [
+					[0, "desc"]
+				]
+			});
+			table
+				.buttons()
+				.container()
+				.appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)");
+		});
+	</script>
 	<!-- Botões de Exemplos -->
 	<script src="../assets/plugins/datatables/dataTables.buttons.min.js"></script>
 	<script src="../assets/plugins/datatables/buttons.bootstrap4.min.js"></script>
