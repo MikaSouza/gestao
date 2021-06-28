@@ -155,9 +155,25 @@ function loginApp($documento, $senha)
 
 function verificarUsername($username)
 {
-
 	$nick = consultaComposta(array(
-		'query' => "SELECT USULOGIN FROM USUARIOS WHERE USULOGIN = ?",
+		'query' => "SELECT
+				C.CONCODIGO,
+				C.CONSENHA,
+				C.CONNOME,
+				C.CONFOTO,
+				R.CLICODIGO,
+				R.CLIRAZAOSOCIAL,
+				L.CTRCODIGO
+			FROM
+				CONTATOS C
+			INNER JOIN CLIENTES R ON R.CLICODIGO = C.CLICODIGO
+			INNER JOIN CONTRATOS L ON L.CLICODIGO = C.CLICODIGO
+			WHERE
+				C.CONSTATUS = 'S' AND
+				R.CLISTATUS = 'S' AND
+				L.CTRSTATUS = 'S' AND
+				L.CTRPOSICAO IN (27026, 27115) AND
+				C.CONEMAIL = ?",
 		'parametros' => array(
 			array($username, PDO::PARAM_STR)
 		)
@@ -167,13 +183,13 @@ function verificarUsername($username)
 
 		return [
 			'success' => false,
-			'msg'     => 'Este nome de usuário já foi utilizado, favor digitar um novo nome de usuário!'
+			'msg'     => 'Este nome de Login/E-mail já foi utilizado, favor digitar um novo nome de usuário!'
 		];
 	}
 
 	return [
 		'success' => true,
-		'msg' => 'Este nome de usuário está disponível!'
+		'msg' => 'Este nome de Login/E-mail está disponível!'
 	];
 }
 
@@ -204,4 +220,36 @@ function fillAcessosSistema($vIUSUCODIGO)
 		$_SESSION['SA_ACESSOS']['TABELA'][$tabelas['ACETABELA']]['EXCLUSAO'] = $tabelas['ACEEXCLUSAO'];
 		$_SESSION['SA_ACESSOS']['TABELA'][$tabelas['ACETABELA']]['EXPORTAR'] = $tabelas['ACEEXPORTAR'];
 	endforeach;
+}
+
+function aletarUsuarioNovaSenha($POSTDADOS){
+
+	$vConexao = sql_conectar_banco(vGBancoSite);
+	$update = "		UPDATE USUARIOS SET
+					USUSENHA = pwdencrypt('{$POSTDADOS['vSNOVASENHA']}'),
+					USUALTERARSENHAPROXIMOLOGIN = 'N'
+					WHERE USUCODIGO = '{$_SESSION['SI_USUCODIGO']}'";
+	$resultSet = sql_executa(vGBancoSite, $vConexao,$update);
+
+
+	$dados = array(
+		"vIUSUCODIGO" 	=> $_SESSION['SI_USUCODIGO'],
+		"vSEVEIP" 		=> $_SERVER['REMOTE_ADDR'],
+		"vSEVEEVENTO"	=> 'Usuário alterou sua senha com sucesso.'
+	);
+
+	$dadosBanco = array(
+		'tabela'  => 'EVENTOS',
+		'prefixo' => 'EVE',
+		'fields'  => $dados,
+		'msg'     => '',
+		'url'     => '',
+		'debug'   => 'N'
+		);
+
+	$id = insertUpdate($dadosBanco);
+
+	header('location:https://vipcustosv2.vipal.com.br/cadastro/index_empresas.php');
+
+
 }

@@ -60,24 +60,24 @@ $vRCONTATOHOME = fill_ContatosHome($_GET['id'], 'N');
 					<div class="col-12">
 						<div class="card">
 							<div class="card-body">
-								<h4 class="header-title mt-0 mb-3" style="text-align: center !important;"><b>ORIENTAÇÕES TÉCNICAS</b><br>UCCI - Unidade Central de Controle Interno<br> Atuação Preventiva = Controle Interno Eficiente</h4>
+								<h4 class="header-title mt-0 mb-3" style="text-align: center !important;"><b>ORIENTAÇÕES TÉCNICAS<br>UCCI - Unidade Central de Controle Interno<br> Atuação Preventiva = Controle Interno Eficiente</h4></b>
 								<div class="table-responsive dash-social" style="overflow:hidden">
 									<form id="frmGrid" name="frmGrid">
 										<table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;display: block; overflow-x: auto;">
 											<thead>
 												<tr>
-													<th>Número</th>
-													<th>Ano</th>
-													<th>Data Publicação</th>
-													<th>Anexo(s)</th>
-													<th>Título</th>
+													<th><b>Número</th></b>
+													<th><b>Ano</th></b>
+													<th><b>Data Publicação</th></b>
+													<th><b>Anexo(s)</th></b>
+													<th><b>Título</th></b>
 													<!-- <th>Orientação Técnica</th> -->
 												</tr>
 											</thead>
 											<tbody>
 												<?php
 												include_once '../helpdesk/transaction/transactionOrientacaoTecnica.php';
-												$_POST['vDDataInicio'] = $contrato_ativo['CTRDATAAINICIO'];
+												$_POST['vDDataInicio'] = $contrato_ativo['CTRDATAAINICIO']; 
 												$atividades_pendentes = listOrientacaoTecnicaPainel($_POST);
 												if (count($atividades_pendentes) > 0) :
 													foreach ($atividades_pendentes['dados'] as $result1) :
@@ -142,27 +142,7 @@ $vRCONTATOHOME = fill_ContatosHome($_GET['id'], 'N');
 	<!-- Required datatable js -->
 	<script src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
 	<script src="../assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
-	<script>
-		$(document).ready(function() {
-			$.fn.dataTable.moment('DD/MM/YYYY HH:mm:ss'); //Formatação com Hora
-			$.fn.dataTable.moment('DD/MM/YYYY'); //Formatação sem Hora
-			var table = $('#datatable-buttons').dataTable({
-				"iDisplayLength": 500,
-				"lengthChange": false,
-				"responsive": false,
-				"buttons": ["copy", "excel", "pdf", "colvis"],
-				// Campo ordenado por padrão (ao carregar página).
-				// O 1 é a coluna a ser ordenada lembrando que começa com 0
-				"order": [
-					[0, "desc"]
-				]
-			});
-			table
-				.buttons()
-				.container()
-				.appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)");
-		});
-	</script>
+
 	<!-- Botões de Exemplos -->
 	<script src="../assets/plugins/datatables/dataTables.buttons.min.js"></script>
 	<script src="../assets/plugins/datatables/buttons.bootstrap4.min.js"></script>
@@ -175,10 +155,9 @@ $vRCONTATOHOME = fill_ContatosHome($_GET['id'], 'N');
 	<!-- Responsive examples -->
 	<script src="../assets/plugins/datatables/dataTables.responsive.min.js"></script>
 	<script src="../assets/plugins/datatables/responsive.bootstrap4.min.js"></script>
-	<script src="../assets/pages/jquery.datatable.init.js"></script>
+	<script src="../assets/pages/jquery.datatable.init.home.js"></script>
 
 	<?php include_once '../includes/scripts_footer.php' ?>
-	<!-- <script src="js/listClientes.js"></script> -->
 
 </body>
 

@@ -25,3 +25,35 @@ function validaCamposForm() {
     }
     return vSErro+"#"+vSAlerta;
 }
+
+function enviarEmail(){
+    var vAErro = validaCamposForm().split("#");
+    if (vAErro[0] == 'S'){
+		Swal.fire('Opss..', vAErro[1], 'warning');
+		return false;
+    }else{
+
+        var data = {
+            method: "enviarEmail",
+            Login: $("#vSLoginRecuperar").val()
+        };
+
+        console.log(data);
+
+        $.ajax({
+            async: true,
+            type: "POST",
+            url: "transaction/transactionRecuperarLogin.php",
+            data: data,
+            success: function(msg){
+
+                var json = JSON.parse(msg);
+                console.log(json);
+                swal({title : "", text :"Foi enviado uma mensagem para o e-mail cadastrado com a nova senha de acesso!", type : "success"});                
+
+            },
+            error: function(msg) {
+            }
+        });
+    }
+}

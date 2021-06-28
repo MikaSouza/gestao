@@ -35,12 +35,12 @@ include_once __DIR__ . '/transaction/transactionLogin.php';
 					<div class="card-body">
 						<div class="px-3">
 							<div class="auth-logo-box">
-								<a href="<?= vSEmpresaSite; ?>" class="logo logo-admin"><img src="../assets/images/logo_menu.png" alt="logo" class="auth-logo" style="border-radius: 0 !important"></a>
+								<a href="https://gestao-srv.teraware.net.br/autenticacao/login.php" class="logo logo-admin"><img src="../assets/images/logo_menu.png" alt="logo" class="auth-logo" style="border-radius: 0 !important"></a>
 							</div>
 							<!--end auth-logo-box-->
 
 							<div class="text-center auth-logo-text">
-								<h4 class="mt-0 mb-3 mt-5">Info Gestão</h4>
+								<h4 class="mt-0 mb-3 mt-5">InfoGestão</h4>
 							</div>
 							<!--end auth-logo-text-->
 
@@ -76,7 +76,7 @@ include_once __DIR__ . '/transaction/transactionLogin.php';
 									</div>
 									<!--end col-->
 									<div class="col-sm-6 text-right">
-										<!--<a href="recuperar-login.php" class="text-muted font-13"><i class="dripicons-lock"></i> Lembrar senha?</a>-->
+										<a href="recuperar-login.php" class="text-muted font-13"><i class="dripicons-lock"></i> Lembrar senha?</a>
 									</div>
 									<!--end col-->
 								</div>

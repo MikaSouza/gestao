@@ -188,14 +188,14 @@ function listOrientacaoTecnicaPainel($_POSTDADOS)
 		$where .= 'AND A.OXTDATA_INC >= ? ';
 	if (verificarVazio($_POSTDADOS['vDDataFim']))
 		$where .= 'AND A.OXTDATA_INC <= ? ';
-	$sql = "SELECT
-				A.*
+	$sql = "SELECT 
+				A.OXTNUMERO, A.*
 			FROM
 				ORIENTACAOTECNICA A
 			WHERE
 				A.OXTSTATUS = 'S'
 			" .	$where	. "
-			ORDER BY A.OXTDATA_INC asc";
+			ORDER BY A.OXTNUMERO desc";     
 	$arrayQuery = array(
 		'query' => $sql,
 		'parametros' => array()
