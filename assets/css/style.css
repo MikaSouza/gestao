@@ -641,7 +641,7 @@ small {
   position: fixed;
   right: 0;
   top: 0;
-  z-index: 999;
+  z-index: 9999;
   background: #ffffff;
 }
 
@@ -659,7 +659,7 @@ small {
 }
 
 .topbar .topbar-left .logo .logo-sm {
-  height: 24px;
+  height:60px;
 }
 
 .topbar .topbar-left .logo .logo-lg {
@@ -8570,7 +8570,7 @@ hr.thick {
   position: absolute;
   left: 0;
   right: 0;
-  top: -25px;
+  top: -40px;
   text-align: center;
 }
 
@@ -8702,7 +8702,7 @@ hr.thick {
   }
 
    .sm-logo-int-vipal {
-       height: 52px;
+       height: 100px;
 
     }
 }
@@ -8710,7 +8710,7 @@ hr.thick {
 @media (min-width: 769px) {
 
    .logo-int-vipal {
-    /* width: 130px;*/
+     width: 215px;
 
     }
 }

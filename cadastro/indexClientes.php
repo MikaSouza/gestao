@@ -48,15 +48,30 @@ $vRCONTATOHOME = fill_ContatosHome($_GET['id'], 'N');
 <body>
 
 	<?php include_once '../includes/menuClientes.php' ?>
-
+		
 	<div class="page-wrapper">
-
+            
 		<!-- Page Content-->
 		<div class="page-content">
 
 			<div class="container-fluid">
-
+				<!-- Page-Title -->
 				<div class="row">
+					<div class="col-sm-12">
+						<div class="page-title-box">
+							<div class="float-right">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item active">Capa</li>
+								</ol><!--end breadcrumb-->
+							</div><!--end /div-->
+							<h4 class="page-title">Capa</h4>
+						</div><!--end page-title-box-->
+					</div><!--end col-->
+				</div><!--end row-->
+				<!-- end page title end breadcrumb -->                                        
+				
+				<div class="row"> 
+													
 					<div class="col-12">
 						<div class="card">
 							<div class="card-body">
@@ -77,7 +92,7 @@ $vRCONTATOHOME = fill_ContatosHome($_GET['id'], 'N');
 											<tbody>
 												<?php
 												include_once '../helpdesk/transaction/transactionOrientacaoTecnica.php';
-												$_POST['vDDataInicio'] = $contrato_ativo['CTRDATAAINICIO']; 
+												$_POST['vDDataInicio'] = $contrato_ativo['CTRDATAAINICIO'];
 												$atividades_pendentes = listOrientacaoTecnicaPainel($_POST);
 												if (count($atividades_pendentes) > 0) :
 													foreach ($atividades_pendentes['dados'] as $result1) :
@@ -98,7 +113,7 @@ $vRCONTATOHOME = fill_ContatosHome($_GET['id'], 'N');
 																?>
 																		<a href="<?= $linkArquivo; ?>" title="<?= $nomeArquivo ?>" alt="<?= $nomeArquivo ?>" target="_blank"><i class="fas fa-file" style="color: #50649c;"></i></a>
 																<?php endforeach;
-																endif; ?>
+																endif; ?> 
 															</td>
 															<td align="justify"><a href="<?= $link ?>" target="_blank" title="Baixar Arquivo"> <i class="fas fa-download" style="color: #50649c;"> &nbsp;&nbsp; &nbsp;&nbsp;</i> <?= $result1['OXTTITULO']; ?></a></td>
 															<!-- <td align="center"><a href="<? //= $link;
@@ -123,14 +138,12 @@ $vRCONTATOHOME = fill_ContatosHome($_GET['id'], 'N');
 						</div>
 						<!--end card-->
 					</div>
-					<!--end col-->
-				</div>
+				</div><!--end row-->    
+									
 			</div><!-- container -->
 		</div>
-
 		<?php include_once '../includes/footer.php' ?>
-	</div>
-	<!-- end page-wrapper -->
+	</div>	
 
 	<!-- jQuery  -->
 	<script src="../assets/js/jquery.min.js"></script>
@@ -142,7 +155,27 @@ $vRCONTATOHOME = fill_ContatosHome($_GET['id'], 'N');
 	<!-- Required datatable js -->
 	<script src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
 	<script src="../assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
-
+	<script>
+		$(document).ready(function() {
+			$.fn.dataTable.moment('DD/MM/YYYY HH:mm:ss'); //Formatação com Hora
+			$.fn.dataTable.moment('DD/MM/YYYY'); //Formatação sem Hora
+			var table = $('#datatable-buttons').dataTable({
+				"iDisplayLength": 500,
+				"lengthChange": false,
+				"responsive": false,
+				"buttons": ["copy", "excel", "pdf", "colvis"],
+				// Campo ordenado por padrão (ao carregar página).
+				// O 1 é a coluna a ser ordenada lembrando que começa com 0
+				"order": [
+					[0, "desc"]
+				]
+			});
+			table
+				.buttons()
+				.container()
+				.appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)");
+		});
+	</script>
 	<!-- Botões de Exemplos -->
 	<script src="../assets/plugins/datatables/dataTables.buttons.min.js"></script>
 	<script src="../assets/plugins/datatables/buttons.bootstrap4.min.js"></script>
@@ -155,9 +188,10 @@ $vRCONTATOHOME = fill_ContatosHome($_GET['id'], 'N');
 	<!-- Responsive examples -->
 	<script src="../assets/plugins/datatables/dataTables.responsive.min.js"></script>
 	<script src="../assets/plugins/datatables/responsive.bootstrap4.min.js"></script>
-	<script src="../assets/pages/jquery.datatable.init.home.js"></script>
+	<script src="../assets/pages/jquery.datatable.init.js"></script>
 
 	<?php include_once '../includes/scripts_footer.php' ?>
+	<!-- <script src="js/listClientes.js"></script> -->
 
 </body>
 

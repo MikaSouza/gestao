@@ -221,35 +221,3 @@ function fillAcessosSistema($vIUSUCODIGO)
 		$_SESSION['SA_ACESSOS']['TABELA'][$tabelas['ACETABELA']]['EXPORTAR'] = $tabelas['ACEEXPORTAR'];
 	endforeach;
 }
-
-function aletarUsuarioNovaSenha($POSTDADOS){
-
-	$vConexao = sql_conectar_banco(vGBancoSite);
-	$update = "		UPDATE USUARIOS SET
-					USUSENHA = pwdencrypt('{$POSTDADOS['vSNOVASENHA']}'),
-					USUALTERARSENHAPROXIMOLOGIN = 'N'
-					WHERE USUCODIGO = '{$_SESSION['SI_USUCODIGO']}'";
-	$resultSet = sql_executa(vGBancoSite, $vConexao,$update);
-
-
-	$dados = array(
-		"vIUSUCODIGO" 	=> $_SESSION['SI_USUCODIGO'],
-		"vSEVEIP" 		=> $_SERVER['REMOTE_ADDR'],
-		"vSEVEEVENTO"	=> 'Usuário alterou sua senha com sucesso.'
-	);
-
-	$dadosBanco = array(
-		'tabela'  => 'EVENTOS',
-		'prefixo' => 'EVE',
-		'fields'  => $dados,
-		'msg'     => '',
-		'url'     => '',
-		'debug'   => 'N'
-		);
-
-	$id = insertUpdate($dadosBanco);
-
-	header('location:https://vipcustosv2.vipal.com.br/cadastro/index_empresas.php');
-
-
-}

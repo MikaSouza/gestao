@@ -16,7 +16,7 @@
 		<div class="topbar-left">
 			<a href="../cadastro/" class="logo">
 				<span>
-					<img src="../assets/images/logo_menu.png" alt="logo-small" class="logo-int-vipal sm-logo-int-vipal">
+					<img src="../assets/images/novo_logo.png" alt="logo-small" class="logo-int-vipal sm-logo-int-vipal">
 				</span>
 			</a>
 		</div><!--topbar-left-->
@@ -37,7 +37,7 @@
 					<a class="dropdown-item" href="http://helpdesk.teraware.com.br/login.php" target="_blank"><i class="fa fa-comments"></i> Abrir Atendimento(s)</a>
 					<!--<a class="dropdown-item" target="_blank" href="../manual/manualUtilitarios.pdf"><i class="dripicons-wallet text-muted mr-2"></i> Manual</a>-->
 					<?php if ($_SESSION['SS_USUMASTER'] == 'S') { ?>
-					<!--<a class="dropdown-item" href="#"><i class="dripicons-gear text-muted mr-2"></i> Configurações</a>-->				
+					<!--<a class="dropdown-item" href="#"><i class="dripicons-gear text-muted mr-2"></i> Configurações</a>-->
 					<?php } ?>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="../includes/logout.php"><i class="dripicons-exit text-muted mr-2"></i> Sair</a>
@@ -64,7 +64,7 @@
 		<div class="container-fluid">
 			<div id="navigation">
 				<!-- Navigation Menu-->
-				<ul class="navigation-menu">					
+				<ul class="navigation-menu">
 					<li class="has-submenu">
 						<a href="#">
 								<svg class="nav-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -84,13 +84,13 @@
 							<li><a href="../cadastro/listInformacoesPreliminares.php"><i class="fas fa-edit"></i>Info Preliminares</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1989]['CONSULTA'] == "S") { ?>
-							<li><a href="../cadastro/listDocumentosPadroes.php"><i class="far fa-address-card"></i>Documentos Padrões</a></li>	
+							<li><a href="../cadastro/listDocumentosPadroes.php"><i class="far fa-address-card"></i>Documentos Padrões</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1943]['CONSULTA'] == "S") { ?>
 							<li><a href="../cadastro/listCidades.php"><i class="fas fa-hotel"></i>Cidades</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1957]['CONSULTA'] == "S") { ?>
-							<li><a href="../cadastro/listProdutosxServicos.php"><i class="fas fa-project-diagram"></i>Produtos/Serviços</a></li>	
+							<li><a href="../cadastro/listProdutosxServicos.php"><i class="fas fa-project-diagram"></i>Produtos/Serviços</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][18]['CONSULTA'] == "S") { ?>
 							<li><a href="../cadastro/listTabelas.php"><i class="fas fa-table"></i>Tabelas</a></li>
@@ -100,7 +100,7 @@
 							<?php } ?>
 						</ul><!--end submenu-->
 						<?php } ?>
-					</li><!--end has-submenu-->																						
+					</li><!--end has-submenu-->
 					<li class="has-submenu">
 						<a href="#">
 								<svg class="nav-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -109,8 +109,8 @@
 							<span>Comercial</span>
 						</a>
 						<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1991]['CONSULTA'] == "S") { ?>
-						<ul class="submenu">							
-							
+						<ul class="submenu">
+
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1949]['CONSULTA'] == "S") { ?>
 							<li><a href="../comercial/listContratos.php"><i class="mdi mdi-file-document-box-multiple"></i>Contratos</a></li>
 							<?php } ?>
@@ -119,8 +119,8 @@
 							<?php } ?>
 						</ul><!--end submenu-->
 						<?php } ?>
-					</li><!--end has-submenu-->																															
-												
+					</li><!--end has-submenu-->
+
 					<li class="has-submenu">
 						<a href="#">
 								<svg class="nav-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -128,21 +128,21 @@
 								</svg>
 							<span>Consultoria</span>
 						</a>
-						<ul class="submenu">							
+						<ul class="submenu">
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][2025]['CONSULTA'] == "S") { ?>
 							<li><a href="../helpdesk/listAtendimentos.php"><i class="far fa-comments"></i>Atendimentos</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][2022]['CONSULTA'] == "S") { ?>
 							<li><a href="../helpdesk/listAtividades.php"><i class="fas fa-tasks"></i>Atividades</a></li>
 							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][2023]['CONSULTA'] == "S") { ?> 
+							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][2023]['CONSULTA'] == "S") { ?>
 							<li><a href="../helpdesk/listCheckList.php"><i class="fas fa-check-double"></i>CheckList</a></li>
 							<?php } ?>
-							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][2024]['CONSULTA'] == "S") { ?> 
+							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][2024]['CONSULTA'] == "S") { ?>
 							<li><a href="../helpdesk/listPlanoTrabalho.php"><i class="fas fa-stream"></i>Plano de Trabalho</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][2028]['CONSULTA'] == "S") { ?>
-							<li><a href="../helpdesk/listPosicoesPadroes.php"><i class="fas fa-database"></i>Posições Padrões</a></li> 
+							<li><a href="../helpdesk/listPosicoesPadroes.php"><i class="fas fa-database"></i>Posições Padrões</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][2027]['CONSULTA'] == "S") { ?>
 							<li><a href="../helpdesk/listPrioridades.php"><i class="fa fa-list-ol"></i>Prioridades</a></li>
@@ -152,10 +152,10 @@
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][109]['CONSULTA'] == "S") { ?>
 							<li><a href="../helpdesk/listDashBoard.php"><i class="fas fa-chart-pie"></i>Dashboard</a></li>
-							<?php } ?>							
+							<?php } ?>
 						</ul><!--end submenu-->
 					</li><!--end has-submenu-->
-									
+
 					<li class="has-submenu">
 						<a href="#">
 							<svg class="nav-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -179,7 +179,7 @@
 							<?php } ?>
 						</ul>
 						<?php } ?>
-					</li><!--end has-submenu-->										
+					</li><!--end has-submenu-->
 					<li class="has-submenu">
 						<a href="#">
 							<svg class="nav-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -192,14 +192,14 @@
 							<li><a href="../utilitarios/listAgenda.php"><i class="fas fa-calendar"></i>Agenda</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1879]['CONSULTA'] == "S") { ?>
-							<li><a href="../utilitarios/listAgendaCalendario.php"><i class="far fa-calendar-alt"></i>Agenda Calendário</a></li>							
+							<li><a href="../utilitarios/listAgendaCalendario.php"><i class="far fa-calendar-alt"></i>Agenda Calendário</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1879]['CONSULTA'] == "S") { ?>
 							<li><a href="../utilitarios/listGED.php"><i class="fas fa-copy"></i>Digitalizações/GED</a></li>
-							<?php } ?>					
+							<?php } ?>
 						</ul>
-					</li><!--end has-submenu-->	
-					<?php if ($_SESSION['SS_USUMASTER'] == 'S') { ?>	
+					</li><!--end has-submenu-->
+					<?php if ($_SESSION['SS_USUMASTER'] == 'S') { ?>
 					<li class="has-submenu">
 						<a href="#">
 							<svg class="nav-svg" version="1.1" id="Layer_5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -218,7 +218,7 @@
 							<li><a href="../sistema/listMenus.php"><i class="fas fa-sitemap"></i>Menus</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1975]['CONSULTA'] == "S") { ?>
-							<li><a href="../sistema/listEmpresaUsuaria.php"><i class="mdi mdi-factory"></i>Empresa Usuária</a></li>							
+							<li><a href="../sistema/listEmpresaUsuaria.php"><i class="mdi mdi-factory"></i>Empresa Usuária</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1975]['CONSULTA'] == "S") { ?>
 							<li><a href="../sistema/listParametros.php"><i class="fas fa-tasks"></i>Parâmetros</a></li>
@@ -230,8 +230,8 @@
 							<li><a href="https://www.gestao.srv.br/tw/interface/login.php"target="_blank"> <i class="fas fa-desktop"></i>Admin Site</a></li>
 							<?php } ?>
 						</ul>
-					</li><!--end has-submenu-->		
-					<?php } ?>	
+					</li><!--end has-submenu-->
+					<?php } ?>
 				</ul><!-- End navigation menu -->
 			</div> <!-- end navigation -->
 		</div> <!-- end container-fluid -->
