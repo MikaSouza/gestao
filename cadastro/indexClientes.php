@@ -155,27 +155,7 @@ $vRCONTATOHOME = fill_ContatosHome($_GET['id'], 'N');
 	<!-- Required datatable js -->
 	<script src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
 	<script src="../assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
-	<script>
-		$(document).ready(function() {
-			$.fn.dataTable.moment('DD/MM/YYYY HH:mm:ss'); //Formatação com Hora
-			$.fn.dataTable.moment('DD/MM/YYYY'); //Formatação sem Hora
-			var table = $('#datatable-buttons').dataTable({
-				"iDisplayLength": 500,
-				"lengthChange": false,
-				"responsive": false,
-				"buttons": ["copy", "excel", "pdf", "colvis"],
-				// Campo ordenado por padrão (ao carregar página).
-				// O 1 é a coluna a ser ordenada lembrando que começa com 0
-				"order": [
-					[0, "desc"]
-				]
-			});
-			table
-				.buttons()
-				.container()
-				.appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)");
-		});
-	</script>
+
 	<!-- Botões de Exemplos -->
 	<script src="../assets/plugins/datatables/dataTables.buttons.min.js"></script>
 	<script src="../assets/plugins/datatables/buttons.bootstrap4.min.js"></script>
@@ -188,10 +168,9 @@ $vRCONTATOHOME = fill_ContatosHome($_GET['id'], 'N');
 	<!-- Responsive examples -->
 	<script src="../assets/plugins/datatables/dataTables.responsive.min.js"></script>
 	<script src="../assets/plugins/datatables/responsive.bootstrap4.min.js"></script>
-	<script src="../assets/pages/jquery.datatable.init.js"></script>
+	<script src="../assets/pages/jquery.datatable.init.home.js"></script>
 
 	<?php include_once '../includes/scripts_footer.php' ?>
-	<!-- <script src="js/listClientes.js"></script> -->
 
 </body>
 
