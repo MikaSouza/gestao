@@ -48,9 +48,9 @@ $vRCONTATOHOME = fill_ContatosHome($_GET['id'], 'N');
 <body>
 
 	<?php include_once '../includes/menuClientes.php' ?>
-		
+
 	<div class="page-wrapper">
-            
+
 		<!-- Page Content-->
 		<div class="page-content">
 
@@ -59,19 +59,19 @@ $vRCONTATOHOME = fill_ContatosHome($_GET['id'], 'N');
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="page-title-box">
-							<div class="float-right">
+							<!--<div class="float-right">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item active">Capa</li>
-								</ol><!--end breadcrumb-->
+								</ol><!--end breadcrumb
 							</div><!--end /div-->
-							<h4 class="page-title">Capa</h4>
+							<!--<h4 class="page-title">Capa</h4>-->
 						</div><!--end page-title-box-->
 					</div><!--end col-->
 				</div><!--end row-->
-				<!-- end page title end breadcrumb -->                                        
-				
-				<div class="row"> 
-													
+				<!-- end page title end breadcrumb -->
+
+				<div class="row">
+
 					<div class="col-12">
 						<div class="card">
 							<div class="card-body">
@@ -113,7 +113,7 @@ $vRCONTATOHOME = fill_ContatosHome($_GET['id'], 'N');
 																?>
 																		<a href="<?= $linkArquivo; ?>" title="<?= $nomeArquivo ?>" alt="<?= $nomeArquivo ?>" target="_blank"><i class="fas fa-file" style="color: #50649c;"></i></a>
 																<?php endforeach;
-																endif; ?> 
+																endif; ?>
 															</td>
 															<td align="justify"><a href="<?= $link ?>" target="_blank" title="Baixar Arquivo"> <i class="fas fa-download" style="color: #50649c;"> &nbsp;&nbsp; &nbsp;&nbsp;</i> <?= $result1['OXTTITULO']; ?></a></td>
 															<!-- <td align="center"><a href="<? //= $link;
@@ -138,12 +138,12 @@ $vRCONTATOHOME = fill_ContatosHome($_GET['id'], 'N');
 						</div>
 						<!--end card-->
 					</div>
-				</div><!--end row-->    
-									
+				</div><!--end row-->
+
 			</div><!-- container -->
 		</div>
 		<?php include_once '../includes/footer.php' ?>
-	</div>	
+	</div>
 
 	<!-- jQuery  -->
 	<script src="../assets/js/jquery.min.js"></script>
