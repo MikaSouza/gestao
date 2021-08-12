@@ -177,16 +177,23 @@ function enviarEmailAcessoSistema($concodigos)
 		$dadosEmail = array(
 			'titulo'        => $assunto,
 			'descricao'     => "<p>Prezado(a) " . $contato['CONNOME'] . "<br /><br />
-									Informamos que você foi cadastrado no Sistema da Empresa Gestão<br />
-									Para acessar o sistema siga os seguintes passos:
+									Você foi cadastrado no nosso sistema InfoGestão. <br />
+									<p>Destacamos que o sistema ainda está em formato beta, ou seja, estamos em fase de testes e ajustes.
+									<p>Nesta primeira etapa você terá acesso às Orientações Técnicas.
+									<p>Pedimos que siga os seguintes passos:
+									<p><b>1 - Acesse o endereço: www.gestao.srv.br</b>. No canto superior direito, clique no ícone do sistema InfoGestão;<br/>
+									<p><b>2 - Informe o seu e-mail:</b> <strong>" . $contato['CONEMAIL'] . "</strong>
+									<p><b>3 - Informe a sua senha:</b> <strong>" . $contato['CONSENHA'] . "</strong>
+									<p>Pronto! Agora é só clicar no botão <strong>Entrar</strong> Entrar para ter acesso ilimitado as nossas Orientações Técnicas!
+									<p> Por ora, também seguiremos enviando por e-mail e WhatsApp como de costume.
+									<p><b>Observação:</b> Para alterar a sua senha, basta acessar os dados da sua conta através do link que contém o seu nome, e que fica localizado no canto superior direito da tela.
+									<p>Feito isto, insira a senha que desejar no campo “Senha”, e clique em “Salvar Dados”.
+									<p>Permanecemos à disposição.
+									<p>Atenciosamente,
+									<p><b>Equipe Gestão</b>
+
 								</p>
-								<ul type='circle'>
-									<li>Acesse o endereço:<br/>
-									- <a href='" . $url_acesso . "'>" . $url_acesso . "</a><br/>
-									</li>
-									<li>Informe o seu e-mail: <strong>" . $contato['CONEMAIL'] . "</strong></li>
-									<li>Informe a sua senha: <strong>" . $contato['CONSENHA'] . "</strong></li>
-									<li>Clique no botão <strong>Entrar</strong> para realizar o logon no sistema.</li>
+
 								</ul>
 								<br />
 								",

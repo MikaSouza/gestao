@@ -54,7 +54,7 @@ function listOrientacaoTecnica($_POSTDADOS)
 			WHERE
 				1 = 1
 			" .	$where	. "
-			LIMIT 50	";
+			LIMIT 100	";
 
 	$arrayQuery = array(
 		'query' => $sql,
@@ -151,7 +151,7 @@ function enviarOrientacaoTecnica($orientacao)
 				$email,
 			),
 			'fields' => array(
-				'Orientação Técnica'    => 'https://gestao.srv.br/orientacoes-tecnicas',
+				'Orientação Técnica'    => 'https://gestao-srv.teraware.net.br/autenticacao/login.php',
 			)
 		);
 		$enviados[] = emailField($dadosEmail);
@@ -188,14 +188,14 @@ function listOrientacaoTecnicaPainel($_POSTDADOS)
 		$where .= 'AND A.OXTDATA_INC >= ? ';
 	if (verificarVazio($_POSTDADOS['vDDataFim']))
 		$where .= 'AND A.OXTDATA_INC <= ? ';
-	$sql = "SELECT 
+	$sql = "SELECT
 				A.OXTNUMERO, A.*
 			FROM
 				ORIENTACAOTECNICA A
 			WHERE
 				A.OXTSTATUS = 'S'
 			" .	$where	. "
-			ORDER BY A.OXTNUMERO desc";     
+			ORDER BY A.OXTNUMERO desc";
 	$arrayQuery = array(
 		'query' => $sql,
 		'parametros' => array()
