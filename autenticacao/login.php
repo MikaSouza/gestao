@@ -102,9 +102,13 @@ include_once __DIR__ . '/transaction/transactionLogin.php';
 					<div class="col-1"></div>
 
 					<div class="col-10 text-center">
-						<a href="http://teraware.com.br" class="" target="_blank" title="Teraware - ERP | Sistemas Web | ERP Customizados | Projetos Especiais" alt="Teraware - ERP | Sistemas Web | ERP Customizados | Projetos Especiais">
+						<a href="https://teraware.com.br" class="" target="_blank" title="Teraware 10 Anos- ERP | Sistemas Web | ERP Customizados | Projetos Especiais" alt="Teraware - ERP | Sistemas Web | ERP Customizados | Projetos Especiais">
 							<img src="../assets/images/tw-icone.png" height="35" alt="logo" class="auth-logo">
 						</a>
+
+					</div>
+					<div class="col-10 text-center">
+					<span>Copyright © <?php echo date('Y');?> - Teraware Soluções em Software e Internet 10 Anos </span>
 					</div>
 					<div class="col-1"></div>
 				</div>
