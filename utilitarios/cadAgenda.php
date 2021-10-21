@@ -16,8 +16,8 @@ include_once __DIR__.'/../helpdesk/combos/comboAtividades.php';
         <link href="../assets/css/icons.css" rel="stylesheet" type="text/css" />
         <link href="../assets/css/metisMenu.min.css" rel="stylesheet" type="text/css" />
         <link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
-		<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-		
+		<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+
     </head>
 	<body>
 
@@ -42,18 +42,46 @@ include_once __DIR__.'/../helpdesk/combos/comboAtividades.php';
 										<input type="hidden" name="vHTABELA" id="vHTABELA" value="<?= $vAConfiguracaoTela['MENTABELABANCO'] ?>"/>
 										<input type="hidden" name="vHPREFIXO" id="vHPREFIXO" value="<?= $vAConfiguracaoTela['MENPREFIXO']; ?>"/>
 										<input type="hidden" name="vHURL" id="vHURL" value="<?= $vAConfiguracaoTela['MENARQUIVOCAD']; ?>"/>
-										<div class="form-group row">
-											<div class="col-lg-12">
+										<div class="form-group row">	
+											<div class="col-lg-3">
 												<div class="checkbox checkbox-warning">
-													<input id="checkbox2" type="checkbox" onclick="mostrarDivCliente();" <?= ($vROBJETO['CLICODIGO'] == '' ? 'checked' : '');?>>
+													<input id="checkbox1" name="checkbox1" type="checkbox" onclick="mostrarDivContrato();" <?= ($vROBJETO['CTRCODIGO'] != '' ? 'checked' : '');?>>
+													<label for="checkbox1">
+														Vincular Contrato
+													</label>
+												</div>
+											</div>
+											<div class="col-lg-3">
+												<div class="checkbox checkbox-warning">
+													<input id="checkbox2" name="checkbox2" type="checkbox" onclick="mostrarDivCliente();" <?= ($vROBJETO['CLICODIGO'] != '' ? 'checked' : '');?>>
 													<label for="checkbox2">
-														Sem Cliente
+														Vincular Cliente
+													</label>
+												</div>
+											</div>
+											<div class="col-lg-3">
+												<div class="checkbox checkbox-warning">
+													<input id="checkbox3" name="checkbox3" type="checkbox" onclick="mostrarDivContato();" <?= ($vROBJETO['CONCODIGO'] != '' ? 'checked' : '');?>>
+													<label for="checkbox3">
+														Vincular Contato
 													</label>
 												</div>
 											</div>	
 										</div>
-										<div class="form-group row divCliente">
-											<div class="col-md-5">                                                      
+										<div class="form-group row">
+											<div class="col-md-5 divContrato">                                                      
+												<label>Vinculado a Contrato Ativo
+													<small class="text-danger font-13">*</small>
+												</label>												
+												<input title="Contrato" type="text" name="vHCONTRATO" id="vHCONTRATO" class="form-control obrigatorio autocomplete" data-hidden="#vICTRCODIGO" value="<?php if(isset($vROBJETO['CTRCODIGO'])) echo $vROBJETO['CTRNROCONTRATO'].' - '.$vROBJETO['CLIENTE']; ?>" onblur="validarContrato();"/>
+												<span id="aviso-contrato" style="color: red;font-size: 11px; display: none;">O Contrato não foi selecionado corretamente!</span>
+												<input type="hidden" name="vICTRCODIGO" id="vICTRCODIGO" value="<?php if(isset($vIOid)) echo $vROBJETO['CTRCODIGO']; ?>"/>
+											</div>
+											<div class="col-md-1 btnLimparContrato divContrato">
+												<br/>				  
+												<button type="button" class="btn btn-danger waves-effect" onclick="removerContrato();">Limpar</button><br>
+											</div>
+											<div class="col-md-5 divCliente">                                                      
 												<label>Cliente
 													<small class="text-danger font-13">*</small>
 												</label>												
@@ -61,69 +89,59 @@ include_once __DIR__.'/../helpdesk/combos/comboAtividades.php';
 												<span id="aviso-cliente" style="color: red;font-size: 11px; display: none;">O Cliente não foi selecionado corretamente!</span>
 												<input type="hidden" name="vICLICODIGO" id="vICLICODIGO" value="<?php if(isset($vIOid)) echo $vROBJETO['CLICODIGO']; ?>"/>
 											</div>
-											<div class="col-md-1 btnLimparCliente">
+											<div class="col-md-1 btnLimparCliente divCliente">
 												<br/>				  
 												<button type="button" class="btn btn-danger waves-effect" onclick="removerCliente();">Limpar</button><br>
-											</div>	 	
-											<div class="col-md-6">
-												<div id="divConsultor"></div>
 											</div>
-										</div>	
-										<div class="form-group row">											
-											<div class="col-md-3">
+											<div class="col-md-6 divContato">
+												<div id="divContatos"></div>
+											</div>												
+										</div>
+										<div class="form-group row">
+											<div class="col-md-2">
 												<label>Data</label>
 												<input class="form-control obrigatorio" name="vSAGEDATAINICIO" title="Data" id="vSAGEDATAINICIO" type="date" maxlength="10" value="<?= (isset($vIOid) ? $vROBJETO['AGEDATAINICIO'] : date('Y-m-d'));?>">
 											</div>
-											<div class="col-md-3">
+											<div class="col-md-2">
 												<label>Hora Início
 													<small class="text-danger font-13">*</small>
 												</label>
-												<input class="form-control obrigatorio" title="Hora Início" name="vSAGEHORAINICIO" id="vSAGEHORAINICIO" value="<?= $vROBJETO['AGEHORAINICIO']; ?>" type="text" maxlength="5" onKeyPress="return digitos(event, this);" onKeyUp="mascara('HORA', this, event);" >
+												<input class="form-control obrigatorio" title="Hora Início" name="vSAGEHORAINICIO" id="vSAGEHORAINICIO" value="<?= $vROBJETO['AGEHORAINICIO']; ?>" type="time">
 											</div>
-											<div class="col-md-3">
+											<div class="col-md-2">
 												<label>Hora Final
 													<small class="text-danger font-13">*</small>
 												</label>
-												<input class="form-control obrigatorio" title="Hora Final" name="vSAGEHORAFINAL" id="vSAGEHORAFINAL" value="<?= $vROBJETO['AGEHORAFINAL']; ?>" type="text" maxlength="5" onKeyPress="return digitos(event, this);" onKeyUp="mascara('HORA', this, event);" >
+												<input class="form-control obrigatorio" title="Hora Final" name="vSAGEHORAFINAL" id="vSAGEHORAFINAL" value="<?= $vROBJETO['AGEHORAFINAL']; ?>" type="time">
 											</div>
-										</div>
-										<div class="form-group row">
-											<div class="col-md-6">   
-												<label>Tipo de Atividade
-													<small class="text-danger font-13">*</small>
+											<div class="col-md-6">
+												<label>Responsável
+												<small class="text-danger font-13">*</small>
 												</label>
-												<select name="vIAGETIPO" id="vIAGETIPO" class="custom-select obrigatorio" title="Tipo de Contato/Atividade">
-													<option value="">  -------------  </option>
-													<?php 									
-													foreach (comboAtividades() as $tabelas): ?>                                                            
-														<option value="<?php echo $tabelas['ATICODIGO']; ?>" <?php if ($vROBJETO['AGETIPO'] == $tabelas['ATICODIGO']) echo "selected='selected'"; ?>><?php echo $tabelas['ATINOME']; ?></option>
-													<?php endforeach; ?>
-												</select>                                                    
-											</div>
-											<div class="col-md-6">                                                      
-												<label>Responsável</label>
 												<select name="vIAGERESPONSAVEL" id="vIAGERESPONSAVEL" class="custom-select divObrigatorio" title="Responsável">
 													<option value="">  -------------  </option>
-													<?php foreach (comboUsuarios() as $usuarios): ?>                                                            
+													<?php foreach (comboUsuarios() as $usuarios): ?>
 														<option value="<?php echo $usuarios['USUCODIGO']; ?>" <?php if ($_SESSION['SI_USUCODIGO'] == $usuarios['USUCODIGO']) echo "selected='selected'"; ?>><?php echo $usuarios['USUNOME']; ?></option>
 													<?php endforeach; ?>
 												</select>
 											</div>
-										</div>											
+										</div>
 										<div class="form-group row">
-											<div class="col-md-12">                                                      
-												<label>Descrição/Especificação
-													<small class="text-danger font-13">*</small>
-												</label>
-												<textarea class="form-control obrigatorio" rows="4" id="vSAGEDESCRICAO" name="vSAGEDESCRICAO" title="Descrição/Especificação"><?= $vROBJETO['AGEDESCRICAO']; ?></textarea>
+											<div class="col-md-6">
+												<label>Tipo de Contato/Atividade</label>
+												<select name="vIAGETIPO" id="vIAGETIPO" class="custom-select" title="Tipo de Contato/Atividade">
+													<option value="">  -------------  </option>
+													<?php
+													foreach (comboAtividades() as $tabelas): ?>
+														<option value="<?php echo $tabelas['ATICODIGO']; ?>" <?php if ($vROBJETO['AGETIPO'] == $tabelas['ATICODIGO']) echo "selected='selected'"; ?>><?php echo $tabelas['ATINOME']; ?></option>
+													<?php endforeach; ?>
+												</select>
 											</div>
-										</div>	
-										<div class="form-group row">
-											<div class="col-md-3">        
+											<div class="col-md-3">
 												<label>Concluído</label>
-												<select class="custom-select" name="vSAGECONCLUIDO" id="vSAGECONCLUIDO" title="Concluído">									
-													<option value="N" <?php if ($vROBJETO['AGECONCLUIDO'] == "N") echo "selected='selected'"; ?>>Não</option> 
-													<option value="S" <?php if ($vROBJETO['AGECONCLUIDO'] == "S") echo "selected='selected'"; ?>>Sim</option>									
+												<select class="custom-select" name="vSAGECONCLUIDO" id="vSAGECONCLUIDO" title="Concluído">
+													<option value="N" <?php if ($vROBJETO['AGECONCLUIDO'] == "N") echo "selected='selected'"; ?>>Não</option>
+													<option value="S" <?php if ($vROBJETO['AGECONCLUIDO'] == "S") echo "selected='selected'"; ?>>Sim</option>
 												</select>
 											</div>
 											<div class="col-sm-3">
@@ -133,7 +151,15 @@ include_once __DIR__.'/../helpdesk/combos/comboAtividades.php';
 													<option value="N" <?php if ($vROBJETO['AGEENVIAREMAIL'] == "N") echo "selected='selected'"; ?>>Não</option>
 												</select>
 											</div>
-                                        </div>	
+										</div>
+										<div class="form-group row">
+											<div class="col-md-12"> 
+												<label>Descrição/Especificação
+													<small class="text-danger font-13">*</small>
+												</label>
+												<textarea class="form-control obrigatorio" rows="4" id="vSAGEDESCRICAO" name="vSAGEDESCRICAO" title="Descrição/Especificação"><?= $vROBJETO['AGEDESCRICAO']; ?></textarea>
+											</div>
+										</div>
 										<div class="form-group row">
 											<div class="col-sm-3">
 												<label>Cadastro (Status)</label>
@@ -148,7 +174,7 @@ include_once __DIR__.'/../helpdesk/combos/comboAtividades.php';
 											<label class="form-check-label is-invalid" for="invalidCheck3" style="color: red">
 												Campos em vermelho são de preenchimento obrigatório!
 											</label>
-										</div> 
+										</div>
 										<?php include('../includes/botoes_cad_novo.php'); ?>
                                     </form>
                                 </div>
@@ -169,14 +195,26 @@ include_once __DIR__.'/../helpdesk/combos/comboAtividades.php';
         <script src="../assets/js/jquery.slimscroll.min.js"></script>
 
 		<?php include_once '../includes/scripts_footer.php' ?>
-		
+
 		<!--Wysiwig js-->
 		<script src="../assets/plugins/jquery-ui/jquery-ui.min.js"></script>
         <script src="../assets/plugins/tinymce/tinymce.min.js"></script>
-        <script src="../assets/pages/jquery.form-editor.init.js"></script> 
+        <script src="../assets/pages/jquery.form-editor.init.js"></script>
 		<script src="js/cadAgenda.js"></script>
 		<script DEFER="DEFER">
+			mostrarDivContrato(); 
 			mostrarDivCliente();
+			mostrarDivContato();
+			<?php if($vROBJETO['CTRCODIGO'] == 0){ ?>
+				$(function() {
+					$(".btnLimparContrato").hide();
+				});
+			<?php } ?>
+			<?php if($vROBJETO['CLICODIGO'] == 0){ ?>
+				$(function() {
+					$(".btnLimparCliente").hide();
+				});
+			<?php } ?>
 		</script>
     </body>
 </html>

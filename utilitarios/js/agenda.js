@@ -37,9 +37,9 @@ function editarEvento(event)
 	$("#vIAGERESPONSAVEL").val(event.assignee_id);
 	$("#vIAGETIPO").val(event.type_id);
 	$("#vSAGECONCLUIDO").val(event.concluido);
-	$("#vDAGEDATAINICIO").val(moment(event.start).format("DD/MM/YYYY"));
+	$("#vSAGEDATAINICIO").val(moment(event.start).format("DD/MM/YYYY"));
 	$("#vSAGEHORAINICIO").val(moment(event.start).format("HH:mm"));
-	$("#vDAGEDATAFINAL").val(moment(event.end).format("DD/MM/YYYY"));
+	$("#vSAGEDATAFINAL").val(moment(event.end).format("DD/MM/YYYY"));
 	$("#vSAGEHORAFINAL").val(moment(event.end).format("HH:mm"));
 	$("#vSAGEENVIAREMAIL").val(event.enviar_email);
 	$("#vSAGEENVIARSMS").val(event.enviar_sms);
@@ -95,9 +95,12 @@ function removeClasseErroInputs(div_nome)
 }
 function limparCamposDialog(div_nome)
 {
-	$('#'+div_nome).find('input, select, textarea').each(function(){
-		$(this).val("");
-	});
+	$("#vSAGEDATAINICIO").val('');
+	$("#vSAGEDESCRICAO").val('');
+	$("#vSAGEHORAINICIO").val('');
+	$("#vSAGEHORAFINAL").val('');
+	$("#vSAGEENVIAREMAIL").val('N');
+	$("#vSAGECONCLUIDO").val('N');
 }
 
 function getHTMLSctructure()
@@ -193,14 +196,14 @@ function getHTMLSctructure()
 						buttonImage: "../imagens/calendar.gif",
 						buttonImageOnly: true,
 						onSelect: function(dateText) {
-							if ($(this).attr('id') == 'vDAGEDATAINICIO') {
-								$("#vDAGEDATAFINAL").val(dateText);
+							if ($(this).attr('id') == 'vSAGEDATAINICIO') {
+								$("#vSAGEDATAFINAL").val(dateText);
 							}
 						}
 					});
 
-					$("#vDAGEDATAINICIO").on('blur', function(){
-						$("#vDAGEDATAFINAL").val($(this).val());
+					$("#vSAGEDATAINICIO").on('blur', function(){
+						$("#vSAGEDATAFINAL").val($(this).val());
 					});
 
 					$("#vSAGEHORAINICIO").on('blur', function(){
@@ -220,7 +223,7 @@ function getHTMLSctructure()
 								horas = parseInt(horas)-24;
 								horas = horas.toString();
 								while (horas.length < 2) horas = horas+'0';
-								$("#vDAGEDATAFINAL").val(moment($("#vDAGEDATAFINAL").val(), 'DD/MM/YYYY').add(1, 'day').format('DD/MM/YYYY'));
+								$("#vSAGEDATAFINAL").val(moment($("#vSAGEDATAFINAL").val(), 'DD/MM/YYYY').add(1, 'day').format('DD/MM/YYYY'));
 							}
 
 							$("#vSAGEHORAFINAL").val(horas+':'+rest_minutos);
@@ -242,8 +245,8 @@ function renderCalendar()
 			addButtom: {
 				text: 'Inserir Atividade',
 				click: function() {
-					$( "#modalAgenda").modal("show");	
-					limparCamposDialog('modalAgenda');
+					window.location.assign("cadAgenda.php?method=insert");
+					
 				}
 			},
 			atualizar: {
@@ -422,6 +425,8 @@ requireFiles = function () {
 
 function abrirModalAgenda(vIAGECODIGO){	
 	$("#vIAGECODIGO").val(vIAGECODIGO);
+	$("#vSAGEENVIAREMAIL").val('N');
+	$("#vSAGECONCLUIDO").val('N');
 	if (vIAGECODIGO > 0) fillAgenda(vIAGECODIGO);
 		
 	$( "#modalAgenda").modal("show");	
@@ -505,5 +510,15 @@ function mostrarDivCliente(){
 	}else{		
 		$(".divCliente").show();	
 		document.getElementById("vICLICODIGO").classList.add("obrigatorio");
+	}	
+}
+
+function mostrarDivContato(){
+	if ($('#checkbox3').is(':checked')) {
+		$(".divContato").hide();	
+		document.getElementById("vHCONTATO").classList.remove("obrigatorio");
+	}else{		
+		$(".divContato").show();	
+		document.getElementById("vHCONTATO").classList.add("obrigatorio");
 	}	
 }

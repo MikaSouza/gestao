@@ -10,6 +10,25 @@ if (($_POST["methodPOST"] == "insert")||($_POST["methodPOST"] == "update")) {
     $vSDefaultStatusCad = $vROBJETO[$vAConfiguracaoTela['MENPREFIXO'].'STATUS'];	
 }
 
+if (isset($_POST['hdn_metodo_search'])) {
+
+	switch ($_POST['hdn_metodo_search']) {
+		case 'searchDashBoard':
+			search_Agenda($_POST);
+			break;
+		case 'searchAXA':
+			search_AgendaSubGrid($_POST['vIATECODIGO']);
+			break;
+		case 'searchANX':
+			getAnexosAgenda($_POST);
+			break;
+
+		default:
+			// code...
+			break;
+	}
+}
+
 if ($_GET['method'] == 'list') {
     unset($_GET['list']);
     echo json_encode(listAgendaCalendario($_GET));
@@ -88,7 +107,13 @@ function comboAgendaHome($pSTIPO)
 
 function listAgendaCalendario($dados)
 {
+	//pre($dados);
     $cod_usuario = filter_var($_SESSION['SI_USUCODIGO'], FILTER_SANITIZE_NUMBER_INT);
+	if (verificarVazio($dados['vHAGERESPONSAVEL'])) {		
+		$where = " AND (a.AGERESPONSAVEL = ".$dados['vHAGERESPONSAVEL'].") ";
+	} else {
+		$where = " AND (a.AGERESPONSAVEL = ".$_SESSION['SI_USUCODIGO'].") ";
+	}
 
     $sql = "SELECT
                 a.*,
@@ -105,7 +130,7 @@ function listAgendaCalendario($dados)
                 LEFT JOIN USUARIOS u ON u.USUCODIGO = a.AGERESPONSAVEL
                 LEFT JOIN MENUS m ON m.MENCODIGO = a.MENCODIGO
             WHERE
-                a.AGESTATUS = 'S'";
+                a.AGESTATUS = 'S' ".$where;
 
     if (verificarVazio($dados['start']))
         $sql .= " AND a.AGEDATAINICIO >= '".$dados['start']."'";
@@ -163,6 +188,8 @@ function listAgendaCalendario($dados)
 
 function listAgenda($_POSTDADOS){
 	$where = '';
+	if(verificarVazio($_POSTDADOS['FILTROS']['vSCTRCONTRATO']))
+		$where .= 'AND ctr.CTRNROCONTRATO LIKE ? ';
 	if(verificarVazio($_POSTDADOS['FILTROS']['vSStatusFiltro'])){
 		if($_POSTDADOS['FILTROS']['vSStatusFiltro'] == 'S')
 			$where .= "AND a.AGESTATUS = 'S' ";
@@ -194,10 +221,14 @@ function listAgenda($_POSTDADOS){
 				u2.USUNOME AS AGENDOU,
                 m.MENTITULO,
                 m.MENARQUIVOCAD,
-				t4.ATINOME 
+				t4.ATINOME,
+				ctr.CTRNROCONTRATO,
+				con.CONNOME
             FROM
                 AGENDA a
                 LEFT JOIN CLIENTES cli ON cli.CLICODIGO = a.CLICODIGO
+				LEFT JOIN CONTRATOS ctr ON ctr.CTRCODIGO = a.CTRCODIGO
+				LEFT JOIN CONTATOS con ON con.CONCODIGO = a.CONCODIGO
                 LEFT JOIN TABELAS t ON t.TABCODIGO = a.AGETIPO
                 LEFT JOIN USUARIOS u ON u.USUCODIGO = a.AGERESPONSAVEL
 				LEFT JOIN USUARIOS u2 ON u2.USUCODIGO = a.AGEUSU_INC
@@ -205,11 +236,16 @@ function listAgenda($_POSTDADOS){
 				LEFT JOIN ATIVIDADES t4 ON t4.ATICODIGO = a.AGETIPO	
 			WHERE
 				1 = 1
-				'.	$where;					
+				'.	$where .'
+			ORDER BY AGEDATAINICIO desc	';					
 	$arrayQuery = array(
 					'query' => $sql,
 					'parametros' => array()
 				);
+	if(verificarVazio($_POSTDADOS['FILTROS']['vSCTRCONTRATO'])){
+		$pesquisa = $_POSTDADOS['FILTROS']['vSCTRCONTRATO'];
+		$arrayQuery['parametros'][] = array("%$pesquisa%", PDO::PARAM_STR);
+	}			
 	if(verificarVazio($_POSTDADOS['FILTROS']['vDDataInicio'])){
 		$varIni = $_POSTDADOS['FILTROS']['vDDataInicio']." 00:00:00";
 		$arrayQuery['parametros'][] = array($varIni, PDO::PARAM_STR);
@@ -384,10 +420,14 @@ function fill_AgendaCalendario($pOid, $formatoRetorno = 'array' ){
 
 function fill_AgendaTela($pOid){
 	$SqlMain = "SELECT
-	                a.*, c.CLINOMEFANTASIA AS CLIENTE
+	                a.*, c.CLINOMEFANTASIA AS CLIENTE,
+					ctr.CTRNROCONTRATO,
+					con.CONNOME
 	            FROM
                     AGENDA a
 				LEFT JOIN CLIENTES c ON c.CLICODIGO = a.CLICODIGO	
+				LEFT JOIN CONTRATOS ctr ON ctr.CTRCODIGO = a.CTRCODIGO
+				LEFT JOIN CONTATOS con ON con.CONCODIGO = a.CONCODIGO
 				WHERE
 					a.AGESTATUS = 'S'
 				AND

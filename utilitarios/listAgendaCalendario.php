@@ -20,7 +20,7 @@ include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
         <link href="../assets/css/icons.css" rel="stylesheet" type="text/css" />
         <link href="../assets/css/metisMenu.min.css" rel="stylesheet" type="text/css" />
         <link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
-		<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+		<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 
     </head>
 
@@ -35,6 +35,35 @@ include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
 
                 <div class="container-fluid">
                     <?php include_once '../includes/breadcrumb.php' ?>
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-body">
+									<form class="form-parsley" action="#" method="get" name="formDashBoard" id="formDashBoard" >
+			
+										<input type="hidden" name="hdn_metodo_search" id="hdn_metodo_search" value="searchDashBoard"/>
+
+										<div class="form-group row">
+											<div class="col-md-6">
+												<label>Responsável</label>
+												<select name="vHAGERESPONSAVEL" id="vHAGERESPONSAVEL" class="custom-select divObrigatorio" title="Responsável">
+													<option value="">  -------------  </option>
+													<?php foreach (comboUsuarios() as $usuarios): ?>                                                            
+														<option value="<?php echo $usuarios['USUCODIGO']; ?>" <?php if ($_SESSION['SI_USUCODIGO'] == $usuarios['USUCODIGO']) echo "selected='selected'"; ?>><?php echo $usuarios['USUNOME']; ?></option>
+													<?php endforeach; ?>
+												</select>
+											</div>
+											<div class="col-md-2">
+												<label>.</label><br/>
+											
+												<button type="submit" id="btnPesquisar" class="btn btn-primary" class="nav-link" >FILTRAR</button>
+											</div>	
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
 					<div class="row">
 						<div class="col-12">
 							<div id="mycal"></div>

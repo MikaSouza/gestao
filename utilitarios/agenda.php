@@ -37,7 +37,7 @@
     <input type="text" name="vSAGETITULO" id="vSAGETITULO" style="width:400px;" class="divObrigatorio" title="Título"/><br />    
 
 	<span>Tipo de Atividade</span><br />
-	<select name="vIAGETIPO" id="vIAGETIPO" style="width:410px;" class="obrigatorio" title="Tipo de Atividade">
+	<select name="vIAGETIPO" id="vIAGETIPO" style="width:410px;" class="" title="Tipo de Atividade">
 		<?php
 			foreach (comboAtividade() as $cbAtividade):
 				if ($cbAtividade['ATICODIGO'] == $vROBJETO['AGETIPO']): ?>

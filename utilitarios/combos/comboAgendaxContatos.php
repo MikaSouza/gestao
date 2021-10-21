@@ -8,7 +8,7 @@ if(isset($_GET["method"]) && $_GET["method"] == 'fillClientexContatos') {
 	
 	$result = comboClientexContatos($vICLICODIGO);
 	?>
-	<div class="col-md-6">
+	
 		<label>Contato
 			<small class="text-danger font-13">*</small>
 		</label>
@@ -52,7 +52,6 @@ if(isset($_GET["method"]) && $_GET["method"] == 'fillClientexContatos') {
 														 'vSCallback': '<?php echo $pAConfig['callback'];?>'
 														});">Excluir</a>
 		</div>
-	</div>	
 	<?php
 
 }

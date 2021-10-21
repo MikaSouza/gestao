@@ -77,6 +77,9 @@
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1954]['CONSULTA'] == "S") { ?>
 							<li><a href="../cadastro/listAvisos.php"><i class="fas fa-thumbtack"></i>Avisos</a></li>
 							<?php } ?>
+							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1954]['CONSULTA'] == "S") { ?>
+							<li><a href="../cadastro/listAvisosPadroes.php"><i class="fas fa-thumbtack"></i>Avisos Padrões</a></li>
+							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][6]['CONSULTA'] == "S") { ?>
 							<li><a href="../cadastro/listClientes.php"><i class="far fa-handshake"></i>Clientes</a></li>
 							<?php } ?>
@@ -189,11 +192,13 @@
 						</a>
 						<ul class="submenu">
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1879]['CONSULTA'] == "S") { ?>
-							<li><a href="../utilitarios/listAgenda.php"><i class="fas fa-calendar"></i>Agenda</a></li>
+							<li><a href="../utilitarios/listAgenda.php"><i class="fas fa-calendar"></i>Registro de Atividades</a></li>
 							<?php } ?>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1879]['CONSULTA'] == "S") { ?>
-							<li><a href="../utilitarios/listAgendaCalendario.php"><i class="far fa-calendar-alt"></i>Agenda Calendário</a></li>
+							<li><a href="../utilitarios/listAgendaCalendario.php"><i class="far fa-calendar-alt"></i>Registro de Atividades Calendário</a></li>
 							<?php } ?>
+							<li><a href="../utilitarios/cadAgendaGenerica.php"><i class="far fa-calendar-alt"></i>Agenda Aberta 1</a></li>
+							<li><a href="../utilitarios/cadAgendaGenericaModelo2.php"><i class="far fa-calendar-alt"></i>Agenda Aberta 2</a></li>
 							<?php if ($_SESSION['SA_ACESSOS']['TABELA'][1879]['CONSULTA'] == "S") { ?>
 							<li><a href="../utilitarios/listGED.php"><i class="fas fa-copy"></i>Digitalizações/GED</a></li>
 							<?php } ?>

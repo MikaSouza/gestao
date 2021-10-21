@@ -151,7 +151,7 @@ function enviarOrientacaoTecnica($orientacao)
 				$email,
 			),
 			'fields' => array(
-				'Orientação Técnica'    => 'https://gestao-srv.teraware.net.br/autenticacao/login.php',
+				'Orientação Técnica'    => 'https://gestao-srv.teraware.net.br/cadastro/indexClientes.php',
 			)
 		);
 		$enviados[] = emailField($dadosEmail);
