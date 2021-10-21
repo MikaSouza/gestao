@@ -1,5 +1,4 @@
 <?php
-
 include_once __DIR__.'/../twcore/teraware/php/constantes.php';
 $vAConfiguracaoTela = configuracoes_menu_acesso(1879);
 include_once __DIR__.'/transaction/transactionAgendaGenerica.php';
@@ -17,6 +16,7 @@ if ($_GET['vICLIRESPONSAVEL'] == '')
 	$vICLIRESPONSAVEL = '';
 else 
 	$vICLIRESPONSAVEL = $_GET['vICLIRESPONSAVEL'];
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
