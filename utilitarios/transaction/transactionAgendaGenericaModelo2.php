@@ -69,9 +69,10 @@ function fill_AgendaGenericaModelo2($pOid){
 
 function fill_AgendaGenericaModelo2MesAno($vIANO, $vIMES, $vICLIRESPONSAVEL){
 	$where = '';
-	if (verificarVazio($vICLIRESPONSAVEL))
-		$where .= ' AND e.AGERESPONSAVEL = ? ';
-	
+	if (verificarVazio($vICLIRESPONSAVEL)) {
+		$vICLIRESPONSAVEL = implode(',',$vICLIRESPONSAVEL); 
+		$where .= " AND e.AGERESPONSAVEL in (".$vICLIRESPONSAVEL.") ";  
+	}
 	$sql = "SELECT
 				e.*
 				FROM
@@ -88,8 +89,6 @@ function fill_AgendaGenericaModelo2MesAno($vIANO, $vIMES, $vICLIRESPONSAVEL){
 				);
 	$arrayQuery['parametros'][] = array($vIANO, PDO::PARAM_INT);
 	$arrayQuery['parametros'][] = array($vIMES, PDO::PARAM_INT);	
-	if (verificarVazio($vICLIRESPONSAVEL)) 
-		$arrayQuery['parametros'][] = array($vICLIRESPONSAVEL, PDO::PARAM_INT);
 	$result = consultaComposta($arrayQuery);
 	//pre($result);
 	return $result;  

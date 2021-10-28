@@ -1,4 +1,5 @@
 <?php
+
 include_once __DIR__.'/../twcore/teraware/php/constantes.php';
 $vAConfiguracaoTela = configuracoes_menu_acesso(1879);
 include_once __DIR__.'/transaction/transactionAgendaGenerica.php';
@@ -14,9 +15,9 @@ else
 	$vIANO = $_GET['vIANO'];
 if ($_GET['vICLIRESPONSAVEL'] == '')
 	$vICLIRESPONSAVEL = '';
-else 
+else {
 	$vICLIRESPONSAVEL = $_GET['vICLIRESPONSAVEL'];
-
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -64,15 +65,15 @@ else
 	}
 
 	.base-color {
-		background-color: 	#E6E6FA;
+		background-color: 	#5D7EAC;
 	}
 
 	.bg-yellow {
 		background-color: #faff00;
 	}
 	
-	.bg-cinza {
-		background-color: #d3d3d3;
+	.bg-titulo {
+		background-color: #FFE099;
 	}	
 
 	.bg-green-yellow {
@@ -92,7 +93,7 @@ else
 	}
 
 	.bg-turquesa {
-		background-color: #FFFFFF;
+		background-color: #A4DCF4;
 	}
 
 	.bg-vlight-grey {
@@ -113,6 +114,23 @@ else
 		height: calc(1.8rem + 2px);
 		color: #2f5275;
 	}
+
+	.headcol {
+		position: absolute;
+		width: 5em;
+		height: 46px;
+		line-height: 50px;
+		text-align: center;
+		left: 0;
+		top: auto;
+		background-color:#E6E6FA;
+	}
+
+	.wrapper1 { width: 100%; overflow-x: scroll; overflow-y: hidden; }
+	.wrapper2 { width: 100%; overflow-x: scroll; overflow-y: hidden; }
+	.wrapper1 { height: 20px; }
+	.div1 { margin-left: 5em; height: 20px; }
+	.div2 { overflow: visible; width: 2100px}
 	
 	table {
 	  border-collapse: separate;
@@ -182,8 +200,8 @@ else
 												<label>Representante</label>
 												<select name="vICLIRESPONSAVEL[]" id="vICLIRESPONSAVEL" title="Representante" class="form-control" style="width: 100%;font-size: 13px;" multiple>													
 													<?php foreach (comboUsuariosAgenda() as $usuarios) :
-														if ($contArray > 0) { ?>
-															<option value="<?php echo $usuarios['USUCODIGO']; ?>" <?php if (in_array($usuarios['USUCODIGO'], $arrayPreMold)) echo "selected='selected'"; ?>><?php echo $usuarios['USUNOME']; ?></option>
+														if (count($vICLIRESPONSAVEL) && ($vICLIRESPONSAVEL != '') > 0) { ?>
+															<option value="<?php echo $usuarios['USUCODIGO']; ?>" <?php if (in_array($usuarios['USUCODIGO'], $vICLIRESPONSAVEL)) echo "selected='selected'"; ?>><?php echo $usuarios['USUNOME']; ?></option>
 														<?php } else { ?>
 															<option value="<?php echo $usuarios['USUCODIGO']; ?>"><?php echo $usuarios['USUNOME']; ?></option>
 													<?php }
@@ -198,10 +216,9 @@ else
 												</select>-->
 											</div>
 											<div class="col-md-4">
-												<label>.</label><br/>
+												<label></label><br/>
 											
-												<button type="submit" id="btnPesquisar" class="btn btn-primary" class="nav-link" >FILTRAR</button>
-												<button type="button" id="btnImprimir" class="btn btn-primary" class="nav-link" onClick="imprimirAgenda('<?= $vIMES;?>', '<?= $vIANO;?>', '<?= $vICLIRESPONSAVEL;?>');">IMPRIMIR</button>
+												<button type="submit" id="btnPesquisar" class="btn btn-primary" class="nav-link" >FILTRAR</button>												
 												<button type="button" id="btnImprimir" class="btn btn-primary" class="nav-link" onClick="gerarExcelAgenda('<?= $vIMES;?>', '<?= $vIANO;?>', '<?= $vICLIRESPONSAVEL;?>');">GERAR EXCEL</button>
 											</div>	
 										</div>
@@ -213,88 +230,90 @@ else
 										<input type="hidden" name="vHPREFIXO" id="vHPREFIXO" value="<?= $vAConfiguracaoTela['MENPREFIXO']; ?>"/>
 										<input type="hidden" name="vHURL" id="vHURL" value="<?= $vAConfiguracaoTela['MENARQUIVOCAD']; ?>"/>
 
-										<table width="100%" border="0" align="center" cellpadding="0.5" cellspacing="0.5" style="background-color:#9C816A; overflow-x: scroll; overflow-y: scroll;">
-										<thead >
-										<tr class="bg-cinza text-center"> 
-											<td nowrap="nowrap" class="bg-cinza text-center" colspan="14">PROGRAMA DE TRABALHO <?= strtoupper(descricaoMes($vIMES));?> DE <?= $vIANO;?></td>
-										</tr>	
-										<tr style="background-color:#FFFFFF;">
-											<td class="base-color">&nbsp;</td> 
-											<?php foreach (comboUsuariosAgenda('', $vICLIRESPONSAVEL) as $usuarios) :  ?>
-											<td class="base-color" colspan="2" align="center"><?= otimizarNome($usuarios['USUNOME']); ?></td>
-											<?php endforeach; ?>
-											<td class="base-color">&nbsp;</td> 
-										</tr>
-										<tr style="background-color:#FFFFFF;">
-											<td class="bg-turquesa">&nbsp;</td> 
-											<?php foreach (comboUsuariosAgenda('', $vICLIRESPONSAVEL) as $usuarios) :  ?>
-											<td class="bg-turquesa" align="center">Município</td> 
-											<td class="bg-turquesa" align="center">Atividade</td> 
-											<?php endforeach; ?>
-											<td class="bg-turquesa">&nbsp;</td> 
-										</tr>
-										</thead>
-										<?php
-											$vResult = fill_AgendaGenericaMesAno($vIANO, $vIMES, $vICLIRESPONSAVEL);
-											//pre($vResult['dados']);
-											$atividades = array(); 
-											  
-											foreach ($vResult['dados'] as $arrayDados) {
-												$atividades[$arrayDados['AGERESPONSAVEL']][$arrayDados['AGEDATA']]['MUNICIPIO'] = $arrayDados['AGEMUNICIPIO'];	
-												$atividades[$arrayDados['AGERESPONSAVEL']][$arrayDados['AGEDATA']]['ATIVIDADE'] = $arrayDados['AGEATIVIDADE'];
-											}	
-										//	pre($atividades);
-											$vDDataInicio = $vIANO.'-'.$vIMES.'-01';
-											$vSUltimoDiaMes = ultimoDiaMes($vIANO, $vIMES);
-											$vDDataFinal = $vIANO.'-'.$vIMES.'-'.$vSUltimoDiaMes;
-											$vtimestamp = strtotime($vDDataInicio);
-											$hojemaisum = date('Y-m-d', strtotime('+1 days', strtotime($vDDataFinal)));
-											$xd = 0; $i=0;
-											do {
-												$datax = date('w', $vtimestamp + 60*60*24*$xd); 																								
-												?> 
-											<tr style="background-color: <?= (($datax == 0) || ($datax == 1) ? '#76767a' : '#E6E6FA');?>" class="linha">	
-												<td align="center"> 
-													<?php $vIDia = date('d', $vtimestamp + 60*60*24*$xd); 
-														if (strlen($vIDia) == 1) $vIDia = '0'.$vIDia;
-														if (strlen($vIMES) == 1) $vIMES = '0'.$vIMES;
-														echo substr(diaSemana2($datax, 'S'), 0, 1)."/".date('d', $vtimestamp + 60*60*24*$xd); 
-													?> 
-												</td>   
-												<?php foreach (comboUsuariosAgenda('', $vICLIRESPONSAVEL) as $usuarios) :  
-													if($i%2!=0) $Pintar = "#E6E6FA";  else $Pintar = "";  $i++;
-													
-													if (($datax == 0) || ($datax == 1)) $Pintar = "#76767a";
-												?>												
-												<td><input class="form-control" title="Município" name="vSM_0<?= $usuarios['USUCODIGO']; ?>_<?= $vIANO;?>-<?= $vIMES;?>-<?= $vIDia;?>" id="vSM_0<?= $usuarios['USUCODIGO']; ?>_<?= $vIANO;?>-<?= $vIMES;?>-<?= $vIDia;?>" value="<?= (($atividades[$usuarios['USUCODIGO']][$vIANO.'-'.$vIMES.'-'.$vIDia]['MUNICIPIO'] == '') ? '' : $atividades[$usuarios['USUCODIGO']][$vIANO.'-'.$vIMES.'-'.$vIDia]['MUNICIPIO']);?>" type="text" style="background-color: <?= $Pintar; ?>"></td>
-												<td><input class="form-control" title="Atividade" name="vSA_0<?= $usuarios['USUCODIGO']; ?>_<?= $vIANO;?>-<?= $vIMES;?>-<?= $vIDia;?>" id="vSA_0<?= $usuarios['USUCODIGO']; ?>_<?= $vIANO;?>-<?= $vIMES;?>-<?= $vIDia;?>" value="<?= (($atividades[$usuarios['USUCODIGO']][$vIANO.'-'.$vIMES.'-'.$vIDia]['ATIVIDADE'] == '') ? '' : $atividades[$usuarios['USUCODIGO']][$vIANO.'-'.$vIMES.'-'.$vIDia]['ATIVIDADE']);?>" type="text" style="background-color: <?= $Pintar; ?>"></td> 
-												<?php endforeach; ?>			
-												<td align="center"> 	
-													<?php 
-														echo substr(diaSemana2($datax, 'S'), 0, 1)."/".date('d', $vtimestamp + 60*60*24*$xd);
-													?>
-												</td> 
+										<div class="wrapper1">
+											<div class="div1"></div>
+										</div>
+										<div style="height: 20px"></div>
+										<div class="wrapper2">
+											<div class="div2">
+											<table border="0" align="center" cellpadding="0.5" cellspacing="0.5" style="background-color:#9C816A; margin-left: 3.5em; overflow: auto">
+											<thead >
+											<tr class="bg-titulo text-center"> 
+												<td nowrap="nowrap" class="bg-titulo text-center" colspan="14"><b>PROGRAMA DE TRABALHO <?= strtoupper(descricaoMes($vIMES));?> DE <?= $vIANO;?></b></td>
 											</tr>	
-											<?php 	 
-												$xd = $xd + 1;
-												$datay = date('Y-m-d', $vtimestamp + 60*60*24*$xd);
-											} while ($datay < $hojemaisum); ?>
-										<tr style="background-color:#FFFFFF">
-											<td class="bg-turquesa">&nbsp;</td> 
-											<?php foreach (comboUsuariosAgenda('', $vICLIRESPONSAVEL) as $usuarios) :  ?>
-											<td class="bg-turquesa" align="center">Município</td> 
-											<td class="bg-turquesa" align="center">Atividade</td> 
-											<?php endforeach; ?>
-											<td class="bg-turquesa">&nbsp;</td> 
-										</tr>	
-										<tr style="background-color:#FFFFFF">
-											<td class="base-color">&nbsp;</td> 
-											<?php foreach (comboUsuariosAgenda('', $vICLIRESPONSAVEL) as $usuarios) :  ?>
-											<td class="base-color" colspan="2" align="center"><?= otimizarNome($usuarios['USUNOME']); ?></td>
-											<?php endforeach; ?>
-											<td class="base-color">&nbsp;</td> 
-										</tr>
-										</table>
+											<tr style="background-color:#FFFFFF;">
+												<td class="base-color">&nbsp;</td> 
+												<?php foreach (comboUsuariosAgenda('', $vICLIRESPONSAVEL) as $usuarios) :  ?>
+												<td class="base-color" colspan="2" align="center"><b><?= otimizarNome($usuarios['USUNOME']); ?></b></td>
+												<?php endforeach; ?>
+												<td class="base-color">&nbsp;</td> 
+											</tr>
+											<tr style="background-color:#FFFFFF;">
+												<td class="bg-turquesa">&nbsp;</td> 
+												<?php foreach (comboUsuariosAgenda('', $vICLIRESPONSAVEL) as $usuarios) :  ?>
+												<td class="bg-turquesa" align="center"><b>Município</b></td> 
+												<td class="bg-turquesa" align="center"><b>Atividade</b></td> 
+												<?php endforeach; ?>
+												<td class="bg-turquesa">&nbsp;</td> 
+											</tr>
+											</thead>
+											<?php
+												$vResult = fill_AgendaGenericaMesAno($vIANO, $vIMES, $vICLIRESPONSAVEL);
+												$atividades = array(); 
+												
+												foreach ($vResult['dados'] as $arrayDados) {
+													$atividades[$arrayDados['AGERESPONSAVEL']][$arrayDados['AGEDATA']]['MUNICIPIO'] = $arrayDados['AGEMUNICIPIO'];	
+													$atividades[$arrayDados['AGERESPONSAVEL']][$arrayDados['AGEDATA']]['ATIVIDADE'] = $arrayDados['AGEATIVIDADE'];
+												}	
+											//	pre($atividades);
+												$vDDataInicio = $vIANO.'-'.$vIMES.'-01';
+												$vSUltimoDiaMes = ultimoDiaMes($vIANO, $vIMES);
+												$vDDataFinal = $vIANO.'-'.$vIMES.'-'.$vSUltimoDiaMes;
+												$vtimestamp = strtotime($vDDataInicio);
+												$hojemaisum = date('Y-m-d', strtotime('+1 days', strtotime($vDDataFinal)));
+												$xd = 0; $i=0;
+												do {
+													$datax = date('w', $vtimestamp + 60*60*24*$xd); 																								
+													?> 
+												<tr style="background-color: <?= (($datax == 6) || ($datax == 0) ? '#76767a' : '#E6E6FA');?>" class="linha">	
+													<td align="center" class="headcol"> 
+														<?php $vIDia = date('d', $vtimestamp + 60*60*24*$xd); 
+															if (strlen($vIDia) == 1) $vIDia = '0'.$vIDia;
+															if (strlen($vIMES) == 1) $vIMES = '0'.$vIMES;
+															echo substr(diaSemana2($datax, 'S'), 0, 4)."/".date('d', $vtimestamp + 60*60*24*$xd); 
+														?> 
+													</td>   
+													<?php foreach (comboUsuariosAgenda('', $vICLIRESPONSAVEL) as $usuarios) :  
+														if($i%2!=0) $Pintar = "#E6E6FA";  else $Pintar = "";  $i++;
+														
+														if (($datax == 6) || ($datax == 0)) $Pintar = "#76767a";
+													?>												
+													<td><textarea class="form-control" title="Município" name="vSM_0<?= $usuarios['USUCODIGO']; ?>_<?= $vIANO;?>-<?= $vIMES;?>-<?= $vIDia;?>" id="vSM_0<?= $usuarios['USUCODIGO']; ?>_<?= $vIANO;?>-<?= $vIMES;?>-<?= $vIDia;?>" style="background-color: <?= $Pintar; ?>; resize: none; width: 150px; color: <?= (($datax == 6) || ($datax == 0) ? white : black);?>" rows="2" cols="33"><?= (($atividades[$usuarios['USUCODIGO']][$vIANO.'-'.$vIMES.'-'.$vIDia]['MUNICIPIO'] == '') ? '' : $atividades[$usuarios['USUCODIGO']][$vIANO.'-'.$vIMES.'-'.$vIDia]['MUNICIPIO']);?></textarea></td>
+													<td><textarea class="form-control" title="Atividade" name="vSA_0<?= $usuarios['USUCODIGO']; ?>_<?= $vIANO;?>-<?= $vIMES;?>-<?= $vIDia;?>" id="vSA_0<?= $usuarios['USUCODIGO']; ?>_<?= $vIANO;?>-<?= $vIMES;?>-<?= $vIDia;?>" style="background-color: <?= $Pintar; ?>; resize: none; width: 150px; color: <?= (($datax == 6) || ($datax == 0) ? white : black);?>" rows="2" cols="33"><?= (($atividades[$usuarios['USUCODIGO']][$vIANO.'-'.$vIMES.'-'.$vIDia]['ATIVIDADE'] == '') ? '' : $atividades[$usuarios['USUCODIGO']][$vIANO.'-'.$vIMES.'-'.$vIDia]['ATIVIDADE']);?></textarea></td> 
+													<?php endforeach; ?>			
+												</tr>	
+												<?php 	 
+													$xd = $xd + 1;
+													$datay = date('Y-m-d', $vtimestamp + 60*60*24*$xd);
+												} while ($datay < $hojemaisum); ?>
+											<tr style="background-color:#FFFFFF">
+												<td class="bg-turquesa">&nbsp;</td> 
+												<?php foreach (comboUsuariosAgenda('', $vICLIRESPONSAVEL) as $usuarios) :  ?>
+												<td class="bg-turquesa" align="center">Município</td> 
+												<td class="bg-turquesa" align="center">Atividade</td> 
+												<?php endforeach; ?>
+												<td class="bg-turquesa">&nbsp;</td> 
+											</tr>	
+											<tr style="background-color:#FFFFFF">
+												<td class="base-color">&nbsp;</td> 
+												<?php foreach (comboUsuariosAgenda('', $vICLIRESPONSAVEL) as $usuarios) :  ?>
+												<td class="base-color" colspan="2" align="center"><?= otimizarNome($usuarios['USUNOME']); ?></td>
+												<?php endforeach; ?>
+												<td class="base-color">&nbsp;</td> 
+											</tr>
+											</table>
+											</div>
+										</div>
 										</br>
 										<div class="col-md-6 fa-pull-left">
 											<button type="button" onClick="validarForm();" title="Salvar Dados" class="btn btn-primary waves-effect waves-light">Salvar Dados</button>
@@ -356,6 +375,7 @@ else
 			}
 			
 			function gerarExcelAgenda(vIMES, vIANO, vICLIRESPONSAVEL){
+				var vICLIRESPONSAVEL = $("#vICLIRESPONSAVEL").val();
 				window.open(
 					"excelAgendaGenerica.php?" +
 						"vIMES=" + vIMES + "&vIANO=" + vIANO + "&vICLIRESPONSAVEL=" + vICLIRESPONSAVEL,

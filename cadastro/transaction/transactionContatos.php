@@ -198,7 +198,7 @@ function enviarEmailAcessoSistema($concodigos)
 								<br />
 								",
 			'destinatarios' => array(
-				'gestao@gestao.srv.br', $contato['CONEMAIL']
+				 $contato['CONEMAIL']
 			),
 			'fields' => array()
 		);

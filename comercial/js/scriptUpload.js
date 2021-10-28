@@ -41,7 +41,17 @@ document.querySelector('#upload-file').addEventListener('change', function() {
 function validarArquivo(file){
 	console.log(file);
 	// Tipos permitidos
-	var mime_types = [ 'image/jpeg', 'image/png', 'application/pdf', 'application/zip', 'image/gif' ];
+	var mime_types = [ 
+		"image/jpeg",
+		"image/png",
+		"application/pdf",
+		"application/zip",
+		"image/gif",
+		"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+		"application/vnd.ms-excel",
+		"text/plain",
+		"application/msword",
+		"application/vnd.openxmlformats-officedocument.wordprocessingml.document" ];
 	
 	// Validar os tipos
 	if(mime_types.indexOf(file.type) == -1) {
