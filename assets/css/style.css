@@ -127,6 +127,14 @@ a:hover, a:active, a:focus {
   padding-top: 70px;
 }
 
+.page-content-list {
+  width: 100%;
+  margin: 67px auto 0;
+  position: relative;
+  min-height: calc(100vh - 70px);
+  padding: 0 0 60px;
+}
+
 .page-content {
   width: 1380px;
   margin: 67px auto 0;

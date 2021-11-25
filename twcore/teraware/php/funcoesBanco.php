@@ -242,29 +242,28 @@ function stringEscape($pSString) {
 	return $pSString;
 }
 
-function proxima_Sequencial($pSSQNTABELA){
+function proxima_Sequencial($pSSQNTABELA, $pSTipo){
 	$SqlMain = 'Select SQNSEQUENCIAL
 				 From
 					SEQUENCIAIS
 				Where
-					EMPCODIGO = '.$_SESSION['SI_USU_EMPRESA'].'
-				AND
 					SQNTABELA = "'.$pSSQNTABELA.'"';
 	$vConexao = sql_conectar_banco();
 	$RS_MAIN = sql_executa(vGBancoSite, $vConexao,$SqlMain);
 	while($reg_RS = sql_retorno_lista($RS_MAIN)){
 		$vTemp = $reg_RS['SQNSEQUENCIAL'] + 1;
 	}
-	if ($vTemp == 0) {  // incluir
-		$SqlMain = 'Insert into SEQUENCIAIS (SQNDATA_INC, SQNUSU_INC, EMPCODIGO, SQNSEQUENCIAL, SQNTABELA) values ( NOW(), '.$_SESSION['SI_USUCODIGO'].', '.$_SESSION['SI_USU_EMPRESA'].', 1, "'.$pSSQNTABELA.'")';
-		$vTemp = 1;
-	} else {
-		$SqlMain = 'Update SEQUENCIAIS set SQNSEQUENCIAL = '.$vTemp.'
-					Where EMPCODIGO = '.$_SESSION['SI_USU_EMPRESA'].'
-					AND
-					SQNTABELA = "'.$pSSQNTABELA.'"';
-	}
-	$RS_MAIN = sql_executa(vGBancoSite, $vConexao,$SqlMain);
+	if ($pSTipo == 'S') {	
+		if ($vTemp == 0) {  // incluir
+			$SqlMain = 'Insert into SEQUENCIAIS (SQNDATA_INC, SQNUSU_INC, SQNSEQUENCIAL, SQNTABELA) values ( NOW(), '.$_SESSION['SI_USUCODIGO'].', 1, "'.$pSSQNTABELA.'")';
+			$vTemp = 1;
+		} else {
+			$SqlMain = 'Update SEQUENCIAIS set SQNSEQUENCIAL = '.$vTemp.'
+						Where 
+						SQNTABELA = "'.$pSSQNTABELA.'"';
+		}
+		$RS_MAIN = sql_executa(vGBancoSite, $vConexao,$SqlMain);
+	}	
 	return $vTemp;
 }
 

@@ -1,4 +1,5 @@
 $(function(){
+	$(".select2-multiple").select2();
 	$(".btnLimparCliente").hide();
 	
     $("#vHCLIENTE").autocomplete({

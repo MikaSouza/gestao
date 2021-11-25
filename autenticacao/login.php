@@ -110,6 +110,10 @@ include_once __DIR__ . '/transaction/transactionLogin.php';
 					<div class="col-10 text-center">
 					<span>Copyright © <?php echo date('Y');?> - Teraware Soluções em Software e Internet 10 Anos </span>
 					</div>
+					<div class="col-10 text-center">
+					Copyright © <?php echo date('Y');?> - Teraware Soluções em Software e Internet 10 Anos
+						</a>
+					</div>
 					<div class="col-1"></div>
 				</div>
 				<!--end account-social-->

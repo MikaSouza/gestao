@@ -1374,6 +1374,22 @@
         }
         return "$diasemana";
     }
+	
+	function diaSemana2($diasemana, $pSTipo)
+    {
+        if ($pSTipo == 'S') {
+            switch ($diasemana) {
+                case"0": $diasemana = "Dom";       break;
+                case"1": $diasemana = "Seg"; break;
+                case"2": $diasemana = "Ter";   break;
+                case"3": $diasemana = "Qua";  break;
+                case"4": $diasemana = "Qui";  break;
+                case"5": $diasemana = "Sex";   break;
+                case"6": $diasemana = "Sáb";        break;
+            }
+        }
+        return "$diasemana";
+    }
 
     function admAutenticado()
     {

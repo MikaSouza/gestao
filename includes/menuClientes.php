@@ -29,7 +29,7 @@ if (!isset($_SESSION['SI_USUCODIGO'])) {
 				<a class="nav-link dropdown-toggle waves-effect waves-light nav-user pr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
 					<img src="<?= ($_SESSION['SS_USUFOTO'] == '' ? '../assets/images/users/user-1.jpg' : '../ged/contatos_fotos/' . $_SESSION['SS_USUFOTO']); ?>" alt="profile-user" class="rounded-circle">
 					<span class="ml-1 nav-user-name hidden-sm">
-						<?= utf8_encode($_SESSION['SS_USUNOME']) . ' - ' . utf8_encode($_SESSION['SS_USUSETOR']); ?>
+						<?= ($_SESSION['SS_USUNOME']) . ' - ' . ($_SESSION['SS_USUSETOR']); ?>
 						<i class="mdi mdi-chevron-down"></i> </span>
 				</a>
 				<div class="dropdown-menu dropdown-menu-right">

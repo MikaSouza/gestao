@@ -53,6 +53,11 @@ function validarArquivo(file) {
         "application/pdf",
         "application/zip",
         "image/gif",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "application/vnd.ms-excel",
+        "text/plain",
+        "application/msword",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
     ];
 
     // Validar os tipos

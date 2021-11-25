@@ -83,7 +83,7 @@ include_once __DIR__ . '/../cadastro/combos/comboTabelas.php';
 										<?php endforeach; ?>
 									</table>
 								</div>
-								<button type="button" title="Enviar E-mail" style="width:150px" onclick="enviarEmailInfoPreliminares();" class="btn btn-primary waves-effect waves-light">Enviar E-mail</button>
+								<button type="button" title="Enviar E-mail" style="width:150px" onclick="testeqlqr();" class="btn btn-primary waves-effect waves-light">Enviar E-mail</button>
 							</div>
 						</div>
 					</div>

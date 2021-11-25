@@ -69,8 +69,8 @@ function gerarTabela($pAConfig){
     $arrayQuery = array(
        'query' => $sql,
        'parametros' => array(
-           array($pAConfig['tipo'], PDO::PARAM_STR)
-           )
+            array($pAConfig['tipo'], PDO::PARAM_STR)
+        )
     );
     $list = consultaComposta($arrayQuery);
 	

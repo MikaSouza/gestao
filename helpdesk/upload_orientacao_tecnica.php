@@ -14,12 +14,14 @@ if (!is_dir($diretorio)) {
     chmod($diretorio, 0755);
 }
 include_once __DIR__.'/transaction/transactionOrientacaoTecnicaxGED.php';
+$nomeArquivo = removerAcentoEspacoCaracter($file['name']);
+$file['name'] = $nomeArquivo;
 if (move_uploaded_file($file['tmp_name'], $diretorio.'/'.$file['name'])) {
     $ret["status"] = 200;
     $ret["path"] = $diretorio.'/'. $file['name'];
     $ret["name"] = $file['name'];
-    $nomeArquivo = removerAcentoEspacoCaracter($file['name']);
-    // inserir banco de dados
+  //  $nomeArquivo = removerAcentoEspacoCaracter($file['name']);
+    // inserir banco de dados 
     $dadosBanco = array(
         'vIGEDCODIGO'   => '',
         'vSGEDNOMEARQUIVO' 	=> $nomeArquivo,

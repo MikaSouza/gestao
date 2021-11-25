@@ -507,14 +507,6 @@ include_once __DIR__ . '/combos/comboEstados.php';
 									<label>CEP</label>
 									<input name="vHMENDCEP" id="vHMENDCEP" class="form-control divObrigatorio" maxlength="9" onKeyPress="return digitos(event, this);" onKeyUp="mascara('CEP', this, event)" title="CEP" value="" type="text">
 								</div>
-								<div class="col-md-6">
-									<label>Tipo Endereco</label>
-									<select id="vHMTABCODIGO" name="vHMTABCODIGO" class=" custom-select divObrigatorio" title="Tipo Endereco">
-										<?php foreach (comboTabelas('ENDERECOS - TIPO') as $tipo) : ?>
-											<option value="<?php echo $tipo['TABCODIGO'] ?>"><?php echo $tipo['TABDESCRICAO'] ?></option>
-										<?php endforeach; ?>
-									</select>
-								</div>
 							</div>
 							<div class="form-group row">
 								<div class="col-md-8">

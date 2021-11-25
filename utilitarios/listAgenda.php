@@ -41,11 +41,14 @@ include_once __DIR__.'/../rh/combos/comboUsuarios.php';
 
 									<?php 
 									$vAConfiguracaoTela['FILTROS'] = $_POST;
-									$vAConfiguracaoTela['FILTROS']['vIAGERESPONSAVEL'] = $_SESSION['SI_USUCODIGO'];
+									if ($_POST['vIAGERESPONSAVEL'] == '')
+										$vAConfiguracaoTela['FILTROS']['vIAGERESPONSAVEL'] = $_SESSION['SI_USUCODIGO'];
+									else 
+										$vAConfiguracaoTela['FILTROS']['vIAGERESPONSAVEL'] = $_POST['vIAGERESPONSAVEL'];
 									$vAConfiguracaoTela['BTN_FILTROS'] = 'S';
-									$vAConfig['vATitulos'] = array('Data Atividade', 'Hora', 'Tipo de Atividade', 'Responsável', 'Agendou', 'Cliente', 'Descrição');
-									$vAConfig['vACampos'] = array('AGEDATAINICIO', 'HORAS', 'ATINOME', 'RESPONSAVEL', 'AGENDOU', 'CLINOME', 'AGEDESCRICAO');
-									$vAConfig['vATipos'] = array('datetime', 'varchar', 'varchar', 'varchar', 'varchar', 'varchar', 'varchar');
+									$vAConfig['vATitulos'] = array('Data Atividade', 'Hora', 'Contrato', 'Cliente', 'Contato', 'Tipo de Atividade', 'Responsável', 'Agendou', 'Descrição');
+									$vAConfig['vACampos'] = array('AGEDATAINICIO', 'HORAS', 'CTRNROCONTRATO', 'CLINOME', 'CONNOME', 'ATINOME', 'RESPONSAVEL', 'AGENDOU', 'AGEDESCRICAO');
+									$vAConfig['vATipos'] = array('datetime', 'varchar', 'varchar', 'varchar', 'varchar', 'varchar', 'varchar', 'varchar', 'varchar');
 
 									include_once __DIR__.'/../twcore/teraware/componentes/gridPadrao.php'; ?>
 
@@ -74,7 +77,11 @@ include_once __DIR__.'/../rh/combos/comboUsuarios.php';
 					<div class="modal-body">
 					<form class="form-parsley" action="#" method="post" name="formPesquisar" id="formPesquisar">
 						<div class="form-group row">
-							<div class="col-md-12">                                                      
+							<div class="col-md-4">                                                        
+								<label>Contrato</label>
+								<input class="form-control" name="vSCTRCONTRATO" id="vSCTRCONTRATO" type="text" title="Contrato" value="" >
+							</div> 
+							<div class="col-md-8">                                                      
 								<label>Nome Cliente</label>
 								<input class="form-control" name="vSCLINOME" id="vSCLINOME" type="text" value="" title="NOME CLIENTE" >
 							</div>							
@@ -85,8 +92,8 @@ include_once __DIR__.'/../rh/combos/comboUsuarios.php';
 								<input class="form-control" name="vSCLICNPJ" id="vSCLICNPJ" type="text" title="CNPJ" value="" >
 							</div> 
 							<div class="col-md-6">                                                      
-								<label>Representante</label>
-								<select name="vIAGERESPONSAVEL" id="vIAGERESPONSAVEL" class="custom-select" title="Representante">
+								<label>Responsável</label>
+								<select name="vIAGERESPONSAVEL" id="vIAGERESPONSAVEL" class="custom-select" title="Responsável">
 									<option value="">  -------------  </option>
 									<?php foreach (comboUsuarios() as $usuarios): ?>                                                            
 										<option value="<?php echo $usuarios['USUCODIGO']; ?>"><?php echo $usuarios['USUNOME']; ?></option>
@@ -151,6 +158,28 @@ include_once __DIR__.'/../rh/combos/comboUsuarios.php';
         <script src="../assets/pages/jquery.datatable.init.js"></script>
 
         <?php include_once '../includes/scripts_footer.php' ?>
+		<script>
+			$(document).ready(function() {
+				$.fn.dataTable.moment('DD/MM/YYYY HH:mm:ss'); //Formatação com Hora
+				$.fn.dataTable.moment('DD/MM/YYYY'); //Formatação sem Hora
 
+				var table = $('#datatable-buttons').dataTable({
+					"iDisplayLength": 500,
+					"lengthChange": false,
+					"responsive": false,
+					"buttons": ["copy", "excel", "pdf", "colvis"],
+					// Campo ordenado por padrão (ao carregar página).
+					// O 1 é a coluna a ser ordenada lembrando que começa com 0
+					"order": [
+						[1, "desc"]
+					]
+				});
+
+				table
+					.buttons()
+					.container()
+					.appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)");
+			});
+		</script>
     </body>
 </html>

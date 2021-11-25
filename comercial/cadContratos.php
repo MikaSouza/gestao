@@ -5,6 +5,10 @@ include_once __DIR__.'/transaction/'.$vAConfiguracaoTela['MENARQUIVOTRAN'];
 include_once __DIR__.'/../cadastro/combos/comboTabelas.php';
 include_once __DIR__.'/../cadastro/combos/comboProdutosxServicos.php';
 include_once __DIR__ . '/../rh/combos/comboUsuarios.php';
+
+if (!isset($vIOid))
+	$vROBJETO['CTRNROCONTRATO'] = proxima_Sequencial('CONTRATOS', 'N');
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -19,6 +23,7 @@ include_once __DIR__ . '/../rh/combos/comboUsuarios.php';
         <link href="../assets/css/icons.css" rel="stylesheet" type="text/css" />
         <link href="../assets/css/metisMenu.min.css" rel="stylesheet" type="text/css" />
         <link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
+		<link href="../assets/plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />
 		<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 		<link rel="stylesheet" href="../assets/css/stylesUpload.css"/> 
 		
@@ -101,26 +106,25 @@ include_once __DIR__ . '/../rh/combos/comboUsuarios.php';
 												<div class="col-md-2">
                                                     <label>Término da Vigência</label>
                                                     <input class="form-control obrigatorio" title="Término da Vigência" name="vDCTRDATATERMINO" id="vDCTRDATATERMINO" value="<?= $vROBJETO['CTRDATATERMINO'];  ?>" type="date" >
-                                                </div>												
+                                                </div>		
+												<div class="col-md-2">	
+													<label>Número Contrato</label>
+													<input class="form-control" title="Número Contrato" readonly name="vSCTRNROCONTRATO" id="vSCTRNROCONTRATO" value="<?php echo $vROBJETO['CTRNROCONTRATO']; ?>" type="text" >
+												</div>		
 											</div>											
 											<div class="form-group row">	
-												<div class="col-md-4">   
-													<label>Produto/Serviço
-														<small class="text-danger font-13">*</small>
-													</label>
-													<select name="vIPXSCODIGO" id="vIPXSCODIGO" class="custom-select divObrigatorio" title="Produto/Serviço">
-														<option value="">  -------------  </option>
-														<?php foreach (comboProdutosxServicos() as $tabelas): ?>                                                            
-															<option value="<?php echo $tabelas['PXSCODIGO']; ?>" <?php if ($vROBJETO['PXSCODIGO'] == $tabelas['PXSCODIGO']) echo "selected='selected'"; ?>><?php echo $tabelas['PXSNOME']; ?></option>
-														<?php endforeach; ?>
-													</select>                                                    
-												</div>
-												<div class="col-md-3">	
-													<label>Número Contrato
-														<small class="text-danger font-13">*</small>
-													</label>
-													<input class="form-control obrigatorio" title="Número Contrato" name="vSCTRNROCONTRATO" id="vSCTRNROCONTRATO" value="<?php if(isset($vIOid)){ echo $vROBJETO['CTRNROCONTRATO']; }?>" type="text" >
-												</div>	
+												<div class="col-md-6"> 
+													<label>Produto/Serviço</label>
+													<select name="vHPXSCODIGO[]" id="vHPXSCODIGO" title="Produto/Serviço" class="form-control obrigatorio" style="width: 100%;font-size: 13px;" multiple>														
+														<?php foreach (comboProdutosxServicos() as $tabelas) :
+															if ($contArray > 0) { ?>
+																<option value="<?php echo $tabelas['PXSCODIGO']; ?>" <?php if (in_array($tabelas['PXSCODIGO'], $arrayPreMold)) echo "selected='selected'"; ?>><?php echo $tabelas['PXSNOME']; ?></option>
+															<?php } else { ?>
+																<option value="<?php echo $tabelas['PXSCODIGO']; ?>"><?php echo $tabelas['PXSNOME']; ?></option>
+														<?php }
+														endforeach; ?>
+													</select>
+												</div>												
 												<div class="col-sm-3">
 													<div id="divPosicao"></div>													
 												</div>														
@@ -272,5 +276,16 @@ include_once __DIR__ . '/../rh/combos/comboUsuarios.php';
 			<?php } ?>
 		</script>	
 		<script src="js/scriptUpload.js"></script>
+		<script>
+			$(document).ready(function() {
+				$('#vHPXSCODIGO').select2();
+				$("#vHPXSCODIGO").addClass("obrigatorio");
+				$("#vHPXSCODIGO").addClass("form-control");
+				$("#vHPXSCODIGO").addClass("custom-select");
+				$("#vHPXSCODIGO").select2({
+					height: '38px !important'
+				});
+			});
+		</script>
     </body>
 </html>

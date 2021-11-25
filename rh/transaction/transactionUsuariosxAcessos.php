@@ -137,18 +137,20 @@ function listUsuariosxAcessos($vIUSUCODIGO, $tituloModal){
 
 function insertUpdateLoteUsuariosxAcessos($_POSTDADOS, $pSMsg = 'N'){
 	// incluir acessos novos
-	foreach ($_POSTDADOS['vLOidLista'] as $key => $value) 
-	{		
-		if(in_array($value, $_POSTDADOS['vKConsulta']))	$dadosAcesso['vSACECONSULTA'] = 'S'; else $dadosAcesso['vSACECONSULTA'] = 'N';	
-		if(in_array($value, $_POSTDADOS['vKInclusao']))	$dadosAcesso['vSACEINCLUSAO'] = 'S'; else $dadosAcesso['vSACEINCLUSAO'] = 'N';	
-		if(in_array($value, $_POSTDADOS['vKAlteracao'])) $dadosAcesso['vSACEALTERACAO'] = 'S'; else $dadosAcesso['vSACEALTERACAO'] = 'N';	
-		if(in_array($value, $_POSTDADOS['vKExclusao']))	$dadosAcesso['vSACEEXCLUSAO'] = 'S'; else $dadosAcesso['vSACEEXCLUSAO'] = 'N';	
-					
-		$dadosAcesso['vIUSUCODIGO'] = $_POSTDADOS['vIUSUCODIGO'];
-		$dadosAcesso['vIACETABELA'] = $value;
-		$dadosAcesso['vIACECODIGO'] = $_POSTDADOS['vLACECODIGO'][$key];
-		insertUpdateUsuariosxAcessos($dadosAcesso, 'N');
-	}
+	if (!isset($_POSTDADOS['vLOidLista'])) {
+		foreach ($_POSTDADOS['vLOidLista'] as $key => $value) 
+		{		
+			if(in_array($value, $_POSTDADOS['vKConsulta']))	$dadosAcesso['vSACECONSULTA'] = 'S'; else $dadosAcesso['vSACECONSULTA'] = 'N';	
+			if(in_array($value, $_POSTDADOS['vKInclusao']))	$dadosAcesso['vSACEINCLUSAO'] = 'S'; else $dadosAcesso['vSACEINCLUSAO'] = 'N';	
+			if(in_array($value, $_POSTDADOS['vKAlteracao'])) $dadosAcesso['vSACEALTERACAO'] = 'S'; else $dadosAcesso['vSACEALTERACAO'] = 'N';	
+			if(in_array($value, $_POSTDADOS['vKExclusao']))	$dadosAcesso['vSACEEXCLUSAO'] = 'S'; else $dadosAcesso['vSACEEXCLUSAO'] = 'N';	
+						
+			$dadosAcesso['vIUSUCODIGO'] = $_POSTDADOS['vIUSUCODIGO'];
+			$dadosAcesso['vIACETABELA'] = $value;
+			$dadosAcesso['vIACECODIGO'] = $_POSTDADOS['vLACECODIGO'][$key];
+			insertUpdateUsuariosxAcessos($dadosAcesso, 'N');
+		}
+	}	
 	return;
 }
 

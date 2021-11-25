@@ -125,13 +125,20 @@ include_once __DIR__ . '/../cadastro/combos/comboEstados.php';
 													</div>
 												</div>
 												<div class="form-group row">
-													<div class="col-sm-4">
+													<div class="col-sm-3">
 														<div id="divDepartamento"></div>
 													</div>
-													<div class="col-sm-4">
+													<div class="col-sm-3">
 														<div id="divCargo"></div>
 													</div>
-													<div class="col-sm-4">
+													<div class="col-sm-3">
+														<label>Agenda Interna?</label>
+														<select class="custom-select" name="vSUSUAGENDA" id="vSUSUAGENDA">
+															<option value="S" <?php if ($vROBJETO['USUAGENDA'] == 'S') echo "selected"; ?>>Sim</option>
+															<option value="N" <?php if ($vROBJETO['USUAGENDA'] == 'N') echo "selected"; ?>>Não</option>
+														</select>
+													</div>
+													<div class="col-sm-3">
 														<label>Salário Inicial</label>
 														<input class="form-control classmonetario" name="vMUSUSALARIOINICIAL" id="vMUSUSALARIOINICIAL" value="<?php if (isset($vIOid)) {
 																																									echo formatar_moeda($vROBJETO['USUSALARIOINICIAL'], false);
