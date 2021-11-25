@@ -22,9 +22,8 @@ else
 	$vIANO = $_GET['vIANO'];
 if ($_GET['vICLIRESPONSAVEL'] == '')
 	$vICLIRESPONSAVEL = '';
-else 
-	$vICLIRESPONSAVEL = $_GET['vICLIRESPONSAVEL'];
-
+else
+	$vICLIRESPONSAVEL = explode(',', $_GET['vICLIRESPONSAVEL']);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -78,12 +77,12 @@ $vSHTML .= '<tr style="background-color:#E6E6FA">
 		if (strlen($vIMES) == 1) $vIMES = '0'.$vIMES;
 		$vIDia = date('d', $vtimestamp + 60*60*24*$xd); 	
 	$vSHTML .= '<tr style="background-color: '. (($datax == 0) || ($datax == 1) ? '#d3d3d3' : '#FFFFFF') .'" class="linha">	
-		<td>'. substr(diaSemana2($datax, 'S'), 0, 1)."/".date('d', $vtimestamp + 60*60*24*$xd).'</td>  ';
+		<td>'. substr(diaSemana2($datax, 'S'), 0, 4)."/".date('d', $vtimestamp + 60*60*24*$xd).'</td>  ';
 		foreach (comboUsuariosAgenda('', $vICLIRESPONSAVEL) as $usuarios) : 
 		$vSHTML .= '<td>'. (($atividades[$usuarios['USUCODIGO']][$vIANO.'-'.$vIMES.'-'.$vIDia]['MUNICIPIO'] == '') ? '' : $atividades[$usuarios['USUCODIGO']][$vIANO.'-'.$vIMES.'-'.$vIDia]['MUNICIPIO']).'</td> 
 		<td>'. (($atividades[$usuarios['USUCODIGO']][$vIANO.'-'.$vIMES.'-'.$vIDia]['ATIVIDADE'] == '') ? '' : $atividades[$usuarios['USUCODIGO']][$vIANO.'-'.$vIMES.'-'.$vIDia]['ATIVIDADE']).'</td>';
 		endforeach;
-		$vSHTML .= '<td>'. substr(diaSemana2($datax, 'S'), 0, 1)."/".date('d', $vtimestamp + 60*60*24*$xd) .'</td> 
+		$vSHTML .= '<td>'. substr(diaSemana2($datax, 'S'), 0, 4)."/".date('d', $vtimestamp + 60*60*24*$xd) .'</td> 
 	</tr>';
 		$xd = $xd + 1;
 		$datay = date('Y-m-d', $vtimestamp + 60*60*24*$xd);
