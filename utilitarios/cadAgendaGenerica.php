@@ -166,7 +166,6 @@ else {
 
                     <?php $vAConfiguracaoTela['MENTITULO'] = 'Agenda Aberta 1';
 					include_once '../includes/breadcrumb.php' ?>
-
                     <div class="row">
                         <div class="col-lg-12 mx-auto">
                             <div class="card">
@@ -284,12 +283,14 @@ else {
 														?> 
 													</td>   
 													<?php foreach (comboUsuariosAgenda('', $vICLIRESPONSAVEL) as $usuarios) :  
-														if($i%2!=0) $Pintar = "#E6E6FA";  else $Pintar = "";  $i++;
+														//if($i%2!=0) $Pintar = "#E6E6FA";  else $Pintar = "";  $i++;
+														$PintarAtv = "#E6E6FA";
+														$PintarMun = "";
 														
-														if (($datax == 6) || ($datax == 0)) $Pintar = "#76767a";
+														if (($datax == 6) || ($datax == 0)) {$PintarAtv = "#76767a"; $PintarMun = "#76767a";}
 													?>												
-													<td><textarea class="form-control" title="Município" name="vSM_0<?= $usuarios['USUCODIGO']; ?>_<?= $vIANO;?>-<?= $vIMES;?>-<?= $vIDia;?>" id="vSM_0<?= $usuarios['USUCODIGO']; ?>_<?= $vIANO;?>-<?= $vIMES;?>-<?= $vIDia;?>" style="background-color: <?= $Pintar; ?>; resize: none; width: 150px; color: <?= (($datax == 6) || ($datax == 0) ? white : black);?>" rows="2" cols="33"><?= (($atividades[$usuarios['USUCODIGO']][$vIANO.'-'.$vIMES.'-'.$vIDia]['MUNICIPIO'] == '') ? '' : $atividades[$usuarios['USUCODIGO']][$vIANO.'-'.$vIMES.'-'.$vIDia]['MUNICIPIO']);?></textarea></td>
-													<td><textarea class="form-control" title="Atividade" name="vSA_0<?= $usuarios['USUCODIGO']; ?>_<?= $vIANO;?>-<?= $vIMES;?>-<?= $vIDia;?>" id="vSA_0<?= $usuarios['USUCODIGO']; ?>_<?= $vIANO;?>-<?= $vIMES;?>-<?= $vIDia;?>" style="background-color: <?= $Pintar; ?>; resize: none; width: 150px; color: <?= (($datax == 6) || ($datax == 0) ? white : black);?>" rows="2" cols="33"><?= (($atividades[$usuarios['USUCODIGO']][$vIANO.'-'.$vIMES.'-'.$vIDia]['ATIVIDADE'] == '') ? '' : $atividades[$usuarios['USUCODIGO']][$vIANO.'-'.$vIMES.'-'.$vIDia]['ATIVIDADE']);?></textarea></td> 
+													<td><textarea class="form-control" title="Município" name="vSM_0<?= $usuarios['USUCODIGO']; ?>_<?= $vIANO;?>-<?= $vIMES;?>-<?= $vIDia;?>" id="vSM_0<?= $usuarios['USUCODIGO']; ?>_<?= $vIANO;?>-<?= $vIMES;?>-<?= $vIDia;?>" style="background-color: <?= $PintarMun; ?>; resize: none; width: 150px; color: <?= (($datax == 6) || ($datax == 0) ? white : black);?>" rows="2" cols="33"><?= (($atividades[$usuarios['USUCODIGO']][$vIANO.'-'.$vIMES.'-'.$vIDia]['MUNICIPIO'] == '') ? '' : $atividades[$usuarios['USUCODIGO']][$vIANO.'-'.$vIMES.'-'.$vIDia]['MUNICIPIO']);?></textarea></td>
+													<td><textarea class="form-control" title="Atividade" name="vSA_0<?= $usuarios['USUCODIGO']; ?>_<?= $vIANO;?>-<?= $vIMES;?>-<?= $vIDia;?>" id="vSA_0<?= $usuarios['USUCODIGO']; ?>_<?= $vIANO;?>-<?= $vIMES;?>-<?= $vIDia;?>" style="background-color: <?= $PintarAtv; ?>; resize: none; width: 150px; color: <?= (($datax == 6) || ($datax == 0) ? white : black);?>" rows="2" cols="33"><?= (($atividades[$usuarios['USUCODIGO']][$vIANO.'-'.$vIMES.'-'.$vIDia]['ATIVIDADE'] == '') ? '' : $atividades[$usuarios['USUCODIGO']][$vIANO.'-'.$vIMES.'-'.$vIDia]['ATIVIDADE']);?></textarea></td> 
 													<?php endforeach; ?>			
 												</tr>	
 												<?php 	 
@@ -317,7 +318,7 @@ else {
 										</br>
 										<div class="col-md-6 fa-pull-left">
 											<button type="button" onClick="validarForm();" title="Salvar Dados" class="btn btn-primary waves-effect waves-light">Salvar Dados</button>
-											<a href="<?= $vAConfiguracaoTela['MENARQUIVOLIST']; ?>">
+											<a href="<?= '../cadastro/#' ?>">
 												<button type="button" title="Cancelar" class="btn btn-warning waves-effect m-l-5">Voltar</button>
 											</a> 
 										</div>
